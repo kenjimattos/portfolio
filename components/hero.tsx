@@ -36,7 +36,7 @@ export const Hero = () => {
       });
 
       // Estado inicial - palavras começam abaixo e fora da tela
-      gsap.set([designerRef.current, developerRef.current, everythingRef.current], {
+      gsap.set([iAmARef.current,designerRef.current, developerRef.current, everythingRef.current], {
         y: 700,
       });
       gsap.set([designerLineRef.current, developerLineRef.current, aLineRef.current], {
