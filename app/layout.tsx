@@ -16,8 +16,8 @@ const gravitasOne = Gravitas_One({
 });
 
 export const metadata: Metadata = {
-  title: "knji | Developer & Designer",
-  description: "Portfolio de Kenji - Developer, Designer, Everything",
+  title: "hi, my name is kenji",
+  description: "Portfolio de Kenji",
 };
 
 export default function RootLayout({
