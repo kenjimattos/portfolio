@@ -28,13 +28,13 @@ export const TechStack = () => {
     const ctx = gsap.context(() => {
       // Animação do título
       gsap.from(titleRef.current, {
-        y: 100,
-        opacity: 0,
-        duration: 1,
+        y: 400,
+        duration: 0.5,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: titleRef.current,
-          start: "top 80%",
+          start: "top 100%",
           end: "top 50%",
           toggleActions: "play none none reverse",
         },
@@ -44,9 +44,9 @@ export const TechStack = () => {
       const logos = logosRef.current?.children;
       if (logos) {
         gsap.from(logos, {
-          y: 80,
+          y: 150,
           opacity: 0,
-          duration: 0.8,
+          duration: 0.5,
           stagger: 0.1,
           ease: "power3.out",
           scrollTrigger: {
