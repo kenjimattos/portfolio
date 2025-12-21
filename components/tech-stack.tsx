@@ -63,7 +63,7 @@ export const TechStack = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full min-h-screen bg-white py-[136px]">
+    <section ref={sectionRef} className="w-full py-[120px] bg-white">
       {/* Title */}
       <h2
         ref={titleRef}
