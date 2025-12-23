@@ -83,7 +83,7 @@ export const TechStack = () => {
             key={tech.name}
             className={`relative ${
               tech.isWide ? "w-[469px] h-[232px] py-[75px] px-[30px]" : "w-[230px] h-[230px]"
-            } flex items-center justify-center transition-colors duration-300 cursor-pointer group hover:bg-[#161616]`}
+            } flex items-center justify-center transition-colors duration-300 cursor-pointer group hover:bg-[#0049FF] rounded-[5px]`}
             style={!tech.isWide ? { padding: "50px" } : undefined}
           >
             <Image

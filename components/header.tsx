@@ -7,14 +7,17 @@ export const Header = () => {
           style={{
             fontFamily: "var(--font-gravitas)",
             letterSpacing: "-0.11em",
+            color: "var(--color-primary)",
           }}
         >
           knji
         </span>
-        <button className="absolute top-[4px] right-0 flex items-center justify-center bg-[#171717] text-white rounded-[2px] w-[150px] h-[51px]">
+        <button className="absolute top-[4px] right-0 flex items-center justify-center text-white rounded-[2px] w-[150px] h-[51px]"
+          style={{ backgroundColor: "var(--color-primary)" }}>
           <span
             className="text-[24px] leading-[1em]"
-            style={{ fontFamily: "var(--font-gabarito)" }}
+            style={{ fontFamily: "var(--font-gabarito)"
+            }}
           >
             Contact
           </span>

@@ -192,6 +192,7 @@ export const Hero = () => {
             <div
               ref={designerLineRef}
               className="absolute top-1/2 left-0 w-[838px] h-[11px] bg-[#171717] -translate-y-1/2 origin-left"
+              style={{ backgroundColor: "var(--color-primary)" }}
             />
           </div>
 
@@ -208,7 +209,8 @@ export const Hero = () => {
             </span>
             <div
               ref={developerLineRef}
-              className="absolute top-1/2 left-0 w-[838px] h-[11px] bg-[#171717] -translate-y-1/2 origin-left"
+              className="absolute top-1/2 left-0 w-[838px] h-[11px] -translate-y-1/2 origin-left"
+              style={{ backgroundColor: "var(--color-primary)" }}
             />
           </div>
 
