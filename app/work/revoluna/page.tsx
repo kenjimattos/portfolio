@@ -7,31 +7,36 @@ export default function RevolunaPage() {
     >
       {/* Hero Section */}
       <section
-        className="relative w-full flex flex-row items-end rounded-[5px] overflow-hidden"
+        className="bg-[#F5EDFF] w-full overflow-hidden relative rounded-[5px] flex items-end"
         style={{
-          height: "clamp(400px, 45vw, 660px)",
-          padding: "clamp(15px, 2vw, 60px) clamp(20px, 4vw, 120px)",
+          height: "clamp(400px, 46vw, 660px)",
+          padding: "clamp(20px, 4vw, 60px) clamp(20px, 8vw, 120px)",
         }}
       >
-        {/* Background image with phones */}
-        <Image
-          src="/img/revoluna/hero.png"
-          alt="Revoluna app screens"
-          width={1440}
-          height={660}
-          className="absolute inset-0 w-full h-full object-center md:object-right object-cover"
-          priority
-        />
-
-        {/* Title */}
+        {/* Title - positioned at bottom left */}
         <h1
-          className="relative z-10 leading-[1em] font-normal text-[#161616]"
+          className="z-10 leading-[1em] font-normal text-[#161616]"
           style={{
-            fontSize: "clamp(42px, 10vw, 118px)",
+            fontSize: "clamp(36px, 8vw, 118px)",
           }}
         >
           Revoluna
         </h1>
+
+        {/* Background image with phones */}
+        <Image
+          src="/img/revoluna/hero-phones.png"
+          alt="Revoluna app screens"
+          width={576}
+          height={796}
+          className="absolute"
+          style={{
+            height: "clamp(280px, 56vw, 760px)",
+            width: "auto",
+            right: "clamp(-80px, 4vw, 120px)",
+            top: "clamp(80px, 8vw, 110px)",
+          }}
+        />
       </section>
 
       {/* Overview Section */}
