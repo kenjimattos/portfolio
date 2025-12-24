@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,6 +14,7 @@ const projects = [
     description:
       "A mobile-first product focused on clarity and control. Shift opportunities are organized, easy to find, and simple to manage.",
     image: "/img/work-revoluna-512d31.png",
+    href: "/work/revoluna",
   },
   {
     id: 2,
@@ -20,6 +22,7 @@ const projects = [
     description:
       "Web platform built to help hiring teams manage medical shift schedules and candidate workflows.",
     image: "/img/work-houston-47f1ad.png",
+    href: "/work/houston",
   },
 ];
 
@@ -87,9 +90,10 @@ export const Work = () => {
           className="flex flex-col gap-[96px]"
         >
           {projects.map((project) => (
-            <div
+            <Link
               key={project.id}
-              className="relative w-full h-[535px] rounded-[5px] overflow-hidden cursor-pointer group"
+              href={project.href}
+              className="relative w-full h-[535px] rounded-[5px] overflow-hidden cursor-pointer group block"
               style={{
                 backgroundImage: `url(${project.image})`,
                 backgroundSize: "cover",
@@ -111,7 +115,7 @@ export const Work = () => {
                   {project.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
