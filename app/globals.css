@@ -12,6 +12,17 @@
   --color-primary: var(--primary);
   --font-gabarito: var(--font-gabarito);
   --font-gravitas: var(--font-gravitas);
+  --text-primary: var(--foreground);
+}
+
+@layer base {
+  button {
+    @apply text-white bg-primary rounded-xs;
+    width: clamp(80px, 15vw, 150px);
+    height: clamp(35px, 5vw, 50px);
+    font-size: clamp(15px, 2vw, 30px);
+  }
+
 }
 
 body {
