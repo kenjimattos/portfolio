@@ -67,12 +67,12 @@ export const About = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full h-[660px] px-[120px] py-[112px] flex justify-center items-start gap-[60px] "
+      className="w-full h-[660px] px-[120px] py-[112px] flex justify-center items-center gap-[60px] "
     >
       {/* Text */}
       <p
         ref={textRef}
-        className="max-w-[782px] text-[38px] text-black font-black text-justify"
+        className="max-w-[782px] text-[38px] text-justify"
         style={{
           fontFamily: "var(--font-gabarito)",
           lineHeight: "1.68em",

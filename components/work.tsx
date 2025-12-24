@@ -79,7 +79,6 @@ export const Work = () => {
         <h2
           ref={titleRef}
           className="text-[96px] leading-[1em] font-extrabold text-[#FFFFF9] mb-[96px]"
-          style={{ fontFamily: "var(--font-gabarito)" }}
         >
           SELECTED WORK
         </h2>

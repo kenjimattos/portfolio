@@ -116,7 +116,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-white overflow-hidden">
+    <div ref={containerRef} className="min-h-screen overflow-hidden">
       {/* Tela inicial */}
       <div className="h-screen flex flex-col items-center justify-center relative">
         {/* "hi, my name is kenji" - separado */}
