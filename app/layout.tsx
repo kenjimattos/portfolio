@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Gabarito, Gravitas_One } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 const gabarito = Gabarito({
   variable: "--font-gabarito",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
