@@ -439,7 +439,61 @@ export default function RevolunaPage() {
       </section>
 
       {/* Check-in / Check-out Section */}
-      <section className="w-full">
+      <section
+        className="w-full relative flex overflow-clip items-center"
+        style={{
+          paddingLeft: "clamp(40px, 8vw, 180px)",
+          gap: "clamp(20px, 4vw, 60px)",
+          height: "clamp(250px, 50vw, 720px)",
+        }}
+      >
+          {/*Text*/}
+          <div
+            className="flex flex-col"
+            style={{
+              gap: "clamp(10px, 1.5vw, 30px)",
+              minWidth: "clamp(150px, 30vw, 500px)",
+            }}
+          >
+            {/* Title */}
+            <h3
+              className="text-[#161616]"
+              style={{
+                fontSize: "clamp(18px, 3vw, 48px)",
+                lineHeight: "1.2em",
+                minWidth: "190px",
+              }}
+            >
+              Check-in / Check-out
+              <br/>
+              with Location Validation
+            </h3>
+            {/* Description */}
+            <p
+              className="text-[#161616] leading-[1.4em] text-left"
+              style={{
+                fontSize: "clamp(14px, 2vw, 30px)",
+              }}
+            >
+              Doctors receive reminders to check in
+              and out within defined time windows. Validation
+              is completed only within a 100-meter radius of the hospital
+              to ensure payroll accuracy, with location checked only at submission time.
+            </p>
+          </div>
+
+          {/* Feature Image */}
+          <Image
+            className="h-auto"
+            style={{
+              width: "clamp(200px, 50vw, 732px)",
+              minHeight: "clamp(200px, 50vw, 720px)",
+            }}
+            src="/img/revoluna/checkin-checkout.png"
+            alt="Check-in and Check-out screens"
+            width={1464}
+            height={2006}
+          />
       </section>
 
       {/* Conclusion Section */}
