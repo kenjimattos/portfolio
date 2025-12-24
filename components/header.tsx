@@ -41,7 +41,7 @@ export const Header = () => {
         </a>
         <button
           onClick={handleContactClick}
-          className="absolute top-[4px] right-0"
+          className="absolute top-[4px] right-0 btn-primary"
         >
           Contact
         </button>

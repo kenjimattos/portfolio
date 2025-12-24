@@ -15,12 +15,12 @@
   --text-primary: var(--foreground);
 }
 
-@layer base {
-  button {
-    @apply text-white bg-primary hover:bg-foreground rounded-xs cursor-pointer;
-    width: clamp(80px, 15vw, 150px);
-    height: clamp(35px, 5vw, 50px);
+@layer components {
+  .btn-primary {
+    @apply text-white bg-primary hover:bg-foreground rounded-xs cursor-pointer flex justify-center items-center;
+    padding: clamp(10px, 0.5vw, 20px) clamp(10px, 2vw, 40px);
     font-size: clamp(15px, 2vw, 25px);
+    min-width: clamp(100px, 1vw, 250px);
   }
 }
 

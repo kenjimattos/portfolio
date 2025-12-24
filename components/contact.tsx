@@ -155,7 +155,7 @@ export const Contact = () => {
               ref={buttonRef}
               type="submit"
               onClick={handleSubmit}
-              className="w-[150px] h-[51px] rounded-[2px] text-[#fffff9] text-[24px] text-center cursor-pointer hover:bg-[#333] transition-colors"
+              className="btn-primary w-[150px] h-[51px] rounded-[2px] text-[#fffff9] text-[24px] text-center cursor-pointer hover:bg-[#333] transition-colors"
               style={{ fontFamily: "var(--font-gabarito)", backgroundColor: "var(--color-primary)" }}
             >
               Send
