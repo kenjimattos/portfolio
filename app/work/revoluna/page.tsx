@@ -201,7 +201,8 @@ export default function RevolunaPage() {
       {/* The Solution Image */}
       <section className="w-full flex rounded-sm justify-center overflow-hidden"
           style={{
-          width: "calc(100% - clamp(16px, 2vw, 30px))",      
+          width: "calc(100% - clamp(16px, 2vw, 30px))",
+          marginBottom: "clamp(20px, 4vw, 60px)",   
         }}
         >
         <Image
@@ -217,9 +218,7 @@ export default function RevolunaPage() {
       <section
         className="w-full flex flex-col justify-center"
         style={{
-          paddingTop: "clamp(20px, 3vw, 60px)",
-          paddingLeft: "clamp(40px, 8vw, 180px)",
-          paddingRight: "clamp(40px, 8vw, 180px)",
+          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
         }}
       >
         <p
@@ -308,7 +307,7 @@ export default function RevolunaPage() {
               style={{ gap: "clamp(10px, 1vw, 15px)" }}>
               {/* Connecting line */}
               <div className="block flex-1 h-px bg-[#161616] z-0"
-              style={{marginLeft: "-120px"}}/>
+              style={{marginLeft: "-150px"}}/>
               <h3
                 className="text-[#161616] shrink-0"
                 style={{
@@ -386,6 +385,7 @@ export default function RevolunaPage() {
         style={{
           paddingLeft: "clamp(40px, 8vw, 180px)",
           paddingRight: "clamp(40px, 8vw, 180px)",
+          marginBottom: "clamp(20px, 4vw, 60px)",
         }}
       >
         {/* Image left, text right */}
@@ -446,9 +446,7 @@ export default function RevolunaPage() {
       <section
         className="w-full flex items-center justify-center"
         style={{
-          paddingTop: "clamp(20px, 6vw, 60px)",
-          paddingLeft: "clamp(40px, 8vw, 180px)",
-          paddingRight: "clamp(40px, 8vw, 180px)",
+          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
         }}
       >
         <p
