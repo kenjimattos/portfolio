@@ -185,7 +185,7 @@ export default function RevolunaPage() {
             width={269}
             height={545}
             className="h-auto"
-            style={{ maxWidth: "clamp(180px, 20vw, 269px)" }}
+            style={{ maxWidth: "clamp(180px, 15vw, 269px)" }}
           />
           <p
             className="leading-[1.4em] text-[#161616]"
