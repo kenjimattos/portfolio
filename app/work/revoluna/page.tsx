@@ -43,7 +43,7 @@ export default function RevolunaPage() {
       <section
         className="w-full"
         style={{
-          padding: "clamp(40px, 4vw, 60px) clamp(40px, 8vw, 180px)",
+          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
         }}
       >
         <div
@@ -52,14 +52,26 @@ export default function RevolunaPage() {
         >
           {/* Left - Tags */}
           <div
+            className="flex flex-col items-start sm:items-center"
+            style={{ gap: "clamp(16px, 1.5vw, 20px)" }}
+            >
+              <p
+              className="text-[#777777] top-0"
+              style={{
+                fontSize: "clamp(20px, 2vw, 30px)",
+              }}
+            >
+              My role
+            </p>
+          <div
             className="flex sm:flex-col justify-center"
-            style={{ gap: "clamp(20px, 3vw, 44px)" }}
+            style={{ gap: "clamp(10px, 1.5vw, 44px)" }}
           >
             <div
               className="flex sm:flex-col"
-              style={{ gap: "clamp(20px, 3vw, 44px)" }}
+              style={{ gap: "clamp(6px, 1.5vw, 44px)" }}
             >
-              {["UX/UI", "Front-end", "Back-end", "Mobile", "Product"].map(
+              {["UX/UI", "Product", "Front-end", "Back-end", "Mobile"].map(
                 (tag) => (
                   <div
                     key={tag}
@@ -82,6 +94,7 @@ export default function RevolunaPage() {
                 )
               )}
             </div>
+          </div>
           </div>
 
           {/* Divider */}
