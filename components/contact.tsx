@@ -94,7 +94,7 @@ export const Contact = () => {
   };
 
   return (
-    <section ref={sectionRef} className="w-full py-[120px] flex flex-col items-center justify-center">
+    <section id="contact" ref={sectionRef} className="w-full py-[120px] flex flex-col items-center justify-center">
       {/* Container centralizado */}
       <div className="w-full max-w-[1200px] flex flex-col gap-[60px]">
         {/* Title */}
