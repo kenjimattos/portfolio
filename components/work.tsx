@@ -100,16 +100,22 @@ export const Work = () => {
               }}
             >
               {/* Content overlay */}
-              <div className="absolute inset-0 p-[60px] flex flex-col justify-start">
+              <div className="absolute flex flex-col justify-start"
+                style={{
+                  padding: "clamp(15px, 3vw, 60px) clamp(15px, 3vw, 60px)",
+                  maxWidth: "clamp(300px, 40%, 600px)",
+                  gap: "clamp(10px, 1.5vw, 24px)",
+                }}
+              >
                 <h3
-                  className="text-[40px] leading-[1em] font-medium text-black mb-[21px]"
-                  style={{ fontFamily: "var(--font-gabarito)" }}
+                  className="text-[40px] leading-[1em] font-medium"
+                  style={{ fontSize: "clamp(24px, 4vw, 40px)" }}
                 >
                   {project.name}
                 </h3>
                 <p
-                  className="text-[24px] leading-[1.2em] font-normal text-black max-w-[414px]"
-                  style={{ fontFamily: "var(--font-gabarito)" }}
+                  className="text-[24px] leading-[1.2em] font-normal"
+                  style={{ fontSize: "clamp(14px, 4vw, 24px)" }}
                 >
                   {project.description}
                 </p>
