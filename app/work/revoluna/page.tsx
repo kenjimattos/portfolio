@@ -1,12 +1,16 @@
+"use client";
+
 import Image from "next/image";
+import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 
 export default function RevolunaPage() {
   return (
-    <main className="bg-[#FFFFF9] flex flex-col items-center"
+    <main className="flex flex-col items-center"
       style={{ gap: "clamp(5px, 0.3vw, 10px)" }}  
     >
       {/* Hero Section */}
       <section
+        id="top"
         className="bg-[#F5EDFF] w-full overflow-hidden relative rounded-[5px] flex items-end"
         style={{
           height: "clamp(400px, 46vw, 660px)",
@@ -659,6 +663,41 @@ export default function RevolunaPage() {
           height={740}
         />
       </section>
+
+      {/* Navigation Section */}
+      <section className="w-full flex justify-between"
+          style={{
+          padding: "clamp(10px, 2vw, 60px)",
+          }} >
+            <a className="flex items-center hover:text-primary transition-colors"
+              href="/"
+              style={{
+                fontSize: "clamp(14px, 5vw, 30px)",
+              }}>
+              <ChevronLeft size={36}/>
+              home
+            </a>
+            <a className="flex items-center hover:text-primary transition-colors"
+              href="#top"
+              style={{
+                fontSize: "clamp(14px, 5vw, 30px)",
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}>
+              top
+              <ChevronUp size={36}/>
+            </a>
+            <a className="flex items-center hover:text-primary transition-colors"
+              href="/work/houston"
+              style={{
+                fontSize: "clamp(14px, 5vw, 30px)",
+              }}>
+              <ChevronRight size={36}/>
+              next
+            </a>
+          </section>
     </main>
   );
 }
