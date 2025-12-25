@@ -440,7 +440,7 @@ export default function RevolunaPage() {
 
       {/* Check-in / Check-out Section */}
       <section
-        className="w-full relative flex overflow-clip items-center"
+        className="w-full relative flex overflow-hidden items-center"
         style={{
           paddingLeft: "clamp(40px, 8vw, 180px)",
           gap: "clamp(20px, 4vw, 60px)",
@@ -449,10 +449,10 @@ export default function RevolunaPage() {
       >
           {/*Text*/}
           <div
-            className="flex flex-col"
+            className="flex flex-col shrink-0"
             style={{
               gap: "clamp(10px, 1.5vw, 30px)",
-              minWidth: "clamp(150px, 30vw, 500px)",
+              width: "clamp(150px, 30vw, 500px)",
             }}
           >
             {/* Title */}
@@ -483,26 +483,147 @@ export default function RevolunaPage() {
           </div>
 
           {/* Feature Image */}
-          <Image
-            className="h-auto"
+          <img
             style={{
-              width: "clamp(200px, 50vw, 732px)",
-              minHeight: "clamp(200px, 50vw, 720px)",
+              width: "clamp(200px, 55vw, 800px)",
+              height: "auto",
+              objectFit: "contain",
+              objectPosition: "right center",
             }}
             src="/img/revoluna/checkin-checkout.png"
             alt="Check-in and Check-out screens"
-            width={1464}
-            height={2006}
           />
       </section>
 
-      {/* Conclusion Section */}
+      {/* Login and Subscription Section */}
+      <section className="w-full flex rounded-sm justify-center overflow-hidden"
+          style={{
+          width: "calc(100% - clamp(16px, 2vw, 30px))",
+        }}
+        >
+        <Image
+          className="w-full object-fill"
+          src="/img/revoluna/login-subscription.png"
+          alt="Login and Subscription"
+          width={1440}
+          height={960}
+        />
+      </section>
+
+      {/* Implementation Section */}
       <section
-        className="w-full flex items-center justify-center"
+        className="w-full flex flex-col justify-center"
         style={{
           padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
+          gap: "clamp(30px, 4vw, 60px)",
         }}
       >
+        {/* Title */}
+        <p
+          className="leading-[1.4em] text-[#777777] w-full"
+          style={{
+            fontSize: "clamp(20px, 2vw, 30px)",
+          }}
+        >
+          Implementation
+        </p>
+
+        {/* Figma Section */}
+
+          <p
+            className="leading-[1.4em] text-black text-justify"
+            style={{
+              fontSize: "clamp(18px, 2vw, 30px)",
+            }}
+          >
+            <span className="text-[#777777]">1.</span> Built the mobile experience by translating Figma designs into
+            reusable, production-ready UI components.
+          </p>
+          <div
+            className="flex w-full"
+            style={{ gap: "clamp(10px, 2vw, 64px)" }}
+          >
+            <Image
+              className="h-auto rounded-sm"
+              style={{ width: "1/3" }}
+              src="/img/revoluna/figma-components.png"
+              alt="Figma components"
+              width={667}
+              height={959}
+            />
+            <Image
+              className="h-auto rounded-sm"
+              style={{ width: "2/3" }}
+              src="/img/revoluna/figma-design.png"
+              alt="Figma design"
+              width={1361}
+              height={959}
+            />
+          </div>
+
+
+          <p
+            className="leading-[1.4em] text-black text-justify"
+            style={{
+              fontSize: "clamp(18px, 2vw, 30px)",
+            }}
+          >
+            <span className="text-[#777777]">2.</span> Integrated REST APIs to support user verification, shift discovery,
+            applications, schedules, and payment-related workflows, including
+            infinite scrolling and real-time updates.
+            <br /><br />
+            <span className="text-[#777777]">3.</span> Implemented core backend business rules using PostgreSQL to ensure
+            data consistency across scheduling and attendance flows.
+          </p>
+          <Image
+            className="w-full h-auto rounded-sm"
+            src="/img/revoluna/api.png"
+            alt="API integration"
+            width={2160}
+            height={1066}
+          />
+
+
+        {/* UI States Section */}
+          <p
+            className="leading-[1.4em] text-black text-justify"
+            style={{
+              fontSize: "clamp(18px, 2vw, 30px)",
+            }}
+          >
+            <span className="text-[#777777]">4.</span> Designed UI states based on real API responses, handling loading,
+            empty, and validation scenarios.
+            <br /><br />
+            <span className="text-[#777777]">5.</span> Collaborated closely with backend logic to align product rules with
+            user-facing experiences.
+          </p>
+          <Image
+            className="w-full h-auto rounded-sm"
+            src="/img/revoluna/github.png"
+            alt="GitHub code"
+            width={2160}
+            height={1484}
+          />
+
+      </section>
+
+      {/* Outcome Section */}
+      <section
+        className="w-full flex flex-col"
+        style={{
+          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
+          gap: "clamp(16px, 1.5vw, 20px)",
+        }}
+      >
+        <p
+          className="leading-[1.4em] text-[#777777]"
+          style={{
+            fontSize: "clamp(20px, 2vw, 30px)",
+          }}
+        >
+          Outcome
+        </p>
+
         <p
           className="leading-[1.4em] text-black text-justify"
           style={{
@@ -515,20 +636,6 @@ export default function RevolunaPage() {
         </p>
       </section>
 
-      <section className="w-full flex rounded-sm justify-center overflow-hidden"
-          style={{
-          width: "calc(100% - clamp(16px, 2vw, 30px))",      
-          paddingTop: "clamp(20px, 6vw, 60px)",
-        }}
-        >
-        <Image
-          className="w-full object-fill"
-          src="/img/revoluna/login-subscription.png"
-          alt="Login and Subscription"
-          width={1440}
-          height={960}
-        />
-      </section>
 
       {/* Icon and Store Section */}
       <section className="w-full flex rounded-sm object-fill justify-center overflow-hidden"
