@@ -4,10 +4,10 @@ export const Footer = () => {
   return (
     <footer
       className="w-full"
-      style={{ padding: "clamp(8px, 1vw, 10px)" }}
+      style={{ marginTop: "clamp(60px, 10vw, 150px)" }}
     >
       <div
-        className="bg-[#161616] rounded-[10px] flex flex-col"
+        className="bg-foreground flex flex-col"
         style={{
           padding: "clamp(80px, 10vw, 150px) clamp(40px, 8vw, 109px) clamp(40px, 5vw, 60px)",
           gap: "clamp(20px, 3vw, 40px)",
