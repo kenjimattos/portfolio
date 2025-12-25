@@ -304,6 +304,7 @@ export default function RevolunaPage() {
             className="flex flex-col"
             style={{
               paddingLeft: "clamp(10px, 3vw, 40px)",
+              gap: "clamp(0px, 0.5vw, 30px)",
             }}
           >
             {/* Title with line */}
@@ -327,7 +328,6 @@ export default function RevolunaPage() {
               className="text-[#161616] leading-[1.4em] text-right"
               style={{
                 fontSize: "clamp(14px, 2vw, 30px)",
-                marginTop: "clamp(16px, 2vw, 30px)",
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
@@ -342,6 +342,9 @@ export default function RevolunaPage() {
           {/* Notifications Text with line */}
           <div
             className="flex-1 flex flex-col items-start justify-end"
+            style={{
+              gap: "clamp(0px, 0.5vw, 30px)",
+            }}
           >
             {/* Title with line */}
             <div className="flex items-center w-full" style={{ gap: "clamp(16px, 2vw, 30px)" }}>
@@ -363,7 +366,6 @@ export default function RevolunaPage() {
               className="text-[#161616] leading-[1.4em] text-left"
               style={{
                 fontSize: "clamp(14px, 2vw, 30px)",
-                marginTop: "clamp(16px, 2vw, 30px)",
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
@@ -385,24 +387,24 @@ export default function RevolunaPage() {
 
       {/* Shift Transfer Section */}
       <section
-        className="w-full relative overflow-hidden"
+        className="w-full relative"
         style={{
-          paddingLeft: "clamp(40px, 8vw, 180px)",
-          paddingRight: "clamp(40px, 8vw, 180px)",
-          marginBottom: "clamp(20px, 4vw, 60px)",
+          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
         }}
       >
         {/* Image left, text right */}
         <div className="flex flex-row items-center">
           {/* Feature Image */}
-            <Image
-              src="/img/revoluna/transfer.png"
-              alt="Schedule screen"
-              width={1081}
-              height={1008}
-              className="h-auto relative z-10"
-              style={{ maxWidth: "clamp(180px, 40vw, 600px)" }}
-            />
+           
+          <div>
+          <Image
+            src="/img/revoluna/transfer.png"
+            alt="Schedule screen"
+            width={1081}
+            height={1008}
+            className="relative z-10"
+          />
+          </div>
 
           {/*Text with line */}
           <div
@@ -417,12 +419,10 @@ export default function RevolunaPage() {
               style={{ gap: "clamp(10px, 1vw, 15px)" }}>
               {/* Connecting line */}
               <div className="block flex-1 h-px bg-[#161616] z-0"
-              style={{marginLeft: "-120px"}}/>
+              style={{marginLeft: "-90px"}}/>
               <h3
-                className="text-[#161616] shrink-0"
                 style={{
                   fontSize: "clamp(18px, 3vw, 48px)",
-                  lineHeight: "1.4em",
                 }}
               >
                 Shift Transfer
@@ -430,7 +430,7 @@ export default function RevolunaPage() {
             </div>
             {/* Description */}
             <p
-              className="text-[#161616] leading-[1.4em] text-right"
+              className="text-right"
               style={{
                 fontSize: "clamp(14px, 2vw, 30px)",
                 minWidth: "clamp(50px, 30vw, 554px)",
@@ -446,7 +446,7 @@ export default function RevolunaPage() {
       <section
         className="w-full relative flex overflow-hidden items-center"
         style={{
-          paddingLeft: "clamp(40px, 8vw, 180px)",
+          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
           gap: "clamp(20px, 4vw, 60px)",
           height: "clamp(250px, 50vw, 720px)",
         }}
@@ -503,6 +503,7 @@ export default function RevolunaPage() {
       <section className="w-full flex rounded-sm justify-center overflow-hidden"
           style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
+          paddingTop: "clamp(20px, 6vw, 60px)",
         }}
         >
         <Image
@@ -535,7 +536,7 @@ export default function RevolunaPage() {
         {/* Figma Section */}
 
           <p
-            className="leading-[1.4em] text-black text-justify"
+            className="text-justify"
             style={{
               fontSize: "clamp(18px, 2vw, 30px)",
             }}
@@ -548,16 +549,14 @@ export default function RevolunaPage() {
             style={{ gap: "clamp(10px, 2vw, 64px)" }}
           >
             <Image
-              className="h-auto rounded-sm"
-              style={{ width: "1/3" }}
+              className="h-auto rounded-sm w-1/3"
               src="/img/revoluna/figma-components.png"
               alt="Figma components"
               width={667}
               height={959}
             />
             <Image
-              className="h-auto rounded-sm"
-              style={{ width: "2/3" }}
+              className="h-auto rounded-sm w-2/3"
               src="/img/revoluna/figma-design.png"
               alt="Figma design"
               width={1361}
