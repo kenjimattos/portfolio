@@ -104,12 +104,12 @@ export const Work = () => {
                   gap: "clamp(10px, 1.5vw, 24px)",
                 }}
               >
-                <h3
+                <h2
                   className="text-[40px] leading-[1em] font-medium"
                   style={{ fontSize: "clamp(24px, 4vw, 40px)" }}
                 >
                   {project.name}
-                </h3>
+                </h2>
                 <p
                   className="text-[24px] leading-[1.2em] font-normal"
                   style={{ fontSize: "clamp(14px, 4vw, 24px)" }}
