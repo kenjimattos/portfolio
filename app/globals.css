@@ -13,6 +13,10 @@
   --font-gabarito: var(--font-gabarito);
   --font-gravitas: var(--font-gravitas);
   --text-primary: var(--foreground);
+  --font-large: clamp(28px, 3.5vw, 50px);
+  --font-medium: clamp(18px, 2vw, 30px);
+  --font-small: clamp(14px, 2vw, 30px);
+  --font-xsmall: clamp(12px, 1vw, 14px);
 }
 
 @layer components {
@@ -21,6 +25,71 @@
     padding: clamp(10px, 0.5vw, 20px) clamp(10px, 2vw, 40px);
     font-size: clamp(15px, 2vw, 25px);
     min-width: clamp(100px, 1vw, 250px);
+  }
+
+  .work-hero {
+    height: clamp(400px, 46vw, 660px);
+    padding: clamp(20px, 4vw, 60px) clamp(20px, 8vw, 120px);
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section {
+    @apply rounded-sm;
+    padding: clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px);
+  }
+
+  .content-gap {
+    gap: clamp(30px, 4vw, 60px);
+  }
+
+  .text-gap {
+    gap: clamp(16px, 1.5vw, 20px);
+  }
+
+  .gap {
+    gap: clamp(5px, 0.3vw, 10px);
+  }
+
+  .tags {
+    @apply flex sm:flex-col;
+    gap: clamp(6px, 1.5vw, 44px);
+  }
+
+  .tag {
+    @apply bg-foreground text-background rounded-xs justify-center items-center inline-flex leading-[1em];
+    width: clamp(20px, 15vw, 120px);
+    padding: clamp(6px, 1.2vw, 12px) 0;
+    font-size: clamp(12px, 1.6vw, 18px);
+  }
+
+  .numbered {
+    @apply text-justify;
+    font-size: var(--font-medium);
+  }
+
+  .numbered span {
+    @apply text-gray-500;
+  }
+}
+
+@layer base {
+  h1{@apply text-foreground font-normal z-10 leading-[1em];
+    font-size: clamp(36px, 8vw, 118px);
+  }
+  h2 {
+    @apply text-foreground font-normal leading-[1.2em] line-clamp-2;
+    font-size: clamp(18px, 3vw, 48px);
+  }
+  h3{
+    @apply text-gray-500 font-normal;
+    font-size: clamp(20px, 2vw, 30px);
+  }
+  p{
+    @apply text-foreground font-normal leading-[1.2em];
   }
 }
 

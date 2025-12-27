@@ -5,25 +5,14 @@ import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 
 export default function RevolunaPage() {
   return (
-    <main className="flex flex-col items-center"
-      style={{ gap: "clamp(5px, 0.3vw, 10px)" }}  
-    >
+    <main className="flex flex-col items-center gap">
       {/* Hero Section */}
       <section
         id="top"
-        className="bg-[#F5EDFF] w-full overflow-hidden relative rounded-[5px] flex items-end"
-        style={{
-          height: "clamp(400px, 46vw, 660px)",
-          padding: "clamp(20px, 4vw, 60px) clamp(20px, 8vw, 120px)",
-        }}
+        className="work-hero bg-[#F5EDFF] w-full"
       >
         {/* Title - positioned at bottom left */}
-        <h1
-          className="z-10 leading-[1em] font-normal text-[#161616]"
-          style={{
-            fontSize: "clamp(36px, 8vw, 118px)",
-          }}
-        >
+        <h1>
           Revoluna
         </h1>
 
@@ -44,60 +33,21 @@ export default function RevolunaPage() {
       </section>
 
       {/* Overview Section */}
-      <section
-        className="w-full"
-        style={{
-          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
-        }}
-      >
-        <div
-          className="flex flex-col sm:flex-row"
-          style={{ gap: "clamp(30px, 4vw, 60px)" }}
-        >
+      <section className="section w-full">
+        <div className="content-gap flex flex-col sm:flex-row">
           {/* Left - Tags */}
-          <div
-            className="flex flex-col items-start sm:items-center"
-            style={{ gap: "clamp(16px, 1.5vw, 20px)" }}
-            >
-              <p
-              className="text-[#777777] top-0"
-              style={{
-                fontSize: "clamp(20px, 2vw, 30px)",
-              }}
-            >
+          <div className="text-gap flex flex-col items-start sm:items-center">
+              <h3>
               My role
-            </p>
-          <div
-            className="flex sm:flex-col justify-center"
-            style={{ gap: "clamp(10px, 1.5vw, 44px)" }}
-          >
-            <div
-              className="flex sm:flex-col"
-              style={{ gap: "clamp(6px, 1.5vw, 44px)" }}
-            >
+            </h3>
+          <div className="tags">
               {["UX/UI", "Product", "Front-end", "Back-end", "Mobile"].map(
                 (tag) => (
-                  <div
-                    key={tag}
-                    className="bg-foreground rounded-xs justify-center items-center inline-flex"
-                    style={{
-                      width: "clamp(20px, 15vw, 120px)",
-                      paddingTop: "clamp(6px, 1.2vw, 12px)",
-                      paddingBottom: "clamp(6px, 1.2vw, 12px)",
-                    }}
-                  >
-                    <span
-                      className="leading-[1em] text-[#FFFFF9]"
-                      style={{
-                        fontSize: "clamp(12px, 1.6vw, 18px)",
-                      }}
-                    >
-                      {tag}
-                    </span>
+                  <div key={tag} className="tag">
+                    {tag}
                   </div>
                 )
               )}
-            </div>
           </div>
           </div>
 
@@ -105,31 +55,23 @@ export default function RevolunaPage() {
           <div className="w-full h-px sm:w-px sm:h-auto bg-foreground sm:self-stretch" />
 
           {/* Right - Content */}
-          <div
-            className="flex flex-col"
-            style={{ gap: "clamp(16px, 1.5vw, 20px)" }}
-          >
-            <p
-              className="text-[#777777]"
-              style={{
-                fontSize: "clamp(20px, 2vw, 30px)",
-              }}
-            >
+          <div className="text-gap flex flex-col">
+            <h3>
               Overview
-            </p>
+            </h3>
             <p
-              className="leading-[1.2em] text-black"
+              className="text-left"
               style={{
-                fontSize: "clamp(28px, 3.5vw, 50px)",
+                fontSize: "var(--font-large)",
               }}
             >
               A mobile-first product focused on clarity and control. Shift
               opportunities are organized, easy to find, and simple to manage.
             </p>
             <p
-              className="leading-[1.4em] text-[#161616] text-justify"
+              className="text-left"
               style={{
-                fontSize: "clamp(18px, 2vw, 30px)",
+                fontSize: "var(--font-medium)",
               }}
             >
               Medical shifts in Brazil are shared through unstructured channels.
@@ -149,27 +91,19 @@ export default function RevolunaPage() {
 
       {/* Challenge Section */}
       <section
-        className="bg-[#F5EDFF] rounded-sm overflow-hidden flex flex-col sm:flex-row items-center"
+        className="section content-gap bg-[#F5EDFF] overflow-hidden flex flex-col sm:flex-row items-center"
         style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
-          padding: "clamp(40px, 4vw, 60px) clamp(40px, 8vw, 240px)",
-          gap: "clamp(30px, 4vw, 60px)",
         }}
       >
-        <div className="flex flex-col justify-center">
-          <p
-            className="leading-[1.4em] text-[#777777]"
-            style={{
-              fontSize: "clamp(20px, 2vw, 30px)",
-              margin: "0 0 clamp(0px, 1vw, 30px) 0",
-            }}
-          >
+        <div className="text-gap flex flex-col justify-center">
+          <h3>
             The challenge
-          </p>
+          </h3>
           <p
-            className="leading-[1.4em] text-[#161616] text-justify"
+            className="text-justify"
             style={{
-              fontSize: "clamp(18px, 2vw, 30px)",
+              fontSize: "var(--font-medium)",
             }}
           >
             An early version of the app already existed. It focused mainly on
@@ -179,10 +113,7 @@ export default function RevolunaPage() {
           </p>
         </div>
         {/* Old app screenshot */}
-        <div
-          className="flex flex-col items-center"
-          style={{ gap: "clamp(12px, 1.5vw, 20px)" }}
-        >
+        <div className="text-gap flex flex-col items-center">
           <Image
             src="/img/revoluna/first-version.png"
             alt="Revoluna first version"
@@ -192,9 +123,8 @@ export default function RevolunaPage() {
             style={{ maxWidth: "clamp(180px, 15vw, 269px)" }}
           />
           <p
-            className="leading-[1.4em] text-[#161616]"
             style={{
-              fontSize: "clamp(12px, 1vw, 14px)",
+              fontSize: "var(--font-xsmall)",
             }}
           >
             Revoluna app&apos;s first version
@@ -203,7 +133,7 @@ export default function RevolunaPage() {
       </section>
       
       {/* The Solution Image */}
-      <section className="w-full flex rounded-sm justify-center overflow-hidden"
+      <section className="w-full flex justify-center overflow-hidden"
           style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
           marginBottom: "clamp(20px, 4vw, 60px)",   
@@ -219,24 +149,14 @@ export default function RevolunaPage() {
       </section>
 
       {/* The Solution Text */}
-      <section
-        className="w-full flex flex-col justify-center"
-        style={{
-          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
-        }}
-      >
-        <p
-          className="leading-[1.4em] text-[#777777]"
-          style={{
-            fontSize: "clamp(20px, 2vw, 30px)",
-          }}
-        >
+      <section className="section w-full flex flex-col justify-center">
+        <h3>
           The solution
-        </p>
+        </h3>
         <p
-          className="leading-[1.4em] text-black text-left sm:text-justify"
+          className="sm:text-justify"
           style={{
-            fontSize: "clamp(28px, 3.5vw, 50px)",
+            fontSize: "var(--font-large)",
           }}
         >
           Organizing shift opportunities, give doctors visibility into their
@@ -246,26 +166,18 @@ export default function RevolunaPage() {
       </section>
 
       {/* Explore Section */}
-      <section className="w-full flex flex-col items-center justify-center"
+      <section className="section w-full flex flex-col items-center justify-center"
           style={{
-          paddingTop: "clamp(20px, 3vw, 60px)",
-          paddingLeft: "clamp(40px, 8vw, 180px)",
-          paddingRight: "clamp(40px, 8vw, 180px)",
           gap: "clamp(15px, 2vw, 30px)",
         }}
       >
-        <p
-          className="w-full"          
-          style={{
-            fontSize: "clamp(28px, 3.5vw, 50px)",
-          }}
-        >
+        <h2 className="w-full">
           Explore
-        </p>
+        </h2>
         <p
-          className="leading-[1.4em] text-black text-justify"
+          className="text-justify"
           style={{
-            fontSize: "clamp(18px, 2vw, 30px)",
+            fontSize: "var(--font-small)",
           }}
         >
           Doctors can browse available shifts with clear details such as location, schedule, and payment, making it easier to find relevant opportunities quickly.
@@ -280,11 +192,9 @@ export default function RevolunaPage() {
 
       {/* Schedule and Notifications Section */}
       <section
-        className="w-full relative overflow-hidden"
+        className="section w-full relative overflow-hidden"
         style={{
           paddingTop: "clamp(30px, 8vw, 80px)",
-          paddingLeft: "clamp(40px, 8vw, 180px)",
-          paddingRight: "clamp(40px, 8vw, 180px)",
         }}
       >
         {/* Top row - Schedule image left, My Schedule text right */}
@@ -313,21 +223,15 @@ export default function RevolunaPage() {
               {/* Connecting line */}
               <div className="block flex-1 h-px bg-[#161616] z-0"
               style={{marginLeft: "-150px"}}/>
-              <h3
-                className="text-[#161616] shrink-0"
-                style={{
-                  fontSize: "clamp(18px, 3vw, 48px)",
-                  lineHeight: "1.4em",
-                }}
-              >
+              <h2>
                 My Schedule
-              </h3>
+              </h2>
             </div>
             {/* Description */}
             <p
-              className="text-[#161616] leading-[1.4em] text-right"
+              className="text-right"
               style={{
-                fontSize: "clamp(14px, 2vw, 30px)",
+                fontSize: "var(--font-small)",
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
@@ -348,24 +252,17 @@ export default function RevolunaPage() {
           >
             {/* Title with line */}
             <div className="flex items-center w-full" style={{ gap: "clamp(16px, 2vw, 30px)" }}>
-              <h3
-                className="text-[#161616] shrink-0"
-                style={{
-                  fontSize: "clamp(18px, 3vw, 48px)",
-                  lineHeight: "1.4em",
-                }}
-              >
+              <h2>
                 Notifications
-              </h3>
+              </h2>
               {/* Connecting line */}
-              <div className="block flex-1 h-px bg-[#161616]"
+              <div className="block flex-1 h-px bg-foreground"
               style={{marginRight: "-120px"}}/>
             </div>
             {/* Description */}
             <p
-              className="text-[#161616] leading-[1.4em] text-left"
               style={{
-                fontSize: "clamp(14px, 2vw, 30px)",
+                fontSize: "var(--font-small)",
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
@@ -379,19 +276,14 @@ export default function RevolunaPage() {
               alt="Notifications screen"
               width={845}
               height={1110}
-              className="h-auto relative z-10"
+              className="relative z-10"
               style={{ maxWidth: "clamp(230px, 44vw, 439px)" }}
             />
         </div>
       </section>
 
       {/* Shift Transfer Section */}
-      <section
-        className="w-full relative"
-        style={{
-          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
-        }}
-      >
+      <section className="section w-full relative">
         {/* Image left, text right */}
         <div className="flex flex-row items-center">
           {/* Feature Image */}
@@ -418,21 +310,17 @@ export default function RevolunaPage() {
             <div className="flex w-full items-center"
               style={{ gap: "clamp(10px, 1vw, 15px)" }}>
               {/* Connecting line */}
-              <div className="block flex-1 h-px bg-[#161616] z-0"
+              <div className="block flex-1 h-px bg-foreground z-0"
               style={{marginLeft: "-90px"}}/>
-              <h3
-                style={{
-                  fontSize: "clamp(18px, 3vw, 48px)",
-                }}
-              >
+              <h2>
                 Shift Transfer
-              </h3>
+              </h2>
             </div>
             {/* Description */}
             <p
               className="text-right"
               style={{
-                fontSize: "clamp(14px, 2vw, 30px)",
+                fontSize: "var(--font-small)",
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
@@ -444,10 +332,8 @@ export default function RevolunaPage() {
 
       {/* Check-in / Check-out Section */}
       <section
-        className="w-full relative flex overflow-hidden items-center"
+        className="section w-full content-gap flex overflow-hidden justify-between items-center object-contain"
         style={{
-          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
-          gap: "clamp(20px, 4vw, 60px)",
           height: "clamp(250px, 50vw, 720px)",
         }}
       >
@@ -460,28 +346,20 @@ export default function RevolunaPage() {
             }}
           >
             {/* Title */}
-            <h3
-              className="text-[#161616]"
-              style={{
-                fontSize: "clamp(18px, 3vw, 48px)",
-                lineHeight: "1.2em",
-                minWidth: "190px",
-              }}
-            >
-              Check-in / Check-out
-              <br/>
-              with Location Validation
-            </h3>
+            <h2>
+            Check In-Out
+            with location validation
+            </h2>
             {/* Description */}
             <p
-              className="text-[#161616] leading-[1.4em] text-left"
+              className="text-left"
               style={{
-                fontSize: "clamp(14px, 2vw, 30px)",
+                fontSize: "var(--font-small)",
               }}
             >
               Doctors receive reminders to check in
               and out within defined time windows. Validation
-              is completed only within a 100-meter radius of the hospital
+              is completed only within a 100m radius of the hospital
               to ensure payroll accuracy, with location checked only at submission time.
             </p>
           </div>
@@ -500,7 +378,7 @@ export default function RevolunaPage() {
       </section>
 
       {/* Login and Subscription Section */}
-      <section className="w-full flex rounded-sm justify-center overflow-hidden"
+      <section className="w-full flex justify-center overflow-hidden"
           style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
           paddingTop: "clamp(20px, 6vw, 60px)",
@@ -516,32 +394,16 @@ export default function RevolunaPage() {
       </section>
 
       {/* Implementation Section */}
-      <section
-        className="w-full flex flex-col justify-center"
-        style={{
-          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
-          gap: "clamp(30px, 4vw, 60px)",
-        }}
-      >
+      <section className="section content-gap w-full flex flex-col justify-center">
         {/* Title */}
-        <p
-          className="leading-[1.4em] text-[#777777] w-full"
-          style={{
-            fontSize: "clamp(20px, 2vw, 30px)",
-          }}
-        >
+        <h3>
           Implementation
-        </p>
+        </h3>
 
         {/* Figma Section */}
 
-          <p
-            className="text-justify"
-            style={{
-              fontSize: "clamp(18px, 2vw, 30px)",
-            }}
-          >
-            <span className="text-[#777777]">1.</span> Built the mobile experience by translating Figma designs into
+          <p className="numbered">
+            <span>1.</span> Built the mobile experience by translating Figma designs into
             reusable, production-ready UI components.
           </p>
           <div
@@ -549,14 +411,14 @@ export default function RevolunaPage() {
             style={{ gap: "clamp(10px, 2vw, 64px)" }}
           >
             <Image
-              className="h-auto rounded-sm w-1/3"
+              className="rounded-sm w-1/3"
               src="/img/revoluna/figma-components.png"
               alt="Figma components"
               width={667}
               height={959}
             />
             <Image
-              className="h-auto rounded-sm w-2/3"
+              className="rounded-sm w-2/3"
               src="/img/revoluna/figma-design.png"
               alt="Figma design"
               width={1361}
@@ -565,21 +427,16 @@ export default function RevolunaPage() {
           </div>
 
 
-          <p
-            className="leading-[1.4em] text-black text-justify"
-            style={{
-              fontSize: "clamp(18px, 2vw, 30px)",
-            }}
-          >
-            <span className="text-[#777777]">2.</span> Integrated REST APIs to support user verification, shift discovery,
+          <p className="numbered">
+            <span>2.</span> Integrated REST APIs to support user verification, shift discovery,
             applications, schedules, and payment-related workflows, including
             infinite scrolling and real-time updates.
             <br /><br />
-            <span className="text-[#777777]">3.</span> Implemented core backend business rules using PostgreSQL to ensure
+            <span>3.</span> Implemented core backend business rules using PostgreSQL to ensure
             data consistency across scheduling and attendance flows.
           </p>
           <Image
-            className="w-full h-auto rounded-sm"
+            className="w-full rounded-sm"
             src="/img/revoluna/api.png"
             alt="API integration"
             width={2160}
@@ -588,20 +445,15 @@ export default function RevolunaPage() {
 
 
         {/* UI States Section */}
-          <p
-            className="leading-[1.4em] text-black text-justify"
-            style={{
-              fontSize: "clamp(18px, 2vw, 30px)",
-            }}
-          >
-            <span className="text-[#777777]">4.</span> Designed UI states based on real API responses, handling loading,
+          <p className="numbered">
+            <span>4.</span> Designed UI states based on real API responses, handling loading,
             empty, and validation scenarios.
             <br /><br />
-            <span className="text-[#777777]">5.</span> Collaborated closely with backend logic to align product rules with
+            <span>5.</span> Collaborated closely with backend logic to align product rules with
             user-facing experiences.
           </p>
           <Image
-            className="w-full h-auto rounded-sm"
+            className="w-full rounded-sm"
             src="/img/revoluna/github.png"
             alt="GitHub code"
             width={2160}
@@ -611,26 +463,15 @@ export default function RevolunaPage() {
       </section>
 
       {/* Outcome Section */}
-      <section
-        className="w-full flex flex-col"
-        style={{
-          padding: "clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px)",
-          gap: "clamp(16px, 1.5vw, 20px)",
-        }}
-      >
-        <p
-          className="leading-[1.4em] text-[#777777]"
-          style={{
-            fontSize: "clamp(20px, 2vw, 30px)",
-          }}
-        >
+      <section className="section text-gap w-full flex flex-col">
+        <h3>
           Outcome
-        </p>
+        </h3>
 
         <p
-          className="leading-[1.4em] text-black text-justify"
+          className="text-justify"
           style={{
-            fontSize: "clamp(24px, 3.5vw, 50px)",
+            fontSize: "var(--font-large)",
           }}
         >
           The mobile app replaced informal workflows with a structured,
@@ -641,21 +482,20 @@ export default function RevolunaPage() {
 
 
       {/* Icon and Store Section */}
-      <section className="w-full flex rounded-sm object-fill justify-center overflow-hidden"
+      <section className="w-full flex justify-center overflow-hidden gap"
           style={{
-          width: "calc(100% - clamp(16px, 2vw, 30px))",      
-          gap: "clamp(5px, 0.3vw, 10px)",
+          width: "calc(100% - clamp(16px, 2vw, 30px))",
         }}
         >
         <Image
-          className="w-1/2 h-auto object-cover"
+          className="w-1/2 rounded-sm"
           src="/img/revoluna/icon.png"
           alt="Icon"
           width={740}
           height={740}
         />
         <Image
-          className="w-1/2 h-auto object-cover"
+          className="w-1/2 rounded-sm"
           src="/img/revoluna/store.png"
           alt="Store"
           width={700}
