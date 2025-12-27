@@ -24,7 +24,7 @@
     @apply text-white bg-primary hover:bg-foreground rounded-xs cursor-pointer flex justify-center items-center;
     padding: clamp(10px, 0.5vw, 20px) clamp(10px, 2vw, 40px);
     font-size: clamp(15px, 2vw, 25px);
-    min-width: clamp(100px, 1vw, 250px);
+    min-width: clamp(190px, 1vw, 250px);
   }
 
   .work-hero {
