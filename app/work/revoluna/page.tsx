@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import { Nav } from "@/components/nav";
 
 export default function RevolunaPage() {
   return (
@@ -503,40 +503,7 @@ export default function RevolunaPage() {
         />
       </section>
 
-      {/* Navigation Section */}
-      <section className="w-full flex justify-between"
-          style={{
-          padding: "clamp(10px, 2vw, 60px)",
-          }} >
-            <a className="flex items-center hover:text-primary transition-colors"
-              href="/"
-              style={{
-                fontSize: "clamp(14px, 5vw, 30px)",
-              }}>
-              <ChevronLeft size={36}/>
-              home
-            </a>
-            <a className="flex items-center hover:text-primary transition-colors"
-              href="#top"
-              style={{
-                fontSize: "clamp(14px, 5vw, 30px)",
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}>
-              top
-              <ChevronUp size={36}/>
-            </a>
-            <a className="flex items-center hover:text-primary transition-colors"
-              href="/work/houston"
-              style={{
-                fontSize: "clamp(14px, 5vw, 30px)",
-              }}>
-              <ChevronRight size={36}/>
-              next
-            </a>
-          </section>
+      <Nav nextHref="/work/houston" />
     </main>
   );
 }
