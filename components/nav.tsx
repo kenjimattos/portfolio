@@ -20,6 +20,7 @@ export const Nav = ({
       className="w-full flex justify-between"
       style={{
         padding: "clamp(10px, 2vw, 60px)",
+        marginBottom: "clamp(20px, 5vw, 60px)"
       }}
     >
       <a
