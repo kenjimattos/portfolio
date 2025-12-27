@@ -67,6 +67,7 @@ export const Work = () => {
 
   return (
     <section
+      id="work"
       ref={sectionRef}
       className="w-full py-[110px] px-[10px]"
     >

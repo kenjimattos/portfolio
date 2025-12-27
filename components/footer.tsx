@@ -1,6 +1,25 @@
+"use client";
+
 import { Mail } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 export const Footer = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleSectionClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+
+    if (pathname === "/") {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/");
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  };
+
   return (
     <footer
       className="w-full bg-foreground flex justify-between"
@@ -122,6 +141,17 @@ export const Footer = () => {
             />
           </a>
         </div>
+      </div>
+
+      <div className="flex flex-col text-background justify-center items-end"
+          style={{
+          padding: "clamp(40px, 8vw, 109px) clamp(40px, 5vw, 60px)",
+          fontSize: "var(--font-small)",
+        }}>
+        <a className="hover:text-primary transition-opacity cursor-pointer" onClick={(e) => handleSectionClick(e, "home")}>home</a>
+        <a className="hover:text-primary transition-opacity cursor-pointer" onClick={(e) => handleSectionClick(e, "about")}>about</a>
+        <a className="hover:text-primary transition-opacity cursor-pointer" onClick={(e) => handleSectionClick(e, "work")}>work</a>
+        <a className="hover:text-primary transition-opacity cursor-pointer" onClick={(e) => handleSectionClick(e, "contact")}>contact</a>
       </div>
     </footer>
   );

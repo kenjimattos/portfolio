@@ -63,6 +63,7 @@ export const About = () => {
 
   return (
     <section
+      id="about"
       ref={sectionRef}
       className="w-full h-[660px] px-[120px] py-[112px] flex justify-center items-center gap-[60px] "
     >

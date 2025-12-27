@@ -113,7 +113,7 @@ export const Hero = () => {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="min-h-screen overflow-hidden">
+    <div id="home" ref={containerRef} className="min-h-screen overflow-hidden">
       {/* Tela inicial */}
       <div className="h-screen flex flex-col items-center justify-center relative">
         {/* "hi, my name is kenji" - separado */}
