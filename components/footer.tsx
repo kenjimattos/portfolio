@@ -3,23 +3,25 @@ import { Mail } from "lucide-react";
 export const Footer = () => {
   return (
     <footer
-      className="w-full"
-      style={{ marginTop: "clamp(60px, 10vw, 150px)" }}
+      className="w-full bg-foreground flex justify-between"
+      style={{ 
+        paddingInline: "clamp(20px, 5vw, 80px)"
+      }}
     >
       <div
-        className="bg-foreground flex flex-col"
+        className="flex flex-col"
         style={{
-          padding: "clamp(80px, 10vw, 150px) clamp(40px, 8vw, 109px) clamp(40px, 5vw, 60px)",
+          padding: "clamp(40px, 8vw, 109px) clamp(40px, 5vw, 60px)",
           gap: "clamp(20px, 3vw, 40px)",
         }}
       >
         {/* Logo */}
         <a
-          className="text-[#FFFFF9] hover:text-primary transition-opacity leading-[1em] w-fit"
+          className="text-background hover:text-primary transition-opacity leading-[1em] w-fit"
           style={{
             fontFamily: "var(--font-gravitas)",
             letterSpacing: "-0.11em",
-            fontSize: "clamp(32px, 4vw, 50px)",
+            fontSize: "var(--font-large)",
           }}
           href="/"
         >
@@ -31,10 +33,10 @@ export const Footer = () => {
           className="flex flex-col"
         >
           <span
-            className="text-[#FFFFFC]"
+            className="text-background"
             style={{
               fontFamily: "var(--font-gabarito)",
-              fontSize: "clamp(12px, 1.2vw, 14px)",
+              fontSize: "var(--font-xsmall)",
             }}
           >
             Kenji Mattos Kinoshita
@@ -42,10 +44,10 @@ export const Footer = () => {
           </span>
           
           <span
-            className="text-[#FFFFFC]"
+            className="text-background"
             style={{
               fontFamily: "var(--font-gabarito)",
-              fontSize: "clamp(12px, 1.2vw, 14px)",
+              fontSize: "var(--font-xsmall)",
             }}
           >
             
@@ -54,9 +56,9 @@ export const Footer = () => {
 
 
           <span
-            className="text-[#FFFFFC] leading-[1.71em]"
+            className="text-background leading-[1.71em]"
             style={{
-              fontSize: "clamp(12px, 1.2vw, 14px)",
+              fontSize: "var(--font-xsmall)",
             }}
           >
             All rights reserved
@@ -73,7 +75,7 @@ export const Footer = () => {
             href="https://github.com/kenjimattos"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#FFFFF9] hover:text-primary transition-opacity"
+            className="text-background hover:text-primary transition-opacity"
           >
             <svg
               viewBox="0 0 24 24"
@@ -92,7 +94,7 @@ export const Footer = () => {
             href="https://linkedin.com/in/kenjimattos"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#FFFFF9] hover:text-primary transition-opacity"
+            className="text-background hover:text-primary transition-opacity"
           >
             <svg
               viewBox="0 0 24 24"
@@ -109,7 +111,7 @@ export const Footer = () => {
           {/* Email */}
           <a
             href="mailto:kenjimattos@gmail.com"
-            className="text-[#FFFFF9] hover:text-primary transition-opacity"
+            className="text-background hover:text-primary transition-opacity"
           >
             <Mail
               strokeWidth={1.5}
