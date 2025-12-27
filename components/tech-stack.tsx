@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const technologies = [
   { name: "Next.js", logo: "/img/next-logo.svg", width: 409, height: 82, isWide: true },
@@ -24,43 +25,39 @@ export const TechStack = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const logosRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animação do título
-      gsap.from(titleRef.current, {
-        y: 400,
+  useGSAP(() => {
+    // Animação do título
+    gsap.from(titleRef.current, {
+      y: 400,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: "top 100%",
+        end: "top 50%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Animação dos logos com stagger
+    const logos = logosRef.current?.children;
+    if (logos) {
+      gsap.from(logos, {
+        y: 150,
+        opacity: 0,
         duration: 0.5,
         stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 100%",
-          end: "top 50%",
+          trigger: logosRef.current,
+          start: "top 75%",
+          end: "top 40%",
           toggleActions: "play none none reverse",
         },
       });
-
-      // Animação dos logos com stagger
-      const logos = logosRef.current?.children;
-      if (logos) {
-        gsap.from(logos, {
-          y: 150,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: logosRef.current,
-            start: "top 75%",
-            end: "top 40%",
-            toggleActions: "play none none reverse",
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    }
+  }, { scope: sectionRef });
 
   return (
     <section ref={sectionRef} className="w-full py-[120px]">

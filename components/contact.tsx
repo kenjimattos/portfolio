@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 export const Contact = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,71 +22,67 @@ export const Contact = () => {
     message: "",
   });
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate title
-      gsap.from(titleRef.current, {
+  useGSAP(() => {
+    // Animate title
+    gsap.from(titleRef.current, {
+      y: 300,
+      duration: 0.5,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Animate form inputs in cascade
+    const formElements = formRef.current?.querySelectorAll("input, textarea");
+    if (formElements) {
+      gsap.from(formElements, {
         y: 300,
         duration: 0.5,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 60%",
           toggleActions: "play none none reverse",
         },
       });
+    }
 
-      // Animate form inputs in cascade
-      const formElements = formRef.current?.querySelectorAll("input, textarea");
-      if (formElements) {
-        gsap.from(formElements, {
-          y: 300,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-            toggleActions: "play none none reverse",
-          },
-        });
-      }
+    // Split text into lines and animate
+    if (textRef.current) {
+      const split = new SplitText(textRef.current, { type: "lines" });
 
-      // Split text into lines and animate
-      if (textRef.current) {
-        const split = new SplitText(textRef.current, { type: "lines" });
-
-        gsap.from(split.lines, {
-          y: 100,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 55%",
-            toggleActions: "play none none reverse",
-          },
-        });
-      }
-
-      // Animate button
-      gsap.from(buttonRef.current, {
+      gsap.from(split.lines, {
         y: 100,
         opacity: 0,
         duration: 0.6,
-        delay: 0.3,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 55%",
           toggleActions: "play none none reverse",
         },
       });
-    }, sectionRef);
+    }
 
-    return () => ctx.revert();
-  }, []);
+    // Animate button
+    gsap.from(buttonRef.current, {
+      y: 100,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0.3,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  }, { scope: sectionRef });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const projects = [
   {
@@ -31,42 +32,38 @@ export const Work = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animacao do titulo
-      gsap.from(titleRef.current, {
+  useGSAP(() => {
+    // Animacao do titulo
+    gsap.from(titleRef.current, {
+      y: 400,
+      duration: 0.5,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: "top 120%",
+        end: "top 50%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Animacao dos cards com stagger
+    const cards = cardsRef.current?.children;
+    if (cards) {
+      gsap.from(cards, {
         y: 400,
-        duration: 0.5,
+        duration: 0.6,
         stagger: 0.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 120%",
-          end: "top 50%",
+          trigger: cardsRef.current,
+          start: "top 70%",
+          end: "top 40%",
           toggleActions: "play none none reverse",
         },
       });
-
-      // Animacao dos cards com stagger
-      const cards = cardsRef.current?.children;
-      if (cards) {
-        gsap.from(cards, {
-          y: 400,
-          duration: 0.6,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 70%",
-            end: "top 40%",
-            toggleActions: "play none none reverse",
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    }
+  }, { scope: sectionRef });
 
   return (
     <section

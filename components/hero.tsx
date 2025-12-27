@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,8 +23,7 @@ export const Hero = () => {
   const aLineRef = useRef<HTMLDivElement>(null);
   const chevronRef = useRef<SVGSVGElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  useGSAP(() => {
       // Timeline principal
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -110,10 +110,7 @@ export const Hero = () => {
         ease: "power1.inOut",
       });
 
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  }, { scope: containerRef });
 
   return (
     <div ref={containerRef} className="min-h-screen overflow-hidden">
