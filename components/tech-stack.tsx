@@ -119,7 +119,7 @@ export const TechStack = () => {
               />
               {/* Tooltip */}
               <span
-                className={`absolute left-1/2 -translate-x-1/2 bg-white text-[#161616] font-medium rounded transition-opacity duration-300 pointer-events-none whitespace-nowrap ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                className={`absolute left-1/2 -translate-x-1/2 bg-background text-foreground font-medium rounded transition-opacity duration-300 pointer-events-none whitespace-nowrap ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
                 style={{
                   fontFamily: "var(--font-gabarito)",
                   fontSize: "clamp(10px, 1.5vw, 14px)",
