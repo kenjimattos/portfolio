@@ -23,9 +23,15 @@ export const Contact = () => {
   });
 
   useGSAP(() => {
+    // Valores responsivos baseados no viewport
+    const vh = window.innerHeight;
+    const titleOffset = vh * 0.3;
+    const formOffset = vh * 0.3;
+    const textOffset = vh * 0.1;
+
     // Animate title
     gsap.from(titleRef.current, {
-      y: 300,
+      y: titleOffset,
       duration: 0.5,
       ease: "power3.out",
       scrollTrigger: {
@@ -39,7 +45,7 @@ export const Contact = () => {
     const formElements = formRef.current?.querySelectorAll("input, textarea");
     if (formElements) {
       gsap.from(formElements, {
-        y: 300,
+        y: formOffset,
         duration: 0.5,
         stagger: 0.1,
         ease: "power3.out",
@@ -51,34 +57,40 @@ export const Contact = () => {
       });
     }
 
-    // Split text into lines and animate
+    // Referência ao textarea para usar como trigger
+    const textarea = formRef.current?.querySelector("textarea");
+
+    // Split text into lines and animate - começa invisível
     if (textRef.current) {
       const split = new SplitText(textRef.current, { type: "lines" });
 
-      gsap.from(split.lines, {
-        y: 100,
-        opacity: 0,
+      gsap.set(split.lines, { opacity: 0, y: textOffset });
+
+      gsap.to(split.lines, {
+        y: 0,
+        opacity: 1,
         duration: 0.6,
         stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 55%",
+          trigger: textarea,
+          start: "top 70%",
           toggleActions: "play none none reverse",
         },
       });
     }
 
-    // Animate button
-    gsap.from(buttonRef.current, {
-      y: 100,
-      opacity: 0,
+    // Animate button - começa invisível
+    gsap.set(buttonRef.current, { opacity: 0, y: textOffset });
+
+    gsap.to(buttonRef.current, {
+      y: 0,
+      opacity: 1,
       duration: 0.6,
-      delay: 0.3,
       ease: "power3.out",
       scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
+        trigger: textarea,
+        start: "top 62%",
         toggleActions: "play none none reverse",
       },
     });
@@ -91,29 +103,50 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="w-full py-[120px] flex flex-col items-center justify-center">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="w-full flex flex-col items-center justify-center"
+      style={{ padding: "clamp(60px, 10vw, 120px) clamp(20px, 5vw, 40px)" }}
+    >
       {/* Container centralizado */}
-      <div className="w-full max-w-[1200px] flex flex-col gap-[60px]">
+      <div
+        className="w-full max-w-[1200px] flex flex-col"
+        style={{ gap: "clamp(30px, 5vw, 60px)" }}
+      >
         {/* Title */}
         <h2
           ref={titleRef}
-          className="text-[96px] text-black font-extrabold leading-none"
-          style={{ fontFamily: "var(--font-gabarito)" }}
+          className="text-black font-extrabold leading-none"
+          style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(36px, 8vw, 96px)" }}
         >
           GET IN TOUCH
         </h2>
 
         {/* Content row */}
-        <div className="flex gap-[62px]">
+        <div
+          className="flex flex-col sm:flex-row"
+          style={{ gap: "clamp(30px, 5vw, 62px)" }}
+        >
           {/* Form */}
-          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-[17px] w-[539px] shrink-0">
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full sm:w-2/3 shrink-0"
+            style={{ gap: "clamp(12px, 1.5vw, 17px)" }}
+          >
             {/* Name */}
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full h-[40px] bg-[#d9d9d9] px-[10px] text-[16px] text-black font-light outline-none"
-              style={{ fontFamily: "var(--font-gabarito)" }}
+              className="w-full bg-gray-300 outline-none"
+              style={{
+                fontFamily: "var(--font-gabarito)",
+                height: "clamp(36px, 4vw, 40px)",
+                padding: "0 clamp(8px, 1vw, 10px)",
+                fontSize: "clamp(14px, 1.5vw, 16px)",
+              }}
               placeholder="Name"
             />
 
@@ -122,8 +155,13 @@ export const Contact = () => {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full h-[40px] bg-[#d9d9d9] px-[10px] text-[16px] text-black font-light outline-none"
-              style={{ fontFamily: "var(--font-gabarito)" }}
+              className="w-full bg-gray-300 outline-none"
+              style={{
+                fontFamily: "var(--font-gabarito)",
+                height: "clamp(36px, 4vw, 40px)",
+                padding: "0 clamp(8px, 1vw, 10px)",
+                fontSize: "clamp(14px, 1.5vw, 16px)",
+              }}
               placeholder="Email"
             />
 
@@ -131,20 +169,31 @@ export const Contact = () => {
             <textarea
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full h-[242px] bg-[#d9d9d9] px-[11px] py-[16px] text-[16px] text-black font-light outline-none resize-none"
-              style={{ fontFamily: "var(--font-gabarito)" }}
+              className="w-full bg-gray-300 outline-none resize-none"
+              style={{
+                fontFamily: "var(--font-gabarito)",
+                height: "clamp(180px, 22vw, 242px)",
+                padding: "clamp(12px, 1.5vw, 16px) clamp(8px, 1vw, 11px)",
+                fontSize: "clamp(14px, 1.5vw, 16px)",
+              }}
               placeholder="Message"
             />
           </form>
 
           {/* Right column - alinha com o campo de mensagem */}
-          <div ref={rightColRef} className="flex flex-col justify-between w-[500px] h-[242px] self-end">
+          <div
+            ref={rightColRef}
+            className="flex flex-col justify-start sm:justify-end w-full sm:max-w-[500px] self-end content-gap"
+            style={{ minHeight: "clamp(180px, 22vw, 242px)" }}
+          >
             <p
               ref={textRef}
-              className="text-[32px] text-black font-light leading-[1.3em]"
-              style={{ fontFamily: "var(--font-gabarito)" }}
+              className="text-black font-light leading-[1.3em]"
+              style={{ fontFamily: "var(--font-gabarito)", fontSize: "var(--font-medium)" }}
             >
-              Feel free to reach out for project, inquiries or just to say hi.
+              Feel free to reach out for project,
+              <br />
+              inquiries or just to say hi.
             </p>
 
             {/* Send Button */}

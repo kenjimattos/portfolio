@@ -15,6 +15,11 @@ export const About = () => {
   const imageRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    // Valores responsivos baseados no viewport
+    const vh = window.innerHeight;
+    const textOffset = vh * 0.08;
+    const imageOffset = vh * 0.1;
+
     // Split text into lines
     const split = new SplitText(textRef.current, { type: "lines" });
 
@@ -32,12 +37,12 @@ export const About = () => {
       // Entrada: de baixo para posição original
       tl.fromTo(
         line,
-        { y: 60 },
+        { y: textOffset },
         { y: 0, duration: 0.4, delay: index * 0.05 }
       );
 
       // Saída: de posição original para cima
-      tl.to(line, { y: -60, duration: 0.4, delay: index * 0.05 }, "+=0.2");
+      tl.to(line, { y: -textOffset, duration: 0.4, delay: index * 0.05 }, "+=0.2");
     });
 
     // Timeline for image - entrada e saída
@@ -51,10 +56,10 @@ export const About = () => {
     });
 
     // Entrada: de baixo para posição original
-    imageTl.fromTo(imageRef.current, { y: 80 }, { y: 0, duration: 0.5 });
+    imageTl.fromTo(imageRef.current, { y: imageOffset }, { y: 0, duration: 0.5 });
 
     // Saída: de posição original para cima
-    imageTl.to(imageRef.current, { y: -80, duration: 0.5 }, "+=0.2");
+    imageTl.to(imageRef.current, { y: -imageOffset, duration: 0.5 }, "+=0.2");
 
     return () => {
       split.revert();
@@ -65,35 +70,40 @@ export const About = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="w-full h-[660px] px-[120px] py-[112px] flex justify-center items-center gap-[60px] "
+      className="w-full flex flex-col md:flex-row items-center"
+      style={{
+        padding: "clamp(40px, 8vw, 112px) clamp(20px, 5vw, 40px)",
+        gap: "clamp(20px, 4vw, 60px)",
+      }}
     >
       {/* Text */}
       <p
         ref={textRef}
-        className="max-w-[782px] text-[38px] text-justify"
+        className="flex-1"
         style={{
-          fontFamily: "var(--font-gabarito)",
-          lineHeight: "1.68em",
+          fontSize: "clamp(14px, 3vw, 36px)",
+          lineHeight: "clamp(24px, 5vw, 54px)",
         }}
       >
-        I work at the intersection of design and front-end development, turning
-        complex product requirements into clear, usable interfaces. With a
-        background in UX/UI, motion design, and engineering, I focus on building
-        thoughtful, well-crafted experiences that make real products easier to
-        use.
+        I work at the intersection of design and front-end development, 
+        turning product requirements into clear, usable interfaces.
+        <br />
+        With a background in UX/UI, motion design, and engineering,
+        <br />
+        I focus on building thoughtful, well-crafted experiences that make real products easier to use.
       </p>
 
       {/* Image */}
       <div
         ref={imageRef}
-        className="w-[360px] h-[418px] rounded-[10px] overflow-hidden shrink-0 mt-[10px]"
+        className="rounded-sm shrink-0 w-full md:w-auto overflow-hidden aspect-square md:aspect-360/418"
       >
         <Image
           src="/img/about-photo.png"
           alt="Kenji"
           width={360}
           height={418}
-          className="object-cover"
+          className="w-full h-full object-cover object-top md:object-center"
         />
       </div>
     </section>

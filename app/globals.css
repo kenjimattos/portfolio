@@ -13,10 +13,20 @@
   --font-gabarito: var(--font-gabarito);
   --font-gravitas: var(--font-gravitas);
   --text-primary: var(--foreground);
+
+  /* Tipografia fluida */
+  --font-hero: clamp(48px, 10vw, 120px);
+  --font-hero-small: clamp(16px, 3vw, 30px);
+  --font-title: clamp(36px, 8vw, 96px);
   --font-large: clamp(28px, 3.5vw, 50px);
   --font-medium: clamp(18px, 2vw, 30px);
   --font-small: clamp(14px, 2vw, 30px);
   --font-xsmall: clamp(12px, 1vw, 14px);
+
+  /* Espaçamentos fluidos */
+  --space-section: clamp(60px, 10vw, 120px);
+  --space-content: clamp(30px, 5vw, 60px);
+  --space-inner: clamp(20px, 4vw, 40px);
 }
 
 @layer components {
@@ -24,7 +34,7 @@
     @apply text-white bg-primary hover:bg-foreground rounded-xs cursor-pointer flex justify-center items-center;
     padding: clamp(10px, 0.5vw, 20px) clamp(10px, 2vw, 40px);
     font-size: clamp(15px, 2vw, 25px);
-    min-width: clamp(190px, 1vw, 250px);
+    min-width: clamp(120px, 12vw, 250px);
   }
 
   .work-hero {

@@ -21,7 +21,7 @@ const projects = [
     id: 2,
     name: "Houston",
     description:
-      "Web platform built to help hiring teams manage medical shift schedules and candidate workflows.",
+      "Web platform built to manage medical shift schedules and candidate workflows.",
     image: "/img/work-houston-47f1ad.png",
     href: "/work/houston",
   },
@@ -33,9 +33,13 @@ export const Work = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    // Valores responsivos baseados no viewport
+    const vh = window.innerHeight;
+    const animationOffset = vh * 0.4;
+
     // Animacao do titulo
     gsap.from(titleRef.current, {
-      y: 400,
+      y: animationOffset,
       duration: 0.5,
       stagger: 0.2,
       ease: "power3.out",
@@ -51,7 +55,7 @@ export const Work = () => {
     const cards = cardsRef.current?.children;
     if (cards) {
       gsap.from(cards, {
-        y: 400,
+        y: animationOffset,
         duration: 0.6,
         stagger: 0.2,
         ease: "power3.out",
@@ -69,14 +73,19 @@ export const Work = () => {
     <section
       id="work"
       ref={sectionRef}
-      className="w-full py-[110px] px-[10px]"
+      className="w-full"
+      style={{ padding: "clamp(40px, 8vw, 110px) clamp(10px, 2vw, 10px)" }}
     >
       {/* Dark background container */}
-      <div className="bg-[#161616] rounded-[10px] px-[110px] pt-[104px] pb-[120px]">
+      <div
+        className="bg-foreground rounded-[10px]"
+        style={{ padding: "clamp(40px, 8vw, 104px) clamp(20px, 8vw, 110px) clamp(60px, 10vw, 120px)" }}
+      >
         {/* Title */}
         <h2
           ref={titleRef}
-          className="text-[96px] leading-[1em] font-extrabold text-[#FFFFF9] mb-[96px]"
+          className="leading-[1em] font-extrabold text-background"
+          style={{ fontSize: "clamp(36px, 8vw, 96px)", marginBottom: "clamp(40px, 8vw, 96px)" }}
         >
           SELECTED WORK
         </h2>
@@ -84,36 +93,38 @@ export const Work = () => {
         {/* Project cards */}
         <div
           ref={cardsRef}
-          className="flex flex-col gap-[96px]"
+          className="flex flex-col"
+          style={{ gap: "clamp(40px, 8vw, 96px)" }}
         >
           {projects.map((project) => (
             <Link
               key={project.id}
               href={project.href}
-              className="relative w-full h-[535px] rounded-[5px] overflow-hidden cursor-pointer group block"
+              className="relative w-full rounded-[5px] overflow-hidden cursor-pointer group block bg-left"
               style={{
                 backgroundImage: `url(${project.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
+                aspectRatio: "16/9",
               }}
             >
               {/* Content overlay */}
               <div className="absolute flex flex-col justify-start"
                 style={{
-                  padding: "clamp(15px, 3vw, 60px) clamp(15px, 3vw, 60px)",
-                  maxWidth: "clamp(300px, 40%, 600px)",
-                  gap: "clamp(10px, 1.5vw, 24px)",
+                  padding: "clamp(12px, 3vw, 60px)",
+                  maxWidth: "clamp(95px, 32vw, 600px)",
+                  gap: "clamp(6px, 1.5vw, 24px)",
                 }}
               >
                 <h2
-                  className="text-[40px] leading-[1em] font-medium"
-                  style={{ fontSize: "clamp(24px, 4vw, 40px)" }}
+                  className="leading-[1em] font-medium"
+                  style={{ fontSize: "clamp(20px, 4vw, 40px)" }}
                 >
                   {project.name}
                 </h2>
                 <p
-                  className="text-[24px] leading-[1.2em] font-normal"
-                  style={{ fontSize: "clamp(14px, 4vw, 24px)" }}
+                  className="leading-[1.2em] font-normal"
+                  style={{ fontSize: "clamp(12px, 2vw, 24px)",}}
                 >
                   {project.description}
                 </p>
