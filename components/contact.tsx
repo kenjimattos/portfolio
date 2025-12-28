@@ -21,6 +21,7 @@ export const Contact = () => {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   useGSAP(() => {
     // Valores responsivos baseados no viewport
@@ -28,6 +29,7 @@ export const Contact = () => {
     const titleOffset = vh * 0.3;
     const formOffset = vh * 0.3;
     const textOffset = vh * 0.1;
+    const isMobile = window.innerWidth < 640; // sm breakpoint
 
     // Animate title
     gsap.from(titleRef.current, {
@@ -57,7 +59,7 @@ export const Contact = () => {
       });
     }
 
-    // Referência ao textarea para usar como trigger
+    // Referência ao textarea para usar como trigger no mobile
     const textarea = formRef.current?.querySelector("textarea");
 
     // Split text into lines and animate - começa invisível
@@ -73,8 +75,8 @@ export const Contact = () => {
         stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: textarea,
-          start: "top 70%",
+          trigger: isMobile ? textarea : sectionRef.current,
+          start: isMobile ? "top 70%" : "top 60%",
           toggleActions: "play none none reverse",
         },
       });
@@ -89,17 +91,44 @@ export const Contact = () => {
       duration: 0.6,
       ease: "power3.out",
       scrollTrigger: {
-        trigger: textarea,
-        start: "top 62%",
+        trigger: isMobile ? textarea : sectionRef.current,
+        start: isMobile ? "top 62%" : "top 60%",
         toggleActions: "play none none reverse",
       },
     });
   }, { scope: sectionRef });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+
+    if (!isValidEmail(formData.email)) {
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -107,32 +136,32 @@ export const Contact = () => {
       id="contact"
       ref={sectionRef}
       className="w-full flex flex-col items-center justify-center"
-      style={{ padding: "clamp(60px, 10vw, 120px) clamp(20px, 5vw, 40px)" }}
+      style={{ padding: "clamp(60px, 10vw, 120px) clamp(20px, 4vw, 60px)" }}
     >
       {/* Container centralizado */}
       <div
-        className="w-full max-w-[1200px] flex flex-col"
+        className="w-full flex flex-col"
         style={{ gap: "clamp(30px, 5vw, 60px)" }}
       >
         {/* Title */}
-        <h2
+        <h1
           ref={titleRef}
-          className="text-black font-extrabold leading-none"
-          style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(36px, 8vw, 96px)" }}
+          className="font-extrabold"
+          style={{ fontSize: "clamp(36px, 8vw, 96px)" }}
         >
           GET IN TOUCH
-        </h2>
+        </h1>
 
         {/* Content row */}
         <div
-          className="flex flex-col sm:flex-row"
+          className="flex flex-col sm:flex-row justify-between"
           style={{ gap: "clamp(30px, 5vw, 62px)" }}
         >
           {/* Form */}
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="flex flex-col w-full sm:w-2/3 shrink-0"
+            className="flex flex-col w-full sm:w-1/2 shrink-0"
             style={{ gap: "clamp(12px, 1.5vw, 17px)" }}
           >
             {/* Name */}
@@ -148,6 +177,7 @@ export const Contact = () => {
                 fontSize: "clamp(14px, 1.5vw, 16px)",
               }}
               placeholder="Name"
+              required
             />
 
             {/* Email */}
@@ -163,6 +193,7 @@ export const Contact = () => {
                 fontSize: "clamp(14px, 1.5vw, 16px)",
               }}
               placeholder="Email"
+              required
             />
 
             {/* Message */}
@@ -177,19 +208,18 @@ export const Contact = () => {
                 fontSize: "clamp(14px, 1.5vw, 16px)",
               }}
               placeholder="Message"
+              required
             />
           </form>
 
           {/* Right column - alinha com o campo de mensagem */}
           <div
             ref={rightColRef}
-            className="flex flex-col justify-start sm:justify-end w-full sm:max-w-[500px] self-end content-gap"
-            style={{ minHeight: "clamp(180px, 22vw, 242px)" }}
+            className="flex flex-col w-full sm:w-1/2 justify-start sm:justify-end content-gap"
           >
             <p
               ref={textRef}
-              className="text-black font-light leading-[1.3em]"
-              style={{ fontFamily: "var(--font-gabarito)", fontSize: "var(--font-medium)" }}
+              style={{ fontSize: "var(--font-medium)" }}
             >
               Feel free to reach out for project,
               <br />
@@ -202,8 +232,9 @@ export const Contact = () => {
               ref={buttonRef}
               type="submit"
               onClick={handleSubmit}
+              disabled={status === "loading"}
             >
-              Send
+              {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : status === "error" ? "Try again" : "Send"}
             </button>
           </div>
         </div>
