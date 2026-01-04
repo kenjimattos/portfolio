@@ -5,7 +5,7 @@ import { Nav } from "@/components/nav";
 
 export default function RevolunaPage() {
   return (
-    <main className="flex flex-col items-center gap">
+    <main className="flex flex-col items-center">
       {/* Hero Section */}
       <section
         id="top"
@@ -33,7 +33,7 @@ export default function RevolunaPage() {
       </section>
 
       {/* Overview Section */}
-      <section className="section w-full">
+      <section className="section-pb w-full">
         <div className="content-gap flex flex-col sm:flex-row">
           {/* Left - Tags */}
           <div className="text-gap flex flex-col items-start sm:items-center">
@@ -91,9 +91,10 @@ export default function RevolunaPage() {
 
       {/* Challenge Section */}
       <section
-        className="section content-gap bg-[#F5EDFF] overflow-hidden flex flex-col sm:flex-row items-center"
+        className="section-pb content-gap bg-[#F5EDFF] overflow-hidden flex flex-col sm:flex-row items-center"
         style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
+          marginBottom: "clamp(5px, 0.3vw, 10px)",
         }}
       >
         <div className="text-gap flex flex-col justify-center">
@@ -136,7 +137,6 @@ export default function RevolunaPage() {
       <section className="w-full flex justify-center overflow-hidden"
           style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
-          marginBottom: "clamp(20px, 4vw, 60px)",   
         }}
         >
         <Image
@@ -193,9 +193,6 @@ export default function RevolunaPage() {
       {/* Schedule and Notifications Section */}
       <section
         className="section w-full relative overflow-hidden"
-        style={{
-          paddingTop: "clamp(30px, 8vw, 80px)",
-        }}
       >
         {/* Top row - Schedule image left, My Schedule text right */}
         <div className="flex flex-row items-center">
@@ -378,10 +375,9 @@ export default function RevolunaPage() {
       </section>
 
       {/* Login and Subscription Section */}
-      <section className="w-full flex justify-center overflow-hidden"
+      <section className="w-full flex justify-center rounded-sm overflow-hidden"
           style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
-          paddingTop: "clamp(20px, 6vw, 60px)",
         }}
         >
         <Image
@@ -463,7 +459,7 @@ export default function RevolunaPage() {
       </section>
 
       {/* Outcome Section */}
-      <section className="section text-gap w-full flex flex-col">
+      <section className="section-pb text-gap w-full flex flex-col">
         <h3>
           Outcome
         </h3>
