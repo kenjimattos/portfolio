@@ -48,7 +48,14 @@
   }
 
   .section {
-    @apply rounded-sm;
+    @apply rounded-sm overflow-hidden;
+    padding-top: clamp(20px, 6vw, 60px);
+    padding-left: clamp(40px, 8vw, 180px);
+    padding-right: clamp(40px, 8vw, 180px);
+  }
+
+    .section-pb {
+    @apply rounded-sm overflow-hidden;
     padding: clamp(20px, 6vw, 60px) clamp(40px, 8vw, 180px);
   }
 
@@ -83,6 +90,36 @@
 
   .numbered span {
     @apply text-gray-500;
+  }
+
+  /* Section com imagem cropped */
+  .section-image {
+    @apply w-full flex flex-col overflow-hidden items-start h-fit xl:h-180;
+    padding-top: clamp(20px, 6vw, 60px);
+    padding-left: clamp(40px, 8vw, 180px);
+    padding-right: clamp(40px, 8vw, 180px);
+    gap: clamp(30px, 4vw, 60px);
+  }
+
+  .section-image--right {
+    @apply lg:flex-row lg:pr-0;
+  }
+
+  .section-image--left {
+    @apply lg:flex-row-reverse lg:pl-0;
+  }
+
+  .section-image__text {
+    @apply flex flex-col self-center;
+    gap: clamp(16px, 1.5vw, 20px);
+  }
+
+  .section-image--left .section-image__text {
+    @apply lg:text-right;
+  }
+
+  .section-image__image {
+    @apply w-full lg:shrink-0;
   }
 }
 
