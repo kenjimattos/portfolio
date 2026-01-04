@@ -130,7 +130,7 @@ export const Hero = () => {
         {/* "hi, my name is kenji" - separado */}
         <span
           ref={hiRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[50px] leading-[1em] text-[#171717]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-12.5 leading-[1em] text-[#171717]"
           style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(16px, 3vw, 30px)" }}
         >
           hi, my name is kenji
