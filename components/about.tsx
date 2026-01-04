@@ -70,26 +70,22 @@ export const About = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="w-full flex flex-col md:flex-row items-center"
-      style={{
-        padding: "clamp(40px, 8vw, 112px) clamp(20px, 5vw, 40px)",
-        gap: "clamp(20px, 4vw, 60px)",
-      }}
+      className="section content-gap w-full flex flex-col md:flex-row items-center"
     >
       {/* Text */}
       <p
         ref={textRef}
-        className="flex-1"
+        className="w-full"
         style={{
-          fontSize: "clamp(14px, 3vw, 36px)",
-          lineHeight: "clamp(24px, 5vw, 54px)",
+          fontSize: "clamp(20px, 3vw, 45px)",
+          textAlign: "justify",
         }}
       >
         I work at the intersection of design and front-end development, 
         turning product requirements into clear, usable interfaces.
-        <br />
+        <br/>
+        <br/>
         With a background in UX/UI, motion design, and engineering,
-        <br />
         I focus on building thoughtful, well-crafted experiences that make real products easier to use.
       </p>
 

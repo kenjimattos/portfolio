@@ -124,9 +124,9 @@ export const Hero = () => {
   }, { scope: containerRef });
 
   return (
-    <div id="home" ref={containerRef} className="overflow-hidden" style={{ minHeight: "clamp(500px, 85vh, 100vh)" }}>
+    <div id="home" ref={containerRef} className="overflow-hidden h-100dvh">
       {/* Tela inicial */}
-      <div className="flex flex-col items-center justify-center relative" style={{ height: "clamp(500px, 85vh, 100vh)", paddingTop: "clamp(60px, 10vh, 100px)" }}>
+      <div className="flex flex-col items-center justify-center relative" style={{ height: "100dvh", paddingTop: "clamp(60px, 10dvh, 100px)" }}>
         {/* "hi, my name is kenji" - separado */}
         <span
           ref={hiRef}
@@ -139,7 +139,7 @@ export const Hero = () => {
         {/* "i am a" container - para posicionar os elementos */}
         <div
           ref={iAmARef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-[10px] flex items-baseline gap-1"
+          className="absolute top-96 left-1/2 -translate-x-1/2 flex items-baseline gap-3"
         >
           <span
             ref={iAmRef}
@@ -156,7 +156,7 @@ export const Hero = () => {
               className="leading-[1em] text-foreground"
               style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(16px, 3vw, 30px)" }}
             >
-              a
+             a
             </span>
             <div
               ref={aLineRef}
@@ -187,7 +187,7 @@ export const Hero = () => {
         <section
           ref={wordsContainerRef}
           className="absolute left-1/2 w-[90vw] max-w-[838px]"
-          style={{ aspectRatio: "838/540", top: "55%", transform: "translate(-50%, -50%)" }}
+          style={{ aspectRatio: "838/540", top: "50%", transform: "translate(-50%, -50%)" }}
         >
           {/* Group 1: DESIGNER with strikethrough */}
           <div
