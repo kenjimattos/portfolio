@@ -2,6 +2,7 @@
 
 import { Mail } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 
 export const Footer = () => {
   const router = useRouter();
@@ -35,7 +36,7 @@ export const Footer = () => {
         }}
       >
         {/* Logo */}
-        <a
+        <Link
           className="text-background hover:text-primary transition-opacity leading-[1em] w-fit"
           style={{
             fontFamily: "var(--font-gravitas)",
@@ -45,7 +46,7 @@ export const Footer = () => {
           href="/"
         >
           knji
-        </a>
+        </Link>
 
         {/* Copyright and Rights */}
         <div
