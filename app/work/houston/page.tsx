@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { Nav } from "@/components/nav";
 
-export default function RevolunaPage() {
+export default function HoustonPage() {
   return (
-    <main className="flex flex-col items-center gap">
+    <main className="flex flex-col items-center">
       {/* Hero Section */}
       <section
         id="top"
@@ -37,10 +37,10 @@ export default function RevolunaPage() {
         <div className="content-gap flex flex-col sm:flex-row">
           {/* Left - Tags */}
           <div className="text-gap flex flex-col items-start sm:items-center">
-              <h3>
+            <h3>
               My role
             </h3>
-          <div className="tags">
+            <div className="tags">
               {["Front-end", "Back-end", "Product", "Architecture", "Engineering"].map(
                 (tag) => (
                   <div key={tag} className="tag">
@@ -48,7 +48,7 @@ export default function RevolunaPage() {
                   </div>
                 )
               )}
-          </div>
+            </div>
           </div>
 
           {/* Divider */}
@@ -73,8 +73,7 @@ export default function RevolunaPage() {
                 fontSize: "var(--font-medium)",
               }}
             >
-              Houston is a web application used by hospitals and staffing teams to plan schedules, manage candidates, 
-              control attendance, and handle payments in one place.
+              Houston is a web application used by hospitals and staffing teams to plan schedules, manage candidates, control attendance, and handle payments in one place.
               <br />
               <br />
               The platform supports complex workflows while remaining efficient, reliable, and easy to operate on a daily basis.
@@ -101,10 +100,7 @@ export default function RevolunaPage() {
               fontSize: "var(--font-medium)",
             }}
           >
-            Houston started as a simple support tool for 
-            managing job postings and applications coming 
-            from the mobile app. As operations grew, this 
-            approach no longer scaled.
+            Houston started as a simple support tool for managing job postings and applications coming from the mobile app. As operations grew, this approach no longer scaled.
           </p>
           <p
             className="text-justify"
@@ -112,9 +108,7 @@ export default function RevolunaPage() {
               fontSize: "var(--font-medium)",
             }}
           >
-            Hiring teams needed visibility, control, 
-            and automation across the entire lifecycle 
-            of medical shifts.
+            Hiring teams needed visibility, control, and automation across the entire lifecycle of medical shifts.
           </p>
           <p
             className="text-justify"
@@ -122,73 +116,180 @@ export default function RevolunaPage() {
               fontSize: "var(--font-medium)",
             }}
           >
-            The challenge was to transform an early tool 
-            into a robust, multi-tenant platform capable of 
-            handling real-world operational complexity without 
-            slowing teams down.
+            The challenge was to transform an early tool into a robust, multi-tenant platform capable of handling real-world operational complexity without slowing teams down.
           </p>
         </div>
         {/* Old app screenshot */}
-          
         <div className="text-gap flex flex-col items-center">
           <p
             className="self-start"
             style={{
               fontSize: "var(--font-xsmall)",
               paddingLeft: "clamp(10px, 7vw, 110px)",
-            }}>
+            }}
+          >
             Houston previous version
           </p>
-            <Image
-              src="/img/houston/first-version.png"
-              alt="Houston first version"
-              width={1210}
-              height={730}
-            />
+          <Image
+            src="/img/houston/first-version.png"
+            alt="Houston first version"
+            width={1210}
+            height={730}
+          />
         </div>
       </section>
 
       {/* The Solution Text */}
-      <section className="section w-full flex flex-col justify-center">
+      <section className="section-pb w-full flex flex-col justify-center">
         <h3>
           The solution
         </h3>
         <p
-          className="sm:text-justify"
+          className="text-justify"
           style={{
             fontSize: "var(--font-large)",
           }}
         >
-        A platform designed around operational clarity and scalability. 
-        Centralizing scheduling, applications, attendance validation, 
-        payments, and reporting into a single system.
+          A platform designed around operational clarity and 
+          scalability. Centralizing scheduling, applications, 
+          attendance validation, payments, and reporting into a single system.
         </p>
       </section>
-      
+
       {/* The Solution Image */}
-      <section className="w-full flex justify-center overflow-hidden"
-          style={{
+      <section
+        className="w-full flex justify-center overflow-hidden"
+        style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
-          marginBottom: "clamp(20px, 4vw, 60px)",   
         }}
-        >
+      >
         <Image
-          className="w-full object-fill"
+          className="w-full"
           src="/img/houston/solution.png"
-          alt="Houston"
+          alt="Houston solution"
           width={2880}
           height={1520}
         />
       </section>
 
-      {/* Explore Section */}
-      <section className="section w-full flex flex-col items-center justify-center"
+      {/* Operational Dashboard Section */}
+      <section className="section-pb w-full flex flex-col justify-items-start">
+        <div className="flex flex-col text-gap">
+        <h2>
+          Operational Dashboard
+        </h2>
+        <p
+          className="text-justify"
           style={{
-          gap: "clamp(15px, 2vw, 30px)",
-        }}
-      >
-        <h2 className="w-full">
-          Explore
+            fontSize: "var(--font-medium)",
+          }}
+        >
+          A real-time overview of open and filled shifts, pending applications, operational risk, and payroll totals, with global month-based filtering.
+        </p>
+        </div>
+        <Image
+          className="w-full rounded-sm"
+          src="/img/houston/dasboard.png"
+          alt="Operational Dashboard"
+          width={954}
+          height={603}
+        />
+      </section>
+
+      {/* Schedule Builder Section */}
+      <section className="section-pb content-gap flex flex-col">
+        <div className="flex flex-col text-gap">
+          <h2>
+            Schedule Builder
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--font-small)",
+            }}
+          >
+            An interactive grid-based interface for creating
+            and managing medical schedules. Supports drag and drop
+            creation, resizing, duplication, conflict detection,
+            and batch publishing of shifts.
+          </p>
+        </div>
+        <div className="relative">
+          <Image
+            src="/img/houston/schedule.png"
+            alt="Schedule Builder"
+            width={954}
+            height={603}
+            style={{width: "95%"}}
+          />
+          <Image
+            src="/img/houston/schedule.gif"
+            alt="Schedule Builder animation"
+            width={757}
+            height={321}
+            className="absolute w-[60%] h-auto"
+            style={{
+              borderRadius: "clamp(4px, 1vw, 10px)",
+              borderWidth: "clamp(0.5px, 0.2vw, 2px)",
+              borderStyle: "solid",
+              borderColor: "#A369ED",
+              right: "0",
+              bottom: "clamp(60px, 80%, 100px)",
+            }}
+            unoptimized
+          />
+        </div>
+      </section>
+
+      {/* Job & Application Management Section */}
+      <section className="section-pb flex flex-col content-gap">
+
+        <div className="flex flex-col text-gap">
+          <h2>
+            Job & Application Management
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--font-small)",
+            }}
+          >
+            Centralized management of job postings and applications with bulk actions, recurrence handling, and conflict validation.
+          </p>
+        </div>
+          <Image
+            src="/img/houston/application.png"
+            alt="Job & Application Management"
+            width={1826}
+            height={1360}
+          />
+      </section>
+
+      {/* Shift Calendar Section */}
+      <section className="section-pb flex flex-col content-gap">
+        <div className="flex flex-col text-gap">
+          <h2>
+            Shift Calendar
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--font-small)",
+            }}
+          >
+            Custom calendar views for weekly, monthly, and daily management, with quick actions, candidate assignment, and status tracking.
+          </p>
+        </div>
+          <Image
+            src="/img/houston/calendar.png"
+            alt="Shift Calendar"
+            width={1466}
+            height={1020}
+          />
+      </section>
+
+      {/* Attendance & Payments Section */}
+      <section className="section-pb content-gap w-full flex flex-col justify-items-start">
+        <div className="flex flex-col text-gap">
+        <h2>
+          Attendance & Payments
         </h2>
         <p
           className="text-justify"
@@ -196,290 +297,181 @@ export default function RevolunaPage() {
             fontSize: "var(--font-small)",
           }}
         >
-          Doctors can browse available shifts with clear details such as location, schedule, and payment, making it easier to find relevant opportunities quickly.
+          Integrated check-in and check-out control with approval flows, payment authorization, and batch operations for large volumes of shifts.
         </p>
+        </div>
+
         <Image
-          src="/img/revoluna/explore.png"
-          alt="Explore feature"
-          width={1055}
-          height={621}
+          className="w-full rounded-sm"
+          src="/img/houston/payments.png"
+          alt="Attendance & Payments"
+          width={954}
+          height={603}
         />
       </section>
 
-      {/* Schedule and Notifications Section */}
-      <section
-        className="section w-full relative overflow-hidden"
-        style={{
-          paddingTop: "clamp(30px, 8vw, 80px)",
-        }}
-      >
-        {/* Top row - Schedule image left, My Schedule text right */}
-        <div className="flex flex-row items-center">
-          {/* Schedule Phone Image */}
-            <Image
-              src="/img/revoluna/schedule.png"
-              alt="Schedule screen"
-              width={439}
-              height={598}
-              className="h-auto relative z-10"
-              style={{ maxWidth: "clamp(200px, 44vw, 439px)" }}
-            />
-
-          {/* My Schedule Text with line */}
-          <div
-            className="flex flex-col"
-            style={{
-              paddingLeft: "clamp(10px, 3vw, 40px)",
-              gap: "clamp(0px, 0.5vw, 30px)",
-            }}
-          >
-            {/* Title with line */}
-            <div className="flex w-full items-center"
-              style={{ gap: "clamp(10px, 1vw, 15px)" }}>
-              {/* Connecting line */}
-              <div className="block flex-1 h-px bg-[#161616] z-0"
-              style={{marginLeft: "-150px"}}/>
-              <h2>
-                My Schedule
-              </h2>
-            </div>
-            {/* Description */}
-            <p
-              className="text-right"
-              style={{
-                fontSize: "var(--font-small)",
-                minWidth: "clamp(50px, 30vw, 554px)",
-              }}
-            >
-              A clear view of upcoming shifts, including visibility into when
-              other colleagues from the same hospital will also be on duty.
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom row - Notifications text left, Notifications image right */}
-        <div className="flex flex-row items-center">
-          {/* Notifications Text with line */}
-          <div
-            className="flex-1 flex flex-col items-start justify-end"
-            style={{
-              gap: "clamp(0px, 0.5vw, 30px)",
-            }}
-          >
-            {/* Title with line */}
-            <div className="flex items-center w-full" style={{ gap: "clamp(16px, 2vw, 30px)" }}>
-              <h2>
-                Notifications
-              </h2>
-              {/* Connecting line */}
-              <div className="block flex-1 h-px bg-foreground"
-              style={{marginRight: "-120px"}}/>
-            </div>
-            {/* Description */}
-            <p
-              style={{
-                fontSize: "var(--font-small)",
-                minWidth: "clamp(50px, 30vw, 554px)",
-              }}
-            >
-              Built with Firebase Cloud Messaging, it supports
-              communication for application updates, schedules, and check-in and check-out reminders.
-            </p>
-          </div>
-           {/* Notifications Phone Image */}
-            <Image
-              src="/img/revoluna/notifications.png"
-              alt="Notifications screen"
-              width={845}
-              height={1110}
-              className="relative z-10"
-              style={{ maxWidth: "clamp(230px, 44vw, 439px)" }}
-            />
-        </div>
-      </section>
-
-      {/* Shift Transfer Section */}
-      <section className="section w-full relative">
-        {/* Image left, text right */}
-        <div className="flex flex-row items-center">
-          {/* Feature Image */}
-           
-          <div>
-          <Image
-            src="/img/revoluna/transfer.png"
-            alt="Schedule screen"
-            width={1081}
-            height={1008}
-            className="relative z-10"
-          />
-          </div>
-
-          {/*Text with line */}
-          <div
-            className="flex flex-col"
-            style={{
-              paddingLeft: "clamp(10px, 3vw, 40px)",
-              gap: "clamp(0px, 0.5vw, 30px)",
-            }}
-          >
-            {/* Title with line */}
-            <div className="flex w-full items-center"
-              style={{ gap: "clamp(10px, 1vw, 15px)" }}>
-              {/* Connecting line */}
-              <div className="block flex-1 h-px bg-foreground z-0"
-              style={{marginLeft: "-90px"}}/>
-              <h2>
-                Shift Transfer
-              </h2>
-            </div>
-            {/* Description */}
-            <p
-              className="text-right"
-              style={{
-                fontSize: "var(--font-small)",
-                minWidth: "clamp(50px, 30vw, 554px)",
-              }}
-            >
-              Doctors can make a scheduled shift available so colleagues from the same group can take over when needed.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Check-in / Check-out Section */}
-      <section
-        className="section w-full content-gap flex overflow-hidden justify-between items-center object-contain"
-        style={{
-          height: "clamp(250px, 50vw, 720px)",
-        }}
-      >
-          {/*Text*/}
-          <div
-            className="flex flex-col shrink-0"
-            style={{
-              gap: "clamp(10px, 1.5vw, 30px)",
-              width: "clamp(150px, 30vw, 500px)",
-            }}
-          >
-            {/* Title */}
-            <h2>
-            Check In-Out
-            with location validation
-            </h2>
-            {/* Description */}
-            <p
-              className="text-left"
-              style={{
-                fontSize: "var(--font-small)",
-              }}
-            >
-              Doctors receive reminders to check in
-              and out within defined time windows. Validation
-              is completed only within a 100m radius of the hospital
-              to ensure payroll accuracy, with location checked only at submission time.
-            </p>
-          </div>
-
-          {/* Feature Image */}
-          <img
-            style={{
-              width: "clamp(200px, 55vw, 800px)",
-              height: "auto",
-              objectFit: "contain",
-              objectPosition: "right center",
-            }}
-            src="/img/revoluna/checkin-checkout.png"
-            alt="Check-in and Check-out screens"
-          />
-      </section>
-
-      {/* Login and Subscription Section */}
-      <section className="w-full flex justify-center overflow-hidden"
-          style={{
-          width: "calc(100% - clamp(16px, 2vw, 30px))",
-          paddingTop: "clamp(20px, 6vw, 60px)",
-        }}
-        >
+      {/* Doctors & Teams Section */}
+      <section className="section-pb w-full flex flex-col sm:flex-row-reverse items-center">
         <Image
-          className="w-full object-fill"
-          src="/img/revoluna/login-subscription.png"
-          alt="Login and Subscription"
-          width={1440}
-          height={960}
+          className="rounded-sm sm:w-1/2"
+          src="/img/houston/teams.png"
+          alt="Doctors & Teams"
+          width={653}
+          height={493}
+        />
+        <div
+          className="text-gap flex flex-col"
+          style={{
+            paddingRight: "clamp(0px, 3vw, 40px)",
+          }}
+        >
+          <h2>
+            Doctors & Teams
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--font-medium)",
+            }}
+          >
+            Management of medical staff, teams, favorites, and pre-registered doctors, enabling faster assignments and better organization.
+          </p>
+        </div>
+      </section>
+
+      {/* Reports & Insights Section */}
+      <section className="w-full section-pb content-gap bg-cover flex flex-col sm:flex-row items-center lg:h-dvh bg-hidden-mobile"
+               style={{
+                "--bg-image": "url(/img/houston/reports.png)",
+                backgroundPosition: "clamp(0px, 30vw, 400px) 0px",
+                backgroundRepeat: "no-repeat",
+               } as React.CSSProperties}
+      >
+        <div
+          className="text-gap flex flex-col self-end lg:max-w-160"
+        >
+          <h2>
+            Reports & Insights
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--font-medium)",
+            }}
+          >
+            Operational and financial reports covering payroll, productivity, schedules, and exports, with unified filtering across the platform.
+          </p>
+        </div>
+      <section className="block lg:hidden">
+      <Image
+          className="rounded-sm lg:shrink-0"
+          src="/img/houston/reports.png"
+          alt="Reports & Insights"
+          width={1929}
+          height={1873}
+        /> 
+      </section>
+      </section>
+
+      {/* Access Control & Permissions Section */}
+      <section className="section-pb content-gap w-full flex flex-col sm:flex-row items-center">
+        <div
+          className="text-gap flex flex-col"
+          style={{
+            paddingRight: "clamp(0px, 3vw, 40px)",
+          }}
+        >
+          <h2>
+            Access Control & Permissions
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--font-medium)",
+            }}
+          >
+            Houston supports multiple hospitals, teams, and operational roles within the same platform. Access control was a critical part of the system design.
+          </p>
+          <p
+            style={{
+              fontSize: "var(--font-medium)",
+            }}
+          >
+            We implemented a role-based permission model that defines what each user can view, create, edit, or approve across different operational areas such as schedules, applications, attendance, and payments.
+          </p>
+        </div>
+        <Image
+          className="rounded-sm w-1/2"
+          src="/img/houston/access-control.png"
+          alt="Access Control & Permissions"
+          width={480}
+          height={638}
         />
       </section>
 
       {/* Implementation Section */}
-      <section className="section content-gap w-full flex flex-col justify-center">
-        {/* Title */}
+      <section className="section content-gap w-full flex flex-col">
         <h3>
           Implementation
         </h3>
 
-        {/* Figma Section */}
+        <p
+          className="text-justify"
+          style={{
+            fontSize: "var(--font-medium)",
+          }}
+        >
+          I led the development and coordinated a team of three engineers, establishing clear workflows, code standards, and review practices to keep delivery consistent and scalable.
+          <br /><br />
+          Implemented backend business rules using PostgreSQL to enforce operational constraints, approval flows, and financial consistency.
+        </p>
 
-          <p className="numbered">
-            <span>1.</span> Built the mobile experience by translating Figma designs into
-            reusable, production-ready UI components.
-          </p>
-          <div
-            className="flex w-full"
-            style={{ gap: "clamp(10px, 2vw, 64px)" }}
-          >
-            <Image
-              className="rounded-sm w-1/3"
-              src="/img/revoluna/figma-components.png"
-              alt="Figma components"
-              width={667}
-              height={959}
-            />
-            <Image
-              className="rounded-sm w-2/3"
-              src="/img/revoluna/figma-design.png"
-              alt="Figma design"
-              width={1361}
-              height={959}
-            />
-          </div>
+        <Image
+          className="w-full rounded-sm"
+          src="/img/houston/github.png"
+          alt="GitHub code"
+          width={1080}
+          height={742}
+        />
 
+        <p
+          className="text-justify"
+          style={{
+            fontSize: "var(--font-medium)",
+          }}
+        >
+          I managed the full lifecycle of database migrations, ensuring data consistency across environments. Defined and executed PostgreSQL migration strategies across development, staging, and production.
+        </p>
 
-          <p className="numbered">
-            <span>2.</span> Integrated REST APIs to support user verification, shift discovery,
-            applications, schedules, and payment-related workflows, including
-            infinite scrolling and real-time updates.
-            <br /><br />
-            <span>3.</span> Implemented core backend business rules using PostgreSQL to ensure
-            data consistency across scheduling and attendance flows.
-          </p>
-          <Image
-            className="w-full rounded-sm"
-            src="/img/revoluna/api.png"
-            alt="API integration"
-            width={2160}
-            height={1066}
-          />
+        <Image
+          className="w-full rounded-sm"
+          src="/img/houston/database.png"
+          alt="Database migrations"
+          width={1080}
+          height={796}
+        />
 
+        <p
+          className="text-justify"
+          style={{
+            fontSize: "var(--font-medium)",
+          }}
+        >
+          We implemented a complete CI/CD pipeline to ensure reliability and fast iteration across environments.
+          <br /><br />
+          Designed frontend flows tightly coupled to backend validation rules, reducing errors and manual intervention.
+          <br /><br />
+          Structured the system to support multi-tenant usage with role-based access control across teams and organizations.
+        </p>
 
-        {/* UI States Section */}
-          <p className="numbered">
-            <span>4.</span> Designed UI states based on real API responses, handling loading,
-            empty, and validation scenarios.
-            <br /><br />
-            <span>5.</span> Collaborated closely with backend logic to align product rules with
-            user-facing experiences.
-          </p>
-          <Image
-            className="w-full rounded-sm"
-            src="/img/revoluna/github.png"
-            alt="GitHub code"
-            width={2160}
-            height={1484}
-          />
-
+        <Image
+          className="w-full rounded-sm"
+          src="/img/houston/ci-cd.png"
+          alt="CI/CD pipeline"
+          width={1080}
+          height={595}
+        />
       </section>
 
       {/* Outcome Section */}
-      <section className="section text-gap w-full flex flex-col">
+      <section className="section-pb text-gap w-full flex flex-col">
         <h3>
           Outcome
         </h3>
@@ -490,32 +482,23 @@ export default function RevolunaPage() {
             fontSize: "var(--font-large)",
           }}
         >
-          The mobile app replaced informal workflows with a structured,
-          production-ready experience, giving doctors better visibility and
-          control over their schedules and payments.
+          Houston evolved into a production-grade operational platform used to manage the full lifecycle of medical shifts. The system reduced manual work, improved visibility for hiring teams, and supported the company&apos;s growth with a scalable and maintainable foundation.
         </p>
       </section>
 
-
-      {/* Icon and Store Section */}
-      <section className="w-full flex justify-center overflow-hidden gap"
-          style={{
+      {/* Outcome Image */}
+      <section
+        className="w-full flex justify-center overflow-hidden"
+        style={{
           width: "calc(100% - clamp(16px, 2vw, 30px))",
         }}
-        >
+      >
         <Image
-          className="w-1/2 rounded-sm"
-          src="/img/revoluna/icon.png"
-          alt="Icon"
-          width={740}
-          height={740}
-        />
-        <Image
-          className="w-1/2 rounded-sm"
-          src="/img/revoluna/store.png"
-          alt="Store"
-          width={700}
-          height={740}
+          className="w-full object-fill rounded-sm"
+          src="/img/houston/outcome.png"
+          alt="Houston outcome"
+          width={1441}
+          height={960}
         />
       </section>
 
