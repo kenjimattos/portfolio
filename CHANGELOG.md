@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.1] - 2026-01-05
+
+### Added
+- Deep Linking section on Revoluna case study page
+
 ## [1.0.0] - 2026-01-05
 
 ### Added
