@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 
 export const Header = () => {
   const router = useRouter();
@@ -28,7 +29,7 @@ export const Header = () => {
       style={{ padding: "clamp(10px, 2vw, 20px) clamp(10px, 4vw, 80px)" }}
     >
       <nav className="relative w-full max-w-[1200px] h-[60px]">
-        <a
+        <Link
           className="absolute top-[5px] left-0 leading-[1em] text-primary hover:text-foreground font-normal"
           style={{
             fontFamily: "var(--font-gravitas)",
@@ -38,7 +39,7 @@ export const Header = () => {
           href="/"
         >
           knji
-        </a>
+        </Link>
         <button
           onClick={handleContactClick}
           className="absolute top-[4px] right-0 btn-primary"
