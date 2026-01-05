@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0] - 2026-01-05
+
+### Changed
+- Substitui anchor tags por Next Link para melhor navegação
+- Atualiza seção de Deep Linking do case Revoluna para melhor responsividade
+
+### Fixed
+- Remove importação desnecessária
+
 ## [1.0.1] - 2026-01-05
 
 ### Added
