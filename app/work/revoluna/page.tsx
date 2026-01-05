@@ -374,6 +374,49 @@ export default function RevolunaPage() {
           />
       </section>
 
+      {/* Deep Linking Section */}
+      <section
+        className="section w-full content-gap flex overflow-hidden justify-between items-center object-contain"
+        style={{
+          height: "clamp(250px, 50vw, 720px)",
+        }}
+      >
+          {/* Feature Image */}
+          <img
+            style={{
+              width: "clamp(200px, 55vw, 800px)",
+              height: "auto",
+              objectFit: "contain",
+              objectPosition: "left center",
+            }}
+            src="/img/revoluna/deeplink.png"
+            alt="Deep linking screens"
+          />
+
+          {/*Text*/}
+          <div
+            className="flex flex-col shrink-0"
+            style={{
+              gap: "clamp(10px, 1.5vw, 30px)",
+              width: "clamp(150px, 30vw, 500px)",
+            }}
+          >
+            {/* Title */}
+            <h2>
+            Deep Linking & Contextual Navigation
+            </h2>
+            {/* Description */}
+            <p
+              className="text-right"
+              style={{
+                fontSize: "var(--font-small)",
+              }}
+            >
+              Implemented deep linking to route users directly to specific shift details inside the mobile app. Links can be generated from both the web admin platform and the mobile application, supporting seamless sharing and improving discovery and conversion flows.
+            </p>
+          </div>
+      </section>
+
       {/* Login and Subscription Section */}
       <section className="w-full flex justify-center rounded-sm overflow-hidden"
           style={{
