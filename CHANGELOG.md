@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2] - 2026-01-05
+
+### Fixed
+
+- Reponsividade do hero e about na página principal, especialmente em telas 16:9
+
 ## [1.2.1] - 2026-01-05
 
 ### Changed
