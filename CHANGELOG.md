@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0] - 2026-01-05
+
+### Added
+- Honeypot field e rate limiting para submissões no formulário de contato
+
 ## [1.1.1] - 2026-01-05
 
 ### Removed
