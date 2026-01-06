@@ -6,6 +6,10 @@
 
 - Limpeza de código e melhora na responsividade do hero principal
 
+### Fixed
+
+- Reponsividade do hero principal, especialmente em telas com zoom 125% ou mais
+
 ## [1.2.0] - 2026-01-05
 
 ### Added
