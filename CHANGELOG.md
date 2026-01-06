@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1] - 2026-01-05
+
+### Removed
+- Imagem de API Call do FlutterFlow no case Revoluna
+
+### Fixed
+- Tradução do changelog
+
 ## [1.1.0] - 2026-01-05
 
 ### Changed
