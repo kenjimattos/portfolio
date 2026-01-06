@@ -139,7 +139,7 @@ export const Hero = () => {
   return (
     <div id="home" ref={containerRef} className="overflow-hidden h-100dvh">
       {/* Tela inicial */}
-      <div className="flex flex-col items-center" style={{ height: "100dvh", paddingTop: "20dvh" }}>
+      <div className="flex flex-col items-center" style={{ height: "100dvh", paddingTop: "15dvh" }}>
         {/* "hi, my name is kenji" - separado */}
         <span
           ref={hiRef}

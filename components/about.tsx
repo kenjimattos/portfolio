@@ -70,15 +70,14 @@ export const About = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="section content-gap w-full flex flex-col md:flex-row items-center"
+      className="section-pb w-full flex flex-col md:flex-row content-gap items-center"
     >
       {/* Text */}
       <p
         ref={textRef}
-        className="w-full"
+        className="w-full text-justify sm:text-left lg:text-justify"
         style={{
-          fontSize: "clamp(20px, 3vw, 45px)",
-          textAlign: "justify",
+          fontSize: "clamp(20px, 2.4dvw, 45px)",
         }}
       >
         I work at the intersection of design and front-end development, 
@@ -92,14 +91,13 @@ export const About = () => {
       {/* Image */}
       <div
         ref={imageRef}
-        className="rounded-sm shrink-0 w-full md:w-auto overflow-hidden aspect-square md:aspect-360/418"
+        className="rounded-sm shrink-0 md:w-auto overflow-hidden"
       >
         <Image
           src="/img/about-photo.png"
           alt="Kenji"
           width={360}
           height={418}
-          className="w-full h-full object-cover object-top md:object-center"
         />
       </div>
     </section>
