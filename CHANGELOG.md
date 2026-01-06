@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1] - 2026-01-05
+
+### Changed
+
+- Limpeza de código e melhora na responsividade do hero principal
+
 ## [1.2.0] - 2026-01-05
 
 ### Added
