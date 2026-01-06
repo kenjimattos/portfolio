@@ -24,16 +24,29 @@ export const Hero = () => {
   const chevronRef = useRef<SVGSVGElement>(null);
 
   useGSAP(() => {
-      // Valores responsivos baseados no viewport
-      const vh = window.innerHeight;
-      const vw = window.innerWidth;
-      const initialY = vh * 0.75;
-      const exitY = vh * -0.6;
-      const separationX = Math.min(vw * 0.2, 320);
-      const iAmAY = vh * -0.28;
+      // Função clamp para limitar valores de animação
+      const clamp = (min: number, val: number, max: number) => Math.min(Math.max(val, min), max);
 
-      // Scroll distance proporcional ao viewport (menor em mobile)
-      const scrollDistance = Math.max(vh * 2.5, 1500);
+      // Usar wordsContainer como referência para escalar uniformemente
+      const wordsContainer = wordsContainerRef.current;
+      if (!wordsContainer) return;
+
+      const containerRect = wordsContainer.getBoundingClientRect();
+      const refHeight = containerRect.height;
+      const refWidth = containerRect.width;
+
+      // Altura do viewport para garantir elementos fora da tela
+      const viewportHeight = window.innerHeight;
+
+      // initialY precisa ser maior que o viewport para ficar fora da tela
+      const initialY = Math.max(viewportHeight, refHeight * 2);
+
+      // Valores com limites mín/máx para escala controlada
+      const exitY = clamp(-400, refHeight * -0.9, -250);
+      const separationX = clamp(100, refWidth * 0.4, 500);
+
+      // Scroll distance com limite
+      const scrollDistance = clamp(1200, refHeight * 3.5, 2000);
 
       // Timeline principal
       const tl = gsap.timeline({
@@ -68,7 +81,7 @@ export const Hero = () => {
 
       // Fase 2: "i am a" sobe junto primeiro
       .to(iAmARef.current, {
-        y: iAmAY,
+        y: 0,
         duration: 1,
       }, "<0.3")
 
@@ -126,45 +139,15 @@ export const Hero = () => {
   return (
     <div id="home" ref={containerRef} className="overflow-hidden h-100dvh">
       {/* Tela inicial */}
-      <div className="flex flex-col items-center justify-center relative" style={{ height: "100dvh", paddingTop: "clamp(60px, 10dvh, 100px)" }}>
+      <div className="flex flex-col items-center" style={{ height: "100dvh", paddingTop: "20dvh" }}>
         {/* "hi, my name is kenji" - separado */}
         <span
           ref={hiRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-12.5 leading-[1em] text-[#171717]"
-          style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(16px, 3vw, 30px)" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-12.5 leading-[1em] text-foreground"
+          style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(18px, 2vw, 24px)" }}
         >
           hi, my name is kenji
         </span>
-
-        {/* "i am a" container - para posicionar os elementos */}
-        <div
-          ref={iAmARef}
-          className="absolute top-96 left-1/2 -translate-x-1/2 flex items-baseline gap-3"
-        >
-          <span
-            ref={iAmRef}
-            className="leading-[1em] text-foreground"
-            style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(16px, 3vw, 30px)" }}
-          >
-            i am
-          </span>
-          <div
-            ref={aRef}
-            className="relative flex items-center justify-center"
-          >
-            <span
-              className="leading-[1em] text-foreground"
-              style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(16px, 3vw, 30px)" }}
-            >
-             a
-            </span>
-            <div
-              ref={aLineRef}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary origin-center"
-              style={{ width: "clamp(16px, 3vw, 30px)", height: "clamp(2px, 0.4vw, 4px)" }}
-            />
-          </div>
-        </div>
 
         {/* Scroll indicator */}
         <div
@@ -174,7 +157,7 @@ export const Hero = () => {
         >
           <span
             className="leading-[1em] text-foreground"
-            style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(14px, 2.5vw, 25px)" }}
+            style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(14px, 1.5vw, 18px)" }}
           >
             scroll to discover
           </span>
@@ -186,56 +169,81 @@ export const Hero = () => {
         {/* Seção de animação das palavras */}
         <section
           ref={wordsContainerRef}
-          className="absolute left-1/2 w-[90vw] max-w-[838px]"
-          style={{ aspectRatio: "838/540", top: "50%", transform: "translate(-50%, -50%)" }}
+          className="flex flex-col"
         >
+          
+        {/* "i am a" container - para posicionar os elementos */}
+        <div
+          ref={iAmARef}
+          className="flex justify-center gap-3 pb-[5dvh]"
+        >
+          <span
+            ref={iAmRef}
+            style={{fontSize: "clamp(18px, 2vw, 24px)" }}
+          >
+            i am
+          </span>
+          <div
+            ref={aRef}
+            className="flex items-center justify-center"
+          >
+            <span
+              style={{fontSize: "clamp(18px, 2vw, 24px)" }}
+            >
+             a
+            </span>
+            <div
+              ref={aLineRef}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary origin-center"
+              style={{ width: "clamp(18px, 2vw, 24px)", height: "clamp(2px, 0.2vw, 3px)" }}
+            />
+          </div>
+        </div>
+          
           {/* Group 1: DESIGNER with strikethrough */}
           <div
             ref={designerRef}
-            className="absolute left-0 w-full flex items-center justify-center"
-            style={{ top: "11%", height: "22%" }}
+            className="flex items-center justify-center"
           >
             <span
-              className="leading-[1em] font-extrabold text-foreground text-center"
-              style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(48px, 10vw, 120px)" }}
+              className="font-extrabold text-foreground text-center"
+              style={{fontSize: "clamp(60px, 8vw, 96px)" }}
             >
               DESIGNER
             </span>
             <div
               ref={designerLineRef}
-              className="absolute top-1/2 left-0 w-full -translate-y-1/2 origin-left"
-              style={{ backgroundColor: "var(--color-primary)", height: "clamp(4px, 1vw, 11px)" }}
+              className="absolute origin-left"
+              style={{ backgroundColor: "var(--color-primary)", width: "100%", height: "clamp(6px, 0.6vw, 8px)" }}
             />
           </div>
 
           {/* Group 2: DEVELOPER with strikethrough */}
           <div
             ref={developerRef}
-            className="absolute left-0 w-full flex items-center justify-center"
-            style={{ top: "44%", height: "22%" }}
+            className="flex items-center justify-center"
           >
             <span
-              className="leading-[1em] font-extrabold text-foreground text-center"
-              style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(48px, 10vw, 120px)" }}
+              className="font-extrabold text-foreground text-center"
+              style={{ fontSize: "clamp(60px, 8vw, 96px)" }}
             >
               DEVELOPER
             </span>
             <div
               ref={developerLineRef}
-              className="absolute top-1/2 left-0 w-full -translate-y-1/2 origin-left"
-              style={{ backgroundColor: "var(--color-primary)", height: "clamp(4px, 1vw, 11px)" }}
+              className="absolute top-1/2 w-120 origin-left"
+              style={{ backgroundColor: "var(--color-primary)", width: "100%", height: "clamp(6px, 0.6vw, 8px)" }}
             />
           </div>
 
           {/* EVERYTHING */}
           <div
             ref={everythingRef}
-            className="absolute left-0 w-full flex items-center justify-center"
-            style={{ top: "78%", height: "22%" }}
+            className="w-full flex items-center justify-center"
           >
             <span
-              className="leading-[1em] font-extrabold text-foreground text-center"
-              style={{ fontFamily: "var(--font-gabarito)", fontSize: "clamp(48px, 10vw, 120px)" }}
+              className="font-extrabold text-foreground text-center"
+              style={{ fontSize: "clamp(60px, 8vw, 96px)" }}
             >
               EVERYTHING
             </span>

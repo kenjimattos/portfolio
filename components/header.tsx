@@ -28,9 +28,9 @@ export const Header = () => {
       className="fixed top-0 left-0 right-0 z-50 flex justify-center-safe"
       style={{ padding: "clamp(10px, 2vw, 20px) clamp(10px, 4vw, 80px)" }}
     >
-      <nav className="relative w-full max-w-[1200px] h-[60px]">
+      <nav className="relative w-full max-w-300 h-10dvh">
         <Link
-          className="absolute top-[5px] left-0 leading-[1em] text-primary hover:text-foreground font-normal"
+          className="absolute top-1.25 left-0 leading-[1em] text-primary hover:text-foreground font-normal"
           style={{
             fontFamily: "var(--font-gravitas)",
             letterSpacing: "-0.11em",
@@ -42,7 +42,7 @@ export const Header = () => {
         </Link>
         <button
           onClick={handleContactClick}
-          className="absolute top-[4px] right-0 btn-primary"
+          className="absolute top-1 right-0 btn-primary"
         >
           Contact
         </button>
