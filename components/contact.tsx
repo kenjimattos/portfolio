@@ -20,6 +20,7 @@ export const Contact = () => {
     name: "",
     email: "",
     message: "",
+    website: "", // honeypot field - bots will fill this
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -122,7 +123,7 @@ export const Contact = () => {
 
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", message: "", website: "" });
       } else {
         setStatus("error");
       }
@@ -164,6 +165,18 @@ export const Contact = () => {
             className="flex flex-col w-full sm:w-1/2 shrink-0"
             style={{ gap: "clamp(12px, 1.5vw, 17px)" }}
           >
+            {/* Honeypot - invisible to users, bots will fill it */}
+            <input
+              type="text"
+              name="website"
+              value={formData.website}
+              onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+            />
+
             {/* Name */}
             <input
               type="text"

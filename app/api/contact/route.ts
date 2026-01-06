@@ -1,8 +1,50 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
+// Rate limiting em memória
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minuto
+const MAX_REQUESTS = 3; // máximo de requests por janela
+
+const requestLog = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = requestLog.get(ip) || [];
+
+  // Remove timestamps antigos (fora da janela)
+  const recentTimestamps = timestamps.filter(t => now - t < RATE_LIMIT_WINDOW);
+
+  if (recentTimestamps.length >= MAX_REQUESTS) {
+    return true;
+  }
+
+  // Adiciona timestamp atual
+  recentTimestamps.push(now);
+  requestLog.set(ip, recentTimestamps);
+
+  return false;
+}
+
 export async function POST(request: Request) {
-  const { name, email, message } = await request.json();
+  // Obtém IP do cliente
+  const forwarded = request.headers.get("x-forwarded-for");
+  const ip = forwarded?.split(",")[0]?.trim() || "unknown";
+
+  // Verifica rate limit
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
+
+  const { name, email, message, website } = await request.json();
+
+  // Honeypot check - se preenchido, é bot
+  if (website) {
+    // Retorna sucesso falso para não alertar o bot
+    return NextResponse.json({ success: true });
+  }
 
   if (!name || !email || !message) {
     return NextResponse.json(
