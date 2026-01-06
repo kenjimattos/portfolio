@@ -473,13 +473,6 @@ export default function RevolunaPage() {
             <span>3.</span> Implemented core backend business rules using PostgreSQL to ensure
             data consistency across scheduling and attendance flows.
           </p>
-          <Image
-            className="w-full rounded-sm"
-            src="/img/revoluna/api.png"
-            alt="API integration"
-            width={2160}
-            height={1066}
-          />
 
 
         {/* UI States Section */}
