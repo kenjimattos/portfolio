@@ -23,17 +23,13 @@ export const Footer = () => {
 
   return (
     <footer
-      className="w-full bg-foreground flex justify-between"
-      style={{ 
-        paddingInline: "clamp(20px, 5vw, 80px)"
-      }}
+      className="section-pb w-full absolute z-50 bg-foreground flex justify-between"
+      style={{marginTop: "clamp(40px, 8vw, 180px)",}}
     >
       <div
         className="flex flex-col"
         style={{
-          padding: "clamp(40px, 8vw, 109px) clamp(40px, 5vw, 60px)",
-          gap: "clamp(20px, 3vw, 40px)",
-        }}
+          gap: "clamp(20px, 3vw, 40px)",}}
       >
         {/* Logo */}
         <Link
@@ -146,7 +142,6 @@ export const Footer = () => {
 
       <div className="flex flex-col text-background justify-center items-end"
           style={{
-          padding: "clamp(40px, 8vw, 109px) clamp(40px, 5vw, 60px)",
           fontSize: "var(--font-small)",
         }}>
         <a className="hover:text-primary transition-opacity cursor-pointer" onClick={(e) => handleSectionClick(e, "home")}>home</a>

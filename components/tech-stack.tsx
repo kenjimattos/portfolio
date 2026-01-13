@@ -75,8 +75,7 @@ export const TechStack = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full"
-      style={{ padding: "clamp(60px, 10vw, 120px) clamp(20px, 5vw, 40px)" }}
+      className="w-full section-pb"
     >
       {/* Title */}
       <h2
