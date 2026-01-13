@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import gsap from "gsap";
@@ -14,7 +15,7 @@ const projects = [
     name: "Revoluna",
     description:
       "A mobile-first product focused on clarity and control. Shift opportunities are organized, easy to find, and simple to manage.",
-    image: "/img/work-revoluna-512d31.png",
+    image: "/img/work-revoluna.png",
     href: "/work/revoluna",
   },
   {
@@ -22,7 +23,7 @@ const projects = [
     name: "Houston",
     description:
       "Web platform built to manage medical shift schedules and candidate workflows.",
-    image: "/img/work-houston-47f1ad.png",
+    image: "/img/work-houston.png",
     href: "/work/houston",
   },
 ];
@@ -100,16 +101,20 @@ export const Work = () => {
             <Link
               key={project.id}
               href={project.href}
-              className="relative w-full rounded-[5px] overflow-hidden cursor-pointer group block bg-left"
+              className="relative w-full rounded-[5px] overflow-hidden cursor-pointer group block"
               style={{
-                backgroundImage: `url(${project.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
                 aspectRatio: "16/9",
               }}
             >
+              <Image
+                src={project.image}
+                alt={project.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+              />
               {/* Content overlay */}
-              <div className="absolute flex flex-col justify-start"
+              <div className="absolute flex flex-col justify-start z-10"
                 style={{
                   padding: "clamp(12px, 3vw, 60px)",
                   maxWidth: "clamp(95px, 32vw, 600px)",
