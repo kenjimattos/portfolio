@@ -79,8 +79,7 @@ export const Work = () => {
     >
       {/* Dark background container */}
       <div
-        className="bg-foreground rounded-[10px]"
-        style={{ padding: "clamp(40px, 8vw, 104px) clamp(20px, 8vw, 110px) clamp(60px, 10vw, 120px)" }}
+        className="section-pb bg-foreground rounded-[10px]"
       >
         {/* Title */}
         <h2

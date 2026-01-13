@@ -136,8 +136,7 @@ export const Contact = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="w-full flex flex-col items-center justify-center"
-      style={{ padding: "clamp(60px, 10vw, 120px) clamp(20px, 4vw, 60px)" }}
+      className="section-pb w-full flex flex-col items-center justify-center"
     >
       {/* Container centralizado */}
       <div
