@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.3] - 2026-01-20
+
+### Changed
+
+- Atualiza imagens para os cases Houston e Revoluna e substitui background images por componente Next.js Image para melhor desempenho
+- Adiciona novas imagens para seção Work dos cases Houston e Revoluna
+
+### Fixed
+
+- Padroniza paddings das seções da página principal
+- Melhora a responsividade dos botões
+
 ## [1.2.2] - 2026-01-05
 
 ### Fixed
