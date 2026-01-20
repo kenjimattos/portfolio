@@ -41,7 +41,7 @@ export default function RevolunaPage() {
               My role
             </h3>
           <div className="tags">
-              {["UX/UI", "Product", "Front-end", "Back-end", "Mobile"].map(
+              {["Design", "Prototype", "Front-end", "Back-end", "Mobile"].map(
                 (tag) => (
                   <div key={tag} className="tag">
                     {tag}
@@ -65,8 +65,8 @@ export default function RevolunaPage() {
                 fontSize: "var(--font-large)",
               }}
             >
-              A mobile-first product focused on clarity and control. Shift
-              opportunities are organized, easy to find, and simple to manage.
+              A mobile-first product designed to bring clarity and structure
+              to how medical shifts are discovered and managed in Brazil.
             </p>
             <p
               className="text-left"
@@ -74,16 +74,18 @@ export default function RevolunaPage() {
                 fontSize: "var(--font-medium)",
               }}
             >
-              Medical shifts in Brazil are shared through unstructured channels.
-              Information is scattered, incomplete, and hard to track.
+              I joined the project as a Product Designer with the goal of redesigning the experience
+              and helping the team validate the product in the real world. Beyond design, I took ownership 
+              of shipping a functional MVP to the App Store and Google Play,
+              enabling real usage, early traction, and product validation.
+              <br />
+              <br />              
+              Medical shifts in Brazil are usually shared through unstructured channels
+              like WhatsApp groups. Information is scattered, incomplete, and difficult to track.
               <br />
               <br />
-              Doctors struggle to manage applications, schedules, and payments.
-              Hiring processes rely on manual steps and are prone to errors.
-              <br />
-              <br />
-              Revoluna is a mobile app that helps doctors find and manage
-              medical shifts in a structured way.
+              Doctors struggle to manage applications, schedules, and payments,
+              while hiring teams rely on manual workflows that are inefficient and error-prone.
             </p>
           </div>
         </div>
@@ -107,10 +109,10 @@ export default function RevolunaPage() {
               fontSize: "var(--font-medium)",
             }}
           >
-            An early version of the app already existed. It focused mainly on
-            listing available shifts and validating the core idea.
-            The mission was to redesign the experience and expand the product
-            beyond a simple listing.
+            Doctors struggle to manage applications, schedules, and payments, 
+            while hiring teams rely on manual workflows that are inefficient and error-prone.
+            The challenge was to redesign the experience and expand the product beyond a 
+            simple listing, introducing features that could support real operational workflows and daily usage.
           </p>
         </div>
         {/* Old app screenshot */}
@@ -159,9 +161,10 @@ export default function RevolunaPage() {
             fontSize: "var(--font-large)",
           }}
         >
-          Organizing shift opportunities, give doctors visibility into their
-          schedules and earnings, and automating critical operational steps that
-          were previously manual.
+          A redesigned mobile experience focused on organization, visibility, and control.
+          The MVP introduced structured shift discovery, clearer scheduling, and automation 
+          of key operational steps that were previously manual, enabling doctors to confidently 
+          manage their work routine through a single app.
         </p>
       </section>
 
@@ -232,8 +235,7 @@ export default function RevolunaPage() {
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
-              A clear view of upcoming shifts, including visibility into when
-              other colleagues from the same hospital will also be on duty.
+              A consolidated view of upcoming shifts, including visibility into when colleagues from the same hospital are also on duty.
             </p>
           </div>
         </div>
@@ -263,8 +265,7 @@ export default function RevolunaPage() {
                 minWidth: "clamp(50px, 30vw, 554px)",
               }}
             >
-              Built with Firebase Cloud Messaging, it supports
-              communication for application updates, schedules, and check-in and check-out reminders.
+              Built with Firebase Cloud Messaging to support application updates, schedule alerts, and check-in and check-out reminders.
             </p>
           </div>
            {/* Notifications Phone Image */}
@@ -354,10 +355,7 @@ export default function RevolunaPage() {
                 fontSize: "var(--font-small)",
               }}
             >
-              Doctors receive reminders to check in
-              and out within defined time windows. Validation
-              is completed only within a 100m radius of the hospital
-              to ensure payroll accuracy, with location checked only at submission time.
+              Reminders guide doctors through check-in and check-out within defined time windows. Validation is completed only within a 100-meter radius of the hospital, ensuring payroll accuracy while minimizing battery usage.
             </p>
           </div>
 
@@ -400,7 +398,7 @@ export default function RevolunaPage() {
                 fontSize: "var(--font-small)",
               }}
             >
-              Implemented deep linking to route users directly to specific shift details inside the mobile app. Links can be generated from both the web admin platform and the mobile application, supporting seamless sharing and improving discovery and conversion flows.
+              Implemented deep links that route users directly to specific shift details inside the app. Links can be generated from both the web admin platform and the mobile app, enabling seamless sharing and improving discovery and conversion.
             </p>
           </div>
                     {/* Feature Image */}
@@ -441,8 +439,7 @@ export default function RevolunaPage() {
         {/* Figma Section */}
 
           <p className="numbered">
-            <span>1.</span> Built the mobile experience by translating Figma designs into
-            reusable, production-ready UI components.
+            <span>1.</span> Led the product redesign from concept to high-fidelity prototypes in Figma
           </p>
           <div
             className="flex w-full"
@@ -466,22 +463,19 @@ export default function RevolunaPage() {
 
 
           <p className="numbered">
-            <span>2.</span> Integrated REST APIs to support user verification, shift discovery,
-            applications, schedules, and payment-related workflows, including
-            infinite scrolling and real-time updates.
+            <span>2.</span> Translated designs into a functional mobile MVP using FlutterFlow
             <br /><br />
-            <span>3.</span> Implemented core backend business rules using PostgreSQL to ensure
-            data consistency across scheduling and attendance flows.
+            <span>3.</span> Implemented custom logic where no-code solutions were not sufficient, including check-in/check-out flows and deep linking
           </p>
 
 
         {/* UI States Section */}
           <p className="numbered">
-            <span>4.</span> Designed UI states based on real API responses, handling loading,
-            empty, and validation scenarios.
+            <span>4.</span> Integrated REST APIs for user verification, shift discovery, applications, schedules, and payments
             <br /><br />
-            <span>5.</span> Collaborated closely with backend logic to align product rules with
-            user-facing experiences.
+            <span>5.</span> Collaborated closely with product stakeholders to align business rules with user-facing flows
+            <br /><br />
+            <span>6.</span> Took ownership of publishing and maintaining the app on the App Store and Google Play
           </p>
           <Image
             className="w-full rounded-sm"
@@ -505,9 +499,9 @@ export default function RevolunaPage() {
             fontSize: "var(--font-large)",
           }}
         >
-          The mobile app replaced informal workflows with a structured,
-          production-ready experience, giving doctors better visibility and
-          control over their schedules and payments.
+          The mobile MVP replaced informal workflows with a structured, production-ready experience, allowing doctors to better manage shifts and payments while enabling the team to validate the product with real users.
+          <br /><br />
+          The success of the MVP laid the foundation for the next phase of the product: the development of a dedicated web platform focused on scalability and operational management.
         </p>
       </section>
 
