@@ -33,7 +33,7 @@ export default function HoustonPage() {
       </section>
 
       {/* Overview Section */}
-      <section className="section w-full">
+      <section className="section-pb w-full">
         <div className="content-gap flex flex-col sm:flex-row">
           {/* Left - Tags */}
           <div className="text-gap flex flex-col items-start sm:items-center">
@@ -65,7 +65,7 @@ export default function HoustonPage() {
                 fontSize: "var(--font-large)",
               }}
             >
-              We helped Revoluna evolve an internal tool into a full operational platform for managing medical shift operations at scale.
+              I led the evolution of an internal support tool into a production-grade operational platform used to manage medical shift operations at scale.
             </p>
             <p
               className="text-left"
@@ -117,6 +117,14 @@ export default function HoustonPage() {
             }}
           >
             The challenge was to transform an early tool into a robust, multi-tenant platform capable of handling real-world operational complexity without slowing teams down.
+          </p>
+          <p
+            className="text-justify"
+            style={{
+              fontSize: "var(--font-medium)",
+            }}
+          >
+            As operations grew, this approach no longer scaled and exposed architectural limitations typical of early-stage tools.
           </p>
         </div>
         {/* Old app screenshot */}
@@ -387,14 +395,21 @@ export default function HoustonPage() {
               fontSize: "var(--font-medium)",
             }}
           >
-            Houston supports multiple hospitals, teams, and operational roles within the same platform. Access control was a critical part of the system design.
+            As Houston evolved into a multi-tenant platform, access control became a core requirement.
           </p>
           <p
             style={{
               fontSize: "var(--font-medium)",
             }}
           >
-            We implemented a role-based permission model that defines what each user can view, create, edit, or approve across different operational areas such as schedules, applications, attendance, and payments.
+            I led the implementation of role-based access control (RBAC) to manage permissions across schedules, applications, attendance, and payments, ensuring secure data isolation between hospitals, teams, and users.
+          </p>
+          <p
+            style={{
+              fontSize: "var(--font-medium)",
+            }}
+          >
+            Permissions are enforced consistently across frontend flows and backend validation, supporting multiple organizations and roles while keeping daily operations simple and reliable.
           </p>
         </div>
         <Image
@@ -418,9 +433,9 @@ export default function HoustonPage() {
             fontSize: "var(--font-medium)",
           }}
         >
-          I led the development and coordinated a team of three engineers, establishing clear workflows, code standards, and review practices to keep delivery consistent and scalable.
+          I took ownership of the web platform’s development and later coordinated a small team of three engineers, establishing workflows, code standards, and review practices as the system grew in complexity.
           <br /><br />
-          Implemented backend business rules using PostgreSQL to enforce operational constraints, approval flows, and financial consistency.
+          Implemented and refactored core business rules directly at the database level using PostgreSQL, ensuring data integrity across scheduling, attendance, and payment flows.
         </p>
 
         <Image
