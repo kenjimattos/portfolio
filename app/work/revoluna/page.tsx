@@ -378,7 +378,7 @@ export default function RevolunaPage() {
 
       {/* Deep Linking Section */}
       <section
-        className="section w-full content-gap flex overflow-hidden items-center"
+        className="section w-full content-gap flex overflow-hidden justify-between items-center"
         style={{
           height: "clamp(300px, 50vw, 720px)",
         }}
@@ -405,7 +405,7 @@ export default function RevolunaPage() {
           </div>
                     {/* Feature Image */}
           <Image
-            className="translate-y-10"
+            className="translate-y-20"
             style={{
               width: "clamp(200px, 55vw, 800px)",
             }}
