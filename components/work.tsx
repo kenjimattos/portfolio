@@ -12,19 +12,19 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const projects = [
   {
     id: 1,
-    name: "Revoluna",
-    description:
-      "A mobile-first product focused on clarity and control. Shift opportunities are organized, easy to find, and simple to manage.",
-    image: "/img/work-revoluna.png",
-    href: "/work/revoluna",
-  },
-  {
-    id: 2,
     name: "Houston",
     description:
       "Web platform built to manage medical shift schedules and candidate workflows.",
     image: "/img/work-houston.png",
     href: "/work/houston",
+  },
+  {
+    id: 2,
+    name: "Revoluna",
+    description:
+      "A mobile-first product focused on clarity and control. Shift opportunities are organized, easy to find, and simple to manage.",
+    image: "/img/work-revoluna.png",
+    href: "/work/revoluna",
   },
 ];
 

@@ -534,7 +534,7 @@ export default function RevolunaPage() {
         />
       </section>
 
-      <Nav nextHref="/work/houston" />
+      <Nav nextHref="" />
     </main>
   );
 }

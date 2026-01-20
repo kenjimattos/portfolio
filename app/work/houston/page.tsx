@@ -502,7 +502,7 @@ export default function HoustonPage() {
         />
       </section>
 
-      <Nav nextHref="" />
+      <Nav nextHref="/work/revoluna" />
     </main>
   );
 }
