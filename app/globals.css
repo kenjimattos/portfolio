@@ -4,12 +4,22 @@
   --background: #fffff9;
   --foreground: #161616;
   --primary: #0049FF;
+
+  /* Accent colors */
+  --accent-purple: #7800FF;
+  --accent-purple-light: #B388FF;
+  --accent-cyan: #00C8FF;
+  --accent-cyan-dark: #0096C8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-purple-light: var(--accent-purple-light);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-cyan-dark: var(--accent-cyan-dark);
   --font-gabarito: var(--font-gabarito);
   --font-gravitas: var(--font-gravitas);
   --text-primary: var(--foreground);
@@ -96,7 +106,7 @@
 
   .bg-hidden-mobile {
     background-image: none !important;
-  }
+  } 
 
   @media (min-width: 1024px) {
     .bg-hidden-mobile {
