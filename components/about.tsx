@@ -214,7 +214,7 @@ export const About = () => {
           </div>
 
           {/* Stats */}
-          <div
+          {/* <div
             ref={statsRef}
             className="grid grid-cols-3 gap-4"
           >
@@ -256,7 +256,7 @@ export const About = () => {
               </div>
             );
             })}
-          </div>
+          </div> */}
         </div>
 
         {/* Right Column - Text + Skills */}
