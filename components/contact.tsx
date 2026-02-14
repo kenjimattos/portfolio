@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { Mail } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -27,13 +28,9 @@ const socialLinks = [
     ),
   },
   {
-    name: "Twitter",
-    href: "https://twitter.com/kenji",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
+    name: "Email",
+    href: "mailto:kenjimattos@gmail.com",
+    icon: <Mail strokeWidth={1.5} className="w-5 h-5" />
   },
 ];
 
@@ -371,7 +368,7 @@ export const Contact = () => {
           {/* Contact Info */}
           <div className="flex flex-col gap-6">
             {/* Email Direct */}
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
               <span
                 className="text-foreground font-mono uppercase tracking-wider"
                 style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
@@ -379,13 +376,13 @@ export const Contact = () => {
                 Email
               </span>
               <a
-                href="mailto:hello@kenji.dev"
+                href="mailto:kenjimattos@gmail.com"
                 className="text-primary hover:text-foreground transition-colors duration-300"
                 style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}
               >
                 hello@kenji.dev
               </a>
-            </div>
+            </div> */}
 
             {/* Location */}
             <div className="flex flex-col gap-2">
@@ -399,7 +396,7 @@ export const Contact = () => {
                 className="text-foreground"
                 style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}
               >
-                São Paulo, Brazil
+                São Bernardo do Campo, São Paulo, Brazil
               </span>
             </div>
 
@@ -409,7 +406,7 @@ export const Contact = () => {
                 className="text-foreground font-mono uppercase tracking-wider"
                 style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
               >
-                Social
+                Connect
               </span>
               <div className="flex gap-4">
                 {socialLinks.map((link, index) => {
