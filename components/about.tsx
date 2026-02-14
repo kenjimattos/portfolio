@@ -4,101 +4,362 @@ import Image from "next/image";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const skills = [
+  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Vue.js"] },
+  { category: "Styling", items: ["Tailwind CSS", "CSS-in-JS", "SASS", "Framer Motion"] },
+  { category: "Tools", items: ["Git", "Figma", "Storybook", "Webpack"] },
+];
+
+const stats = [
+  { value: "10+", label: "Years of Experience" },
+  { value: "20+", label: "Features Delivered" },
+  { value: "100%", label: "Pixel Perfect" },
+];
 
 export const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Valores responsivos baseados no viewport
-    const vh = window.innerHeight;
-    const textOffset = vh * 0.08;
-    const imageOffset = vh * 0.1;
-
-    // Split text into lines
-    const split = new SplitText(textRef.current, { type: "lines" });
-
-    // Timeline for text lines - entrada e saída
-    split.lines.forEach((line, index) => {
-      const tl = gsap.timeline({
+    // Header animation
+    gsap.fromTo(
+      headerRef.current,
+      { opacity: 0, y: 60 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          end: "bottom 30%",
-          scrub: 0.5,
+          trigger: headerRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
         },
-      });
+      }
+    );
 
-      // Entrada: de baixo para posição original
-      tl.fromTo(
-        line,
-        { y: textOffset },
-        { y: 0, duration: 0.4, delay: index * 0.05 }
+    // Image reveal animation
+    gsap.fromTo(
+      imageRef.current,
+      { opacity: 0, scale: 0.9, y: 40 },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    // Content animation
+    gsap.fromTo(
+      contentRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    // Skills staggered animation
+    const skillCategories = skillsRef.current?.children;
+    if (skillCategories) {
+      gsap.fromTo(
+        skillCategories,
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: skillsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
       );
+    }
 
-      // Saída: de posição original para cima
-      tl.to(line, { y: -textOffset, duration: 0.4, delay: index * 0.05 }, "+=0.2");
-    });
-
-    // Timeline for image - entrada e saída
-    const imageTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
-        end: "bottom 30%",
-        scrub: 0.5,
-      },
-    });
-
-    // Entrada: de baixo para posição original
-    imageTl.fromTo(imageRef.current, { y: imageOffset }, { y: 0, duration: 0.5 });
-
-    // Saída: de posição original para cima
-    imageTl.to(imageRef.current, { y: -imageOffset, duration: 0.5 }, "+=0.2");
-
-    return () => {
-      split.revert();
-    };
+    // Stats animation
+    const statItems = statsRef.current?.children;
+    if (statItems) {
+      gsap.fromTo(
+        statItems,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: statsRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
   }, { scope: sectionRef });
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="section-pb w-full flex flex-col md:flex-row content-gap items-center"
+      className="w-full"
+      style={{
+        padding: "clamp(60px, 10vw, 120px) clamp(40px, 8vw, 180px)",
+      }}
     >
-      {/* Text */}
-      <p
-        ref={textRef}
-        className="w-full text-justify sm:text-left lg:text-justify"
+      {/* Section Header */}
+      <div
+        ref={headerRef}
+        className="flex items-center gap-4 mb-12"
+        style={{ opacity: 0 }}
+      >
+        <span
+          className="text-primary font-mono"
+          style={{ fontSize: "clamp(14px, 1.5vw, 18px)" }}
+        >
+          01.
+        </span>
+        <h2
+          className="text-foreground font-bold"
+          style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
+        >
+          About Me
+        </h2>
+        <div
+          className="flex-1 h-px bg-foreground"
+          style={{ opacity: 0.1, maxWidth: "300px" }}
+        />
+      </div>
+
+      {/* Main Content Grid */}
+      <div
+        className="grid gap-12 lg:gap-16"
         style={{
-          fontSize: "clamp(20px, 2.4dvw, 45px)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))",
         }}
       >
-        I work at the intersection of design and front-end development, 
-        turning product requirements into clear, usable interfaces.
-        <br/>
-        <br/>
-        With a background in UX/UI, motion design, and engineering,
-        I focus on building thoughtful, well-crafted experiences that make real products easier to use.
-      </p>
+        {/* Left Column - Image + Stats */}
+        <div className="flex flex-col gap-8">
+          {/* Photo with decorative elements */}
+          <div
+            ref={imageRef}
+            className="relative"
+            style={{ opacity: 0 }}
+          >
+            {/* Decorative border - cyan accent */}
+            <div
+              className="absolute rounded-sm pointer-events-none"
+              style={{
+                top: "16px",
+                left: "16px",
+                right: "-16px",
+                bottom: "-16px",
+                border: "2px solid color-mix(in srgb, var(--color-accent-cyan) 40%, transparent)",
+                zIndex: 0,
+              }}
+            />
+            {/* Image container */}
+            <div
+              className="relative rounded-sm overflow-hidden"
+              style={{
+                backgroundColor: "var(--color-foreground)",
+                zIndex: 1,
+              }}
+            >
+              <Image
+                src="/img/about-photo.png"
+                alt="Kenji - Frontend Engineer"
+                width={480}
+                height={560}
+                className="w-full h-auto object-cover"
+                // style={{
+                  // filter: "grayscale(20%)",
+                  // mixBlendMode: "luminosity",
+                // }}
+              />
+              {/* Overlay gradient - purple tint */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: "linear-gradient(135deg, transparent 50%, color-mix(in srgb, var(--color-accent-purple) 15%, transparent) 100%)",
+                }}
+              />
+            </div>
+          </div>
 
-      {/* Image */}
-      <div
-        ref={imageRef}
-        className="rounded-sm shrink-0 md:w-auto overflow-hidden"
-      >
-        <Image
-          src="/img/about-photo.png"
-          alt="Kenji"
-          width={360}
-          height={418}
-        />
+          {/* Stats */}
+          <div
+            ref={statsRef}
+            className="grid grid-cols-3 gap-4"
+          >
+            {stats.map((stat, index) => {
+              // Alternate colors: blue, purple, cyan
+              const accentColors = [
+                { bg: "color-mix(in srgb, var(--color-primary) 3%, transparent)", border: "color-mix(in srgb, var(--color-primary) 8%, transparent)", text: "var(--color-primary)" },
+                { bg: "color-mix(in srgb, var(--color-accent-purple) 3%, transparent)", border: "color-mix(in srgb, var(--color-accent-purple) 12%, transparent)", text: "var(--color-accent-purple)" },
+                { bg: "color-mix(in srgb, var(--color-accent-cyan) 3%, transparent)", border: "color-mix(in srgb, var(--color-accent-cyan) 12%, transparent)", text: "var(--color-accent-cyan)" },
+              ];
+              const accent = accentColors[index % 3];
+              return (
+              <div
+                key={index}
+                className="text-center p-4 rounded-sm"
+                style={{
+                  backgroundColor: accent.bg,
+                  border: `1px solid ${accent.border}`,
+                  opacity: 0,
+                }}
+              >
+                <span
+                  className="block font-bold"
+                  style={{ fontSize: "clamp(24px, 3vw, 36px)", color: accent.text }}
+                >
+                  {stat.value}
+                </span>
+                <span
+                  className="text-foreground"
+                  style={{
+                    fontSize: "clamp(10px, 1vw, 12px)",
+                    opacity: 0.6,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {stat.label}
+                </span>
+              </div>
+            );
+            })}
+          </div>
+        </div>
+
+        {/* Right Column - Text + Skills */}
+        <div className="flex flex-col gap-8">
+          {/* Bio text */}
+          <div
+            ref={contentRef}
+            className="flex flex-col gap-6"
+            style={{ opacity: 0 }}
+          >
+            <p
+              className="text-foreground leading-relaxed"
+              style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
+            >
+              I'm a <strong>Frontend Engineer</strong> passionate about building
+              exceptional digital experiences. With a unique background spanning
+              UX/UI design and software development, I bridge the gap between
+              beautiful design and robust code.
+            </p>
+            <p
+              className="text-foreground leading-relaxed"
+              style={{
+                fontSize: "clamp(16px, 1.8vw, 20px)",
+                opacity: 0.8,
+              }}
+            >
+              I specialize in translating complex requirements into intuitive,
+              performant interfaces. Every line of code I write is crafted with
+              attention to detail, accessibility, and user experience in mind.
+            </p>
+            <p
+              className="text-foreground leading-relaxed"
+              style={{
+                fontSize: "clamp(16px, 1.8vw, 20px)",
+                opacity: 0.8,
+              }}
+            >
+              Currently focused on React ecosystem, modern CSS, and creating
+              delightful micro-interactions that make products feel alive.
+            </p>
+          </div>
+
+          {/* Skills */}
+          <div
+            ref={skillsRef}
+            className="flex flex-col gap-6 pt-4"
+          >
+            {skills.map((skillGroup, index) => (
+              <div
+                key={index}
+                className="flex flex-col gap-2"
+                style={{ opacity: 0 }}
+              >
+                <span
+                  className="text-primary font-medium uppercase tracking-wider"
+                  style={{ fontSize: "clamp(11px, 1vw, 13px)" }}
+                >
+                  {skillGroup.category}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {skillGroup.items.map((skill, skillIndex) => (
+                    <span
+                      key={skillIndex}
+                      className="px-3 py-1 rounded-sm text-foreground"
+                      style={{
+                        fontSize: "clamp(13px, 1.2vw, 15px)",
+                        backgroundColor: "rgba(22, 22, 22, 0.05)",
+                        border: "1px solid rgba(22, 22, 22, 0.1)",
+                      }}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Code signature */}
+          <div
+            className="mt-4 p-4 rounded-sm font-mono"
+            style={{
+              backgroundColor: "var(--color-foreground)",
+              color: "var(--color-background)",
+              fontSize: "clamp(12px, 1.2vw, 14px)",
+            }}
+          >
+            <span style={{ color: "rgba(255,255,249,0.5)" }}>{"// "}</span>
+            <span style={{ color: "var(--color-accent-cyan)" }}>const</span>{" "}
+            <span style={{ color: "#60a5fa" }}>kenji</span>{" "}
+            <span style={{ color: "rgba(255,255,249,0.5)" }}>=</span>{" "}
+            <span style={{ color: "#fbbf24" }}>{"{"}</span>{" "}
+            <span style={{ color: "var(--color-accent-purple-light)" }}>code</span>
+            <span style={{ color: "rgba(255,255,249,0.5)" }}>:</span>{" "}
+            <span style={{ color: "var(--color-accent-cyan)" }}>"clean"</span>
+            <span style={{ color: "rgba(255,255,249,0.5)" }}>,</span>{" "}
+            <span style={{ color: "var(--color-accent-purple-light)" }}>design</span>
+            <span style={{ color: "rgba(255,255,249,0.5)" }}>:</span>{" "}
+            <span style={{ color: "var(--color-accent-cyan)" }}>"thoughtful"</span>{" "}
+            <span style={{ color: "#fbbf24" }}>{"}"}</span>
+            <span style={{ color: "rgba(255,255,249,0.5)" }}>;</span>
+          </div>
+        </div>
       </div>
     </section>
   );
