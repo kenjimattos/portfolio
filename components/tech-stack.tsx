@@ -14,7 +14,7 @@ const technologies = [
       { name: "React", icon: "⚛️", level: 95, description: "Component architecture, hooks, state management" },
       { name: "Next.js", icon: "▲", level: 90, description: "SSR, SSG, App Router, API routes" },
       { name: "TypeScript", icon: "TS", level: 92, description: "Type safety, generics, utility types" },
-      { name: "Vue.js", icon: "🟢", level: 75, description: "Composition API, Vuex, Vue Router" },
+      { name: "Flutter", icon: "🦋", level: 75, description: "Cross-platform mobile, widgets, Dart" },
     ],
   },
   {
@@ -22,7 +22,7 @@ const technologies = [
     items: [
       { name: "Tailwind CSS", icon: "🎨", level: 95, description: "Utility-first, custom configs, plugins" },
       { name: "CSS/SASS", icon: "✨", level: 90, description: "Animations, Grid, Flexbox, Variables" },
-      { name: "Framer Motion", icon: "🎬", level: 85, description: "Complex animations, gestures, variants" },
+      { name: "Material UI", icon: "🎨", level: 85, description: "Component library, theming, customization" },
       { name: "GSAP", icon: "🟩", level: 88, description: "ScrollTrigger, timelines, morphing" },
     ],
   },

@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const skills = [
   { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Vue.js"] },
-  { category: "Styling", items: ["Tailwind CSS", "CSS-in-JS", "SASS", "Framer Motion"] },
+  { category: "Styling", items: ["Tailwind CSS", "CSS-in-JS", "Material UI", "SASS"] },
   { category: "Tools", items: ["Git", "Figma", "Storybook", "Webpack"] },
 ];
 
