@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import type { CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -418,18 +419,11 @@ export const Contact = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-sm flex items-center justify-center text-foreground transition-all duration-300 group"
+                    className="contact-social-link w-12 h-12 rounded-sm flex items-center justify-center text-foreground transition-all duration-300 group"
                     style={{
-                      border: "1px solid rgba(22, 22, 22, 0.1)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = hoverColors[index % 3];
-                      e.currentTarget.style.borderColor = hoverBorderColors[index % 3];
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = "";
-                      e.currentTarget.style.borderColor = "rgba(22, 22, 22, 0.1)";
-                    }}
+                      "--hover-color": hoverColors[index % 3],
+                      "--hover-border-color": hoverBorderColors[index % 3],
+                    } as CSSProperties}
                     aria-label={link.name}
                   >
                     {link.icon}

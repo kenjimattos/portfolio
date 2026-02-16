@@ -3,6 +3,7 @@
 import { Mail } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 const navLinks = [
   { label: "home", sectionId: "home" },
@@ -131,21 +132,11 @@ export const Footer = () => {
               {navLinks.map((link, index) => (
                 <a
                   key={link.sectionId}
-                  className="text-background transition-all duration-300 cursor-pointer w-fit group flex items-center gap-2"
+                  className="footer-nav-link text-background transition-all duration-300 cursor-pointer w-fit group flex items-center gap-2"
                   style={{
                     fontSize: "clamp(14px, 1.3vw, 16px)",
-                    opacity: 0.7,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = hoverColors[index];
-                    e.currentTarget.style.opacity = "1";
-                    e.currentTarget.style.transform = "translateX(4px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "";
-                    e.currentTarget.style.opacity = "0.7";
-                    e.currentTarget.style.transform = "translateX(0)";
-                  }}
+                    "--hover-color": hoverColors[index],
+                  } as CSSProperties}
                   onClick={(e) => handleSectionClick(e, link.sectionId)}
                 >
                   <span
@@ -176,19 +167,11 @@ export const Footer = () => {
                   href={link.href}
                   target={link.name !== "Email" ? "_blank" : undefined}
                   rel={link.name !== "Email" ? "noopener noreferrer" : undefined}
-                  className="text-background transition-all duration-300 w-fit flex items-center gap-3 group"
+                  className="footer-social-link text-background transition-all duration-300 w-fit flex items-center gap-3 group"
                   style={{
                     fontSize: "clamp(14px, 1.3vw, 16px)",
-                    opacity: 0.7,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = link.hoverColor;
-                    e.currentTarget.style.opacity = "1";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "";
-                    e.currentTarget.style.opacity = "0.7";
-                  }}
+                    "--hover-color": link.hoverColor,
+                  } as CSSProperties}
                 >
                   <span className="transition-transform duration-300 group-hover:scale-110">
                     {link.icon}
