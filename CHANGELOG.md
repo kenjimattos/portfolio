@@ -1,5 +1,40 @@
 # Changelog
 
+## [2.0.0] - 2026-02-16
+
+### Added
+
+- Novo smoke test do fluxo de contato com `node:test` em `tests/contact-handler.smoke.test.ts`
+- Novo script `test:smoke` no `package.json`
+- Novo handler desacoplado da rota em `app/api/contact/handler.ts`
+- Novas variações visuais com cores no tema global
+
+### Changed
+
+- Novo design das seções da página principal: About, Work, Tech Stack, Header, Contact, Footer e Hero
+- Novo design dos case studies Houston e Revoluna
+- Ajustes de conteúdo textual dos cases Houston e Revoluna
+- Reordenação dos cases na seção Work
+- Template compartilhado para estrutura dos case studies
+- Ocultação do Header/Footer globais nas rotas de case study (`/work/*`)
+- Centralização dos links e dados de perfil em configuração única (`config/site.ts`)
+- Atualização completa do README para refletir a arquitetura e fluxos atuais
+- Substituição de hovers imperativos por abordagem declarativa com classes CSS
+
+### Fixed
+
+- Correção dos links de GitHub e LinkedIn
+- Ajuste de layout da imagem da feature Deep Linking no case Revoluna
+- Reforço da validação e do tratamento de erros da rota de contato
+- Evolução do rate limiting da rota de contato (incluindo retorno de `Retry-After`)
+- Correção de entidades HTML para conformidade do lint
+
+### Removed
+
+- Remoção de indicadores da seção About
+- Remoção do componente `Nav` não utilizado
+- Remoção de código morto e blocos comentados
+
 ## [1.2.3] - 2026-01-20
 
 ### Changed
