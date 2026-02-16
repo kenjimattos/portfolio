@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Gabarito, Gravitas_One } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { LayoutShell } from "@/components/layout-shell";
 
 const gabarito = Gabarito({
   variable: "--font-gabarito",
@@ -31,9 +30,7 @@ export default function RootLayout({
       <body
         className={`${gabarito.variable} ${gravitasOne.variable} antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
