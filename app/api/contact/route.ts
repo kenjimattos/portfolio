@@ -4,12 +4,23 @@ import { NextResponse } from "next/server";
 // Rate limiting em memória
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minuto
 const MAX_REQUESTS = 3; // máximo de requests por janela
+const RATE_LIMIT_CLEANUP_INTERVAL = 5 * 60 * 1000; // 5 minutos
+const RATE_LIMIT_ENTRY_TTL = 10 * 60 * 1000; // 10 minutos sem atividade
+const MAX_TRACKED_CLIENTS = 10_000;
 const MAX_NAME_LENGTH = 120;
 const MAX_EMAIL_LENGTH = 254;
 const MAX_MESSAGE_LENGTH = 5000;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const requestLog = new Map<string, number[]>();
+type RateLimitEntry = {
+  count: number;
+  windowStart: number;
+  lastSeen: number;
+};
+
+const requestLog = new Map<string, RateLimitEntry>();
+let lastCleanupAt = 0;
+
 type ContactPayload = {
   name: string;
   email: string;
@@ -17,22 +28,83 @@ type ContactPayload = {
   website?: string;
 };
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = requestLog.get(ip) || [];
+function cleanupRateLimitStore(now: number) {
+  const shouldCleanupByTime = now - lastCleanupAt >= RATE_LIMIT_CLEANUP_INTERVAL;
+  const shouldCleanupBySize = requestLog.size > MAX_TRACKED_CLIENTS;
 
-  // Remove timestamps antigos (fora da janela)
-  const recentTimestamps = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW);
+  if (!shouldCleanupByTime && !shouldCleanupBySize) return;
 
-  if (recentTimestamps.length >= MAX_REQUESTS) {
-    return true;
+  for (const [clientId, entry] of requestLog) {
+    if (now - entry.lastSeen > RATE_LIMIT_ENTRY_TTL) {
+      requestLog.delete(clientId);
+    }
   }
 
-  // Adiciona timestamp atual
-  recentTimestamps.push(now);
-  requestLog.set(ip, recentTimestamps);
+  if (requestLog.size > MAX_TRACKED_CLIENTS) {
+    const oldestEntries = [...requestLog.entries()]
+      .sort((a, b) => a[1].lastSeen - b[1].lastSeen)
+      .slice(0, requestLog.size - MAX_TRACKED_CLIENTS);
 
-  return false;
+    oldestEntries.forEach(([clientId]) => requestLog.delete(clientId));
+  }
+
+  lastCleanupAt = now;
+}
+
+function getClientIdentifier(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const realIp = request.headers.get("x-real-ip")?.trim();
+  const cfIp = request.headers.get("cf-connecting-ip")?.trim();
+  const vercelIp = request.headers
+    .get("x-vercel-forwarded-for")
+    ?.split(",")[0]
+    ?.trim();
+
+  const ip = forwarded || realIp || cfIp || vercelIp;
+  if (ip && ip !== "unknown") {
+    return `ip:${ip}`;
+  }
+
+  const userAgent = request.headers.get("user-agent")?.trim() || "unknown-agent";
+  const acceptLanguage =
+    request.headers.get("accept-language")?.trim() || "unknown-language";
+
+  // Fallback when the platform does not expose a client IP.
+  return `fallback:${userAgent}|${acceptLanguage}`;
+}
+
+function getRateLimitStatus(clientId: string): {
+  isLimited: boolean;
+  retryAfterSeconds: number;
+} {
+  const now = Date.now();
+  cleanupRateLimitStore(now);
+  const currentEntry = requestLog.get(clientId);
+
+  if (!currentEntry || now - currentEntry.windowStart >= RATE_LIMIT_WINDOW) {
+    requestLog.set(clientId, { count: 1, windowStart: now, lastSeen: now });
+    return { isLimited: false, retryAfterSeconds: 0 };
+  }
+
+  if (currentEntry.count >= MAX_REQUESTS) {
+    currentEntry.lastSeen = now;
+    requestLog.set(clientId, currentEntry);
+    const retryAfterMs = Math.max(
+      RATE_LIMIT_WINDOW - (now - currentEntry.windowStart),
+      0
+    );
+    return {
+      isLimited: true,
+      retryAfterSeconds: Math.ceil(retryAfterMs / 1000),
+    };
+  }
+
+  requestLog.set(clientId, {
+    ...currentEntry,
+    count: currentEntry.count + 1,
+    lastSeen: now,
+  });
+  return { isLimited: false, retryAfterSeconds: 0 };
 }
 
 function toTrimmedString(value: unknown): string | null {
@@ -64,16 +136,16 @@ function isValidContactEmail(email: string | undefined): email is string {
 }
 
 export async function POST(request: Request) {
-  // Obtém IP do cliente
-  const forwarded = request.headers.get("x-forwarded-for");
-  const ip = forwarded?.split(",")[0]?.trim() || "unknown";
+  const clientId = getClientIdentifier(request);
+  const rateLimitStatus = getRateLimitStatus(clientId);
 
-  // Verifica rate limit
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
+  if (rateLimitStatus.isLimited) {
+    const response = NextResponse.json(
       { error: "Too many requests. Please try again later." },
       { status: 429 }
     );
+    response.headers.set("Retry-After", String(rateLimitStatus.retryAfterSeconds));
+    return response;
   }
 
   let body: unknown;
