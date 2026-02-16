@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { siteConfig } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -127,7 +128,7 @@ export const Header = () => {
 
             {/* Resume/CV Button */}
             <a
-              href="/resume.pdf"
+              href={siteConfig.profile.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="ml-4 px-4 py-2 rounded-sm text-primary border border-primary hover:bg-primary hover:text-background transition-all duration-300"
@@ -200,7 +201,7 @@ export const Header = () => {
 
           {/* Mobile Resume Button */}
           <a
-            href="/resume.pdf"
+            href={siteConfig.profile.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 px-8 py-4 rounded-sm text-primary border-2 border-primary hover:bg-primary hover:text-background transition-all duration-300"
@@ -225,7 +226,7 @@ export const Header = () => {
             }}
           >
             <a
-              href="https://github.com/kenjimattos"
+              href={siteConfig.profile.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground hover:text-primary transition-colors duration-300"
@@ -236,7 +237,7 @@ export const Header = () => {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/in/kenjimattos"
+              href={siteConfig.profile.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground hover:text-primary transition-colors duration-300"

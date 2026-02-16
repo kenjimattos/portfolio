@@ -4,6 +4,7 @@ import { Mail } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { siteConfig } from "@/config/site";
 
 const navLinks = [
   { label: "home", sectionId: "home" },
@@ -15,7 +16,7 @@ const navLinks = [
 const socialLinks = [
   {
     name: "GitHub",
-    href: "https://github.com/kenjimattos",
+    href: siteConfig.profile.githubUrl,
     hoverColor: "var(--color-accent-cyan)",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -25,7 +26,7 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/kenjimattos",
+    href: siteConfig.profile.linkedinUrl,
     hoverColor: "var(--color-accent-purple-light)",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -35,7 +36,7 @@ const socialLinks = [
   },
   {
     name: "Email",
-    href: "mailto:kenjimattos@gmail.com",
+    href: `mailto:${siteConfig.profile.email}`,
     hoverColor: "var(--color-primary)",
     icon: <Mail strokeWidth={1.5} className="w-5 h-5" />,
   },
@@ -215,14 +216,14 @@ export const Footer = () => {
               </span>
             </div>
             <a
-              href="mailto:kenjimattos@gmail.com"
+              href={`mailto:${siteConfig.profile.email}`}
               className="text-background transition-colors duration-300 hover:text-primary w-fit"
               style={{
                 fontSize: "clamp(13px, 1.2vw, 15px)",
                 opacity: 0.6,
               }}
             >
-              kenjimattos@gmail.com
+              {siteConfig.profile.email}
             </a>
           </div>
         </div>
@@ -246,7 +247,7 @@ export const Footer = () => {
                 opacity: 0.4,
               }}
             >
-              {new Date().getFullYear()} Kenji Mattos Kinoshita
+              {new Date().getFullYear()} {siteConfig.brand.ownerName}
             </span>
             <span
               className="w-1 h-1 rounded-full"
