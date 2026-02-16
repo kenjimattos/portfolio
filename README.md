@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio - Kenji Mattos
 
-## Getting Started
+Portfólio pessoal construído com Next.js (App Router), TypeScript, Tailwind CSS v4 e animações com GSAP.
 
-First, run the development server:
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- GSAP + ScrollTrigger
+- Resend (envio de formulário de contato)
+
+## Funcionalidades
+
+- Página principal com seções:
+  - Hero
+  - About
+  - Work
+  - Tech Stack
+  - Contact
+- Case studies em rotas dedicadas:
+  - `/work/revoluna`
+  - `/work/houston`
+- Template reutilizável de case study em `components/case-study/case-study-template.tsx`
+- Rota de contato em `app/api/contact/route.ts` com:
+  - validação de payload
+  - honeypot
+  - rate limiting básico
+
+## Executando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev`: inicia ambiente de desenvolvimento
+- `npm run build`: gera build de produção
+- `npm run start`: inicia build de produção
+- `npm run lint`: roda ESLint
 
-## Learn More
+## Variáveis de ambiente
 
-To learn more about Next.js, take a look at the following resources:
+Crie um `.env.local` com:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+RESEND_API_KEY=...
+CONTACT_EMAIL=...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `RESEND_API_KEY`: chave da API da Resend
+- `CONTACT_EMAIL`: e-mail de destino das mensagens do formulário
 
-## Deploy on Vercel
+## Estrutura principal
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `app/`: rotas e layout da aplicação
+- `components/`: componentes visuais e seções
+- `config/`: configurações centralizadas (ex.: links de perfil)
+- `public/img/`: assets de imagem
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Observações
+
+Atualmente existem pendências de lint relacionadas a texto não escapado em JSX (`react/no-unescaped-entities`) em alguns componentes.
