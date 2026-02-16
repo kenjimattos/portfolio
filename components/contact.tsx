@@ -353,7 +353,7 @@ export const Contact = () => {
               className="text-foreground leading-relaxed"
               style={{ fontSize: "clamp(18px, 2vw, 24px)" }}
             >
-              I'm currently available for freelance work and full-time opportunities.
+              I&apos;m currently available for freelance work and full-time opportunities.
               If you have a project in mind or just want to chat, feel free to reach out.
             </p>
             <p

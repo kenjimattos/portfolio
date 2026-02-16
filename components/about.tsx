@@ -196,7 +196,7 @@ export const About = () => {
               className="text-foreground leading-relaxed"
               style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
             >
-              I'm a <strong>Frontend Engineer</strong> passionate about building
+              I&apos;m a <strong>Frontend Engineer</strong> passionate about building
               exceptional digital experiences. With a unique background spanning
               UX/UI design and software development, I bridge the gap between
               beautiful design and robust code.
@@ -276,11 +276,11 @@ export const About = () => {
             <span style={{ color: "#fbbf24" }}>{"{"}</span>{" "}
             <span style={{ color: "var(--color-accent-purple-light)" }}>code</span>
             <span style={{ color: "rgba(255,255,249,0.5)" }}>:</span>{" "}
-            <span style={{ color: "var(--color-accent-cyan)" }}>"clean"</span>
+            <span style={{ color: "var(--color-accent-cyan)" }}>&quot;clean&quot;</span>
             <span style={{ color: "rgba(255,255,249,0.5)" }}>,</span>{" "}
             <span style={{ color: "var(--color-accent-purple-light)" }}>design</span>
             <span style={{ color: "rgba(255,255,249,0.5)" }}>:</span>{" "}
-            <span style={{ color: "var(--color-accent-cyan)" }}>"thoughtful"</span>{" "}
+            <span style={{ color: "var(--color-accent-cyan)" }}>&quot;thoughtful&quot;</span>{" "}
             <span style={{ color: "#fbbf24" }}>{"}"}</span>
             <span style={{ color: "rgba(255,255,249,0.5)" }}>;</span>
           </div>
