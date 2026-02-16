@@ -225,7 +225,7 @@ export const Header = () => {
             }}
           >
             <a
-              href="https://github.com/kenji"
+              href="https://github.com/kenjimattos"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground hover:text-primary transition-colors duration-300"
@@ -236,7 +236,7 @@ export const Header = () => {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/in/kenji"
+              href="https://linkedin.com/in/kenjimattos"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground hover:text-primary transition-colors duration-300"

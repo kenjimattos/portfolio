@@ -318,7 +318,7 @@ export const Work = () => {
         style={{ paddingTop: "clamp(20px, 4vw, 40px)" }}
       >
         <a
-          href="https://github.com/kenji"
+          href="https://github.com/kenjimattos"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-3 text-background transition-all duration-300 hover:text-primary"
