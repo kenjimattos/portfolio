@@ -369,23 +369,6 @@ export const Contact = () => {
 
           {/* Contact Info */}
           <div className="flex flex-col gap-6">
-            {/* Email Direct */}
-            {/* <div className="flex flex-col gap-2">
-              <span
-                className="text-foreground font-mono uppercase tracking-wider"
-                style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
-              >
-                Email
-              </span>
-              <a
-                href={`mailto:${siteConfig.profile.email}`}
-                className="text-primary hover:text-foreground transition-colors duration-300"
-                style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}
-              >
-                {siteConfig.profile.email}
-              </a>
-            </div> */}
-
             {/* Location */}
             <div className="flex flex-col gap-2">
               <span

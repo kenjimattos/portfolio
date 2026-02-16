@@ -14,19 +14,12 @@ const skills = [
   { category: "Tools", items: ["Git", "Figma", "Storybook", "Webpack"] },
 ];
 
-const stats = [
-  { value: "10+", label: "Years of Experience" },
-  { value: "20+", label: "Features Delivered" },
-  { value: "100%", label: "Pixel Perfect" },
-];
-
 export const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     // Header animation
@@ -102,26 +95,6 @@ export const About = () => {
       );
     }
 
-    // Stats animation
-    const statItems = statsRef.current?.children;
-    if (statItems) {
-      gsap.fromTo(
-        statItems,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
   }, { scope: sectionRef });
 
   return (
@@ -198,10 +171,6 @@ export const About = () => {
                 width={480}
                 height={560}
                 className="w-full h-auto object-cover"
-                // style={{
-                  // filter: "grayscale(20%)",
-                  // mixBlendMode: "luminosity",
-                // }}
               />
               {/* Overlay gradient - purple tint */}
               <div
@@ -213,50 +182,6 @@ export const About = () => {
             </div>
           </div>
 
-          {/* Stats */}
-          {/* <div
-            ref={statsRef}
-            className="grid grid-cols-3 gap-4"
-          >
-            {stats.map((stat, index) => {
-              // Alternate colors: blue, purple, cyan
-              const accentColors = [
-                { bg: "color-mix(in srgb, var(--color-primary) 3%, transparent)", border: "color-mix(in srgb, var(--color-primary) 8%, transparent)", text: "var(--color-primary)" },
-                { bg: "color-mix(in srgb, var(--color-accent-purple) 3%, transparent)", border: "color-mix(in srgb, var(--color-accent-purple) 12%, transparent)", text: "var(--color-accent-purple)" },
-                { bg: "color-mix(in srgb, var(--color-accent-cyan) 3%, transparent)", border: "color-mix(in srgb, var(--color-accent-cyan) 12%, transparent)", text: "var(--color-accent-cyan)" },
-              ];
-              const accent = accentColors[index % 3];
-              return (
-              <div
-                key={index}
-                className="text-center p-4 rounded-sm"
-                style={{
-                  backgroundColor: accent.bg,
-                  border: `1px solid ${accent.border}`,
-                  opacity: 0,
-                }}
-              >
-                <span
-                  className="block font-bold"
-                  style={{ fontSize: "clamp(24px, 3vw, 36px)", color: accent.text }}
-                >
-                  {stat.value}
-                </span>
-                <span
-                  className="text-foreground"
-                  style={{
-                    fontSize: "clamp(10px, 1vw, 12px)",
-                    opacity: 0.6,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {stat.label}
-                </span>
-              </div>
-            );
-            })}
-          </div> */}
         </div>
 
         {/* Right Column - Text + Skills */}
