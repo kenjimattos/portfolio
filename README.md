@@ -62,7 +62,3 @@ CONTACT_EMAIL=...
 - `components/`: componentes visuais e seções
 - `config/`: configurações centralizadas (ex.: links de perfil)
 - `public/img/`: assets de imagem
-
-## Observações
-
-Atualmente existem pendências de lint relacionadas a texto não escapado em JSX (`react/no-unescaped-entities`) em alguns componentes.
