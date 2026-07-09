@@ -18,7 +18,7 @@ const projects = [
     year: "2024",
     description:
       "Web platform built to manage medical shift schedules and candidate workflows.",
-    tags: ["React", "TypeScript", "Tailwind"],
+    tags: ["React", "TypeScript", "Tailwind", "Supabase"],
     image: "/img/work-houston.png",
     href: "/work/houston",
     color: "#1a365d",
@@ -30,7 +30,7 @@ const projects = [
     year: "2024",
     description:
       "A mobile-first product focused on clarity and control. Shift opportunities are organized, easy to find, and simple to manage.",
-    tags: ["React Native", "TypeScript", "Motion"],
+    tags: ["Figma", "FlutterFlow", "Flutter", "Supabase"],
     image: "/img/work-revoluna.png",
     href: "/work/revoluna",
     color: "#4a1d6e",
