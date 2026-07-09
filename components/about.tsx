@@ -169,7 +169,7 @@ export const About = () => {
             >
               <Image
                 src="/img/about-photo.png"
-                alt="Kenji - Frontend Engineer"
+                alt="Kenji profile photo"
                 width={480}
                 height={560}
                 className="w-full h-auto object-cover"
