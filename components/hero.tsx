@@ -322,8 +322,6 @@ export const Hero = () => {
               maxWidth: "28rem",
             }}
           >
-            Frontend engineer with a designer&apos;s eye.
-            <br />
             Crafting interfaces where aesthetics meet performance.
           </p>
           <button

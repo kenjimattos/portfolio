@@ -198,7 +198,7 @@ export const About = () => {
               className="text-foreground leading-relaxed"
               style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
             >
-              I&apos;m a <strong>Frontend Engineer</strong> passionate about building
+              I&apos;m passionate about building
               exceptional digital experiences. With a unique background spanning
               UX/UI design and software development, I bridge the gap between
               beautiful design and robust code.
