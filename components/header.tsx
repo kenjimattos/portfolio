@@ -125,20 +125,6 @@ export const Header = () => {
                 />
               </a>
             ))}
-
-            {/* Resume/CV Button */}
-            <a
-              href={siteConfig.profile.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-4 px-4 py-2 rounded-sm text-primary border border-primary hover:bg-primary hover:text-background transition-all duration-300"
-              style={{
-                fontSize: "clamp(13px, 1.1vw, 15px)",
-                fontFamily: "var(--font-gabarito)",
-              }}
-            >
-              Resume
-            </a>
           </nav>
 
           {/* Mobile Menu Button */}
