@@ -9,9 +9,11 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const skills = [
-  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Vue.js"] },
-  { category: "Styling", items: ["Tailwind CSS", "CSS-in-JS", "Material UI", "SASS"] },
-  { category: "Tools", items: ["Git", "Figma", "Storybook", "Webpack"] },
+  { category: "Languages", items: ["JavaScript", "TypeScript", "Python"] },
+  { category: "Frontend", items: ["React", "Vite","Next.js"] },
+  { category: "Styling", items: ["Tailwind CSS", "Bootstrap"] },
+  { category: "Tools", items: ["Git", "Figma", "Storybook"] },
+  { category: "Backend", items: ["Node.js", "Fastify", "PostgresSQL", "MongoDB"] },
 ];
 
 export const About = () => {
