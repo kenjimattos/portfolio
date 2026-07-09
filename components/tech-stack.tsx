@@ -1,40 +1,80 @@
 "use client";
 
 import { useRef } from "react";
+import type { IconType } from "react-icons";
+import {
+  SiJavascript,
+  SiTypescript,
+  SiPython,
+  SiReact,
+  SiVite,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiBootstrap,
+  SiGit,
+  SiFigma,
+  SiStorybook,
+  SiNodedotjs,
+  SiFastify,
+  SiPostgresql,
+  SiMongodb,
+} from "react-icons/si";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
 
-const technologies = [
+type Technology = {
+  name: string;
+  icon: IconType;
+  color: string;
+  description: string;
+};
+
+type TechnologyCategory = {
+  category: string;
+  items: Technology[];
+};
+
+const technologies: TechnologyCategory[] = [
   {
     category: "Frontend",
     items: [
-      { name: "React", icon: "⚛️", level: 95, description: "Component architecture, hooks, state management" },
-      { name: "Next.js", icon: "▲", level: 90, description: "SSR, SSG, App Router, API routes" },
-      { name: "TypeScript", icon: "TS", level: 92, description: "Type safety, generics, utility types" },
-      { name: "Flutter", icon: "🦋", level: 75, description: "Cross-platform mobile, widgets, Dart" },
+      { name: "React", icon: SiReact, color: "#61DAFB", description: "Component architecture, hooks, state management" },
+      { name: "Next.js", icon: SiNextdotjs, color: "var(--color-foreground)", description: "SSR, SSG, App Router, API routes" },
+      { name: "Vite", icon: SiVite, color: "#646CFF", description: "Fast dev server, optimized builds" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", description: "Utility-first, custom configs, plugins" },
+      { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3", description: "Responsive grids, component theming" },
     ],
   },
   {
-    category: "Styling",
+    category: "Backend & Data",
     items: [
-      { name: "Tailwind CSS", icon: "🎨", level: 95, description: "Utility-first, custom configs, plugins" },
-      { name: "CSS/SASS", icon: "✨", level: 90, description: "Animations, Grid, Flexbox, Variables" },
-      { name: "Material UI", icon: "🎨", level: 85, description: "Component library, theming, customization" },
-      { name: "GSAP", icon: "🟩", level: 88, description: "ScrollTrigger, timelines, morphing" },
+      { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E", description: "REST APIs, serverless functions" },
+      { name: "Fastify", icon: SiFastify, color: "var(--color-foreground)", description: "High-performance HTTP servers, plugins" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", description: "Relational modeling, queries, indexing" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248", description: "Document stores, aggregation pipelines" },
+      { name: "Python", icon: SiPython, color: "#3776AB", description: "Scripting, automation, data handling" },
     ],
   },
   {
-    category: "Tools & Others",
+    category: "Languages & Tools",
     items: [
-      { name: "Git", icon: "📦", level: 90, description: "Branching strategies, CI/CD workflows" },
-      { name: "Figma", icon: "🎯", level: 88, description: "Design systems, prototyping, handoff" },
-      { name: "Node.js", icon: "🟢", level: 80, description: "REST APIs, Express, serverless" },
-      { name: "Testing", icon: "🧪", level: 78, description: "Jest, React Testing Library, Cypress" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", description: "ES6+, async patterns, DOM APIs" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6", description: "Type safety, generics, utility types" },
+      { name: "Git", icon: SiGit, color: "#F05032", description: "Branching strategies, CI/CD workflows" },
+      { name: "Figma", icon: SiFigma, color: "#F24E1E", description: "Design systems, prototyping, handoff" },
+      { name: "Storybook", icon: SiStorybook, color: "#FF4785", description: "Component docs, isolated development" },
     ],
   },
+];
+
+const categoryAccents = [
+  "var(--color-primary)",
+  "var(--color-accent-purple)",
+  "var(--color-accent-cyan)",
 ];
 
 export const TechStack = () => {
@@ -42,76 +82,130 @@ export const TechStack = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Header animation
-    gsap.fromTo(
-      headerRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+    // Header: fade in, then draw the gradient line
+    const headerTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: headerRef.current,
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+    });
+    headerTl
+      .fromTo(
+        headerRef.current,
+        { opacity: 0, y: 60 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+      )
+      .fromTo(
+        ".header-line",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.8, ease: "power3.inOut" },
+        "-=0.5"
+      );
 
-    // Categories stagger animation
+    // Categories: each column cascades in — header slides, items rise, icons pop
     const categories = categoriesRef.current?.children;
     if (categories) {
-      Array.from(categories).forEach((category) => {
-        gsap.fromTo(
-          category,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: category,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
+      Array.from(categories).forEach((category, catIndex) => {
+        const header = category.querySelector(".category-header");
+        const items = category.querySelectorAll(".tech-item");
+        const icons = category.querySelectorAll(".tech-icon");
 
-        // Animate skill bars within each category
-        const skillBars = category.querySelectorAll(".skill-bar-fill");
-        gsap.fromTo(
-          skillBars,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: category,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
+        const tl = gsap.timeline({
+          delay: catIndex * 0.15,
+          scrollTrigger: {
+            trigger: category,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+        tl.to(category, { opacity: 1, duration: 0.01 })
+          .fromTo(
+            header,
+            { opacity: 0, x: -30 },
+            { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }
+          )
+          .fromTo(
+            items,
+            { opacity: 0, y: 28 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.09, ease: "power3.out", immediateRender: true },
+            "-=0.3"
+          )
+          .fromTo(
+            icons,
+            { scale: 0, rotation: -20 },
+            { scale: 1, rotation: 0, duration: 0.5, stagger: 0.09, ease: "back.out(2.2)", immediateRender: true },
+            "<+=0.1"
+          );
       });
     }
 
-    // Marquee animation
+    // Marquee: base drift, speeding up and flipping direction with scroll velocity
     if (marqueeRef.current) {
       const marqueeContent = marqueeRef.current.querySelector(".marquee-content");
       if (marqueeContent) {
-        gsap.to(marqueeContent, {
+        const marqueeTween = gsap.to(marqueeContent, {
           xPercent: -50,
           duration: 20,
           ease: "none",
           repeat: -1,
         });
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          onUpdate: (self) => {
+            const velocity = self.getVelocity();
+            const boost = gsap.utils.clamp(1, 5, Math.abs(velocity) / 250);
+            marqueeTween.timeScale(velocity < 0 ? -boost : boost);
+            gsap.to(marqueeTween, {
+              timeScale: velocity < 0 ? -1 : 1,
+              duration: 1.2,
+              ease: "power2.out",
+              overwrite: true,
+            });
+          },
+        });
       }
+    }
+
+    // Terminal: type the command, then print the output line by line
+    if (terminalRef.current) {
+      const terminalTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: terminalRef.current,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
+      terminalTl
+        .fromTo(
+          terminalRef.current,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
+        )
+        .fromTo(
+          ".terminal-command",
+          { text: "" },
+          { text: "cat philosophy.txt", duration: 0.9, ease: "none", immediateRender: true },
+          "-=0.2"
+        )
+        .fromTo(
+          ".terminal-line",
+          { opacity: 0, x: -12 },
+          { opacity: 1, x: 0, duration: 0.35, stagger: 0.3, ease: "power2.out", immediateRender: true },
+          "+=0.2"
+        )
+        .fromTo(
+          ".terminal-prompt",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, immediateRender: true },
+          "+=0.1"
+        );
     }
   }, { scope: sectionRef });
 
@@ -146,7 +240,7 @@ export const TechStack = () => {
           Tech Stack
         </h2>
         <div
-          className="flex-1 h-px"
+          className="header-line flex-1 h-px origin-left"
           style={{
             background: "linear-gradient(90deg, color-mix(in srgb, var(--color-accent-purple) 30%, transparent), color-mix(in srgb, var(--color-accent-cyan) 20%, transparent), transparent)",
             maxWidth: "300px"
@@ -169,12 +263,12 @@ export const TechStack = () => {
             style={{ opacity: 0 }}
           >
             {/* Category Header */}
-            <div className="flex items-center gap-3 pb-3 border-b border-foreground/10">
+            <div className="category-header flex items-center gap-3 pb-3 border-b border-foreground/10">
               <span
                 className="font-mono"
                 style={{
                   fontSize: "clamp(11px, 1vw, 13px)",
-                  color: catIndex === 0 ? "var(--color-primary)" : catIndex === 1 ? "var(--color-accent-purple)" : "var(--color-accent-cyan)"
+                  color: categoryAccents[catIndex % categoryAccents.length],
                 }}
               >
                 0{catIndex + 1}
@@ -192,61 +286,32 @@ export const TechStack = () => {
               {category.items.map((tech) => (
                 <div
                   key={tech.name}
-                  className="group cursor-default"
+                  className="tech-item group flex items-start gap-3 cursor-default"
                 >
-                  {/* Skill Header */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className="w-8 h-8 flex items-center justify-center rounded-sm bg-foreground/5 group-hover:bg-primary/10 transition-colors duration-300"
-                        style={{ fontSize: "14px" }}
-                      >
-                        {tech.icon}
-                      </span>
-                      <span
-                        className="text-foreground font-medium group-hover:text-primary transition-colors duration-300"
-                        style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
-                      >
-                        {tech.name}
-                      </span>
-                    </div>
+                  <span
+                    className="tech-icon w-9 h-9 shrink-0 flex items-center justify-center rounded-sm bg-foreground/5 group-hover:bg-foreground/10 group-hover:scale-110 group-hover:-rotate-6 transition-[background-color,scale,rotate] duration-300"
+                    style={{ color: tech.color }}
+                  >
+                    <tech.icon size={18} aria-hidden />
+                  </span>
+                  <div className="flex flex-col gap-1">
                     <span
-                      className="text-foreground font-mono"
+                      className="text-foreground font-medium group-hover:text-primary transition-colors duration-300"
+                      style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+                    >
+                      {tech.name}
+                    </span>
+                    <p
+                      className="text-foreground"
                       style={{
-                        fontSize: "clamp(12px, 1vw, 14px)",
-                        opacity: 0.4,
+                        fontSize: "clamp(12px, 1vw, 13px)",
+                        opacity: 0.5,
+                        lineHeight: 1.4,
                       }}
                     >
-                      {tech.level}%
-                    </span>
+                      {tech.description}
+                    </p>
                   </div>
-
-                  {/* Skill Bar */}
-                  <div
-                    className="relative h-1 rounded-full overflow-hidden"
-                    style={{ backgroundColor: "rgba(22, 22, 22, 0.06)" }}
-                  >
-                    <div
-                      className="skill-bar-fill absolute inset-y-0 left-0 rounded-full origin-left"
-                      style={{
-                        width: `${tech.level}%`,
-                        background: catIndex === 0 ? "var(--color-primary)" : catIndex === 1 ? "linear-gradient(90deg, var(--color-accent-purple), var(--color-accent-purple-light))" : "linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-cyan-dark))",
-                        transform: "scaleX(0)",
-                      }}
-                    />
-                  </div>
-
-                  {/* Skill Description */}
-                  <p
-                    className="mt-2 text-foreground"
-                    style={{
-                      fontSize: "clamp(12px, 1vw, 13px)",
-                      opacity: 0.5,
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {tech.description}
-                  </p>
                 </div>
               ))}
             </div>
@@ -287,10 +352,12 @@ export const TechStack = () => {
 
       {/* Code Block - Terminal Style */}
       <div
+        ref={terminalRef}
         className="mt-16 rounded-lg overflow-hidden"
         style={{
           backgroundColor: "var(--color-foreground)",
           border: "1px solid rgba(255, 255, 249, 0.1)",
+          opacity: 0,
         }}
       >
         {/* Terminal Header */}
@@ -316,14 +383,14 @@ export const TechStack = () => {
         >
           <div className="flex gap-2 mb-2">
             <span style={{ color: "var(--color-accent-cyan)" }}>$</span>
-            <span style={{ color: "rgba(255,255,249,0.8)" }}>cat philosophy.txt</span>
+            <span className="terminal-command" style={{ color: "rgba(255,255,249,0.8)" }}>cat philosophy.txt</span>
           </div>
           <div className="leading-relaxed">
-            <p className="mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> Clean code is not written by following a set of rules.</p>
-            <p className="mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-cyan)" }}>&gt;</span> It comes from craftsmanship and attention to detail.</p>
-            <p style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> I believe in building interfaces that are both beautiful and performant.</p>
+            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> Clean code is not written by following a set of rules.</p>
+            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-cyan)" }}>&gt;</span> It comes from craftsmanship and attention to detail.</p>
+            <p className="terminal-line" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> I believe in building interfaces that are both beautiful and performant.</p>
           </div>
-          <div className="flex gap-2 mt-4">
+          <div className="terminal-prompt flex gap-2 mt-4">
             <span style={{ color: "var(--color-accent-cyan)" }}>$</span>
             <span
               className="inline-block w-2 h-4 animate-pulse"
