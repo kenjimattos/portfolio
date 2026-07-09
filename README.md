@@ -9,6 +9,7 @@ Portfólio pessoal construído com Next.js (App Router), TypeScript, Tailwind CS
 - TypeScript
 - Tailwind CSS v4
 - GSAP + ScrollTrigger
+- react-icons (ícones de tecnologia)
 - Resend (envio de formulário de contato)
 
 ## Funcionalidades
@@ -43,6 +44,7 @@ Abra `http://localhost:3000`.
 - `npm run build`: gera build de produção
 - `npm run start`: inicia build de produção
 - `npm run lint`: roda ESLint
+- `npm run test:smoke`: roda o smoke test do fluxo de contato
 
 ## Variáveis de ambiente
 

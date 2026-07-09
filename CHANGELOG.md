@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.1.0] - 2026-07-09
+
+### Added
+
+- Nova dependência `react-icons` para ícones de tecnologia
+- Terminal animado na seção Tech Stack com `TextPlugin` do GSAP
+
+### Changed
+
+- Redesign da seção Tech Stack: grade de ícones por categoria (Frontend, Backend & Data, Languages & Tools) no lugar das barras de skill
+- Atualização das skills da seção About para refletir o stack real
+- Atualização das tags de tecnologia dos cases Houston e Revoluna na seção Work
+- Nova foto da seção About com alt text mais descritivo
+- Animação de stagger do Header ampliada para incluir logo e botão do menu mobile
+- Textos das secções do Hero e About
+
+### Removed
+- Botão Resume/CV da navegação do Header
+
 ## [2.0.0] - 2026-02-16
 
 ### Added
