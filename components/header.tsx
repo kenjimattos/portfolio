@@ -37,15 +37,15 @@ export const Header = () => {
     // Initial animation
     gsap.fromTo(
       headerRef.current,
-      { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.5 }
+      { y: -100 },
+      { y: 0, duration: 0.8, ease: "power3.out", delay: 0.5 }
     );
 
-    // Nav links stagger
-    const links = navRef.current?.querySelectorAll("a");
-    if (links) {
+    // Header items stagger (logo, nav links, mobile menu button)
+    const items = headerRef.current?.querySelectorAll("[data-header-item]");
+    if (items) {
       gsap.fromTo(
-        links,
+        items,
         { y: -20, opacity: 0 },
         {
           y: 0,
@@ -85,17 +85,18 @@ export const Header = () => {
           backgroundColor: isScrolled ? "rgba(255, 255, 249, 0.9)" : "transparent",
           backdropFilter: isScrolled ? "blur(12px)" : "none",
           borderBottom: isScrolled ? "1px solid rgba(22, 22, 22, 0.06)" : "1px solid transparent",
-          opacity: 0,
         }}
       >
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link
+            data-header-item
             className="text-foreground hover:text-primary transition-colors duration-300 font-normal relative z-50"
             style={{
               fontFamily: "var(--font-gravitas)",
               letterSpacing: "-0.11em",
               fontSize: "clamp(28px, 4vw, 40px)",
+              opacity: 0,
             }}
             href="/"
           >
@@ -110,12 +111,14 @@ export const Header = () => {
             {navLinks.map((link) => (
               <a
                 key={link.href}
+                data-header-item
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
                 className="text-foreground hover:text-primary transition-colors duration-300 relative group"
                 style={{
                   fontSize: "clamp(14px, 1.2vw, 16px)",
                   fontFamily: "var(--font-gabarito)",
+                  opacity: 0,
                 }}
               >
                 {link.label}
@@ -129,8 +132,10 @@ export const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
+            data-header-item
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5"
+            style={{ opacity: 0 }}
             aria-label="Toggle menu"
           >
             <span
