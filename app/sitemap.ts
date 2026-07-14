@@ -18,5 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${siteConfig.url}/work/sebrae-opp`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 }

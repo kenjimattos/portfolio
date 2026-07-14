@@ -35,6 +35,18 @@ const projects = [
     href: "/work/revoluna",
     color: "#4a1d6e",
   },
+  {
+    id: 3,
+    name: "Sebrae OPP",
+    role: "Full-Stack & Data",
+    year: "2026",
+    description:
+      "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba — React frontend, Fastify API, and Python ETL.",
+    tags: ["React", "TypeScript", "Fastify", "MongoDB"],
+    image: "/img/work-sebrae-opp.png",
+    href: "/work/sebrae-opp",
+    color: "#134e4a",
+  },
 ];
 
 export const Work = () => {

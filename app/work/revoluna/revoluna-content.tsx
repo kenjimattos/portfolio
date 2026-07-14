@@ -406,7 +406,7 @@ export function RevolunaContent() {
           </div>
         </section>
       }
-      nextProject={{ href: "/work/houston", label: "Houston" }}
+      nextProject={{ href: "/work/sebrae-opp", label: "Sebrae OPP" }}
     />
   );
 }
