@@ -386,9 +386,9 @@ export const TechStack = () => {
             <span className="terminal-command" style={{ color: "rgba(255,255,249,0.8)" }}>cat philosophy.txt</span>
           </div>
           <div className="leading-relaxed">
-            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> Clean code is not written by following a set of rules.</p>
-            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-cyan)" }}>&gt;</span> It comes from craftsmanship and attention to detail.</p>
-            <p className="terminal-line" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> I believe in building interfaces that are both beautiful and performant.</p>
+            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> Real products are built where design meets the database.</p>
+            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-cyan)" }}>&gt;</span> I own the whole path: Figma, frontend, backend, deploy.</p>
+            <p className="terminal-line" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> If it doesn&apos;t survive production, it doesn&apos;t count.</p>
           </div>
           <div className="terminal-prompt flex gap-2 mt-4">
             <span style={{ color: "var(--color-accent-cyan)" }}>$</span>
