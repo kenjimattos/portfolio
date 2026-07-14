@@ -160,7 +160,7 @@ export const Hero = () => {
     document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const marqueeText = "DESIGNER • DEVELOPER • CREATIVE • FRONTEND • UI/UX • MOTION • ";
+  const marqueeText = "PRODUCT ENGINEER • FULL-STACK • DESIGN SYSTEMS • REACT • POSTGRESQL • PRODUCT DESIGN • ";
 
   return (
     <div
@@ -241,7 +241,7 @@ export const Hero = () => {
               color: "rgba(255, 255, 249, 0.5)",
             }}
           >
-            Designer
+            Design
           </span>
         </div>
 
@@ -263,12 +263,12 @@ export const Hero = () => {
             <span
               style={{ color: "rgba(255, 255, 249, 0.4)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.2em" }}
             >
-              Designer
+              Design
             </span>
             <span
               style={{ color: "rgba(255, 255, 249, 0.4)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.2em" }}
             >
-              Developer
+              Engineering
             </span>
           </div>
         </div>
@@ -293,7 +293,7 @@ export const Hero = () => {
               color: "rgba(255, 255, 249, 0.5)",
             }}
           >
-            Developer
+            Engineering
           </span>
           <h1
             className="leading-none text-right"
@@ -322,7 +322,7 @@ export const Hero = () => {
               maxWidth: "28rem",
             }}
           >
-            Crafting interfaces where aesthetics meet performance.
+            I design, build, and ship products end to end — interface, business logic, database, and deploy.
           </p>
           <button
             onClick={scrollToWork}
