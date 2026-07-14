@@ -114,7 +114,7 @@ export const Footer = () => {
                 maxWidth: "280px",
               }}
             >
-              Frontend engineer crafting interfaces where aesthetics meet performance.
+              I design, build, and ship products end to end — from Figma to production.
             </p>
           </div>
 
