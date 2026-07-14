@@ -198,10 +198,10 @@ export const About = () => {
               className="text-foreground leading-relaxed"
               style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
             >
-              I&apos;m passionate about building
-              exceptional digital experiences. With a unique background spanning
-              UX/UI design and software development, I bridge the gap between
-              beautiful design and robust code.
+              I build products end to end. On my latest projects I owned
+              everything from the first Figma prototype to the React frontend,
+              the PostgreSQL schema behind it, and the CI/CD pipeline that
+              ships it — design, code, and deploy as one continuous job.
             </p>
             <p
               className="text-foreground leading-relaxed"
@@ -210,9 +210,11 @@ export const About = () => {
                 opacity: 0.8,
               }}
             >
-              I specialize in translating complex requirements into intuitive,
-              performant interfaces. Every line of code I write is crafted with
-              attention to detail, accessibility, and user experience in mind.
+              Most of my work lives in complex operational and financial
+              domains: scheduling, attendance, payments, and multi-tenant
+              access control. The hard part isn&apos;t the interface — it&apos;s
+              encoding messy business rules into systems that stay reliable
+              when real money and real people depend on them.
             </p>
             <p
               className="text-foreground leading-relaxed"
@@ -221,8 +223,10 @@ export const About = () => {
                 opacity: 0.8,
               }}
             >
-              Currently focused on React ecosystem, modern CSS, and creating
-              delightful micro-interactions that make products feel alive.
+              I&apos;ve also coordinated a small engineering team, setting code
+              standards, review practices, and workflows as the system grew.
+              Today I work mostly with React, Next.js, Node.js, and
+              PostgreSQL, turning manual operations into software.
             </p>
           </div>
 
