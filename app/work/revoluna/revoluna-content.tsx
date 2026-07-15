@@ -79,6 +79,7 @@ export function RevolunaContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/revoluna/explore.png"
                 alt="Revoluna Explore screen listing available medical shifts"
                 width={1055}
@@ -96,6 +97,7 @@ export function RevolunaContent() {
               }}
             >
               <Image
+                quality={90}
                 src="/img/revoluna/schedule.png"
                 alt="Revoluna My Schedule screen with upcoming shifts"
                 width={439}
@@ -167,6 +169,7 @@ export function RevolunaContent() {
                 />
               </div>
               <Image
+                quality={90}
                 src="/img/revoluna/notifications.png"
                 alt="Revoluna push notifications on a phone lock screen"
                 width={845}
@@ -206,6 +209,7 @@ export function RevolunaContent() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <Image
+                  quality={90}
                   src="/img/revoluna/transfer.png"
                   alt="Revoluna shift transfer flow screens"
                   width={1081}
@@ -253,6 +257,7 @@ export function RevolunaContent() {
                 }}
               >
                 <Image
+                  quality={90}
                   src="/img/revoluna/checkin-checkout.png"
                   alt="Revoluna check-in and check-out screens with location validation"
                   width={800}
@@ -304,6 +309,7 @@ export function RevolunaContent() {
                 }}
               >
                 <Image
+                  quality={90}
                   src="/img/revoluna/deeplink.png"
                   alt="Revoluna deep linking flow from a shared link into the app"
                   width={800}
@@ -325,6 +331,7 @@ export function RevolunaContent() {
         >
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               className="w-full"
               src="/img/revoluna/login-subscription.png"
               alt="Revoluna login and subscription screens"
@@ -345,6 +352,7 @@ export function RevolunaContent() {
           >
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/revoluna/figma-components.png"
                 alt="Revoluna component library in Figma"
                 width={667}
@@ -354,6 +362,7 @@ export function RevolunaContent() {
             </div>
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/revoluna/figma-design.png"
                 alt="Revoluna high-fidelity designs in Figma"
                 width={1361}
@@ -365,6 +374,7 @@ export function RevolunaContent() {
 
           <div className="mt-8 rounded-lg overflow-hidden">
             <Image
+              quality={90}
               src="/img/revoluna/github.png"
               alt="Revoluna custom code on GitHub"
               width={2160}
@@ -388,6 +398,7 @@ export function RevolunaContent() {
         >
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               src="/img/revoluna/icon.png"
               alt="Revoluna app icon"
               width={740}
@@ -397,6 +408,7 @@ export function RevolunaContent() {
           </div>
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               src="/img/revoluna/store.png"
               alt="Revoluna listing on the App Store and Google Play"
               width={700}

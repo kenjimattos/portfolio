@@ -175,6 +175,7 @@ export const About = () => {
               }}
             >
               <Image
+                quality={90}
                 src="/img/about-photo.png"
                 alt="Portrait of Kenji Mattos"
                 width={480}

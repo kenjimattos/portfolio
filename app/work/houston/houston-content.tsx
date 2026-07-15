@@ -81,6 +81,7 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/houston/dasboard.png"
                 alt="Operational Dashboard"
                 width={954}
@@ -112,6 +113,7 @@ export function HoustonContent() {
             </p>
             <div className="relative">
               <Image
+                quality={90}
                 src="/img/houston/schedule.png"
                 alt="Schedule Builder"
                 width={954}
@@ -164,6 +166,7 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/houston/application.png"
                 alt="Job & Application Management"
                 width={1826}
@@ -195,6 +198,7 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/houston/calendar.png"
                 alt="Shift Calendar"
                 width={1466}
@@ -226,6 +230,7 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src="/img/houston/payments.png"
                 alt="Attendance & Payments"
                 width={954}
@@ -269,6 +274,7 @@ export function HoustonContent() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <Image
+                  quality={90}
                   src="/img/houston/teams.png"
                   alt="Doctors & Teams"
                   width={653}
@@ -313,6 +319,7 @@ export function HoustonContent() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <Image
+                  quality={90}
                   src="/img/houston/reports.png"
                   alt="Reports & Insights"
                   width={1929}
@@ -363,6 +370,7 @@ export function HoustonContent() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <Image
+                  quality={90}
                   src="/img/houston/access-control.png"
                   alt="Access Control & Permissions"
                   width={480}
@@ -379,6 +387,7 @@ export function HoustonContent() {
         <div className="mt-12 flex flex-col gap-8">
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               src="/img/houston/github.png"
               alt="Houston codebase and pull requests on GitHub"
               width={1080}
@@ -388,6 +397,7 @@ export function HoustonContent() {
           </div>
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               src="/img/houston/database.png"
               alt="PostgreSQL database migration files for Houston"
               width={1080}
@@ -397,6 +407,7 @@ export function HoustonContent() {
           </div>
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               src="/img/houston/ci-cd.png"
               alt="Houston CI/CD pipeline runs"
               width={1080}
@@ -414,6 +425,7 @@ export function HoustonContent() {
         >
           <div className="rounded-lg overflow-hidden">
             <Image
+              quality={90}
               className="w-full"
               src="/img/houston/outcome.png"
               alt="Final Houston platform screens overview"

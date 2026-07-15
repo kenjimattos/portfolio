@@ -175,6 +175,7 @@ export const Work = () => {
             >
               {/* Background Image */}
               <Image
+                quality={90}
                 src={project.image}
                 alt={`${project.name} interface preview`}
                 fill

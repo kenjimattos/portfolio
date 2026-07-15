@@ -381,6 +381,7 @@ export function CaseStudyTemplate({
 
           <div className="hero-image relative flex justify-center lg:justify-end">
             <Image
+              quality={90}
               src={heroImage.src}
               alt={heroImage.alt}
               width={heroImage.width}
@@ -523,6 +524,7 @@ export function CaseStudyTemplate({
           <div className="flex flex-col items-center gap-4">
             <div className="relative rounded-lg overflow-hidden">
               <Image
+                quality={90}
                 src={challengeImage.src}
                 alt={challengeImage.alt}
                 width={challengeImage.width}
@@ -545,6 +547,7 @@ export function CaseStudyTemplate({
 
       <section className="animate-section w-full" style={{ opacity: 0 }}>
         <Image
+          quality={90}
           className={solutionImage.className ?? "w-full"}
           src={solutionImage.src}
           alt={solutionImage.alt}
