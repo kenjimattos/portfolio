@@ -15,7 +15,7 @@ export function LayoutShell({ children }: LayoutShellProps) {
   return (
     <>
       {!hideGlobalChrome && <Header />}
-      {children}
+      <main>{children}</main>
       {!hideGlobalChrome && <Footer />}
     </>
   );

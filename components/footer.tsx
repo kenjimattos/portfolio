@@ -124,7 +124,7 @@ export const Footer = () => {
               className="text-background font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(10px, 0.9vw, 12px)",
-                opacity: 0.4,
+                opacity: 0.55,
               }}
             >
               Navigation
@@ -133,6 +133,7 @@ export const Footer = () => {
               {navLinks.map((link, index) => (
                 <a
                   key={link.sectionId}
+                  href={`/#${link.sectionId}`}
                   className="footer-nav-link text-background transition-all duration-300 cursor-pointer w-fit group flex items-center gap-2"
                   style={{
                     fontSize: "clamp(14px, 1.3vw, 16px)",
@@ -156,7 +157,7 @@ export const Footer = () => {
               className="text-background font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(10px, 0.9vw, 12px)",
-                opacity: 0.4,
+                opacity: 0.55,
               }}
             >
               Connect
@@ -189,7 +190,7 @@ export const Footer = () => {
               className="text-background font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(10px, 0.9vw, 12px)",
-                opacity: 0.4,
+                opacity: 0.55,
               }}
             >
               Status
@@ -244,7 +245,7 @@ export const Footer = () => {
               className="text-background"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
-                opacity: 0.4,
+                opacity: 0.55,
               }}
             >
               {new Date().getFullYear()} {siteConfig.brand.ownerName}
@@ -257,7 +258,7 @@ export const Footer = () => {
               className="text-background"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
-                opacity: 0.4,
+                opacity: 0.55,
               }}
             >
               All rights reserved
@@ -269,7 +270,7 @@ export const Footer = () => {
             className="flex items-center gap-2 text-background"
             style={{
               fontSize: "clamp(11px, 1vw, 13px)",
-              opacity: 0.3,
+              opacity: 0.6,
             }}
           >
             <span>Built with</span>

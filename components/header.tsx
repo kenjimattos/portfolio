@@ -12,9 +12,9 @@ import { prefersReducedMotion } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Work", href: "#work" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Work", href: "/#work" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export const Header = () => {
@@ -73,7 +73,7 @@ export const Header = () => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
 
-    const sectionId = href.replace("#", "");
+    const sectionId = href.split("#")[1] ?? "";
 
     if (pathname === "/") {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });

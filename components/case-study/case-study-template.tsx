@@ -128,7 +128,6 @@ export function CaseStudyTemplate({
       if (heroContent) {
         const h1 = heroContent.querySelector("h1");
         const heroSubtitleEl = heroContent.querySelector(".hero-subtitle");
-        const heroImageEl = heroContent.querySelector(".hero-image");
         const heroRoleEl = heroContent.querySelector(".hero-role");
 
         if (h1) {
@@ -146,14 +145,8 @@ export function CaseStudyTemplate({
             "-=0.6"
           );
         }
-        if (heroImageEl) {
-          heroTl.fromTo(
-            heroImageEl,
-            { y: 80, opacity: 0, scale: 0.95 },
-            { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" },
-            "-=0.5"
-          );
-        }
+        // The hero image is intentionally not animated: transforms that
+        // grow its visible area produce a late LCP entry on mobile.
         if (heroRoleEl) {
           heroTl.fromTo(
             heroRoleEl,
@@ -360,7 +353,7 @@ export function CaseStudyTemplate({
             <div className="hero-role mt-8" style={{ opacity: 0 }}>
               <span
                 className="text-foreground font-mono uppercase tracking-wider"
-                style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
+                style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.65 }}
               >
                 My Role
               </span>
@@ -386,10 +379,7 @@ export function CaseStudyTemplate({
             </div>
           </div>
 
-          <div
-            className="hero-image relative flex justify-center lg:justify-end"
-            style={{ opacity: 0 }}
-          >
+          <div className="hero-image relative flex justify-center lg:justify-end">
             <Image
               src={heroImage.src}
               alt={heroImage.alt}
@@ -545,7 +535,7 @@ export function CaseStudyTemplate({
             </div>
             <span
               className="text-foreground font-mono"
-              style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
+              style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.65 }}
             >
               {challengeImage.caption}
             </span>
@@ -731,7 +721,7 @@ export function CaseStudyTemplate({
             <div className="flex flex-col">
               <span
                 className="font-mono uppercase tracking-wider"
-                style={{ fontSize: "clamp(10px, 0.9vw, 12px)", opacity: 0.5 }}
+                style={{ fontSize: "clamp(10px, 0.9vw, 12px)", opacity: 0.65 }}
               >
                 Back to
               </span>
@@ -751,7 +741,7 @@ export function CaseStudyTemplate({
             <div className="flex flex-col items-end">
               <span
                 className="font-mono uppercase tracking-wider"
-                style={{ fontSize: "clamp(10px, 0.9vw, 12px)", opacity: 0.5 }}
+                style={{ fontSize: "clamp(10px, 0.9vw, 12px)", opacity: 0.65 }}
               >
                 Next Project
               </span>

@@ -240,7 +240,7 @@ export const Contact = () => {
               className="text-foreground font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
-                opacity: focusedField === "name" ? 1 : 0.5,
+                opacity: focusedField === "name" ? 1 : 0.65,
                 transition: "opacity 0.3s ease",
               }}
             >
@@ -274,7 +274,7 @@ export const Contact = () => {
               className="text-foreground font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
-                opacity: focusedField === "email" ? 1 : 0.5,
+                opacity: focusedField === "email" ? 1 : 0.65,
                 transition: "opacity 0.3s ease",
               }}
             >
@@ -308,7 +308,7 @@ export const Contact = () => {
               className="text-foreground font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
-                opacity: focusedField === "message" ? 1 : 0.5,
+                opacity: focusedField === "message" ? 1 : 0.65,
                 transition: "opacity 0.3s ease",
               }}
             >
