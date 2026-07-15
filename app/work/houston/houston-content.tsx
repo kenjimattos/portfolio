@@ -23,7 +23,7 @@ export function HoustonContent() {
       tags={tags}
       heroImage={{
         src: "/img/houston/hero-laptop.png",
-        alt: "Houston app screen",
+        alt: "Houston operational dashboard displayed on a laptop",
         width: 915,
         height: 556,
         className: "relative z-10",
@@ -44,7 +44,7 @@ export function HoustonContent() {
       ]}
       challengeImage={{
         src: "/img/houston/first-version.png",
-        alt: "Houston first version",
+        alt: "Screenshot of the first version of Houston, a simple support tool",
         width: 1210,
         height: 730,
         style: { maxWidth: "100%", height: "auto" },
@@ -52,7 +52,7 @@ export function HoustonContent() {
       }}
       solutionImage={{
         src: "/img/houston/solution.png",
-        alt: "Houston solution",
+        alt: "Composition of Houston platform screens showing scheduling and management views",
         width: 2880,
         height: 1520,
       }}
@@ -118,12 +118,15 @@ export function HoustonContent() {
                 height={603}
                 className="w-full rounded-lg"
               />
-              <Image
-                src="/img/houston/schedule.gif"
-                alt="Schedule Builder animation"
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
                 width={757}
                 height={321}
-                className="absolute w-[60%] h-auto"
+                aria-label="Schedule Builder animation showing drag and drop shift creation"
+                className="absolute w-[60%] h-auto motion-reduce:hidden"
                 style={{
                   borderRadius: "clamp(4px, 1vw, 10px)",
                   borderWidth: "clamp(0.5px, 0.2vw, 2px)",
@@ -132,8 +135,10 @@ export function HoustonContent() {
                   right: "0",
                   bottom: "clamp(40px, 60%, 80px)",
                 }}
-                unoptimized
-              />
+              >
+                <source src="/img/houston/schedule.webm" type="video/webm" />
+                <source src="/img/houston/schedule.mp4" type="video/mp4" />
+              </video>
             </div>
           </section>
 
@@ -375,7 +380,7 @@ export function HoustonContent() {
           <div className="rounded-lg overflow-hidden">
             <Image
               src="/img/houston/github.png"
-              alt="GitHub code"
+              alt="Houston codebase and pull requests on GitHub"
               width={1080}
               height={742}
               className="w-full"
@@ -384,7 +389,7 @@ export function HoustonContent() {
           <div className="rounded-lg overflow-hidden">
             <Image
               src="/img/houston/database.png"
-              alt="Database migrations"
+              alt="PostgreSQL database migration files for Houston"
               width={1080}
               height={796}
               className="w-full"
@@ -393,7 +398,7 @@ export function HoustonContent() {
           <div className="rounded-lg overflow-hidden">
             <Image
               src="/img/houston/ci-cd.png"
-              alt="CI/CD pipeline"
+              alt="Houston CI/CD pipeline runs"
               width={1080}
               height={595}
               className="w-full"
@@ -411,7 +416,7 @@ export function HoustonContent() {
             <Image
               className="w-full"
               src="/img/houston/outcome.png"
-              alt="Houston outcome"
+              alt="Final Houston platform screens overview"
               width={1441}
               height={960}
             />
