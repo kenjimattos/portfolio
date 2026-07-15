@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -53,6 +54,19 @@ export const Contact = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) {
+      gsap.set([headerRef.current, contentRef.current, infoRef.current], {
+        opacity: 1,
+        x: 0,
+        y: 0,
+      });
+      const formFields = formRef.current?.querySelectorAll(".form-field");
+      if (formFields) {
+        gsap.set(formFields, { opacity: 1, x: 0 });
+      }
+      return;
+    }
+
     // Header animation
     gsap.fromTo(
       headerRef.current,
@@ -222,6 +236,7 @@ export const Contact = () => {
           {/* Name Field */}
           <div className="form-field flex flex-col gap-2" style={{ opacity: 0 }}>
             <label
+              htmlFor="contact-name"
               className="text-foreground font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
@@ -232,7 +247,10 @@ export const Contact = () => {
               Name
             </label>
             <input
+              id="contact-name"
+              name="name"
               type="text"
+              autoComplete="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               onFocus={() => setFocusedField("name")}
@@ -252,6 +270,7 @@ export const Contact = () => {
           {/* Email Field */}
           <div className="form-field flex flex-col gap-2" style={{ opacity: 0 }}>
             <label
+              htmlFor="contact-email"
               className="text-foreground font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
@@ -262,7 +281,10 @@ export const Contact = () => {
               Email
             </label>
             <input
+              id="contact-email"
+              name="email"
               type="email"
+              autoComplete="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               onFocus={() => setFocusedField("email")}
@@ -282,6 +304,7 @@ export const Contact = () => {
           {/* Message Field */}
           <div className="form-field flex flex-col gap-2" style={{ opacity: 0 }}>
             <label
+              htmlFor="contact-message"
               className="text-foreground font-mono uppercase tracking-wider"
               style={{
                 fontSize: "clamp(11px, 1vw, 13px)",
@@ -292,6 +315,8 @@ export const Contact = () => {
               Message
             </label>
             <textarea
+              id="contact-message"
+              name="message"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               onFocus={() => setFocusedField("message")}
@@ -339,6 +364,23 @@ export const Contact = () => {
               </svg>
             )}
           </button>
+
+          {/* Status message */}
+          <p
+            role="status"
+            aria-live="polite"
+            style={{
+              fontSize: "clamp(13px, 1.2vw, 15px)",
+              color: status === "error" ? "#dc2626" : "var(--color-foreground)",
+              opacity: status === "success" || status === "error" ? 0.9 : 0,
+              minHeight: "1.5em",
+            }}
+          >
+            {status === "success" &&
+              "Thanks — your message is on its way. I'll get back to you soon."}
+            {status === "error" &&
+              `Something went wrong. Please try again, or email me directly at ${siteConfig.profile.email}.`}
+          </p>
         </form>
 
         {/* Right - Info */}

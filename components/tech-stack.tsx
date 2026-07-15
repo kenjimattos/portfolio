@@ -23,6 +23,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useGSAP } from "@gsap/react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
 
@@ -85,6 +86,16 @@ export const TechStack = () => {
   const terminalRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) {
+      gsap.set([headerRef.current, terminalRef.current], { opacity: 1, y: 0 });
+      if (categoriesRef.current) {
+        gsap.set(categoriesRef.current.children, { opacity: 1 });
+      }
+      gsap.set(".terminal-line", { opacity: 1, x: 0 });
+      gsap.set(".terminal-prompt", { opacity: 1 });
+      return;
+    }
+
     // Header: fade in, then draw the gradient line
     const headerTl = gsap.timeline({
       scrollTrigger: {

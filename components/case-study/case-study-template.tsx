@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ArrowLeft, ArrowUp, ExternalLink } from "lucide-react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -96,6 +97,31 @@ export function CaseStudyTemplate({
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) {
+        const heroContent = heroContentRef.current;
+        if (heroContent) {
+          gsap.set(
+            [
+              heroContent.querySelector("h1"),
+              heroContent.querySelector(".hero-subtitle"),
+              heroContent.querySelector(".hero-image"),
+              heroContent.querySelector(".hero-role"),
+            ].filter(Boolean),
+            { opacity: 1, y: 0, scale: 1 }
+          );
+        }
+        gsap.set(
+          [overviewRef.current, challengeRef.current, solutionRef.current],
+          { opacity: 1, y: 0 }
+        );
+        const cards = featuresRef.current?.querySelectorAll(".feature-card");
+        if (cards) gsap.set(cards, { opacity: 1, y: 0 });
+        const sections =
+          containerRef.current?.querySelectorAll(".animate-section");
+        if (sections) gsap.set(sections, { opacity: 1, y: 0 });
+        return;
+      }
+
       const heroTl = gsap.timeline({ delay: 0.2 });
       const heroContent = heroContentRef.current;
 

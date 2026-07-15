@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -33,6 +34,24 @@ export const Hero = () => {
   }, []);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) {
+      gsap.set(
+        [
+          gradientRef.current,
+          nameTopRef.current,
+          nameBottomRef.current,
+          designerRef.current,
+          developerRef.current,
+          noiseRef.current,
+          marqueeRef.current,
+          scrollIndicatorRef.current,
+        ],
+        { opacity: 1, x: 0, y: 0 }
+      );
+      gsap.set(lineRef.current, { scaleX: 1 });
+      return;
+    }
+
     const tl = gsap.timeline({ delay: 0.3 });
 
     // Gradient mesh animation

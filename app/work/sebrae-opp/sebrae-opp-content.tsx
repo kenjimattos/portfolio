@@ -146,7 +146,7 @@ export function SebraeOppContent() {
                 maxWidth: "700px",
               }}
             >
-              The platform's core navigation: four pillars covering environment (priority agendas, socioeconomic panorama, strategic risks), resources (funding and public calls), training (courses and best practices), and a project formulator.
+              The platform&apos;s core navigation: four pillars covering environment (priority agendas, socioeconomic panorama, strategic risks), resources (funding and public calls), training (courses and best practices), and a project formulator.
             </p>
             <ImagePlaceholder label="navegação da Jornada com os 4 pilares" />
           </section>

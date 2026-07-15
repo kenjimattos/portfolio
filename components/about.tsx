@@ -5,6 +5,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -24,6 +25,18 @@ export const About = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) {
+      gsap.set([headerRef.current, imageRef.current, contentRef.current], {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+      });
+      if (skillsRef.current) {
+        gsap.set(skillsRef.current.children, { opacity: 1, x: 0 });
+      }
+      return;
+    }
+
     // Header animation
     gsap.fromTo(
       headerRef.current,
@@ -169,7 +182,7 @@ export const About = () => {
             >
               <Image
                 src="/img/about-photo.png"
-                alt="Kenji profile photo"
+                alt="Portrait of Kenji Mattos"
                 width={480}
                 height={560}
                 className="w-full h-auto object-cover"
