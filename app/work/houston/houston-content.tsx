@@ -19,6 +19,8 @@ export function HoustonContent() {
   return (
     <CaseStudyTemplate
       projectName="Houston"
+      accentColor="#1a365d"
+      accentTint="#EDF4FF"
       heroSubtitle="A production-grade operational platform designed to manage medical shift operations at scale."
       tags={tags}
       heroImage={{

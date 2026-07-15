@@ -19,6 +19,8 @@ export function SebraeOppContent() {
   return (
     <CaseStudyTemplate
       projectName="Sebrae OPP"
+      accentColor="#161726"
+      accentTint="#EEEFF8"
       heroSubtitle="A public policy observatory that turns scattered government data into decisions for all 223 municipalities of Paraíba, Brazil."
       tags={tags}
       links={[

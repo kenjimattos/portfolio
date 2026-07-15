@@ -31,10 +31,20 @@ type NextProjectConfig = {
   label: string;
 };
 
+type ExternalLinkConfig = {
+  label: string;
+  href: string;
+};
+
 type CaseStudyTemplateProps = {
   projectName: string;
+  /** Project brand color — same one used on its Work card scrim */
+  accentColor: string;
+  /** Light background tint derived from accentColor */
+  accentTint: string;
   heroSubtitle: string;
   tags: string[];
+  links?: ExternalLinkConfig[];
   heroImage: ImageConfig;
   overviewIntro: string[];
   overviewContext: string;
@@ -45,7 +55,7 @@ type CaseStudyTemplateProps = {
   features: ReactNode;
   preImplementation?: ReactNode;
   implementationSteps: string[];
-  implementationMedia: ReactNode;
+  implementationMedia?: ReactNode;
   outcomePrimary: string;
   outcomeSecondary?: string;
   postOutcome?: ReactNode;
@@ -70,8 +80,11 @@ const tagColors = [
 
 export function CaseStudyTemplate({
   projectName,
+  accentColor,
+  accentTint,
   heroSubtitle,
   tags,
+  links,
   heroImage,
   overviewIntro,
   overviewContext,
@@ -306,15 +319,14 @@ export function CaseStudyTemplate({
         style={{
           minHeight: "100vh",
           paddingTop: "clamp(100px, 12vw, 140px)",
-          background:
-            "linear-gradient(180deg, #F5EDFF 0%, #F5EDFF 70%, var(--background) 100%)",
+          background: `linear-gradient(180deg, ${accentTint} 0%, ${accentTint} 70%, var(--background) 100%)`,
         }}
       >
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 60% 40% at 20% 30%, color-mix(in srgb, var(--color-accent-purple) 10%, transparent) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 40% at 20% 30%, color-mix(in srgb, ${accentColor} 10%, transparent) 0%, transparent 50%),
               radial-gradient(ellipse 50% 50% at 80% 60%, color-mix(in srgb, var(--color-primary) 5%, transparent) 0%, transparent 50%)
             `,
           }}
@@ -376,6 +388,27 @@ export function CaseStudyTemplate({
                   );
                 })}
               </div>
+
+              {links && links.length > 0 && (
+                <div className="flex flex-wrap gap-6 mt-8">
+                  {links.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/link flex items-center gap-2 text-primary font-medium transition-colors duration-300 hover:text-foreground"
+                      style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+                    >
+                      <span>{link.label}</span>
+                      <ExternalLink
+                        size={17}
+                        className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -397,10 +430,8 @@ export function CaseStudyTemplate({
         <div
           className="absolute top-24 right-8 w-16 h-16 pointer-events-none hidden lg:block"
           style={{
-            borderRight:
-              "1px solid color-mix(in srgb, var(--color-accent-purple) 40%, transparent)",
-            borderTop:
-              "1px solid color-mix(in srgb, var(--color-accent-purple) 40%, transparent)",
+            borderRight: `1px solid color-mix(in srgb, ${accentColor} 40%, transparent)`,
+            borderTop: `1px solid color-mix(in srgb, ${accentColor} 40%, transparent)`,
           }}
         />
       </section>
@@ -461,8 +492,8 @@ export function CaseStudyTemplate({
         <div
           className="mt-16 p-8 rounded-lg"
           style={{
-            backgroundColor: "color-mix(in srgb, var(--color-accent-purple) 4%, transparent)",
-            border: "1px solid color-mix(in srgb, var(--color-accent-purple) 15%, transparent)",
+            backgroundColor: `color-mix(in srgb, ${accentColor} 4%, transparent)`,
+            border: `1px solid color-mix(in srgb, ${accentColor} 15%, transparent)`,
           }}
         >
           <p
@@ -479,7 +510,7 @@ export function CaseStudyTemplate({
         className="w-full"
         style={{
           padding: "clamp(60px, 10vw, 120px) clamp(40px, 8vw, 180px)",
-          backgroundColor: "#F5EDFF",
+          backgroundColor: accentTint,
           opacity: 0,
         }}
       >
@@ -668,7 +699,7 @@ export function CaseStudyTemplate({
         className="animate-section w-full"
         style={{
           padding: "clamp(60px, 10vw, 120px) clamp(40px, 8vw, 180px)",
-          backgroundColor: "#F5EDFF",
+          backgroundColor: accentTint,
           opacity: 0,
         }}
       >

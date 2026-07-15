@@ -18,6 +18,8 @@ export function RevolunaContent() {
   return (
     <CaseStudyTemplate
       projectName="Revoluna"
+      accentColor="#4a1d6e"
+      accentTint="#F5EDFF"
       heroSubtitle="A mobile-first product designed to bring clarity and structure to medical shift management in Brazil."
       tags={tags}
       heroImage={{

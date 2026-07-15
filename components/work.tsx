@@ -46,7 +46,7 @@ const projects = [
     tags: ["React", "TypeScript", "Fastify", "MongoDB"],
     image: "/img/work-sebrae-opp.png",
     href: "/work/sebrae-opp",
-    color: "#134e4a",
+    color: "#161726",
   },
 ];
 
