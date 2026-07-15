@@ -453,26 +453,6 @@ export const Contact = () => {
               </div>
             </div>
           </div>
-
-          {/* Availability Badge - cyan accent */}
-          <div
-            className="flex items-center gap-3 px-4 py-3 rounded-sm self-start"
-            style={{
-              backgroundColor: "color-mix(in srgb, var(--color-accent-cyan) 6%, transparent)",
-              border: "1px solid color-mix(in srgb, var(--color-accent-cyan) 25%, transparent)",
-            }}
-          >
-            <span
-              className="w-2 h-2 rounded-full animate-pulse"
-              style={{ backgroundColor: "var(--color-accent-cyan)" }}
-            />
-            <span
-              className="font-medium"
-              style={{ fontSize: "clamp(13px, 1.2vw, 15px)", color: "var(--color-accent-cyan-dark)" }}
-            >
-              Available for new projects
-            </span>
-          </div>
         </div>
       </div>
     </section>
