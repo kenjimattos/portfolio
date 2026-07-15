@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Gabarito, Gravitas_One } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { LayoutShell } from "@/components/layout-shell";
 import { siteConfig } from "@/config/site";
@@ -57,6 +58,7 @@ export default function RootLayout({
         className={`${gabarito.variable} ${gravitasOne.variable} antialiased`}
       >
         <LayoutShell>{children}</LayoutShell>
+        <Analytics />
       </body>
     </html>
   );
