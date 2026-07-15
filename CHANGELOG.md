@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.2.0] - 2026-07-15
+
+### Added
+
+- Novo case study Sebrae OPP com screenshots reais, entrada na seção Work e no sitemap
+- SEO: metadata por página, Open Graph e Twitter cards, ícones gerados (favicon e apple icon), `manifest`, `robots` e `sitemap`
+- Imagens Open Graph geradas para a home e para os case studies
+- Vercel Analytics
+- Acessibilidade: suporte a `prefers-reduced-motion`, labels no formulário de contato e alt texts mais descritivos
+- Cores de destaque (accent) por projeto no template de case study
+
+### Changed
+
+- Reposicionamento do copy como full-stack product engineer: Hero, bio da About, Tech Stack, tagline do Footer e descrições dos cases na seção Work
+- Redesign dos cards de projeto da seção Work com imagens de fundo full-bleed e migração para os tokens de tema claro
+- Extração do conteúdo dos cases Houston e Revoluna para componentes próprios (`houston-content`, `revoluna-content`)
+- Substituição do GIF de 6.7MB do Schedule Builder (Houston) por vídeo de ~100KB (mp4/webm)
+- Qualidade das imagens do Next.js Image padronizada em 90
+- Reordenação das seções da página principal e da navegação
+- Tagline do Hero dividida em duas linhas
+
+### Fixed
+
+- Metas do Lighthouse de acessibilidade: contraste, landmarks e LCP
+
+### Removed
+
+- Badge de disponibilidade da seção Contact
+- Números das seções
+- Grid de conteúdo principal do Footer
+
 ## [2.1.0] - 2026-07-09
 
 ### Added
