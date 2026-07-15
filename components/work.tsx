@@ -170,54 +170,74 @@ export const Work = () => {
               className="relative rounded-lg overflow-hidden"
               style={{
                 border: "1px solid rgba(22, 22, 22, 0.1)",
+                minHeight: "clamp(480px, 50vw, 640px)",
               }}
             >
-              {/* Top Bar - Project Info */}
-              <div
-                className="flex items-center justify-between px-6 py-4"
-                style={{
-                  borderBottom: "1px solid rgba(255, 255, 249, 0.06)",
-                }}
-              >
-                <div className="flex items-center gap-4">
-                  <span
-                    className="text-foreground font-mono"
-                    style={{
-                      fontSize: "clamp(12px, 1vw, 14px)",
-                      opacity: 0.4,
-                    }}
-                  >
-                    0{index + 1}
-                  </span>
-                  <span
-                    className="text-foreground font-medium"
-                    style={{ fontSize: "clamp(14px, 1.2vw, 16px)" }}
-                  >
-                    {project.role}
-                  </span>
-                </div>
-                <span
-                  className="text-foreground font-mono"
-                  style={{
-                    fontSize: "clamp(12px, 1vw, 14px)",
-                    opacity: 0.4,
-                  }}
-                >
-                  {project.year}
-                </span>
-              </div>
+              {/* Background Image */}
+              <Image
+                src={project.image}
+                alt={`${project.name} interface preview`}
+                fill
+                className="object-cover object-right lg:object-center project-image transition-transform duration-700 group-hover:scale-105"
+                sizes="100vw"
+              />
 
-              {/* Main Content */}
+              {/* Scrim - mobile: vertical gradient */}
               <div
-                className="grid lg:grid-cols-2 gap-8"
+                className="absolute inset-0 pointer-events-none lg:hidden"
+                style={{
+                  background: `linear-gradient(180deg, ${project.color}D9 0%, ${project.color}8C 35%, ${project.color}D9 65%, ${project.color}FA 100%)`,
+                }}
+              />
+              {/* Scrim - desktop: color bleeds in from the left, device stays visible */}
+              <div
+                className="absolute inset-0 pointer-events-none hidden lg:block"
+                style={{
+                  background: `linear-gradient(180deg, ${project.color}CC 0%, ${project.color}66 15%, transparent 32%), linear-gradient(100deg, ${project.color} 0%, ${project.color}E6 35%, ${project.color}59 62%, transparent 82%)`,
+                }}
+              />
+
+              {/* Overlaid Content */}
+              <div
+                className="absolute inset-0 flex flex-col justify-between"
                 style={{ padding: "clamp(24px, 4vw, 48px)" }}
               >
-                {/* Left - Text Content */}
-                <div className="flex flex-col justify-between gap-6 order-2 lg:order-1">
+                {/* Top Bar - Project Info */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <span
+                      className="text-background font-mono"
+                      style={{
+                        fontSize: "clamp(12px, 1vw, 14px)",
+                        opacity: 0.6,
+                      }}
+                    >
+                      0{index + 1}
+                    </span>
+                    <span
+                      className="text-background font-medium"
+                      style={{ fontSize: "clamp(14px, 1.2vw, 16px)" }}
+                    >
+                      {project.role}
+                    </span>
+                  </div>
+                  <span
+                    className="text-background font-mono"
+                    style={{
+                      fontSize: "clamp(12px, 1vw, 14px)",
+                      opacity: 0.6,
+                    }}
+                  >
+                    {project.year}
+                  </span>
+                </div>
+
+                {/* Bottom - Text Content */}
+                <div className="flex flex-col gap-6" style={{ maxWidth: "480px" }}>
                   <div className="flex flex-col gap-4">
                     {/* Project Name */}
                     <h3
-                      className="text-foreground font-bold leading-none"
+                      className="text-background font-bold leading-none"
                       style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
                     >
                       {project.name}
@@ -225,92 +245,60 @@ export const Work = () => {
 
                     {/* Description */}
                     <p
-                      className="text-foreground leading-relaxed"
+                      className="text-background leading-relaxed"
                       style={{
                         fontSize: "clamp(14px, 1.4vw, 18px)",
-                        opacity: 0.7,
-                        maxWidth: "400px",
+                        opacity: 0.8,
                       }}
                     >
                       {project.description}
                     </p>
                   </div>
 
-                  {/* Tags + CTA */}
-                  <div className="flex flex-col gap-6">
-                    {/* Tech Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, tagIndex) => {
-                        // Alternate tag colors: cyan, purple, blue
-                        const tagColors = [
-                          { border: "color-mix(in srgb, var(--color-accent-cyan) 30%, transparent)", text: "var(--color-accent-cyan)", bg: "color-mix(in srgb, var(--color-accent-cyan) 5%, transparent)" },
-                          { border: "color-mix(in srgb, var(--color-accent-purple) 30%, transparent)", text: "var(--color-accent-purple-light)", bg: "color-mix(in srgb, var(--color-accent-purple) 5%, transparent)" },
-                          { border: "color-mix(in srgb, var(--color-primary) 30%, transparent)", text: "var(--color-primary)", bg: "color-mix(in srgb, var(--color-primary) 5%, transparent)" },
-                        ];
-                        const tagColor = tagColors[tagIndex % 3];
-                        return (
-                        <span
-                          key={tagIndex}
-                          className="px-3 py-1 rounded-full font-mono"
-                          style={{
-                            fontSize: "clamp(11px, 1vw, 13px)",
-                            backgroundColor: tagColor.bg || "transparent",
-                            border: `1px solid ${tagColor.border}`,
-                            color: tagColor.text,
-                          }}
-                        >
-                          {tag}
-                        </span>
-                        );
-                      })}
-                    </div>
-
-                    {/* View Project Link */}
-                    <div className="flex items-center gap-2 group/link">
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIndex) => (
                       <span
-                        className="text-primary font-medium transition-all duration-300 group-hover/link:tracking-wider"
-                        style={{ fontSize: "clamp(13px, 1.2vw, 15px)" }}
+                        key={tagIndex}
+                        className="px-3 py-1 rounded-full font-mono text-background backdrop-blur-sm"
+                        style={{
+                          fontSize: "clamp(11px, 1vw, 13px)",
+                          backgroundColor: "rgba(255, 255, 249, 0.1)",
+                          border: "1px solid rgba(255, 255, 249, 0.25)",
+                        }}
                       >
-                        View Case Study
+                        {tag}
                       </span>
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        className="transition-transform duration-300 group-hover:translate-x-1"
-                      >
-                        <path
-                          d="M4 10H16M16 10L11 5M16 10L11 15"
-                          stroke="var(--color-primary)"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
+                    ))}
                   </div>
-                </div>
 
-                {/* Right - Image */}
-                <div
-                  className="relative rounded-md overflow-hidden order-1 lg:order-2"
-                  style={{ aspectRatio: "16/10" }}
-                >
-                  <Image
-                    src={project.image}
-                    alt={`${project.name} interface preview`}
-                    fill
-                    className="object-cover project-image transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  {/* Subtle gradient overlay */}
-                  <div
-                    className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-0"
-                    style={{
-                      background: `linear-gradient(135deg, ${project.color}40 0%, transparent 60%)`,
-                    }}
-                  />
+                  {/* View Project Link */}
+                  <div className="flex items-center gap-2 group/link">
+                    <span
+                      className="font-medium transition-all duration-300 group-hover/link:tracking-wider"
+                      style={{
+                        fontSize: "clamp(13px, 1.2vw, 15px)",
+                        color: "var(--color-accent-cyan)",
+                      }}
+                    >
+                      View Case Study
+                    </span>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      <path
+                        d="M4 10H16M16 10L11 5M16 10L11 15"
+                        stroke="var(--color-accent-cyan)"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
@@ -335,7 +323,7 @@ export const Work = () => {
           href={siteConfig.profile.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 text-background transition-all duration-300 hover:text-primary"
+          className="flex items-center gap-3 text-foreground transition-all duration-300 hover:text-primary"
           style={{
             fontSize: "clamp(14px, 1.2vw, 16px)",
             opacity: 0.6,
