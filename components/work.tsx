@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
+import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -14,7 +15,7 @@ const projects = [
   {
     id: 1,
     name: "Houston",
-    role: "Frontend Development",
+    role: "Full-Stack Development",
     year: "2024",
     description:
       "Web platform built to manage medical shift schedules and candidate workflows.",
@@ -29,7 +30,7 @@ const projects = [
     role: "Mobile App Development",
     year: "2024",
     description:
-      "A mobile-first product focused on clarity and control. Shift opportunities are organized, easy to find, and simple to manage.",
+      "A mobile app where doctors find, apply to, and check in to shifts — with custom deep linking, geofence-validated check-in, and FCM push notifications.",
     tags: ["Figma", "FlutterFlow", "Flutter", "Supabase"],
     image: "/img/work-revoluna.png",
     href: "/work/revoluna",
@@ -55,6 +56,14 @@ export const Work = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) {
+      gsap.set(headerRef.current, { opacity: 1, y: 0 });
+      if (cardsRef.current) {
+        gsap.set(cardsRef.current.children, { opacity: 1, y: 0 });
+      }
+      return;
+    }
+
     // Header animation
     gsap.fromTo(
       headerRef.current,
@@ -298,7 +307,7 @@ export const Work = () => {
                 >
                   <Image
                     src={project.image}
-                    alt={project.name}
+                    alt={`${project.name} interface preview`}
                     fill
                     className="object-cover project-image transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 50vw"
