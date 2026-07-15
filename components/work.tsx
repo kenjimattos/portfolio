@@ -139,12 +139,6 @@ export const Work = () => {
         className="flex items-center gap-4 mb-16"
         style={{ opacity: 0 }}
       >
-        <span
-          className="text-primary font-mono"
-          style={{ fontSize: "clamp(14px, 1.5vw, 18px)" }}
-        >
-          02.
-        </span>
         <h2
           className="text-background font-bold"
           style={{ fontSize: "clamp(24px, 3vw, 36px)" }}

@@ -24,8 +24,8 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
-      <About />
       <Work />
+      <About />      
       <TechStack />
       <Contact />
     </>
