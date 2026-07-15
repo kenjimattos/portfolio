@@ -130,7 +130,6 @@ export const Work = () => {
       className="w-full"
       style={{
         padding: "clamp(60px, 10vw, 120px) clamp(40px, 8vw, 180px)",
-        backgroundColor: "var(--color-foreground)",
       }}
     >
       {/* Section Header */}
@@ -140,7 +139,7 @@ export const Work = () => {
         style={{ opacity: 0 }}
       >
         <h2
-          className="text-background font-bold"
+          className="text-foreground font-bold"
           style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
         >
           Selected Work
@@ -170,8 +169,7 @@ export const Work = () => {
             <div
               className="relative rounded-lg overflow-hidden"
               style={{
-                backgroundColor: "rgba(255, 255, 249, 0.03)",
-                border: "1px solid rgba(255, 255, 249, 0.06)",
+                border: "1px solid rgba(22, 22, 22, 0.1)",
               }}
             >
               {/* Top Bar - Project Info */}
@@ -183,7 +181,7 @@ export const Work = () => {
               >
                 <div className="flex items-center gap-4">
                   <span
-                    className="text-background font-mono"
+                    className="text-foreground font-mono"
                     style={{
                       fontSize: "clamp(12px, 1vw, 14px)",
                       opacity: 0.4,
@@ -192,14 +190,14 @@ export const Work = () => {
                     0{index + 1}
                   </span>
                   <span
-                    className="text-background font-medium"
+                    className="text-foreground font-medium"
                     style={{ fontSize: "clamp(14px, 1.2vw, 16px)" }}
                   >
                     {project.role}
                   </span>
                 </div>
                 <span
-                  className="text-background font-mono"
+                  className="text-foreground font-mono"
                   style={{
                     fontSize: "clamp(12px, 1vw, 14px)",
                     opacity: 0.4,
@@ -219,7 +217,7 @@ export const Work = () => {
                   <div className="flex flex-col gap-4">
                     {/* Project Name */}
                     <h3
-                      className="text-background font-bold leading-none"
+                      className="text-foreground font-bold leading-none"
                       style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
                     >
                       {project.name}
@@ -227,7 +225,7 @@ export const Work = () => {
 
                     {/* Description */}
                     <p
-                      className="text-background leading-relaxed"
+                      className="text-foreground leading-relaxed"
                       style={{
                         fontSize: "clamp(14px, 1.4vw, 18px)",
                         opacity: 0.7,
@@ -245,9 +243,9 @@ export const Work = () => {
                       {project.tags.map((tag, tagIndex) => {
                         // Alternate tag colors: cyan, purple, blue
                         const tagColors = [
-                          { border: "color-mix(in srgb, var(--color-accent-cyan) 30%, transparent)", text: "var(--color-accent-cyan)" },
-                          { border: "color-mix(in srgb, var(--color-accent-purple) 30%, transparent)", text: "var(--color-accent-purple-light)" },
-                          { border: "color-mix(in srgb, var(--color-primary) 30%, transparent)", text: "var(--color-primary)" },
+                          { border: "color-mix(in srgb, var(--color-accent-cyan) 30%, transparent)", text: "var(--color-accent-cyan)", bg: "color-mix(in srgb, var(--color-accent-cyan) 5%, transparent)" },
+                          { border: "color-mix(in srgb, var(--color-accent-purple) 30%, transparent)", text: "var(--color-accent-purple-light)", bg: "color-mix(in srgb, var(--color-accent-purple) 5%, transparent)" },
+                          { border: "color-mix(in srgb, var(--color-primary) 30%, transparent)", text: "var(--color-primary)", bg: "color-mix(in srgb, var(--color-primary) 5%, transparent)" },
                         ];
                         const tagColor = tagColors[tagIndex % 3];
                         return (
@@ -256,7 +254,7 @@ export const Work = () => {
                           className="px-3 py-1 rounded-full font-mono"
                           style={{
                             fontSize: "clamp(11px, 1vw, 13px)",
-                            backgroundColor: "rgba(255, 255, 249, 0.03)",
+                            backgroundColor: tagColor.bg || "transparent",
                             border: `1px solid ${tagColor.border}`,
                             color: tagColor.text,
                           }}
