@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CaseStudyTemplate } from "@/components/case-study/case-study-template";
 
 const tags = ["Product", "Front-end", "Back-end", "Data", "Design System"];
@@ -14,41 +15,23 @@ const implementationSteps = [
   "Documented everything for handoff: ETL runbooks, changelog, and a per-source data dictionary for Sebrae's team to operate and extend",
 ];
 
-function ImagePlaceholder({
-  label,
-  aspectRatio = "16/10",
-}: {
-  label: string;
-  aspectRatio?: string;
-}) {
-  return (
-    <div
-      className="w-full rounded-lg flex items-center justify-center font-mono text-center"
-      style={{
-        aspectRatio,
-        border: "1px dashed rgba(22, 22, 22, 0.25)",
-        backgroundColor: "rgba(22, 22, 22, 0.03)",
-        color: "rgba(22, 22, 22, 0.45)",
-        fontSize: "clamp(12px, 1.2vw, 14px)",
-        padding: "clamp(16px, 3vw, 32px)",
-      }}
-    >
-      [IMAGEM: {label}]
-    </div>
-  );
-}
-
 export function SebraeOppContent() {
   return (
     <CaseStudyTemplate
       projectName="Sebrae OPP"
       heroSubtitle="A public policy observatory that turns scattered government data into decisions for all 223 municipalities of Paraíba, Brazil."
       tags={tags}
+      links={[
+        {
+          label: "View live demo",
+          href: "https://sebrae-90w1y0a6d-kenjimattos-1396s-projects.vercel.app/",
+        },
+      ]}
       heroImage={{
         src: "/img/sebrae/hero.png",
-        alt: "[IMAGEM: tela principal do OPP — dashboard de indicadores com o mapa da Paraíba]",
-        width: 1200,
-        height: 760,
+        alt: "OPP main screen — indicator dashboard with the interactive Paraíba map and traffic-light indicator bars",
+        width: 1920,
+        height: 1200,
         className: "relative z-10 rounded-lg",
         style: {
           maxWidth: "clamp(500px, 80vw, 900px)",
@@ -67,15 +50,15 @@ export function SebraeOppContent() {
       ]}
       challengeImage={{
         src: "/img/sebrae/challenge.png",
-        alt: "[IMAGEM: fontes de dados originais espalhadas — portais, planilhas e dashboards distintos]",
-        width: 1210,
-        height: 730,
+        alt: "Scattered public data sources — a RAIS spreadsheet, an IBGE portal page, a transparency portal table, a government API response, a central bank CSV, and an INEP PDF report, each in a different format",
+        width: 2420,
+        height: 1460,
         style: { maxWidth: "100%", height: "auto" },
-        caption: "[IMAGEM: fontes de dados originais espalhadas]",
+        caption: "One indicator, many homes: spreadsheets, portals, APIs, CSVs, and PDF reports",
       }}
       solutionImage={{
         src: "/img/sebrae/solution.png",
-        alt: "[IMAGEM: visão geral da solução — telas do OPP em composição]",
+        alt: "OPP screens in composition — indicator dashboard, business environment pillar, and project formulator",
         width: 2880,
         height: 1520,
       }}
@@ -102,7 +85,13 @@ export function SebraeOppContent() {
             >
               Socioeconomic indicators presented as traffic-light cards. The classification is data-driven: each status comes from officially published cutoffs stored per indicator in the database — indicators without an official band simply show no judgment.
             </p>
-            <ImagePlaceholder label="dashboard de indicadores com cards e semáforos" />
+            <Image
+              src="/img/sebrae/panorama.png"
+              alt="Socioeconomic panorama for Campina Grande — indicator cards with values, trends, and source years"
+              width={1920}
+              height={1200}
+              className="w-full h-auto rounded-lg"
+            />
           </section>
 
           <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
@@ -125,7 +114,13 @@ export function SebraeOppContent() {
             >
               A choropleth map of Paraíba hand-built as SVG from IBGE GeoJSON — no map library. All 223 municipalities are selectable, with hover tooltips and coloring by the selected indicator.
             </p>
-            <ImagePlaceholder label="mapa interativo da Paraíba colorido por indicador" />
+            <Image
+              src="/img/sebrae/map.png"
+              alt="Interactive SVG map of Paraíba with all 223 municipalities, showing a hover tooltip on Esperança"
+              width={1920}
+              height={1200}
+              className="w-full h-auto rounded-lg"
+            />
           </section>
 
           <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
@@ -148,7 +143,13 @@ export function SebraeOppContent() {
             >
               The platform&apos;s core navigation: four pillars covering environment (priority agendas, socioeconomic panorama, strategic risks), resources (funding and public calls), training (courses and best practices), and a project formulator.
             </p>
-            <ImagePlaceholder label="navegação da Jornada com os 4 pilares" />
+            <Image
+              src="/img/sebrae/jornada.png"
+              alt="Jornada do Município Empreendedor — side navigation with the four pillars and the priority axes of the business environment pillar"
+              width={1920}
+              height={1200}
+              className="w-full h-auto rounded-lg"
+            />
           </section>
 
           <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
@@ -183,7 +184,13 @@ export function SebraeOppContent() {
                   }}
                 />
               </div>
-              <ImagePlaceholder label="lista de riscos estratégicos ordenada por severidade" aspectRatio="4/3" />
+              <Image
+                src="/img/sebrae/riscos.png"
+                alt="Strategic risks for João Pessoa — indicator cards in alert and warning states, sorted by severity"
+                width={1600}
+                height={1096}
+                className="w-full h-auto rounded-lg"
+              />
             </div>
           </section>
 
@@ -219,27 +226,19 @@ export function SebraeOppContent() {
                   }}
                 />
               </div>
-              <ImagePlaceholder label="wizard do formulador de projetos com as 10 etapas" aspectRatio="4/3" />
+              <Image
+                src="/img/sebrae/formulador.png"
+                alt="Project formulator — ten-step guided wizard with progress bar and the identification step open"
+                width={1920}
+                height={1200}
+                className="w-full h-auto rounded-lg"
+              />
             </div>
           </section>
         </>
       }
       implementationSteps={implementationSteps}
-      implementationMedia={
-        <div className="mt-12 flex flex-col gap-8">
-          <ImagePlaceholder label="arquitetura das três camadas — React SPA, API Fastify e ETL Python/MongoDB" aspectRatio="16/9" />
-          <ImagePlaceholder label="trecho da documentação de dados — política de classificação por thresholds oficiais" aspectRatio="16/9" />
-        </div>
-      }
       outcomePrimary="OPP shipped as a complete platform: a React frontend, a read-only Fastify API, and a Python ETL pipeline feeding a fully documented MongoDB model — built solo in about three months and delivered to Sebrae Paraíba with runbooks and a per-source data dictionary for their team to operate and extend."
-      postOutcome={
-        <section
-          className="animate-section w-full"
-          style={{ padding: "0 clamp(40px, 8vw, 180px)", opacity: 0 }}
-        >
-          <ImagePlaceholder label="tela final do OPP em uso — visão de um município selecionado" />
-        </section>
-      }
       nextProject={{ href: "/work/houston", label: "Houston" }}
     />
   );
