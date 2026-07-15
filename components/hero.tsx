@@ -341,7 +341,9 @@ export const Hero = () => {
               maxWidth: "28rem",
             }}
           >
-            I design, build, and ship products end to end — interface, business logic, database, and deploy.
+            I design, build, and ship products end to end:
+            <br />
+            Interface, business logic, database, and deploy.
           </p>
           <button
             onClick={scrollToWork}
