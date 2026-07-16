@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1] - 2026-07-16
+
+### Changed
+
+- Imagens do case Houston atualizadas com maior resolução e qualidade
+- Template de case study: imagem da solução movida para depois do texto, com fundo tingido pela cor de destaque do projeto
+- Script `dev` limpa o cache `.next` antes de iniciar o servidor de desenvolvimento
+
 ## [2.2.0] - 2026-07-15
 
 ### Added
