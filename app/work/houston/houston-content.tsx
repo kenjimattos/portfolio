@@ -56,7 +56,7 @@ export function HoustonContent() {
         src: "/img/houston/solution.png",
         alt: "Composition of Houston platform screens showing scheduling and management views",
         width: 2880,
-        height: 1520,
+        height: 1560,
       }}
       solutionText="A platform designed around operational clarity and scalability. Centralizing scheduling, applications, attendance validation, payments, and reporting into a single system."
       features={
@@ -83,11 +83,11 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
-                quality={90}
+                quality={100}
                 src="/img/houston/dasboard.png"
                 alt="Operational Dashboard"
-                width={954}
-                height={603}
+                width={2203}
+                height={1352}
                 className="w-full"
               />
             </div>
@@ -115,11 +115,11 @@ export function HoustonContent() {
             </p>
             <div className="relative">
               <Image
-                quality={90}
+                quality={100}
                 src="/img/houston/schedule.png"
                 alt="Schedule Builder"
-                width={954}
-                height={603}
+                width={1920}
+                height={1215}
                 className="w-full rounded-lg"
               />
               <video
@@ -168,11 +168,11 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
-                quality={90}
+                quality={100}
                 src="/img/houston/application.png"
                 alt="Job & Application Management"
-                width={1826}
-                height={1360}
+                width={1912}
+                height={1242}
                 className="w-full"
               />
             </div>
@@ -200,11 +200,11 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
-                quality={90}
+                quality={100}
                 src="/img/houston/calendar.png"
                 alt="Shift Calendar"
-                width={1466}
-                height={1020}
+                width={1917}
+                height={1236}
                 className="w-full"
               />
             </div>
@@ -232,11 +232,11 @@ export function HoustonContent() {
             </p>
             <div className="rounded-lg overflow-hidden">
               <Image
-                quality={90}
+                quality={100}
                 src="/img/houston/payments.png"
                 alt="Attendance & Payments"
-                width={954}
-                height={603}
+                width={1915}
+                height={1241}
                 className="w-full"
               />
             </div>
