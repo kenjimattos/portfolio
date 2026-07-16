@@ -576,20 +576,6 @@ export function CaseStudyTemplate({
         </div>
       </section>
 
-      <section className="animate-section w-full" style={{ opacity: 0 }}>
-        <Image
-          quality={90}
-          className={solutionImage.className ?? "w-full"}
-          src={solutionImage.src}
-          alt={solutionImage.alt}
-          width={solutionImage.width}
-          height={solutionImage.height}
-          style={solutionImage.style}
-          priority={solutionImage.priority}
-          unoptimized={solutionImage.unoptimized}
-        />
-      </section>
-
       <section
         ref={solutionRef}
         className="w-full"
@@ -598,7 +584,7 @@ export function CaseStudyTemplate({
           opacity: 0,
         }}
       >
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4">
           <span
             className="font-mono"
             style={{ fontSize: "clamp(14px, 1.5vw, 18px)", color: "var(--color-primary)" }}
@@ -626,6 +612,20 @@ export function CaseStudyTemplate({
         >
           {solutionText}
         </p>
+      </section>
+
+      <section className="animate-section w-full mb-20" style={{ opacity: 0, backgroundColor: accentTint, }}>
+        <Image
+          quality={100}
+          className={solutionImage.className ?? "w-full"}
+          src={solutionImage.src}
+          alt={solutionImage.alt}
+          width={solutionImage.width}
+          height={solutionImage.height}
+          style={solutionImage.style}
+          priority={solutionImage.priority}
+          unoptimized={solutionImage.unoptimized}
+        />
       </section>
 
       <div
