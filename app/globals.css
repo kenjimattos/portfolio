@@ -24,6 +24,16 @@
   --font-gravitas: var(--font-gravitas);
   --text-primary: var(--foreground);
 
+  /* Houston platform demo (recreated app) */
+  --color-hst-primary: #A369ED;
+  --color-hst-primary-strong: #8c4de0;
+  --color-hst-ink: #7e3cd0;
+  --color-hst-bg: #f3f3f3;
+  --color-hst-border: #e4e4e7;
+  --color-hst-fg: #18181b;
+  --color-hst-muted: #71717a;
+  --font-geologica: var(--font-geologica);
+
   /* Tipografia fluida */
   --font-hero: clamp(48px, 10vw, 120px);
   --font-hero-small: clamp(16px, 3vw, 30px);
@@ -163,6 +173,22 @@
   .contact-social-link:hover {
     color: var(--hover-color);
     border-color: var(--hover-border-color);
+  }
+
+  /* Houston demo: neutralize the portfolio's base heading/paragraph styles
+     inside the recreated platform so its own utility classes are the only
+     source of type sizing. Utilities still win (later cascade layer). */
+  .hst-app h1,
+  .hst-app h2,
+  .hst-app h3,
+  .hst-app h4,
+  .hst-app h5,
+  .hst-app h6,
+  .hst-app p {
+    font-size: 1em;
+    color: inherit;
+    font-weight: inherit;
+    line-height: 1.5;
   }
 }
 
