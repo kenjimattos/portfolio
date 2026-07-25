@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { geologica } from "./geologica";
 import { ScaleBox } from "./scale-box";
 import { DemoSidebar } from "./demo-sidebar";
@@ -58,6 +58,35 @@ export function HoustonApp({ initialScreen = "painel" }: { initialScreen?: Scree
             </main>
           </div>
         </div>
+      </ScaleBox>
+    </div>
+  );
+}
+
+// A compact recreated UI fragment (cards, modals, panels) — used inside
+// split-layout feature sections where a full screen would be too large.
+// `maxWidth` caps the rendered size (ScaleBox scales content down to fit),
+// so fragments can appear smaller than real size and centered.
+export function HoustonPanel({
+  designWidth,
+  maxWidth,
+  children,
+}: {
+  designWidth: number;
+  maxWidth?: number;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={cx(
+        geologica.variable,
+        "hst-app overflow-hidden rounded-xl border border-hst-border bg-hst-bg shadow-[0_20px_50px_-24px_rgba(22,22,22,0.22)]",
+        maxWidth !== undefined && "mx-auto w-full"
+      )}
+      style={{ fontFamily: "var(--font-geologica), sans-serif", maxWidth }}
+    >
+      <ScaleBox designWidth={designWidth}>
+        <div className="p-4 font-extralight text-hst-fg antialiased">{children}</div>
       </ScaleBox>
     </div>
   );

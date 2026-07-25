@@ -14,7 +14,9 @@ import {
   CaseShowcase,
   CaseStory,
 } from "@/components/case-study/case-layout";
-import { HoustonApp, HoustonScreen } from "@/components/houston-demo/houston-frame";
+import { HoustonApp, HoustonPanel, HoustonScreen } from "@/components/houston-demo/houston-frame";
+import { TeamsEmbed } from "@/components/houston-demo/embeds/teams";
+import { AccessControlEmbed } from "@/components/houston-demo/embeds/access-control";
 import { geologica } from "@/components/houston-demo/geologica";
 
 const ACCENT = "#1555AD";
@@ -145,15 +147,16 @@ const features: CaseFeature[] = [
     text: "Management of medical staff, teams, favorites, and pre-registered doctors, enabling faster assignments and better organization.",
     layout: "split",
     media: (
-      <div className="rounded-lg overflow-hidden">
-        <Image
-          quality={90}
-          src="/img/houston/teams.png"
-          alt="Doctors & Teams"
-          width={653}
-          height={493}
-          className="w-full"
-        />
+      <div className="flex flex-col gap-3">
+        <HoustonPanel designWidth={660}>
+          <TeamsEmbed />
+        </HoustonPanel>
+        <span
+          className="font-mono"
+          style={{ fontSize: "clamp(10px, 0.9vw, 11px)", opacity: 0.5 }}
+        >
+          Interactive recreation — search, favorite, expand
+        </span>
       </div>
     ),
   },
@@ -165,15 +168,16 @@ const features: CaseFeature[] = [
       "Permissions are enforced consistently across frontend flows and backend validation, supporting multiple organizations and roles while keeping daily operations simple.",
     layout: "split",
     media: (
-      <div className="rounded-lg overflow-hidden">
-        <Image
-          quality={90}
-          src="/img/houston/access-control.png"
-          alt="Access Control & Permissions"
-          width={480}
-          height={638}
-          className="w-full"
-        />
+      <div className="mx-auto w-full flex flex-col gap-3" style={{ maxWidth: 390 }}>
+        <HoustonPanel designWidth={500}>
+          <AccessControlEmbed />
+        </HoustonPanel>
+        <span
+          className="font-mono"
+          style={{ fontSize: "clamp(10px, 0.9vw, 11px)", opacity: 0.5 }}
+        >
+          Interactive recreation — fictional data
+        </span>
       </div>
     ),
   },
