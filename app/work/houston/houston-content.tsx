@@ -164,8 +164,21 @@ const features: CaseFeature[] = [
     number: "08",
     title: "Access Control & Permissions",
     text: "Role-based access control governs permissions across schedules, applications, attendance, and payments — a requirement that became core as Houston turned multi-tenant.",
-    secondaryText:
-      "Permissions are enforced consistently across frontend flows and backend validation, supporting multiple organizations and roles while keeping daily operations simple.",
+    secondaryText: (
+      <>
+        <span
+          className="font-mono uppercase tracking-widest block mb-2"
+          style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
+        >
+          Trade-off
+        </span>
+        Rather than a free-form permission editor, Houston ships four fixed
+        roles with their 36 permissions predefined at the database level.
+        Operators assign a cargo — never a checkbox matrix. We traded
+        configurability for lower cognitive load and a safer daily operation:
+        that’s why the modal beside has no permissions screen.
+      </>
+    ),
     layout: "split",
     media: (
       <div className="mx-auto w-full flex flex-col gap-3" style={{ maxWidth: 390 }}>

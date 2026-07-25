@@ -823,7 +823,7 @@ export type CaseFeature = {
   number: string;
   title: string;
   text: string;
-  secondaryText?: string;
+  secondaryText?: ReactNode;
   layout?: "split";
   media: ReactNode;
   caption?: string;
