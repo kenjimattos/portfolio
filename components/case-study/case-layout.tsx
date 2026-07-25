@@ -26,7 +26,7 @@ const TINT = "var(--case-tint)";
 /* --------------------------------- helpers --------------------------------- */
 
 export function CaseEm({ children }: { children: ReactNode }) {
-  return <em style={{ color: INK, fontStyle: "italic" }}>{children}</em>;
+  return <span style={{ color: INK}}>{children}</span>;
 }
 
 export function SectionEyebrow({ label }: { label: string }) {
