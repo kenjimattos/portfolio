@@ -117,6 +117,21 @@ const features: CaseFeature[] = [
     number: "03",
     title: "Shift Calendar",
     text: "Custom calendar views for weekly, monthly, and daily management, with quick actions, candidate assignment, and status tracking.",
+    secondaryText: (
+      <>
+        <span
+          className="font-mono uppercase tracking-widest block mb-2"
+          style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
+        >
+          Trade-off
+        </span>
+        The calendar began on an off-the-shelf library and outgrew it: grouping
+        shifts by time, status colors and per-shift actions didn’t fit its
+        model. I rebuilt it from scratch — more code to own, fewer views — in
+        exchange for full control over the screen escalistas spend their day
+        in.
+      </>
+    ),
     media: <HoustonScreen screen="escala" />,
     caption: RECREATION_CAPTION,
   },
@@ -241,10 +256,23 @@ export function HoustonContent() {
           height: 730,
         }}
         imageCaption="Where it started — the previous version of Houston"
+        personas={[
+          {
+            label: "Primary user",
+            title: "The escalista",
+            text: "The person who finds doctors and fills the schedule — often with little formal training and even less tooling: spreadsheets at best, sometimes not even that, where every update risks a silent error. Houston is designed around them first: plain vocabulary, one obvious way to do each task, mistakes that are hard to make.",
+          },
+          {
+            label: "Also served",
+            title: "Coordinators & managers",
+            text: "The people who run escalista teams need the opposite altitude — a managerial and financial view of the operation: dashboards, reports and payroll across hospitals and groups.",
+          },
+        ]}
         cards={approach}
       />
 
       <CaseDesignLanguage
+        intro="All design here is mine, end to end — and it never passed through a design tool. Under real delivery pressure, flows and screens were designed directly in code and iterated against the live operation. The system below is what kept that fast process coherent."
         fontClassName={geologica.variable}
         fontFamily="var(--font-geologica), sans-serif"
         typefaceName="Geologica"

@@ -516,6 +516,7 @@ export function CaseStory({
   text,
   image,
   imageCaption,
+  personas,
   cards,
 }: {
   eyebrow: string;
@@ -523,6 +524,8 @@ export function CaseStory({
   text: string;
   image: CaseImage;
   imageCaption?: string;
+  /** Who the product serves — rendered between the story and the cards */
+  personas?: { label: string; title: string; text: string }[];
   cards?: { number: string; title: string; text: string }[];
 }) {
   return (
@@ -572,6 +575,43 @@ export function CaseStory({
         </div>
       </div>
 
+      {personas && personas.length > 0 && (
+        <div
+          className="grid gap-6 mt-14"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))" }}
+        >
+          {personas.map((persona) => (
+            <div
+              key={persona.title}
+              className="rounded-lg p-7 flex flex-col gap-3"
+              style={{
+                borderLeft: `2px solid ${ACCENT}`,
+                backgroundColor: "rgba(255, 255, 249, 0.6)",
+              }}
+            >
+              <span
+                className="font-mono uppercase tracking-widest"
+                style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: INK }}
+              >
+                {persona.label}
+              </span>
+              <h3
+                className="text-foreground font-semibold"
+                style={{ fontSize: "clamp(17px, 1.6vw, 21px)" }}
+              >
+                {persona.title}
+              </h3>
+              <p
+                className="text-foreground leading-relaxed"
+                style={{ fontSize: "clamp(14px, 1.3vw, 16px)", opacity: 0.7 }}
+              >
+                {persona.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+
       {cards && cards.length > 0 && (
         <div
           className="grid gap-6 mt-14"
@@ -616,6 +656,7 @@ export function CaseStory({
 
 export function CaseDesignLanguage({
   eyebrow = "Design language",
+  intro,
   fontClassName,
   fontFamily,
   typefaceName,
@@ -628,6 +669,8 @@ export function CaseDesignLanguage({
   statusPills,
 }: {
   eyebrow?: string;
+  /** Lead statement rendered before the type specimen (e.g. design ownership) */
+  intro?: string;
   /** next/font `.variable` class that makes the typeface available */
   fontClassName?: string;
   /** CSS font-family value used for the specimen */
@@ -668,6 +711,15 @@ export function CaseDesignLanguage({
           ))}
         </div>
       </div>
+
+      {intro && (
+        <p
+          className="text-foreground leading-relaxed mt-2"
+          style={{ fontSize: "clamp(16px, 1.6vw, 21px)", maxWidth: "780px" }}
+        >
+          {intro}
+        </p>
+      )}
 
       <h2
         className="text-foreground mt-10 leading-none line-clamp-none"
@@ -928,6 +980,14 @@ export function CaseFeatures({
           >
             {header}
             <div className="mb-8">{description}</div>
+            {feature.secondaryText && (
+              <p
+                className="text-foreground leading-relaxed mb-8"
+                style={{ fontSize: "clamp(14px, 1.3vw, 16px)", opacity: 0.6, maxWidth: "700px" }}
+              >
+                {feature.secondaryText}
+              </p>
+            )}
             {feature.media}
             {feature.caption && (
               <p
