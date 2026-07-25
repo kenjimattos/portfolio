@@ -82,31 +82,79 @@ export function CaseLayout({
         return;
       }
 
-      if (heroItems) {
-        gsap.fromTo(
-          heroItems,
-          { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, ease: "power3.out", stagger: 0.12, delay: 0.2 }
-        );
-      }
+      const mm = gsap.matchMedia();
 
-      sections?.forEach((section) => {
-        gsap.fromTo(
-          section,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
+      mm.add("(min-width: 769px)", () => {
+        if (heroItems) {
+          gsap.fromTo(
+            heroItems,
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, ease: "power3.out", stagger: 0.12, delay: 0.2 }
+          );
+        }
+
+        sections?.forEach((section) => {
+          gsap.fromTo(
+            section,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
       });
+
+      // Mobile: sections contain heavy recreated-app subtrees, so transforms
+      // and replayed tweens jank. Fade only, shorter, and animate once.
+      mm.add("(max-width: 768px)", () => {
+        if (heroItems) {
+          gsap.fromTo(
+            heroItems,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.08, delay: 0.15 }
+          );
+        }
+
+        sections?.forEach((section) => {
+          gsap.fromTo(
+            section,
+            { opacity: 0 },
+            {
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 90%",
+                once: true,
+              },
+            }
+          );
+        });
+      });
+
+      // The embedded app recreations rescale themselves after mount (ScaleBox),
+      // shifting the whole page — recompute trigger positions when the
+      // document height changes, or late sections never fire.
+      let raf = 0;
+      const ro = new ResizeObserver(() => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+      ro.observe(document.body);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        ro.disconnect();
+      };
     },
     { scope: containerRef }
   );
