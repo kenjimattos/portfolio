@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   CaseContact,
   CaseDesignLanguage,
@@ -17,6 +16,7 @@ import {
 import { HoustonApp, HoustonPanel, HoustonScreen } from "@/components/houston-demo/houston-frame";
 import { TeamsEmbed } from "@/components/houston-demo/embeds/teams";
 import { AccessControlEmbed } from "@/components/houston-demo/embeds/access-control";
+import { ScheduleBuilderEmbed } from "@/components/houston-demo/embeds/schedule-builder";
 import { geologica } from "@/components/houston-demo/geologica";
 
 const ACCENT = "#1555AD";
@@ -80,38 +80,12 @@ const features: CaseFeature[] = [
     title: "Schedule Builder",
     text: "An interactive grid-based interface for creating and managing medical schedules. Supports drag and drop creation, resizing, duplication, conflict detection, and batch publishing of shifts.",
     media: (
-      <div className="relative">
-        <Image
-          quality={90}
-          src="/img/houston/schedule.png"
-          alt="Schedule Builder"
-          width={1920}
-          height={1215}
-          className="w-full rounded-lg"
-        />
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          width={757}
-          height={321}
-          aria-label="Schedule Builder animation showing drag and drop shift creation"
-          className="absolute w-[60%] h-auto motion-reduce:hidden"
-          style={{
-            borderRadius: "clamp(4px, 1vw, 10px)",
-            borderWidth: "clamp(0.5px, 0.2vw, 2px)",
-            borderStyle: "solid",
-            borderColor: "rgba(163, 105, 237, 1)",
-            right: "0",
-            bottom: "clamp(40px, 60%, 80px)",
-          }}
-        >
-          <source src="/img/houston/schedule.webm" type="video/webm" />
-          <source src="/img/houston/schedule.mp4" type="video/mp4" />
-        </video>
-      </div>
+      <HoustonPanel designWidth={1140}>
+        <ScheduleBuilderEmbed />
+      </HoustonPanel>
     ),
+    caption:
+      "Live recreation, replayed on a loop — drag to create, resize, conflict rejected, publish. Conflict detection is the real logic.",
   },
   {
     number: "03",
