@@ -200,7 +200,7 @@ export function HoustonContent() {
           </>
         }
         subtitle="The web platform hospitals and staffing teams use to plan schedules, approve candidates, control attendance and handle payments — in one place."
-        roleTags={["Front-end", "Back-end", "Product", "Architecture", "Engineering"]}
+        roleTags={["UI/UX Design", "Front-end", "Back-end", "Product", "Architecture", "Engineering"]}
       >
         <CaseShowcase
           label="Live recreation — explore it"
