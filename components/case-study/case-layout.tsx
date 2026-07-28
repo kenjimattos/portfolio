@@ -287,6 +287,7 @@ export function CaseHero({
   subtitle,
   roleLabel = "My Role",
   roleTags,
+  links,
   children,
 }: {
   chips: string[];
@@ -294,6 +295,7 @@ export function CaseHero({
   subtitle: string;
   roleLabel?: string;
   roleTags: string[];
+  links?: { label: string; href: string }[];
   /** Showcase block (e.g. <CaseShowcase>) rendered inside the hero gradient */
   children?: ReactNode;
 }) {
@@ -377,6 +379,27 @@ export function CaseHero({
               </span>
             ))}
           </div>
+
+          {links && links.length > 0 && (
+            <div className="flex flex-wrap gap-6 mt-8">
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/link flex items-center gap-2 font-medium transition-opacity duration-300 hover:opacity-70"
+                  style={{ fontSize: "clamp(14px, 1.3vw, 16px)", color: INK }}
+                >
+                  <span>{link.label}</span>
+                  <ExternalLink
+                    size={17}
+                    className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                  />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -667,6 +690,7 @@ export function CaseDesignLanguage({
   palette,
   supportPalette,
   statusPills,
+  extra,
 }: {
   eyebrow?: string;
   /** Lead statement rendered before the type specimen (e.g. design ownership) */
@@ -691,6 +715,8 @@ export function CaseDesignLanguage({
   }[];
   supportPalette?: { label: string; text?: string; colors: string[] };
   statusPills?: { label: string; pills: { label: string; cls: string }[] };
+  /** Free-form exhibit (e.g. a material/effect demo) rendered before the status pills */
+  extra?: ReactNode;
 }) {
   return (
     <section
@@ -843,6 +869,8 @@ export function CaseDesignLanguage({
           </div>
         </div>
       )}
+
+      {extra}
 
       {statusPills && (
         <div className="mt-10">

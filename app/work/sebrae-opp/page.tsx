@@ -4,7 +4,7 @@ import { SebraeOppContent } from "./sebrae-opp-content";
 
 const title = "Sebrae OPP — Public Policy Data Platform";
 const description =
-  "Case study: a public policy observatory for Sebrae Paraíba — React frontend, Fastify API, and Python ETL unifying indicators for 223 municipalities.";
+  "Case study: a public policy observatory for Sebrae Paraíba — 223 municipalities, 13 official sources, zero chart libraries — with the real screens recreated in React.";
 
 export const metadata: Metadata = {
   title,
