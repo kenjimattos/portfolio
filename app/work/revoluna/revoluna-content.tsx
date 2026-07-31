@@ -1,426 +1,362 @@
 "use client";
 
-import Image from "next/image";
-import { CaseStudyTemplate } from "@/components/case-study/case-study-template";
+import {
+  CaseContact,
+  CaseDesignLanguage,
+  CaseEm,
+  CaseEvidence,
+  CaseFeature,
+  CaseFeatures,
+  CaseHero,
+  CaseLayout,
+  CaseResults,
+  CaseShowcase,
+  CaseStory,
+} from "@/components/case-study/case-layout";
+import { geologica } from "@/components/houston-demo/geologica";
+import { PhoneFrame } from "@/components/revoluna-demo/phone-frame";
+import { CheckinScreen } from "@/components/revoluna-demo/screens/checkin";
+import { EscalasScreen } from "@/components/revoluna-demo/screens/escalas";
+import { ExploreScreen } from "@/components/revoluna-demo/screens/explore";
+import { LockScreen } from "@/components/revoluna-demo/screens/lockscreen";
+import { PlantoesScreen } from "@/components/revoluna-demo/screens/plantoes";
+import { VagaScreen } from "@/components/revoluna-demo/screens/vaga";
 
-const tags = ["Design", "Prototype", "Front-end", "Back-end", "Mobile"];
+const ACCENT = "#7E3CD0";
+const ACCENT_INK = "#461A80";
+const ACCENT_TINT = "#F5EDFF";
 
-const implementationSteps = [
-  "Led the product redesign from concept to high-fidelity prototypes in Figma",
-  "Translated designs into a functional mobile MVP using FlutterFlow",
-  "Implemented custom logic where no-code solutions were not sufficient, including check-in/check-out flows and deep linking",
-  "Integrated REST APIs for user verification, shift discovery, applications, schedules, and payments",
-  "Collaborated closely with product stakeholders to align business rules with user-facing flows",
-  "Took ownership of publishing and maintaining the app on the App Store and Google Play",
+const RECREATION_CAPTION = "Recreated in React for this case study — fictional data";
+
+function Phone({
+  children,
+  time,
+  dark,
+}: {
+  children: React.ReactNode;
+  time?: string;
+  dark?: boolean;
+}) {
+  return (
+    <div className="mx-auto w-full max-w-95">
+      <PhoneFrame time={time} darkStatusBar={dark}>
+        {children}
+      </PhoneFrame>
+    </div>
+  );
+}
+
+const results = [
+  {
+    value: "38",
+    label: "Releases shipped to the App Store and Google Play — v2.3.2 today",
+  },
+  {
+    value: "100 m",
+    label: "Geofence radius validating every check-in against the hospital",
+  },
+  {
+    value: "27",
+    label: "Custom Dart actions where no-code ended: geofence, deep links, push, OTP",
+  },
+  {
+    value: "1",
+    label: "Designer-engineer from the Figma redesign to store publishing",
+  },
+];
+
+const approach = [
+  {
+    number: "01",
+    title: "Redesign, then validate",
+    text: "A new design system in Figma, translated into a working MVP — decisions tested with doctors on real shifts, not with mockups.",
+  },
+  {
+    number: "02",
+    title: "No-code where it's fast, code where it counts",
+    text: "FlutterFlow for screen velocity; 27 custom Dart actions and 5 custom widgets for what it can't do — geofencing, deep links, push, OTP, calendar.",
+  },
+  {
+    number: "03",
+    title: "Presence you can trust",
+    text: "Check-in and check-out validated by a Haversine distance check within 100 m of the hospital — with geolocated records for payroll.",
+  },
+  {
+    number: "04",
+    title: "Own the shipping",
+    text: "Store review cycles, versioned changelogs, 38 builds across both stores — the unglamorous half of mobile, done with discipline.",
+  },
+];
+
+const features: CaseFeature[] = [
+  {
+    number: "01",
+    title: "Structured discovery",
+    text: "Doctors browse open shifts by specialty, sorted by publication, date, value, distance or upfront payment. Every card answers what a WhatsApp post never did: how much, which sector, how far, how fresh.",
+    layout: "split",
+    media: (
+      <Phone>
+        <ExploreScreen />
+      </Phone>
+    ),
+  },
+  {
+    number: "02",
+    title: "The whole shift, before applying",
+    text: "One sheet with everything that matters: schedule, sector, requirements, directions, payment terms and who is hiring — plus quick actions to save, share, add to the calendar or transfer the shift to a colleague.",
+    secondaryText:
+      "Deep links generated from the web admin or the app itself open this exact sheet in-app. Sharing still happens on WhatsApp — but the destination is structured now.",
+    layout: "split",
+    media: (
+      <Phone>
+        <VagaScreen />
+      </Phone>
+    ),
+  },
+  {
+    number: "03",
+    title: "A month at a glance",
+    text: "A calendar of confirmed, pending and canceled shifts — and, for each day, the full team on duty. Doctors see which colleagues share the same shift before they even leave home.",
+    layout: "split",
+    media: (
+      <Phone time="17:45">
+        <EscalasScreen />
+      </Phone>
+    ),
+  },
+  {
+    number: "04",
+    title: "Check-in with proof",
+    text: "Reminders guide doctors through check-in and check-out within defined time windows. Validation only completes within 100 meters of the hospital, giving payroll a geolocated record of every shift actually worked.",
+    secondaryText: (
+      <>
+        <span
+          className="font-mono uppercase tracking-widest block mb-2"
+          style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
+        >
+          Trade-off
+        </span>
+        Presence is a single cached location fix and a Haversine check on the
+        device — no continuous tracking. Doctors&apos; batteries and privacy
+        outweighed a richer audit trail; and outside the time window the app
+        asks for a written justification instead of hard-blocking the check-in.
+      </>
+    ),
+    layout: "split",
+    media: (
+      <Phone time="19:44">
+        <CheckinScreen />
+      </Phone>
+    ),
+  },
+  {
+    number: "05",
+    title: "The app that comes to you",
+    text: "Push notifications built on Firebase Cloud Messaging cover the whole lifecycle: application updates, schedule alerts, check-in and check-out reminders, and payment notices when a shift closes.",
+    layout: "split",
+    media: (
+      <Phone time="19:00" dark>
+        <LockScreen />
+      </Phone>
+    ),
+  },
+  {
+    number: "06",
+    title: "An application pipeline",
+    text: "Saved, under review, confirmed — every application has a visible status, filterable by hospital and date. The answer to “did they pick me?” stopped living in someone else's chat.",
+    layout: "split",
+    media: (
+      <Phone time="17:45">
+        <PlantoesScreen />
+      </Phone>
+    ),
+  },
 ];
 
 export function RevolunaContent() {
   return (
-    <CaseStudyTemplate
-      projectName="Revoluna"
-      accentColor="#4a1d6e"
-      accentTint="#F5EDFF"
-      heroSubtitle="A mobile-first product designed to bring clarity and structure to medical shift management in Brazil."
-      tags={tags}
-      heroImage={{
-        src: "/img/revoluna/hero-phones.png",
-        alt: "Revoluna mobile app screens on two phones",
-        width: 800,
-        height: 900,
-        className: "relative z-10",
-        style: {
-          maxHeight: "clamp(500px, 85vh, 800px)",
-          width: "auto",
-        },
-        priority: true,
-      }}
-      overviewIntro={[
-        "I joined the project as a Product Designer with the goal of redesigning the experience and helping the team validate the product in the real world.",
-        "Beyond design, I took ownership of shipping a functional MVP to the App Store and Google Play, enabling real usage, early traction, and product validation.",
-      ]}
-      overviewContext="Medical shifts in Brazil are usually shared through unstructured channels like WhatsApp groups. Information is scattered, incomplete, and difficult to track. Doctors struggle to manage applications, schedules, and payments, while hiring teams rely on manual workflows that are inefficient and error-prone."
-      challengeText={[
-        "The challenge was to redesign the experience and expand the product beyond a simple listing, introducing features that could support real operational workflows and daily usage.",
-      ]}
-      challengeImage={{
-        src: "/img/revoluna/first-version.png",
-        alt: "Screenshot of the first version of the Revoluna app",
-        width: 269,
-        height: 545,
-        style: { maxWidth: "clamp(180px, 20vw, 269px)", height: "auto" },
-        caption: "First version of the app",
-      }}
-      solutionImage={{
-        src: "/img/revoluna/solution.png",
-        alt: "Composition of redesigned Revoluna app screens",
-        width: 2880,
-        height: 1560,
-      }}
-      solutionText="A redesigned mobile experience focused on organization, visibility, and control. The MVP introduced structured shift discovery, clearer scheduling, and automation of key operational steps that were previously manual."
-      features={
-        <>
-          <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
-            <div className="flex items-center gap-4 mb-8">
-              <div className="feature-badge feature-badge--purple">01</div>
-              <h3
-                className="text-foreground font-semibold"
-                style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-              >
-                Explore
-              </h3>
-            </div>
-            <p
-              className="text-foreground leading-relaxed mb-8"
-              style={{
-                fontSize: "clamp(15px, 1.4vw, 18px)",
-                opacity: 0.7,
-                maxWidth: "700px",
-              }}
-            >
-              Doctors can browse available shifts with clear details such as location, schedule, and payment, making it easier to find relevant opportunities quickly.
-            </p>
-            <div className="rounded-lg overflow-hidden">
-              <Image
-                quality={90}
-                src="/img/revoluna/explore.png"
-                alt="Revoluna Explore screen listing available medical shifts"
-                width={1055}
-                height={621}
-                className="w-full"
-              />
-            </div>
-          </section>
-
-          <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
-            <div
-              className="grid gap-8 items-center"
-              style={{
-                gridTemplateColumns: "1fr 1.2fr",
-              }}
-            >
-              <Image
-                quality={90}
-                src="/img/revoluna/schedule.png"
-                alt="Revoluna My Schedule screen with upcoming shifts"
-                width={439}
-                height={598}
-                className="rounded-lg"
-                style={{
-                  maxWidth: "clamp(280px, 40vw, 500px)",
-                  height: "auto",
-                }}
-              />
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="feature-badge feature-badge--cyan">02</div>
-                  <h3
-                    className="text-foreground font-semibold"
-                    style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                  >
-                    My Schedule
-                  </h3>
-                </div>
-                <p
-                  className="text-foreground leading-relaxed"
-                  style={{ fontSize: "clamp(15px, 1.4vw, 18px)", opacity: 0.7 }}
-                >
-                  A consolidated view of upcoming shifts, including visibility into when colleagues from the same hospital are also on duty.
-                </p>
-                <div
-                  className="h-px"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, color-mix(in srgb, var(--color-accent-cyan) 40%, transparent), transparent)",
-                    maxWidth: "200px",
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-
-          <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
-            <div
-              className="grid gap-8 items-center"
-              style={{
-                gridTemplateColumns: "1.2fr 1fr",
-              }}
-            >
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="feature-badge feature-badge--primary">03</div>
-                  <h3
-                    className="text-foreground font-semibold"
-                    style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                  >
-                    Notifications
-                  </h3>
-                </div>
-                <p
-                  className="text-foreground leading-relaxed"
-                  style={{ fontSize: "clamp(15px, 1.4vw, 18px)", opacity: 0.7 }}
-                >
-                  Built with Firebase Cloud Messaging to support application updates, schedule alerts, and check-in and check-out reminders.
-                </p>
-                <div
-                  className="h-px"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 40%, transparent), transparent)",
-                    maxWidth: "200px",
-                  }}
-                />
-              </div>
-              <Image
-                quality={90}
-                src="/img/revoluna/notifications.png"
-                alt="Revoluna push notifications on a phone lock screen"
-                width={845}
-                height={1110}
-                className="rounded-lg justify-self-end"
-                style={{
-                  maxWidth: "clamp(280px, 40vw, 500px)",
-                  height: "auto",
-                }}
-              />
-            </div>
-          </section>
-
-          <section className="feature-card w-full mb-24" style={{ opacity: 0 }}>
-            <div
-              className="grid gap-8 items-center"
-              style={{
-                gridTemplateColumns: "minmax(200px, 400px) 1fr",
-              }}
-            >
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="feature-badge feature-badge--purple">04</div>
-                  <h3
-                    className="text-foreground font-semibold"
-                    style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                  >
-                    Shift Transfer
-                  </h3>
-                </div>
-                <p
-                  className="text-foreground leading-relaxed"
-                  style={{ fontSize: "clamp(15px, 1.4vw, 18px)", opacity: 0.7 }}
-                >
-                  Doctors can make a scheduled shift available so colleagues from the same group can take over when needed.
-                </p>
-              </div>
-              <div className="rounded-lg overflow-hidden">
-                <Image
-                  quality={90}
-                  src="/img/revoluna/transfer.png"
-                  alt="Revoluna shift transfer flow screens"
-                  width={1081}
-                  height={1008}
-                  className="w-full"
-                />
-              </div>
-            </div>
-          </section>
-
-          <section
-            className="feature-card w-full mb-24"
-            style={{
-              opacity: 0,
-              marginRight: "calc(-1 * clamp(40px, 8vw, 180px))",
-            }}
-          >
-            <div
-              className="grid gap-8 items-center"
-              style={{
-                gridTemplateColumns: "1fr minmax(300px, 50%)",
-              }}
-            >
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="feature-badge feature-badge--cyan">05</div>
-                  <h3
-                    className="text-foreground font-semibold"
-                    style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                  >
-                    Check In-Out
-                  </h3>
-                </div>
-                <p
-                  className="text-foreground leading-relaxed"
-                  style={{ fontSize: "clamp(15px, 1.4vw, 18px)", opacity: 0.7 }}
-                >
-                  Reminders guide doctors through check-in and check-out within defined time windows. Validation is completed only within a 100-meter radius of the hospital, ensuring payroll accuracy while minimizing battery usage.
-                </p>
-              </div>
-              <div
-                className="rounded-l-lg overflow-hidden flex justify-end"
-                style={{
-                  maxHeight: "clamp(400px, 50vw, 700px)",
-                }}
-              >
-                <Image
-                  quality={90}
-                  src="/img/revoluna/checkin-checkout.png"
-                  alt="Revoluna check-in and check-out screens with location validation"
-                  width={800}
-                  height={600}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    marginTop: "-30%",
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-
-          <section
-            className="feature-card w-full mb-24"
-            style={{
-              opacity: 0,
-              marginRight: "calc(-1 * clamp(40px, 8vw, 180px))",
-            }}
-          >
-            <div
-              className="grid gap-8 items-center"
-              style={{
-                gridTemplateColumns: "1fr minmax(300px, 50%)",
-              }}
-            >
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="feature-badge feature-badge--primary">06</div>
-                  <h3
-                    className="text-foreground font-semibold"
-                    style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                  >
-                    Deep Linking
-                  </h3>
-                </div>
-                <p
-                  className="text-foreground leading-relaxed"
-                  style={{ fontSize: "clamp(15px, 1.4vw, 18px)", opacity: 0.7 }}
-                >
-                  Implemented deep links that route users directly to specific shift details inside the app. Links can be generated from both the web admin platform and the mobile app, enabling seamless sharing and improving discovery and conversion.
-                </p>
-              </div>
-              <div
-                className="rounded-l-lg overflow-hidden flex justify-end"
-                style={{
-                  maxHeight: "clamp(400px, 50vw, 700px)",
-                }}
-              >
-                <Image
-                  quality={90}
-                  src="/img/revoluna/deeplink.png"
-                  alt="Revoluna deep linking flow from a shared link into the app"
-                  width={800}
-                  height={600}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-        </>
-      }
-      preImplementation={
-        <section
-          className="animate-section w-full"
-          style={{ opacity: 0, padding: "0 clamp(8px, 1vw, 15px)" }}
-        >
-          <div className="rounded-lg overflow-hidden">
-            <Image
-              quality={90}
-              className="w-full"
-              src="/img/revoluna/login-subscription.png"
-              alt="Revoluna login and subscription screens"
-              width={1440}
-              height={960}
-            />
-          </div>
-        </section>
-      }
-      implementationSteps={implementationSteps}
-      implementationMedia={
-        <>
-          <div
-            className="mt-12 grid gap-4"
-            style={{
-              gridTemplateColumns: "1fr 2fr",
-            }}
-          >
-            <div className="rounded-lg overflow-hidden">
-              <Image
-                quality={90}
-                src="/img/revoluna/figma-components.png"
-                alt="Revoluna component library in Figma"
-                width={667}
-                height={959}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="rounded-lg overflow-hidden">
-              <Image
-                quality={90}
-                src="/img/revoluna/figma-design.png"
-                alt="Revoluna high-fidelity designs in Figma"
-                width={1361}
-                height={959}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8 rounded-lg overflow-hidden">
-            <Image
-              quality={90}
-              src="/img/revoluna/github.png"
-              alt="Revoluna custom code on GitHub"
-              width={2160}
-              height={1484}
-              className="w-full"
-            />
-          </div>
-        </>
-      }
-      outcomePrimary="The mobile MVP replaced informal workflows with a structured, production-ready experience, allowing doctors to better manage shifts and payments while enabling the team to validate the product with real users."
-      outcomeSecondary="The success of the MVP laid the foundation for the next phase of the product: the development of a dedicated web platform focused on scalability and operational management."
-      postOutcome={
-        <section
-          className="animate-section w-full grid gap-2"
-          style={{
-            margin: 0,
-            gridTemplateColumns: "1fr 1fr",
-            backgroundColor: "#F5EDFF",
-            opacity: 0,
-          }}
-        >
-          <div className="rounded-lg overflow-hidden">
-            <Image
-              quality={90}
-              src="/img/revoluna/icon.png"
-              alt="Revoluna app icon"
-              width={740}
-              height={740}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="rounded-lg overflow-hidden">
-            <Image
-              quality={90}
-              src="/img/revoluna/store.png"
-              alt="Revoluna listing on the App Store and Google Play"
-              width={700}
-              height={740}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </section>
-      }
+    <CaseLayout
+      accent={ACCENT}
+      accentInk={ACCENT_INK}
+      accentTint={ACCENT_TINT}
       nextProject={{ href: "/work/sebrae-opp", label: "Sebrae OPP" }}
-    />
+    >
+      <CaseHero
+        chips={["Health-tech · Mobile", "Solo design → both stores", "v2.3.2 · 38 builds"]}
+        headline={
+          <>
+            Revoluna: medical shifts out of WhatsApp chaos,{" "}
+            <CaseEm>into an app doctors run their month on</CaseEm>.
+          </>
+        }
+        subtitle="A marketplace and management app for medical shifts in Brazil. I redesigned the product and shipped the MVP myself — no-code where it's fast, custom Dart where it counts — through 38 releases on the App Store and Google Play."
+        roleTags={["Product Design", "UI/UX Design", "Prototype", "Mobile", "Front-end", "Back-end"]}
+      >
+        <CaseShowcase
+          label="Live recreation — the real screens"
+          note="Rebuilt in React for this case study · fictional data"
+          caption="Discovery, shift detail and schedule — the three screens a doctor lives in, recreated from the shipped app."
+        >
+          <div
+            className="grid gap-8"
+            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))" }}
+          >
+            <Phone>
+              <ExploreScreen />
+            </Phone>
+            <Phone>
+              <VagaScreen />
+            </Phone>
+            <Phone time="17:45">
+              <EscalasScreen />
+            </Phone>
+          </div>
+        </CaseShowcase>
+      </CaseHero>
+
+      <CaseResults
+        items={results}
+        statement="The MVP replaced informal WhatsApp workflows with a structured, production-ready experience — doctors manage shifts, schedules and payments in one place, and every check-in carries geolocated proof of presence. Real usage validated the product and funded its next phase: a dedicated web platform for operations."
+        footnote="Figures from the real codebase and changelog. All screens on this page are React recreations with fictional data."
+      />
+
+      <CaseStory
+        eyebrow="From WhatsApp groups to one app"
+        headline="Shifts lived in group chats — scattered, incomplete, impossible to track."
+        text="Medical shifts in Brazil are shared through unstructured channels: information scattered across group chats, applications lost in threads, payments tracked from memory. Doctors juggled all of it by hand while hiring teams ran manual, error-prone workflows. I joined as a Product Designer to redesign the experience — and took ownership of shipping it, so the team could validate the product with real users instead of prototypes."
+        image={{
+          src: "/img/revoluna/first-version.png",
+          alt: "Screenshot of the first version of the Revoluna app",
+          width: 269,
+          height: 545,
+        }}
+        imageCaption="The product I inherited — the app's first version"
+        personas={[
+          {
+            label: "Primary user",
+            title: "The doctor on shift",
+            text: "Finds opportunities, applies, proves presence and gets paid — often across several hospitals in the same week. The app turns that scatter into one structured routine, from discovery to check-out.",
+          },
+          {
+            label: "Also served",
+            title: "The hiring team",
+            text: "Publishes shifts, reviews candidates and closes payroll. Geolocated check-in records replaced phone calls and spreadsheets as the source of truth for who actually worked.",
+          },
+        ]}
+        cards={approach}
+      />
+
+      <CaseDesignLanguage
+        intro="The redesign replaced the inherited visual noise with a calm system: one typeface, one purple, generous white. All of it is mine — from the Figma component library to the shipped screens."
+        fontClassName={geologica.variable}
+        fontFamily="var(--font-geologica), sans-serif"
+        typefaceName="Geologica"
+        weights={[
+          { label: "Regular", weight: 400 },
+          { label: "Medium", weight: 500 },
+          { label: "SemiBold", weight: 600 },
+        ]}
+        description="One variable typeface does every job — a deliberate choice for a small product: fewer moving parts, one consistent rhythm, and Geologica's rounded warmth softens a clinical domain."
+        charsetCaption="Geologica — the app's only typeface"
+        palette={[
+          {
+            category: "Accent",
+            name: "Revoluna Purple",
+            hex: "#A369ED",
+            rgb: "(163, 105, 237)",
+            bg: "#A369ED",
+            fg: "#FFFFFF",
+          },
+          {
+            category: "Accent",
+            name: "Deep Purple",
+            hex: "#461A80",
+            rgb: "(70, 26, 128)",
+            bg: "#461A80",
+            fg: "#FFFFFF",
+          },
+          {
+            category: "Support",
+            name: "Sky Cyan",
+            hex: "#0FADEB",
+            rgb: "(15, 173, 235)",
+            bg: "#0FADEB",
+            fg: "#FFFFFF",
+          },
+          {
+            category: "Surface",
+            name: "Lavender Tint",
+            hex: "#F5EDFF",
+            rgb: "(245, 237, 255)",
+            bg: "#F5EDFF",
+            fg: "#461A80",
+          },
+        ]}
+        statusPills={{
+          label: "System feedback — no clinical red/green",
+          pills: [
+            { label: "SUCESSO", cls: "bg-[#F5EDFF] text-[#0FADEB] border-[#0FADEB]/50" },
+            { label: "ATENÇÃO", cls: "bg-[#F5EDFF] text-[#D66E97] border-[#EBA5C1]" },
+            { label: "ERRO", cls: "bg-[#F5EDFF] text-[#EB0F67] border-[#EB0F67]/50" },
+          ],
+        }}
+      />
+
+      <CaseFeatures
+        eyebrow="Inside the app"
+        intro="The screens below are recreated in React from the shipped app — same layout, same type, same purple — with fictional shifts and people."
+        features={features}
+      />
+
+      <CaseEvidence
+        eyebrow="Design ownership"
+        text="The system existed in Figma before a line of the app was touched — components, tokens and every high-fidelity flow — and it kept both artifacts in sync until the stores had the real thing."
+        items={[
+          {
+            image: {
+              src: "/img/revoluna/figma-components.png",
+              alt: "Revoluna component library in Figma",
+              width: 667,
+              height: 959,
+            },
+            caption: "Component library in Figma",
+          },
+          {
+            image: {
+              src: "/img/revoluna/figma-design.png",
+              alt: "Revoluna high-fidelity designs in Figma",
+              width: 1361,
+              height: 959,
+            },
+            caption: "High-fidelity flows",
+          },
+          {
+            image: {
+              src: "/img/revoluna/store.png",
+              alt: "Revoluna listing on the App Store and Google Play",
+              width: 700,
+              height: 740,
+            },
+            caption: "Live on the App Store and Google Play",
+          },
+        ]}
+        stack={[
+          "Figma",
+          "FlutterFlow",
+          "Flutter · Dart",
+          "Supabase",
+          "Firebase Cloud Messaging",
+          "Google Maps",
+          "App Store Connect",
+          "Google Play Console",
+        ]}
+      />
+
+      <CaseContact
+        heading="Want the full story behind Revoluna?"
+        text="The geofence trade-offs, the no-code boundary, the store-publishing war stories — happy to walk through any of it."
+        email="kenjimattos@gmail.com"
+      />
+    </CaseLayout>
   );
 }
