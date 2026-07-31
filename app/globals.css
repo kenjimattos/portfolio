@@ -34,6 +34,18 @@
   --color-hst-muted: #71717a;
   --font-geologica: var(--font-geologica);
 
+  /* Revoluna app demo (recreated mobile app — real FlutterFlow theme values) */
+  --color-rev-primary: #A369ED;
+  --color-rev-secondary: #DACCED;
+  --color-rev-tertiary: #0FADEB;
+  --color-rev-deep: #461A80;
+  --color-rev-text: #1D1C1C;
+  --color-rev-tint: #F5EDFF;
+  --color-rev-muted: #848484;
+  --color-rev-border: #E5E5E5;
+  --color-rev-faint: #F4F4F4;
+  --color-rev-error: #EB0F67;
+
   /* Sebrae OPP platform demo (recreated app — dark theme) */
   --color-opp-bg: #161726;
   --color-opp-surface: #1A1C31;
@@ -198,6 +210,20 @@
   .hst-app h5,
   .hst-app h6,
   .hst-app p {
+    font-size: 1em;
+    color: inherit;
+    font-weight: inherit;
+    line-height: 1.5;
+  }
+
+  /* Revoluna demo: same base-style neutralization as .hst-app */
+  .rev-app h1,
+  .rev-app h2,
+  .rev-app h3,
+  .rev-app h4,
+  .rev-app h5,
+  .rev-app h6,
+  .rev-app p {
     font-size: 1em;
     color: inherit;
     font-weight: inherit;
