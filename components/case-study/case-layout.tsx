@@ -295,7 +295,7 @@ export function CaseHero({
   subtitle: string;
   roleLabel?: string;
   roleTags: string[];
-  links?: { label: string; href: string }[];
+  links?: { label: string; href: string; hint?: string }[];
   /** Showcase block (e.g. <CaseShowcase>) rendered inside the hero gradient */
   children?: ReactNode;
 }) {
@@ -381,22 +381,31 @@ export function CaseHero({
           </div>
 
           {links && links.length > 0 && (
-            <div className="flex flex-wrap gap-6 mt-8">
+            <div className="flex flex-wrap gap-x-10 gap-y-4 mt-8">
               {links.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group/link flex items-center gap-2 font-medium transition-opacity duration-300 hover:opacity-70"
-                  style={{ fontSize: "clamp(14px, 1.3vw, 16px)", color: INK }}
-                >
-                  <span>{link.label}</span>
-                  <ExternalLink
-                    size={17}
-                    className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-                  />
-                </a>
+                <div key={link.href} className="flex flex-col gap-1.5">
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/link flex items-center gap-2 font-medium transition-opacity duration-300 hover:opacity-70"
+                    style={{ fontSize: "clamp(14px, 1.3vw, 16px)", color: INK }}
+                  >
+                    <span>{link.label}</span>
+                    <ExternalLink
+                      size={17}
+                      className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                    />
+                  </a>
+                  {link.hint && (
+                    <span
+                      className="font-mono"
+                      style={{ fontSize: "clamp(11px, 1vw, 12px)", color: "var(--foreground)", opacity: 0.55 }}
+                    >
+                      {link.hint}
+                    </span>
+                  )}
+                </div>
               ))}
             </div>
           )}

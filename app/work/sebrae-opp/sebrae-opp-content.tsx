@@ -163,8 +163,12 @@ export function SebraeOppContent() {
         roleTags={["Product", "UI/UX Design", "Front-end", "Back-end", "Data Engineering", "Design System"]}
         links={[
           {
-            label: "View live demo",
-            href: "https://sebrae-90w1y0a6d-kenjimattos-1396s-projects.vercel.app/",
+            label: "Open the live demo",
+            href: "https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/",
+          },
+          {
+            label: "View on GitHub",
+            href: "https://github.com/kenjimattos/sebrae-opp-snapshot",
           },
         ]}
       >

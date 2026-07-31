@@ -203,6 +203,17 @@ export function HoustonContent() {
         }
         subtitle="The web platform hospitals and staffing teams use to plan schedules, approve candidates, control attendance and handle payments — in one place."
         roleTags={["UI/UX Design", "Front-end", "Back-end", "Product", "Architecture", "Engineering"]}
+        links={[
+          {
+            label: "Open the live demo",
+            href: "https://houston-demo.vercel.app/",
+            hint: "demo@houston.local · demo123456",
+          },
+          {
+            label: "View on GitHub",
+            href: "https://github.com/kenjimattos/houston-III-demo",
+          },
+        ]}
       >
         <CaseShowcase
           label="Live recreation — explore it"
