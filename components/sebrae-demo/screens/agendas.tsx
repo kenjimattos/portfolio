@@ -6,34 +6,19 @@
 // AgendaExpandable/AgendaCard from the original repo — no interactivity by design.
 
 import {
-  Briefcase,
-  ChartColumn,
-  DollarSign,
-  GraduationCap,
   Minus,
-  Plus,
-  type LucideIcon,
+  Plus
 } from "lucide-react";
-import { cx, FONT, AgendaIndicatorLine } from "@/components/sebrae-demo/ui";
+import { FONT, AgendaIndicatorLine } from "@/components/sebrae-demo/ui";
 import { ParaibaMap } from "@/components/sebrae-demo/paraiba-map";
 import {
   AGENDAS,
-  AMBIENTE_MODES,
   INDICATORS,
   MAP_TOOLTIP,
-  MUNICIPIO,
   MUNICIPIO_ID,
-  PILLARS,
 } from "@/components/sebrae-demo/data";
 import { CitySelector } from "../components/cityselector";
 import { ModeToggle } from "../components/modetoggle";
-
-const PILLAR_ICONS: Record<(typeof PILLARS)[number]["icon"], LucideIcon> = {
-  ChartColumn,
-  DollarSign,
-  GraduationCap,
-  Briefcase,
-};
 
 const GOVERNANCA_INDICATORS = INDICATORS.filter(
   (ind) => ind.agendaId === "governanca"
@@ -110,7 +95,6 @@ function AgendaItem({
   return (
     <div>
       <section
-        aria-expanded={expanded}
         className="flex items-center justify-between gap-4 border border-white p-3 text-left"
       >
         <p
