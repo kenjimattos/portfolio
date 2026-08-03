@@ -13,8 +13,33 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ArrowLeft, ArrowUp, ExternalLink, MousePointerClick } from "lucide-react";
 import { prefersReducedMotion } from "@/lib/motion";
+import { localeHref, useLocale } from "@/lib/i18n";
+import { LangToggle } from "@/components/lang-toggle";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const CHROME_COPY = {
+  en: { back: "Back", top: "Top", backTo: "Back to", home: "Home", next: "Next Project" },
+  pt: { back: "Voltar", top: "Topo", backTo: "Voltar para", home: "Início", next: "Próximo projeto" },
+} as const;
+
+// Locale-aware defaults for section labels; explicit props still override.
+const SECTION_DEFAULTS = {
+  en: {
+    results: "Results",
+    role: "My Role",
+    design: "Design language",
+    contact: "Contact",
+    cta: "Get in touch",
+  },
+  pt: {
+    results: "Resultados",
+    role: "Minha função",
+    design: "Linguagem de design",
+    contact: "Contato",
+    cta: "Fale comigo",
+  },
+} as const;
 
 const PAD_X = "clamp(24px, 8vw, 180px)";
 const PAD_SECTION = "clamp(60px, 10vw, 120px)";
@@ -70,6 +95,9 @@ export function CaseLayout({
   children: ReactNode;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
+  const chrome = CHROME_COPY[locale];
+  const home = localeHref(locale, "/");
 
   useGSAP(
     () => {
@@ -185,7 +213,7 @@ export function CaseLayout({
         }}
       >
         <Link
-          href="/"
+          href={home}
           className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-300 group"
           style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
         >
@@ -193,11 +221,11 @@ export function CaseLayout({
             size={20}
             className="transition-transform duration-300 group-hover:-translate-x-1"
           />
-          <span className="font-medium">Back</span>
+          <span className="font-medium">{chrome.back}</span>
         </Link>
 
         <Link
-          href="/"
+          href={home}
           className="text-foreground hover:text-primary transition-colors duration-300"
           style={{
             fontFamily: "var(--font-gravitas)",
@@ -208,17 +236,20 @@ export function CaseLayout({
           knji
         </Link>
 
-        <button
-          onClick={scrollToTop}
-          className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-300 group"
-          style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
-        >
-          <span className="font-medium">Top</span>
-          <ArrowUp
-            size={20}
-            className="transition-transform duration-300 group-hover:-translate-y-1"
-          />
-        </button>
+        <div className="flex items-center gap-4">
+          <LangToggle />
+          <button
+            onClick={scrollToTop}
+            className="hidden sm:flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-300 group"
+            style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+          >
+            <span className="font-medium">{chrome.top}</span>
+            <ArrowUp
+              size={20}
+              className="transition-transform duration-300 group-hover:-translate-y-1"
+            />
+          </button>
+        </div>
       </header>
 
       {children}
@@ -233,7 +264,7 @@ export function CaseLayout({
       >
         <div className="flex justify-between items-center">
           <Link
-            href="/"
+            href={home}
             className="flex items-center gap-3 text-foreground hover:text-primary transition-all duration-300 group"
           >
             <ArrowLeft
@@ -245,16 +276,16 @@ export function CaseLayout({
                 className="font-mono uppercase tracking-wider"
                 style={{ fontSize: "clamp(10px, 0.9vw, 12px)", opacity: 0.65 }}
               >
-                Back to
+                {chrome.backTo}
               </span>
               <span className="font-medium" style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}>
-                Home
+                {chrome.home}
               </span>
             </div>
           </Link>
 
           <Link
-            href={nextProject.href}
+            href={localeHref(locale, nextProject.href)}
             className="flex items-center gap-3 text-foreground hover:text-primary transition-all duration-300 group"
           >
             <div className="flex flex-col items-end">
@@ -262,7 +293,7 @@ export function CaseLayout({
                 className="font-mono uppercase tracking-wider"
                 style={{ fontSize: "clamp(10px, 0.9vw, 12px)", opacity: 0.65 }}
               >
-                Next Project
+                {chrome.next}
               </span>
               <span className="font-medium" style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}>
                 {nextProject.label}
@@ -285,7 +316,7 @@ export function CaseHero({
   chips,
   headline,
   subtitle,
-  roleLabel = "My Role",
+  roleLabel,
   roleTags,
   links,
   children,
@@ -299,6 +330,8 @@ export function CaseHero({
   /** Showcase block (e.g. <CaseShowcase>) rendered inside the hero gradient */
   children?: ReactNode;
 }) {
+  const defaults = SECTION_DEFAULTS[useLocale()];
+  roleLabel ??= defaults.role;
   return (
     <section
       id="top"
@@ -465,7 +498,7 @@ export function CaseShowcase({
 /* ---------------------------------- results ---------------------------------- */
 
 export function CaseResults({
-  label = "Results",
+  label,
   items,
   statement,
   footnote,
@@ -475,6 +508,7 @@ export function CaseResults({
   statement?: string;
   footnote?: string;
 }) {
+  label ??= SECTION_DEFAULTS[useLocale()].results;
   return (
     <section
       className="animate-section w-full"
@@ -687,7 +721,7 @@ export function CaseStory({
 /* ------------------------------ design language ------------------------------ */
 
 export function CaseDesignLanguage({
-  eyebrow = "Design language",
+  eyebrow,
   intro,
   fontClassName,
   fontFamily,
@@ -727,6 +761,7 @@ export function CaseDesignLanguage({
   /** Free-form exhibit (e.g. a material/effect demo) rendered before the status pills */
   extra?: ReactNode;
 }) {
+  eyebrow ??= SECTION_DEFAULTS[useLocale()].design;
   return (
     <section
       className={`animate-section w-full ${fontClassName ?? ""}`}
@@ -1129,10 +1164,10 @@ export function CaseEvidence({
 /* ---------------------------------- contact ---------------------------------- */
 
 export function CaseContact({
-  eyebrow = "Contact",
+  eyebrow,
   heading,
   text,
-  ctaLabel = "Get in touch",
+  ctaLabel,
   ctaHref = "/#contact",
   email,
 }: {
@@ -1143,6 +1178,11 @@ export function CaseContact({
   ctaHref?: string;
   email?: string;
 }) {
+  const locale = useLocale();
+  const defaults = SECTION_DEFAULTS[locale];
+  eyebrow ??= defaults.contact;
+  ctaLabel ??= defaults.cta;
+  ctaHref = localeHref(locale, ctaHref);
   return (
     <section
       className="animate-section w-full"
