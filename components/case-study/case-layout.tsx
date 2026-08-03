@@ -508,7 +508,8 @@ export function CaseResults({
   statement?: string;
   footnote?: string;
 }) {
-  label ??= SECTION_DEFAULTS[useLocale()].results;
+  const locale = useLocale();
+  label ??= SECTION_DEFAULTS[locale].results;
   return (
     <section
       className="animate-section w-full"
@@ -761,7 +762,8 @@ export function CaseDesignLanguage({
   /** Free-form exhibit (e.g. a material/effect demo) rendered before the status pills */
   extra?: ReactNode;
 }) {
-  eyebrow ??= SECTION_DEFAULTS[useLocale()].design;
+  const locale = useLocale();
+  eyebrow ??= SECTION_DEFAULTS[locale].design;
   return (
     <section
       className={`animate-section w-full ${fontClassName ?? ""}`}

@@ -8,10 +8,9 @@
 // check; only the driver is scripted.
 // Fixed design width (1140) — cursor waypoints are precomputed px.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { CalendarCheck, Copy, Pencil, TriangleAlert } from "lucide-react";
 import { cx, HButton } from "@/components/houston-demo/ui";
-import { prefersReducedMotion } from "@/lib/motion";
 
 /* ------------------------------- constants ------------------------------- */
 
@@ -65,6 +64,27 @@ type Preview = { row: number; start: number; end: number } | null;
 type Toast = { kind: "error" | "success"; title: string; detail: string } | null;
 
 const INITIAL_SLOTS: Slot[] = [{ id: 1, row: 0, start: 0, end: 6 }]; // 07h–13h
+
+// End state shown when the animation is skipped (prefers-reduced-motion).
+const REDUCED_SLOTS: Slot[] = [
+  { id: 1, row: 0, start: 0, end: 6 },
+  { id: 2, row: 0, start: 7, end: 14 },
+  { id: 3, row: 1, start: 10, end: 16 },
+];
+
+const REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
+
+function useReducedMotion() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(REDUCED_QUERY);
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(REDUCED_QUERY).matches,
+    () => false
+  );
+}
 
 const overlaps = (a: { start: number; end: number }, b: { start: number; end: number }) =>
   a.start < b.end && a.end > b.start;
@@ -168,7 +188,11 @@ export function ScheduleBuilderEmbed() {
   const [pressed, setPressed] = useState(false);
   const [toast, setToast] = useState<Toast>(null);
   const [publishPressed, setPublishPressed] = useState(false);
-  const [animate, setAnimate] = useState(false);
+
+  const reduced = useReducedMotion();
+  const animate = !reduced;
+  // With reduced motion the editor is shown in its finished state, never driven.
+  const visibleSlots = reduced ? REDUCED_SLOTS : slots;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const visibleRef = useRef(false);
@@ -177,16 +201,8 @@ export function ScheduleBuilderEmbed() {
     preview !== null && slots.some((s) => s.row === preview.row && overlaps(preview, s));
 
   useEffect(() => {
-    if (prefersReducedMotion()) {
-      setSlots([
-        { id: 1, row: 0, start: 0, end: 6 },
-        { id: 2, row: 0, start: 7, end: 14 },
-        { id: 3, row: 1, start: 10, end: 16 },
-      ]);
-      return;
-    }
+    if (reduced) return;
 
-    setAnimate(true);
     const signal = { cancelled: false };
 
     const el = containerRef.current;
@@ -306,10 +322,10 @@ export function ScheduleBuilderEmbed() {
       signal.cancelled = true;
       io.disconnect();
     };
-  }, []);
+  }, [reduced]);
 
   // Monday's mini-card mirrors the editor state live.
-  const mondayPills = [...slots]
+  const mondayPills = [...visibleSlots]
     .sort((a, b) => a.row - b.row || a.start - b.start)
     .map((s) => ({ label: `${hourLabel(s.start)}-${hourLabel(s.end)}`, count: "0/1" }));
 
@@ -410,7 +426,7 @@ export function ScheduleBuilderEmbed() {
               ))}
             </div>
 
-            {slots
+            {visibleSlots
               .filter((s) => s.row === row)
               .map((s) => {
                 const duration = s.end - s.start;
