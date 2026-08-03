@@ -6,18 +6,43 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
+import { useLocale } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const skills = [
-  { category: "Languages", items: ["JavaScript", "TypeScript", "Python"] },
-  { category: "Frontend", items: ["React", "Vite","Next.js"] },
-  { category: "Styling", items: ["Tailwind CSS", "Bootstrap"] },
-  { category: "Tools", items: ["Git", "Figma", "Storybook"] },
-  { category: "Backend", items: ["Node.js", "Fastify", "PostgresSQL", "MongoDB"] },
-];
+const SKILL_ITEMS = [
+  ["JavaScript", "TypeScript", "Python"],
+  ["React", "Vite", "Next.js"],
+  ["Tailwind CSS", "Bootstrap"],
+  ["Git", "Figma", "Storybook"],
+  ["Node.js", "Fastify", "PostgresSQL", "MongoDB"],
+] as const;
+
+const COPY = {
+  en: {
+    heading: "About Me",
+    photoAlt: "Portrait of Kenji Mattos",
+    bio1: "I build products end to end. On my latest projects I owned everything from the first Figma prototype to the React frontend, the PostgreSQL schema behind it, and the CI/CD pipeline that ships it — design, code, and deploy as one continuous job.",
+    bio2: "Most of my work lives in complex operational and financial domains: scheduling, attendance, payments, and multi-tenant access control. The hard part isn't the interface — it's encoding messy business rules into systems that stay reliable when real money and real people depend on them.",
+    bio3: "I've also coordinated a small engineering team, setting code standards, review practices, and workflows as the system grew. Today I work mostly with React, Next.js, Node.js, and PostgreSQL, turning manual operations into software.",
+    categories: ["Languages", "Frontend", "Styling", "Tools", "Backend"],
+  },
+  pt: {
+    heading: "Sobre mim",
+    photoAlt: "Retrato de Kenji Mattos",
+    bio1: "Eu construo produtos de ponta a ponta. Nos meus últimos projetos, fui responsável por tudo: do primeiro protótipo no Figma ao frontend em React, o schema PostgreSQL por trás e o pipeline de CI/CD que coloca tudo em produção — design, código e deploy como um trabalho contínuo.",
+    bio2: "A maior parte do meu trabalho vive em domínios operacionais e financeiros complexos: escalas, presença, pagamentos e controle de acesso multi-tenant. A parte difícil não é a interface — é codificar regras de negócio bagunçadas em sistemas que continuam confiáveis quando dinheiro e pessoas de verdade dependem deles.",
+    bio3: "Também coordenei um pequeno time de engenharia, definindo padrões de código, práticas de review e fluxos de trabalho conforme o sistema crescia. Hoje trabalho principalmente com React, Next.js, Node.js e PostgreSQL, transformando operações manuais em software.",
+    categories: ["Linguagens", "Frontend", "Estilo", "Ferramentas", "Backend"],
+  },
+} as const;
 
 export const About = () => {
+  const t = COPY[useLocale()];
+  const skills = SKILL_ITEMS.map((items, i) => ({
+    category: t.categories[i],
+    items,
+  }));
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -131,7 +156,7 @@ export const About = () => {
           className="text-foreground font-bold"
           style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
         >
-          About Me
+          {t.heading}
         </h2>
         <div
           className="flex-1 h-px bg-foreground"
@@ -177,7 +202,7 @@ export const About = () => {
               <Image
                 quality={90}
                 src="/img/about-photo.png"
-                alt="Portrait of Kenji Mattos"
+                alt={t.photoAlt}
                 width={480}
                 height={560}
                 className="w-full h-auto object-cover"
@@ -206,10 +231,7 @@ export const About = () => {
               className="text-foreground leading-relaxed"
               style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
             >
-              I build products end to end. On my latest projects I owned
-              everything from the first Figma prototype to the React frontend,
-              the PostgreSQL schema behind it, and the CI/CD pipeline that
-              ships it — design, code, and deploy as one continuous job.
+              {t.bio1}
             </p>
             <p
               className="text-foreground leading-relaxed"
@@ -218,11 +240,7 @@ export const About = () => {
                 opacity: 0.8,
               }}
             >
-              Most of my work lives in complex operational and financial
-              domains: scheduling, attendance, payments, and multi-tenant
-              access control. The hard part isn&apos;t the interface — it&apos;s
-              encoding messy business rules into systems that stay reliable
-              when real money and real people depend on them.
+              {t.bio2}
             </p>
             <p
               className="text-foreground leading-relaxed"
@@ -231,10 +249,7 @@ export const About = () => {
                 opacity: 0.8,
               }}
             >
-              I&apos;ve also coordinated a small engineering team, setting code
-              standards, review practices, and workflows as the system grew.
-              Today I work mostly with React, Next.js, Node.js, and
-              PostgreSQL, turning manual operations into software.
+              {t.bio3}
             </p>
           </div>
 
