@@ -5,6 +5,12 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { siteConfig } from "@/config/site";
+import { useLocale } from "@/lib/i18n";
+
+const FOOTER_COPY = {
+  en: { rights: "All rights reserved", builtWith: "Built with" },
+  pt: { rights: "Todos os direitos reservados", builtWith: "Feito com" },
+} as const;
 
 const navLinks = [
   { label: "home", sectionId: "home" },
@@ -45,6 +51,7 @@ const socialLinks = [
 export const Footer = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const t = FOOTER_COPY[useLocale()];
 
   const handleSectionClick = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
@@ -107,7 +114,7 @@ export const Footer = () => {
                 opacity: 0.55,
               }}
             >
-              All rights reserved
+              {t.rights}
             </span>
           </div>
 
@@ -119,7 +126,7 @@ export const Footer = () => {
               opacity: 0.6,
             }}
           >
-            <span>Built with</span>
+            <span>{t.builtWith}</span>
             <span style={{ color: "var(--color-accent-cyan)" }}>Next.js</span>
             <span>&</span>
             <span style={{ color: "var(--color-accent-purple-light)" }}>TypeScript</span>
