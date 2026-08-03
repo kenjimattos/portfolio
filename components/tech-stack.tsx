@@ -24,6 +24,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
+import { useLocale } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
 
@@ -39,38 +40,96 @@ type TechnologyCategory = {
   items: Technology[];
 };
 
-const technologies: TechnologyCategory[] = [
-  {
-    category: "Frontend",
-    items: [
-      { name: "React", icon: SiReact, color: "#61DAFB", description: "Component architecture, hooks, state management" },
-      { name: "Next.js", icon: SiNextdotjs, color: "var(--color-foreground)", description: "SSR, SSG, App Router, API routes" },
-      { name: "Vite", icon: SiVite, color: "#646CFF", description: "Fast dev server, optimized builds" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", description: "Utility-first, custom configs, plugins" },
-      { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3", description: "Responsive grids, component theming" },
+const TECH_BASE = [
+  [
+    { name: "React", icon: SiReact, color: "#61DAFB" },
+    { name: "Next.js", icon: SiNextdotjs, color: "var(--color-foreground)" },
+    { name: "Vite", icon: SiVite, color: "#646CFF" },
+    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
+  ],
+  [
+    { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
+    { name: "Fastify", icon: SiFastify, color: "var(--color-foreground)" },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    { name: "Python", icon: SiPython, color: "#3776AB" },
+  ],
+  [
+    { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+    { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+    { name: "Git", icon: SiGit, color: "#F05032" },
+    { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+    { name: "Storybook", icon: SiStorybook, color: "#FF4785" },
+  ],
+] as const;
+
+const COPY = {
+  en: {
+    heading: "Tech Stack",
+    categories: ["Frontend", "Backend & Data", "Languages & Tools"],
+    descriptions: [
+      [
+        "Component architecture, hooks, state management",
+        "SSR, SSG, App Router, API routes",
+        "Fast dev server, optimized builds",
+        "Utility-first, custom configs, plugins",
+        "Responsive grids, component theming",
+      ],
+      [
+        "REST APIs, serverless functions",
+        "High-performance HTTP servers, plugins",
+        "Relational modeling, queries, indexing",
+        "Document stores, aggregation pipelines",
+        "Scripting, automation, data handling",
+      ],
+      [
+        "ES6+, async patterns, DOM APIs",
+        "Type safety, generics, utility types",
+        "Branching strategies, CI/CD workflows",
+        "Design systems, prototyping, handoff",
+        "Component docs, isolated development",
+      ],
+    ],
+    philosophy: [
+      "Real products are built where design meets the database.",
+      "I own the whole path: Figma, frontend, backend, deploy.",
+      "If it doesn't survive production, it doesn't count.",
     ],
   },
-  {
-    category: "Backend & Data",
-    items: [
-      { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E", description: "REST APIs, serverless functions" },
-      { name: "Fastify", icon: SiFastify, color: "var(--color-foreground)", description: "High-performance HTTP servers, plugins" },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", description: "Relational modeling, queries, indexing" },
-      { name: "MongoDB", icon: SiMongodb, color: "#47A248", description: "Document stores, aggregation pipelines" },
-      { name: "Python", icon: SiPython, color: "#3776AB", description: "Scripting, automation, data handling" },
+  pt: {
+    heading: "Stack",
+    categories: ["Frontend", "Backend & Dados", "Linguagens & Ferramentas"],
+    descriptions: [
+      [
+        "Arquitetura de componentes, hooks, gestão de estado",
+        "SSR, SSG, App Router, rotas de API",
+        "Dev server rápido, builds otimizados",
+        "Utility-first, configs customizadas, plugins",
+        "Grids responsivos, temas de componentes",
+      ],
+      [
+        "APIs REST, funções serverless",
+        "Servidores HTTP de alta performance, plugins",
+        "Modelagem relacional, queries, índices",
+        "Documentos, pipelines de agregação",
+        "Scripts, automação, tratamento de dados",
+      ],
+      [
+        "ES6+, padrões assíncronos, APIs do DOM",
+        "Tipagem segura, generics, utility types",
+        "Estratégias de branch, fluxos de CI/CD",
+        "Design systems, protótipos, handoff",
+        "Docs de componentes, desenvolvimento isolado",
+      ],
+    ],
+    philosophy: [
+      "Produto de verdade nasce onde o design encontra o banco de dados.",
+      "Eu cuido do caminho inteiro: Figma, frontend, backend, deploy.",
+      "Se não sobrevive à produção, não conta.",
     ],
   },
-  {
-    category: "Languages & Tools",
-    items: [
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", description: "ES6+, async patterns, DOM APIs" },
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6", description: "Type safety, generics, utility types" },
-      { name: "Git", icon: SiGit, color: "#F05032", description: "Branching strategies, CI/CD workflows" },
-      { name: "Figma", icon: SiFigma, color: "#F24E1E", description: "Design systems, prototyping, handoff" },
-      { name: "Storybook", icon: SiStorybook, color: "#FF4785", description: "Component docs, isolated development" },
-    ],
-  },
-];
+} as const;
 
 const categoryAccents = [
   "var(--color-primary)",
@@ -79,6 +138,14 @@ const categoryAccents = [
 ];
 
 export const TechStack = () => {
+  const t = COPY[useLocale()];
+  const technologies: TechnologyCategory[] = TECH_BASE.map((items, catIndex) => ({
+    category: t.categories[catIndex],
+    items: items.map((item, i) => ({
+      ...item,
+      description: t.descriptions[catIndex][i],
+    })),
+  }));
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
@@ -242,7 +309,7 @@ export const TechStack = () => {
           className="text-foreground font-bold"
           style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
         >
-          Tech Stack
+          {t.heading}
         </h2>
         <div
           className="header-line flex-1 h-px origin-left"
@@ -391,9 +458,9 @@ export const TechStack = () => {
             <span className="terminal-command" style={{ color: "rgba(255,255,249,0.8)" }}>cat philosophy.txt</span>
           </div>
           <div className="leading-relaxed">
-            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> Real products are built where design meets the database.</p>
-            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-cyan)" }}>&gt;</span> I own the whole path: Figma, frontend, backend, deploy.</p>
-            <p className="terminal-line" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> If it doesn&apos;t survive production, it doesn&apos;t count.</p>
+            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> {t.philosophy[0]}</p>
+            <p className="terminal-line mb-2" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-cyan)" }}>&gt;</span> {t.philosophy[1]}</p>
+            <p className="terminal-line" style={{ color: "rgba(255,255,249,0.7)" }}><span style={{ color: "var(--color-accent-purple-light)" }}>&gt;</span> {t.philosophy[2]}</p>
           </div>
           <div className="terminal-prompt flex gap-2 mt-4">
             <span style={{ color: "var(--color-accent-cyan)" }}>$</span>
