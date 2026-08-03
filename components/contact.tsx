@@ -8,8 +8,56 @@ import { useGSAP } from "@gsap/react";
 import { Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
+import { useLocale } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const COPY = {
+  en: {
+    heading: "Get In Touch",
+    name: "Name",
+    namePlaceholder: "John Doe",
+    email: "Email",
+    emailPlaceholder: "john@example.com",
+    message: "Message",
+    messagePlaceholder: "Tell me about your project...",
+    sending: "Sending...",
+    sent: "Message Sent!",
+    tryAgain: "Try Again",
+    send: "Send Message",
+    successNote: "Thanks — your message is on its way. I'll get back to you soon.",
+    errorNote: (email: string) =>
+      `Something went wrong. Please try again, or email me directly at ${email}.`,
+    pitch:
+      "I'm currently available for freelance work and full-time opportunities. If you have a project in mind or just want to chat, feel free to reach out.",
+    responseTime: "I typically respond within 24-48 hours.",
+    location: "Location",
+    locationValue: "São Bernardo do Campo, São Paulo, Brazil",
+    connect: "Connect",
+  },
+  pt: {
+    heading: "Vamos conversar",
+    name: "Nome",
+    namePlaceholder: "Maria Silva",
+    email: "E-mail",
+    emailPlaceholder: "maria@exemplo.com",
+    message: "Mensagem",
+    messagePlaceholder: "Me conte sobre o seu projeto...",
+    sending: "Enviando...",
+    sent: "Mensagem enviada!",
+    tryAgain: "Tentar de novo",
+    send: "Enviar mensagem",
+    successNote: "Obrigado — sua mensagem está a caminho. Respondo em breve.",
+    errorNote: (email: string) =>
+      `Algo deu errado. Tente de novo ou me escreva direto em ${email}.`,
+    pitch:
+      "Estou disponível para projetos freelance e oportunidades full-time. Se você tem um projeto em mente ou só quer trocar uma ideia, me chama.",
+    responseTime: "Costumo responder em 24–48 horas.",
+    location: "Localização",
+    locationValue: "São Bernardo do Campo, São Paulo, Brasil",
+    connect: "Redes",
+  },
+} as const;
 
 const socialLinks = [
   {
@@ -38,6 +86,7 @@ const socialLinks = [
 ];
 
 export const Contact = () => {
+  const t = COPY[useLocale()];
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -192,7 +241,7 @@ export const Contact = () => {
           className="text-foreground font-bold"
           style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
         >
-          Get In Touch
+          {t.heading}
         </h2>
         <div
           className="flex-1 h-px"
@@ -238,7 +287,7 @@ export const Contact = () => {
                 transition: "opacity 0.3s ease",
               }}
             >
-              Name
+              {t.name}
             </label>
             <input
               id="contact-name"
@@ -256,7 +305,7 @@ export const Contact = () => {
                 padding: "12px 0",
                 borderBottom: `1px solid ${focusedField === "name" ? "color-mix(in srgb, var(--color-accent-cyan) 80%, transparent)" : "rgba(22, 22, 22, 0.15)"}`,
               }}
-              placeholder="John Doe"
+              placeholder={t.namePlaceholder}
               required
             />
           </div>
@@ -272,7 +321,7 @@ export const Contact = () => {
                 transition: "opacity 0.3s ease",
               }}
             >
-              Email
+              {t.email}
             </label>
             <input
               id="contact-email"
@@ -290,7 +339,7 @@ export const Contact = () => {
                 padding: "12px 0",
                 borderBottom: `1px solid ${focusedField === "email" ? "color-mix(in srgb, var(--color-accent-purple) 80%, transparent)" : "rgba(22, 22, 22, 0.15)"}`,
               }}
-              placeholder="john@example.com"
+              placeholder={t.emailPlaceholder}
               required
             />
           </div>
@@ -306,7 +355,7 @@ export const Contact = () => {
                 transition: "opacity 0.3s ease",
               }}
             >
-              Message
+              {t.message}
             </label>
             <textarea
               id="contact-message"
@@ -324,7 +373,7 @@ export const Contact = () => {
                 borderBottom: `1px solid ${focusedField === "message" ? "var(--color-primary)" : "rgba(22, 22, 22, 0.15)"}`,
                 boxShadow: focusedField === "message" ? "0 4px 20px -8px rgba(0, 73, 255, 0.3)" : "none",
               }}
-              placeholder="Tell me about your project..."
+              placeholder={t.messagePlaceholder}
               required
             />
           </div>
@@ -351,7 +400,7 @@ export const Contact = () => {
                 <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             )}
-            {status === "loading" ? "Sending..." : status === "success" ? "Message Sent!" : status === "error" ? "Try Again" : "Send Message"}
+            {status === "loading" ? t.sending : status === "success" ? t.sent : status === "error" ? t.tryAgain : t.send}
             {status === "idle" && (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" strokeLinecap="round" strokeLinejoin="round" />
@@ -370,10 +419,8 @@ export const Contact = () => {
               minHeight: "1.5em",
             }}
           >
-            {status === "success" &&
-              "Thanks — your message is on its way. I'll get back to you soon."}
-            {status === "error" &&
-              `Something went wrong. Please try again, or email me directly at ${siteConfig.profile.email}.`}
+            {status === "success" && t.successNote}
+            {status === "error" && t.errorNote(siteConfig.profile.email)}
           </p>
         </form>
 
@@ -389,8 +436,7 @@ export const Contact = () => {
               className="text-foreground leading-relaxed"
               style={{ fontSize: "clamp(18px, 2vw, 24px)" }}
             >
-              I&apos;m currently available for freelance work and full-time opportunities.
-              If you have a project in mind or just want to chat, feel free to reach out.
+              {t.pitch}
             </p>
             <p
               className="text-foreground"
@@ -399,7 +445,7 @@ export const Contact = () => {
                 opacity: 0.6,
               }}
             >
-              I typically respond within 24-48 hours.
+              {t.responseTime}
             </p>
           </div>
 
@@ -411,13 +457,13 @@ export const Contact = () => {
                 className="text-foreground font-mono uppercase tracking-wider"
                 style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
               >
-                Location
+                {t.location}
               </span>
               <span
                 className="text-foreground"
                 style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}
               >
-                São Bernardo do Campo, São Paulo, Brazil
+                {t.locationValue}
               </span>
             </div>
 
@@ -427,7 +473,7 @@ export const Contact = () => {
                 className="text-foreground font-mono uppercase tracking-wider"
                 style={{ fontSize: "clamp(11px, 1vw, 13px)", opacity: 0.5 }}
               >
-                Connect
+                {t.connect}
               </span>
               <div className="flex gap-4">
                 {socialLinks.map((link, index) => {
