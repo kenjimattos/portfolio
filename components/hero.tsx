@@ -5,10 +5,35 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
+import { useLocale } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+const COPY = {
+  en: {
+    design: "Design",
+    engineering: "Engineering",
+    taglineA: "I design, build, and ship products end to end:",
+    taglineB: "Interface, business logic, database, and deploy.",
+    viewWork: "View Work",
+    scroll: "Scroll",
+    marquee:
+      "PRODUCT ENGINEER • FULL-STACK • DESIGN SYSTEMS • REACT • POSTGRESQL • PRODUCT DESIGN • ",
+  },
+  pt: {
+    design: "Design",
+    engineering: "Engineering",
+    taglineA: "Eu projeto, construo e lanço produtos de ponta a ponta:",
+    taglineB: "Interface, regra de negócio, banco de dados e deploy.",
+    viewWork: "Ver projetos",
+    scroll: "Role",
+    marquee:
+      "ENGENHEIRO DE PRODUTO • FULL-STACK • DESIGN SYSTEMS • REACT • POSTGRESQL • PRODUCT DESIGN • ",
+  },
+} as const;
+
 export const Hero = () => {
+  const t = COPY[useLocale()];
   const containerRef = useRef<HTMLDivElement>(null);
   const nameTopRef = useRef<HTMLDivElement>(null);
   const nameBottomRef = useRef<HTMLDivElement>(null);
@@ -179,7 +204,7 @@ export const Hero = () => {
     document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const marqueeText = "PRODUCT ENGINEER • FULL-STACK • DESIGN SYSTEMS • REACT • POSTGRESQL • PRODUCT DESIGN • ";
+  const marqueeText = t.marquee;
 
   return (
     <div
@@ -260,7 +285,7 @@ export const Hero = () => {
               color: "rgba(255, 255, 249, 0.5)",
             }}
           >
-            Design
+            {t.design}
           </span>
         </div>
 
@@ -282,12 +307,12 @@ export const Hero = () => {
             <span
               style={{ color: "rgba(255, 255, 249, 0.4)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.2em" }}
             >
-              Design
+              {t.design}
             </span>
             <span
               style={{ color: "rgba(255, 255, 249, 0.4)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.2em" }}
             >
-              Engineering
+              {t.engineering}
             </span>
           </div>
         </div>
@@ -312,7 +337,7 @@ export const Hero = () => {
               color: "rgba(255, 255, 249, 0.5)",
             }}
           >
-            Engineering
+            {t.engineering}
           </span>
           <h1
             className="leading-none text-right"
@@ -341,16 +366,16 @@ export const Hero = () => {
               maxWidth: "28rem",
             }}
           >
-            I design, build, and ship products end to end:
+            {t.taglineA}
             <br />
-            Interface, business logic, database, and deploy.
+            {t.taglineB}
           </p>
           <button
             onClick={scrollToWork}
             className="group flex items-center gap-4 transition-colors duration-300"
             style={{ fontSize: "clamp(13px, 1.2vw, 15px)", color: "rgba(255, 255, 249, 0.7)" }}
           >
-            <span className="uppercase tracking-widest group-hover:text-primary transition-colors">View Work</span>
+            <span className="uppercase tracking-widest group-hover:text-primary transition-colors">{t.viewWork}</span>
             <svg
               width="40"
               height="12"
@@ -403,7 +428,7 @@ export const Hero = () => {
           className="uppercase tracking-widest"
           style={{ fontSize: "clamp(9px, 0.8vw, 11px)", color: "rgba(255, 255, 249, 0.3)" }}
         >
-          Scroll
+          {t.scroll}
         </span>
         <div
           className="scroll-line w-px origin-top"
