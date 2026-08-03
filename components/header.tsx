@@ -8,18 +8,36 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
+import { localeHref, useLocale } from "@/lib/i18n";
+import { LangToggle } from "@/components/lang-toggle";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const navLinks = [
-  { label: "Work", href: "/#work" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
-];
+const NAV_COPY = {
+  en: {
+    links: [
+      { label: "Work", href: "/#work" },
+      { label: "About", href: "/#about" },
+      { label: "Contact", href: "/#contact" },
+    ],
+    resume: "Resume",
+  },
+  pt: {
+    links: [
+      { label: "Projetos", href: "/#work" },
+      { label: "Sobre", href: "/#about" },
+      { label: "Contato", href: "/#contact" },
+    ],
+    resume: "Currículo",
+  },
+} as const;
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const locale = useLocale();
+  const { links: navLinks, resume: resumeLabel } = NAV_COPY[locale];
+  const home = localeHref(locale, "/");
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -75,10 +93,10 @@ export const Header = () => {
 
     const sectionId = href.split("#")[1] ?? "";
 
-    if (pathname === "/") {
+    if (pathname === home) {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      router.push("/");
+      router.push(home);
       setTimeout(() => {
         document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
       }, 100);
@@ -108,7 +126,7 @@ export const Header = () => {
               fontSize: "clamp(28px, 4vw, 40px)",
               opacity: 0,
             }}
-            href="/"
+            href={home}
           >
             knji
           </Link>
@@ -138,13 +156,20 @@ export const Header = () => {
                 />
               </a>
             ))}
+            <div data-header-item style={{ opacity: 0 }}>
+              <LangToggle />
+            </div>
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile: language toggle + menu button */}
+          <div className="flex items-center gap-3 md:hidden relative z-50">
+            <div data-header-item style={{ opacity: 0 }}>
+              <LangToggle />
+            </div>
           <button
             data-header-item
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5"
+            className="w-10 h-10 flex flex-col justify-center items-center gap-1.5"
             style={{ opacity: 0 }}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
@@ -169,6 +194,7 @@ export const Header = () => {
               }}
             />
           </button>
+          </div>
         </div>
       </header>
 
@@ -215,7 +241,7 @@ export const Header = () => {
               transition: `all 0.5s ease ${navLinks.length * 0.1}s`,
             }}
           >
-            Resume
+            {resumeLabel}
           </a>
 
           {/* Social Links */}
