@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/work/sebrae-opp",
+    languages: { en: "/work/sebrae-opp", "pt-BR": "/pt/work/sebrae-opp" },
   },
   openGraph: {
     type: "article",

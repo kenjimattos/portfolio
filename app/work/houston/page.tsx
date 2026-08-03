@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/work/houston",
+    languages: { en: "/work/houston", "pt-BR": "/pt/work/houston" },
   },
   openGraph: {
     type: "article",

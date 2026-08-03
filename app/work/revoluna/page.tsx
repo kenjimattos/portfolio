@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/work/revoluna",
+    languages: { en: "/work/revoluna", "pt-BR": "/pt/work/revoluna" },
   },
   openGraph: {
     type: "article",
