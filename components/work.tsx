@@ -8,17 +8,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
+import { localeHref, useLocale } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const projects = [
+const BASE_PROJECTS = [
   {
     id: 1,
     name: "Houston",
-    role: "Full-Stack Development",
     year: "2024",
-    description:
-      "Web platform built to manage medical shift schedules and candidate workflows.",
     tags: ["React", "TypeScript", "Tailwind", "Supabase"],
     image: "/img/work-houston.png",
     href: "/work/houston",
@@ -27,10 +25,7 @@ const projects = [
   {
     id: 2,
     name: "Revoluna",
-    role: "Mobile App Development",
     year: "2024",
-    description:
-      "A mobile app where doctors find, apply to, and check in to shifts — with custom deep linking, geofence-validated check-in, and FCM push notifications.",
     tags: ["Figma", "FlutterFlow", "Flutter", "Supabase"],
     image: "/img/work-revoluna.png",
     href: "/work/revoluna",
@@ -39,18 +34,65 @@ const projects = [
   {
     id: 3,
     name: "Sebrae OPP",
-    role: "Full-Stack & Data",
     year: "2026",
-    description:
-      "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba — React frontend, Fastify API, and Python ETL.",
     tags: ["React", "TypeScript", "Fastify", "MongoDB"],
     image: "/img/work-sebrae-opp.png",
     href: "/work/sebrae-opp",
     color: "#161726",
   },
-];
+] as const;
+
+const COPY = {
+  en: {
+    heading: "Selected Work",
+    viewCase: "View Case Study",
+    github: "View more on GitHub",
+    projects: [
+      {
+        role: "Full-Stack Development",
+        description:
+          "Web platform built to manage medical shift schedules and candidate workflows.",
+      },
+      {
+        role: "Mobile App Development",
+        description:
+          "A mobile app where doctors find, apply to, and check in to shifts — with custom deep linking, geofence-validated check-in, and FCM push notifications.",
+      },
+      {
+        role: "Full-Stack & Data",
+        description:
+          "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba — React frontend, Fastify API, and Python ETL.",
+      },
+    ],
+  },
+  pt: {
+    heading: "Projetos selecionados",
+    viewCase: "Ver estudo de caso",
+    github: "Ver mais no GitHub",
+    projects: [
+      {
+        role: "Desenvolvimento Full-Stack",
+        description:
+          "Plataforma web para gestão de escalas de plantões médicos e fluxos de candidatura.",
+      },
+      {
+        role: "Desenvolvimento Mobile",
+        description:
+          "App em que médicos encontram, se candidatam e fazem check-in em plantões — com deep linking customizado, check-in validado por geofence e push via FCM.",
+      },
+      {
+        role: "Full-Stack & Dados",
+        description:
+          "Observatório de políticas públicas que unifica indicadores socioeconômicos dos 223 municípios da Paraíba — frontend em React, API Fastify e ETL em Python.",
+      },
+    ],
+  },
+} as const;
 
 export const Work = () => {
+  const locale = useLocale();
+  const t = COPY[locale];
+  const projects = BASE_PROJECTS.map((p, i) => ({ ...p, ...t.projects[i] }));
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -142,7 +184,7 @@ export const Work = () => {
           className="text-foreground font-bold"
           style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
         >
-          Selected Work
+          {t.heading}
         </h2>
         <div
           className="flex-1 h-px"
@@ -162,7 +204,7 @@ export const Work = () => {
         {projects.map((project, index) => (
           <Link
             key={project.id}
-            href={project.href}
+            href={localeHref(locale, project.href)}
             className="group relative block"
           >
             {/* Card Container */}
@@ -282,7 +324,7 @@ export const Work = () => {
                         color: "var(--color-accent-cyan)",
                       }}
                     >
-                      View Case Study
+                      {t.viewCase}
                     </span>
                     <svg
                       width="20"
@@ -330,7 +372,7 @@ export const Work = () => {
             opacity: 0.6,
           }}
         >
-          <span>View more on GitHub</span>
+          <span>{t.github}</span>
           <svg
             width="18"
             height="18"
