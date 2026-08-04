@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Internacionalização EN/PT: contexto de locale (`lib/i18n.tsx`), locale derivado do pathname, toggle de idioma no header e rotas espelho em `/pt` para a home e todos os case studies
+- SEO: alternates `hreflang` e entradas PT no sitemap
+- Recreações interativas em React substituindo screenshots nos case studies:
+  - Houston — recriação da plataforma e o Schedule Builder como animação com cursor fantasma, detecção real de conflitos e respeito a `prefers-reduced-motion`
+  - Sebrae OPP — recriação estática da plataforma com mapa da Paraíba, tokens de cor e tipografia originais
+  - Revoluna — telas do app em frames de iPhone
+- Case Houston: narrativa de UX ampliada com personas, ownership, trade-off de calendário e de papéis; tag "UI/UX Design"
+- Links de hero dos cases: suporte a GitHub e texto de dica
+
+### Changed
+
+- Layout de case study extraído em um sistema de componentes composable (`components/case-study`), com Houston, Sebrae OPP e Revoluna reescritos sobre ele
+- Animações de scroll dos cases suavizadas no mobile
+
+### Fixed
+
+- Triggers de animação obsoletos nas páginas de case study
+- Violações das regras de hooks do React: `useLocale()` chamado condicionalmente no layout de case study e `setState` síncrono dentro de efeito no Schedule Builder
+
+### Removed
+
+- Navegação e links sociais não utilizados do footer, além de código morto na tela de agendas
+
 ## [2.2.1] - 2026-07-16
 
 ### Changed
