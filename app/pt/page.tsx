@@ -7,9 +7,9 @@ import { Contact } from "@/components/contact";
 import { siteConfig } from "@/config/site";
 
 const title =
-  "Kenji Mattos — Engenheiro de Produto Full-Stack | React, Next.js, PostgreSQL";
+  "Kenji Mattos — Engenheiro de Software";
 const description =
-  "Engenheiro de produto full-stack construindo plataformas de ponta a ponta, do design no Figma a React, PostgreSQL e CI/CD em produção.";
+  "Engenheiro de Software construindo plataformas de ponta a ponta, do design ao código em produção.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -37,7 +37,7 @@ const jsonLd = {
   "@type": "Person",
   name: siteConfig.brand.ownerName,
   alternateName: "Kenji Mattos",
-  jobTitle: "Engenheiro de Produto Full-Stack",
+  jobTitle: "Engenheiro de Software",
   url: `${siteConfig.url}/pt`,
   email: `mailto:${siteConfig.profile.email}`,
   sameAs: [siteConfig.profile.githubUrl, siteConfig.profile.linkedinUrl],

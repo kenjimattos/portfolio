@@ -10,7 +10,7 @@ const jsonLd = {
   "@type": "Person",
   name: siteConfig.brand.ownerName,
   alternateName: "Kenji Mattos",
-  jobTitle: "Full-Stack Product Engineer",
+  jobTitle: "Software Engineer",
   url: siteConfig.url,
   email: `mailto:${siteConfig.profile.email}`,
   sameAs: [siteConfig.profile.githubUrl, siteConfig.profile.linkedinUrl],

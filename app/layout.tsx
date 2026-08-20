@@ -18,9 +18,9 @@ const gravitasOne = Gravitas_One({
 });
 
 const defaultTitle =
-  "Kenji Mattos — Full-Stack Product Engineer | React, Next.js, PostgreSQL";
+  "Kenji Mattos — Software Engineer | React, Next.js, PostgreSQL";
 const defaultDescription =
-  "Full-stack product engineer building production-grade platforms end to end, from Figma design to React, PostgreSQL, and CI/CD in production.";
+  "Software Engineer building production-grade platforms end to end, from design to code in production.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

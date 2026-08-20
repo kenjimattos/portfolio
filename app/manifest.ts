@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Kenji Mattos — Full-Stack Product Engineer",
+    name: "Kenji Mattos — Software Engineer",
     short_name: "Kenji Mattos",
     description:
-      "Full-stack product engineer building production-grade platforms end to end.",
+      "Software Engineer building production-grade platforms end to end.",
     start_url: "/",
     display: "standalone",
     background_color: "#0a0a0a",
