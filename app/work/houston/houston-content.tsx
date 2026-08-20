@@ -18,6 +18,7 @@ import { HoustonApp, HoustonPanel, HoustonScreen } from "@/components/houston-de
 import { TeamsEmbed } from "@/components/houston-demo/embeds/teams";
 import { AccessControlEmbed } from "@/components/houston-demo/embeds/access-control";
 import { ScheduleBuilderEmbed } from "@/components/houston-demo/embeds/schedule-builder";
+import { ComponentLibraryExhibit } from "@/components/houston-demo/embeds/component-library";
 import { geologica } from "@/components/houston-demo/geologica";
 import { useLocale } from "@/lib/i18n";
 
@@ -92,6 +93,7 @@ type Copy = {
     intro: string;
     description: string;
     paletteMeta: { category: string; name: string }[];
+    library: { label: string; text: string };
     support: { label: string; text: string };
     statusLabel: string;
     statusPills: string[];
@@ -191,6 +193,10 @@ const COPY: Record<"en" | "pt", Copy> = {
         { category: "Neutral", name: "App Background" },
         { category: "Neutral", name: "Ink" },
       ],
+      library: {
+        label: "Component library",
+        text: "Houston is built on shadcn/ui. That choice is about accessibility and speed, not about skipping the work: the primitives were copied into the repo, retokenized to this design language and extended by hand. Everything specific to running medical shifts, the schedule grid, the calendar, the permission layer, the operational tables, had to be designed and written from scratch, reviewed in pull requests and shipped against a live operation.",
+      },
       support: {
         label: "Support palette",
         text: "32 colors available when creating a grade. Each schedule keeps its color across the calendar, shift views and reports, with diverse hues tuned to sit comfortably next to the primary purple.",
@@ -381,6 +387,10 @@ const COPY: Record<"en" | "pt", Copy> = {
         { category: "Neutra", name: "Fundo do app" },
         { category: "Neutra", name: "Tinta" },
       ],
+      library: {
+        label: "Biblioteca de componentes",
+        text: "O Houston é construído sobre shadcn/ui. A escolha é por acessibilidade e velocidade, não por pular trabalho: os primitivos foram copiados para o repositório, retokenizados para esta linguagem visual e estendidos à mão. Tudo que é específico de rodar plantão médico, a grade de escala, o calendário, a camada de permissões, as tabelas operacionais, precisou ser desenhado e escrito do zero, revisado em pull request e entregue contra uma operação ao vivo.",
+      },
       support: {
         label: "Paleta de apoio: identidade das grades",
         text: "32 cores disponíveis ao criar uma grade. Cada escala mantém sua cor no calendário, nas visões de plantão e nos relatórios, com matizes diversos afinados para conviver com o roxo primário.",
@@ -620,6 +630,23 @@ export function HoustonContent() {
           text: t.design.support.text,
           colors: SUPPORT_COLORS,
         }}
+        extra={
+          <div className="mt-14">
+            <span
+              className="font-mono uppercase tracking-widest block mb-2"
+              style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
+            >
+              {t.design.library.label}
+            </span>
+            <p
+              className="text-foreground leading-relaxed mb-8"
+              style={{ fontSize: "clamp(15px, 1.4vw, 18px)", maxWidth: "780px" }}
+            >
+              {t.design.library.text}
+            </p>
+            <ComponentLibraryExhibit />
+          </div>
+        }
         statusPills={{
           label: t.design.statusLabel,
           pills: t.design.statusPills.map((label, i) => ({ label, cls: STATUS_PILL_CLS[i] })),
