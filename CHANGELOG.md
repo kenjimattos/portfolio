@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.3.1] - 2026-08-20
+
+### Added
+
+- Case Houston: exibição da biblioteca de componentes, um specimen sheet dos primitivos shadcn/ui + Radix retokenizados ao lado da camada de domínio escrita do zero, deixando explícita a divisão entre base e código próprio
+- Case Houston: nota de atribuição de time, creditando o módulo de pagamentos ao dev supervisionado
+
+### Changed
+
+- Título profissional atualizado de "Product Engineer" para "Software Engineer" em metadata, manifest, Open Graph e na home (EN e PT)
+- Copy revisada em todo o site: em dashes substituídos por vírgulas, dois-pontos e fraseado mais natural
+- Chips de data atualizados: Houston para 2025 e Sebrae OPP para 2026
+- Componente `Labeled` extraído no conteúdo do case Houston
+
 ## [2.3.0] - 2026-08-03
 
 ### Added
