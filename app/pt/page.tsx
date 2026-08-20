@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
 const title =
   "Kenji Mattos — Engenheiro de Produto Full-Stack | React, Next.js, PostgreSQL";
 const description =
-  "Engenheiro de produto full-stack construindo plataformas de ponta a ponta — do design no Figma a React, PostgreSQL e CI/CD em produção.";
+  "Engenheiro de produto full-stack construindo plataformas de ponta a ponta, do design no Figma a React, PostgreSQL e CI/CD em produção.";
 
 export const metadata: Metadata = {
   title: { absolute: title },

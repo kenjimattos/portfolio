@@ -4,7 +4,7 @@ import { HoustonContent } from "@/app/work/houston/houston-content";
 
 const title = "Houston — Plataforma de Gestão de Plantões Médicos";
 const description =
-  "Estudo de caso: a evolução de uma ferramenta interna para uma plataforma multi-hospital de gestão de plantões — escalas, presença, pagamentos e controle de acesso — com as telas reais recriadas em React.";
+  "Estudo de caso: a evolução de uma ferramenta interna para uma plataforma multi-hospital de gestão de plantões (escalas, presença, pagamentos e controle de acesso), com as telas reais recriadas em React.";
 
 export const metadata: Metadata = {
   title,

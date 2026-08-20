@@ -103,37 +103,37 @@ const COPY: Record<"en" | "pt", Copy> = {
       </>
     ),
     subtitle:
-      "A marketplace and management app for medical shifts in Brazil. I redesigned the product and shipped the MVP myself — no-code where it's fast, custom Dart where it counts — through 38 releases on the App Store and Google Play.",
+      "A marketplace and management app for medical shifts in Brazil. I redesigned the product and shipped the MVP myself (no-code where it's fast, custom Dart where it counts) through 38 releases on the App Store and Google Play.",
     roleTags: ["Product Design", "UI/UX Design", "Prototype", "Mobile", "Front-end", "Back-end"],
     showcase: {
-      label: "Live recreation — the real screens",
+      label: "Live recreation: the real screens",
       note: "Rebuilt in React for this case study · fictional data",
       caption:
-        "Discovery, shift detail and schedule — the three screens a doctor lives in, recreated from the shipped app.",
+        "Discovery, shift detail and schedule: the three screens a doctor lives in, recreated from the shipped app.",
     },
     results: {
       items: [
-        { value: "38", label: "Releases shipped to the App Store and Google Play — v2.3.2 today" },
+        { value: "38", label: "Releases shipped to the App Store and Google Play, v2.3.2 today" },
         { value: "100 m", label: "Geofence radius validating every check-in against the hospital" },
         { value: "27", label: "Custom Dart actions where no-code ended: geofence, deep links, push, OTP" },
         { value: "1", label: "Designer-engineer from the Figma redesign to store publishing" },
       ],
       statement:
-        "The MVP replaced informal WhatsApp workflows with a structured, production-ready experience — doctors manage shifts, schedules and payments in one place, and every check-in carries geolocated proof of presence. Real usage validated the product and funded its next phase: a dedicated web platform for operations.",
+        "The MVP replaced informal WhatsApp workflows with a structured, production-ready experience: doctors manage shifts, schedules and payments in one place, and every check-in carries geolocated proof of presence. Real usage validated the product and funded its next phase: a dedicated web platform for operations.",
       footnote:
         "Figures from the real codebase and changelog. All screens on this page are React recreations with fictional data.",
     },
     story: {
       eyebrow: "From WhatsApp groups to one app",
-      headline: "Shifts lived in group chats — scattered, incomplete, impossible to track.",
-      text: "Medical shifts in Brazil are shared through unstructured channels: information scattered across group chats, applications lost in threads, payments tracked from memory. Doctors juggled all of it by hand while hiring teams ran manual, error-prone workflows. I joined as a Product Designer to redesign the experience — and took ownership of shipping it, so the team could validate the product with real users instead of prototypes.",
+      headline: "Shifts lived in group chats: scattered, incomplete, impossible to track.",
+      text: "Medical shifts in Brazil are shared through unstructured channels: information scattered across group chats, applications lost in threads, payments tracked from memory. Doctors juggled all of it by hand while hiring teams ran manual, error-prone workflows. I joined as a Product Designer to redesign the experience, and took ownership of shipping it, so the team could validate the product with real users instead of prototypes.",
       imageAlt: "Screenshot of the first version of the Revoluna app",
-      imageCaption: "The product I inherited — the app's first version",
+      imageCaption: "The product I inherited: the app's first version",
       personas: [
         {
           label: "Primary user",
           title: "The doctor on shift",
-          text: "Finds opportunities, applies, proves presence and gets paid — often across several hospitals in the same week. The app turns that scatter into one structured routine, from discovery to check-out.",
+          text: "Finds opportunities, applies, proves presence and gets paid, often across several hospitals in the same week. The app turns that scatter into one structured routine, from discovery to check-out.",
         },
         {
           label: "Also served",
@@ -145,44 +145,44 @@ const COPY: Record<"en" | "pt", Copy> = {
         {
           number: "01",
           title: "Redesign, then validate",
-          text: "A new design system in Figma, translated into a working MVP — decisions tested with doctors on real shifts, not with mockups.",
+          text: "A new design system in Figma, translated into a working MVP: decisions tested with doctors on real shifts, not with mockups.",
         },
         {
           number: "02",
           title: "No-code where it's fast, code where it counts",
-          text: "FlutterFlow for screen velocity; 27 custom Dart actions and 5 custom widgets for what it can't do — geofencing, deep links, push, OTP, calendar.",
+          text: "FlutterFlow for screen velocity; 27 custom Dart actions and 5 custom widgets for what it can't do: geofencing, deep links, push, OTP, calendar.",
         },
         {
           number: "03",
           title: "Presence you can trust",
-          text: "Check-in and check-out validated by a Haversine distance check within 100 m of the hospital — with geolocated records for payroll.",
+          text: "Check-in and check-out validated by a Haversine distance check within 100 m of the hospital, with geolocated records for payroll.",
         },
         {
           number: "04",
           title: "Own the shipping",
-          text: "Store review cycles, versioned changelogs, 38 builds across both stores — the unglamorous half of mobile, done with discipline.",
+          text: "Store review cycles, versioned changelogs, 38 builds across both stores: the unglamorous half of mobile, done with discipline.",
         },
       ],
     },
     design: {
       intro:
-        "The redesign replaced the inherited visual noise with a calm system: one typeface, one purple, generous white. All of it is mine — from the Figma component library to the shipped screens.",
+        "The redesign replaced the inherited visual noise with a calm system: one typeface, one purple, generous white. All of it is mine, from the Figma component library to the shipped screens.",
       description:
-        "One variable typeface does every job — a deliberate choice for a small product: fewer moving parts, one consistent rhythm, and Geologica's rounded warmth softens a clinical domain.",
-      charsetCaption: "Geologica — the app's only typeface",
+        "One variable typeface does every job, a deliberate choice for a small product: fewer moving parts, one consistent rhythm, and Geologica's rounded warmth softens a clinical domain.",
+      charsetCaption: "Geologica: the app's only typeface",
       paletteMeta: [
         { category: "Accent", name: "Revoluna Purple" },
         { category: "Accent", name: "Deep Purple" },
         { category: "Support", name: "Sky Cyan" },
         { category: "Surface", name: "Lavender Tint" },
       ],
-      statusLabel: "System feedback — no clinical red/green",
+      statusLabel: "System feedback: no clinical red/green",
       statusPills: ["SUCESSO", "ATENÇÃO", "ERRO"],
     },
     features: {
       eyebrow: "Inside the app",
       intro:
-        "The screens below are recreated in React from the shipped app — same layout, same type, same purple — with fictional shifts and people.",
+        "The screens below are recreated in React from the shipped app (same layout, same type, same purple), with fictional shifts and people.",
       items: [
         {
           title: "Structured discovery",
@@ -190,20 +190,20 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         {
           title: "The whole shift, before applying",
-          text: "One sheet with everything that matters: schedule, sector, requirements, directions, payment terms and who is hiring — plus quick actions to save, share, add to the calendar or transfer the shift to a colleague.",
+          text: "One sheet with everything that matters: schedule, sector, requirements, directions, payment terms and who is hiring, plus quick actions to save, share, add to the calendar or transfer the shift to a colleague.",
           secondary:
-            "Deep links generated from the web admin or the app itself open this exact sheet in-app. Sharing still happens on WhatsApp — but the destination is structured now.",
+            "Deep links generated from the web admin or the app itself open this exact sheet in-app. Sharing still happens on WhatsApp, but the destination is structured now.",
         },
         {
           title: "A month at a glance",
-          text: "A calendar of confirmed, pending and canceled shifts — and, for each day, the full team on duty. Doctors see which colleagues share the same shift before they even leave home.",
+          text: "A calendar of confirmed, pending and canceled shifts and, for each day, the full team on duty. Doctors see which colleagues share the same shift before they even leave home.",
         },
         {
           title: "Check-in with proof",
           text: "Reminders guide doctors through check-in and check-out within defined time windows. Validation only completes within 100 meters of the hospital, giving payroll a geolocated record of every shift actually worked.",
           secondary: (
             <TradeOff>
-              Presence is a single cached location fix and a Haversine check on the device — no
+              Presence is a single cached location fix and a Haversine check on the device, with no
               continuous tracking. Doctors&apos; batteries and privacy outweighed a richer audit
               trail; and outside the time window the app asks for a written justification instead
               of hard-blocking the check-in.
@@ -216,13 +216,13 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         {
           title: "An application pipeline",
-          text: "Saved, under review, confirmed — every application has a visible status, filterable by hospital and date. The answer to “did they pick me?” stopped living in someone else's chat.",
+          text: "Saved, under review, confirmed: every application has a visible status, filterable by hospital and date. The answer to “did they pick me?” stopped living in someone else's chat.",
         },
       ],
     },
     evidence: {
       eyebrow: "Design ownership",
-      text: "The system existed in Figma before a line of the app was touched — components, tokens and every high-fidelity flow — and it kept both artifacts in sync until the stores had the real thing.",
+      text: "The system existed in Figma before a line of the app was touched (components, tokens and every high-fidelity flow), and it kept both artifacts in sync until the stores had the real thing.",
       captions: [
         "Component library in Figma",
         "High-fidelity flows",
@@ -236,7 +236,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     contact: {
       heading: "Want the full story behind Revoluna?",
-      text: "The geofence trade-offs, the no-code boundary, the store-publishing war stories — happy to walk through any of it.",
+      text: "The geofence trade-offs, the no-code boundary, the store-publishing war stories: happy to walk through any of it.",
     },
   },
 
@@ -249,37 +249,37 @@ const COPY: Record<"en" | "pt", Copy> = {
       </>
     ),
     subtitle:
-      "Um marketplace e gestor de plantões médicos no Brasil. Eu redesenhei o produto e lancei o MVP sozinho — no-code onde é rápido, Dart customizado onde importa — ao longo de 38 releases na App Store e no Google Play.",
+      "Um marketplace e gestor de plantões médicos no Brasil. Eu redesenhei o produto e lancei o MVP sozinho (no-code onde é rápido, Dart customizado onde importa) ao longo de 38 releases na App Store e no Google Play.",
     roleTags: ["Product Design", "UI/UX Design", "Protótipo", "Mobile", "Front-end", "Back-end"],
     showcase: {
-      label: "Recriação ao vivo — as telas reais",
+      label: "Recriação ao vivo: as telas reais",
       note: "Recriado em React para este case · dados fictícios",
       caption:
-        "Descoberta, detalhe da vaga e agenda — as três telas em que o médico vive, recriadas do app publicado.",
+        "Descoberta, detalhe da vaga e agenda: as três telas em que o médico vive, recriadas do app publicado.",
     },
     results: {
       items: [
-        { value: "38", label: "Releases publicados na App Store e no Google Play — v2.3.2 hoje" },
+        { value: "38", label: "Releases publicados na App Store e no Google Play, v2.3.2 hoje" },
         { value: "100 m", label: "Raio do geofence que valida cada check-in contra o hospital" },
         { value: "27", label: "Custom actions em Dart onde o no-code acabou: geofence, deep links, push, OTP" },
         { value: "1", label: "Designer-engenheiro do redesign no Figma à publicação nas lojas" },
       ],
       statement:
-        "O MVP substituiu fluxos informais de WhatsApp por uma experiência estruturada e pronta para produção — médicos gerenciam plantões, agenda e pagamentos em um só lugar, e cada check-in carrega prova de presença geolocalizada. O uso real validou o produto e financiou a fase seguinte: uma plataforma web dedicada à operação.",
+        "O MVP substituiu fluxos informais de WhatsApp por uma experiência estruturada e pronta para produção: médicos gerenciam plantões, agenda e pagamentos em um só lugar, e cada check-in carrega prova de presença geolocalizada. O uso real validou o produto e financiou a fase seguinte: uma plataforma web dedicada à operação.",
       footnote:
         "Números do código e do changelog reais. Todas as telas desta página são recriações em React com dados fictícios.",
     },
     story: {
       eyebrow: "Dos grupos de WhatsApp para um app",
-      headline: "Plantões viviam em grupos de chat — dispersos, incompletos, impossíveis de rastrear.",
-      text: "Plantões médicos no Brasil circulam por canais desestruturados: informação espalhada em grupos, candidaturas perdidas em threads, pagamentos controlados de memória. Médicos faziam malabarismo com tudo isso na mão, enquanto as equipes de contratação rodavam fluxos manuais e sujeitos a erro. Entrei como Product Designer para redesenhar a experiência — e assumi a entrega, para que o time validasse o produto com usuários reais em vez de protótipos.",
+      headline: "Plantões viviam em grupos de chat: dispersos, incompletos, impossíveis de rastrear.",
+      text: "Plantões médicos no Brasil circulam por canais desestruturados: informação espalhada em grupos, candidaturas perdidas em threads, pagamentos controlados de memória. Médicos faziam malabarismo com tudo isso na mão, enquanto as equipes de contratação rodavam fluxos manuais e sujeitos a erro. Entrei como Product Designer para redesenhar a experiência, e assumi a entrega, para que o time validasse o produto com usuários reais em vez de protótipos.",
       imageAlt: "Captura de tela da primeira versão do app Revoluna",
-      imageCaption: "O produto que herdei — a primeira versão do app",
+      imageCaption: "O produto que herdei: a primeira versão do app",
       personas: [
         {
           label: "Usuário principal",
           title: "O médico plantonista",
-          text: "Encontra oportunidades, se candidata, comprova presença e recebe — muitas vezes em vários hospitais na mesma semana. O app transforma essa dispersão em uma rotina estruturada, da descoberta ao check-out.",
+          text: "Encontra oportunidades, se candidata, comprova presença e recebe, muitas vezes em vários hospitais na mesma semana. O app transforma essa dispersão em uma rotina estruturada, da descoberta ao check-out.",
         },
         {
           label: "Também atende",
@@ -291,44 +291,44 @@ const COPY: Record<"en" | "pt", Copy> = {
         {
           number: "01",
           title: "Redesenhar, depois validar",
-          text: "Um novo design system no Figma, traduzido em um MVP funcional — decisões testadas com médicos em plantões reais, não com mockups.",
+          text: "Um novo design system no Figma, traduzido em um MVP funcional: decisões testadas com médicos em plantões reais, não com mockups.",
         },
         {
           number: "02",
           title: "No-code onde é rápido, código onde importa",
-          text: "FlutterFlow para velocidade de tela; 27 custom actions em Dart e 5 widgets customizados para o que ele não faz — geofence, deep links, push, OTP, calendário.",
+          text: "FlutterFlow para velocidade de tela; 27 custom actions em Dart e 5 widgets customizados para o que ele não faz: geofence, deep links, push, OTP, calendário.",
         },
         {
           number: "03",
           title: "Presença confiável",
-          text: "Check-in e check-out validados por cálculo de Haversine num raio de 100 m do hospital — com registros geolocalizados para a folha.",
+          text: "Check-in e check-out validados por cálculo de Haversine num raio de 100 m do hospital, com registros geolocalizados para a folha.",
         },
         {
           number: "04",
           title: "Dono da entrega",
-          text: "Ciclos de revisão das lojas, changelog versionado, 38 builds nas duas lojas — a metade sem glamour do mobile, feita com disciplina.",
+          text: "Ciclos de revisão das lojas, changelog versionado, 38 builds nas duas lojas: a metade sem glamour do mobile, feita com disciplina.",
         },
       ],
     },
     design: {
       intro:
-        "O redesign trocou o ruído visual herdado por um sistema calmo: uma fonte, um roxo, branco generoso. Tudo é meu — da biblioteca de componentes no Figma às telas publicadas.",
+        "O redesign trocou o ruído visual herdado por um sistema calmo: uma fonte, um roxo, branco generoso. Tudo é meu, da biblioteca de componentes no Figma às telas publicadas.",
       description:
-        "Uma única fonte variável faz todos os papéis — escolha deliberada para um produto pequeno: menos partes móveis, um ritmo consistente, e o arredondado da Geologica suaviza um domínio clínico.",
-      charsetCaption: "Geologica — a única fonte do app",
+        "Uma única fonte variável faz todos os papéis, escolha deliberada para um produto pequeno: menos partes móveis, um ritmo consistente, e o arredondado da Geologica suaviza um domínio clínico.",
+      charsetCaption: "Geologica: a única fonte do app",
       paletteMeta: [
         { category: "Acento", name: "Roxo Revoluna" },
         { category: "Acento", name: "Roxo profundo" },
         { category: "Apoio", name: "Ciano céu" },
         { category: "Superfície", name: "Tom lavanda" },
       ],
-      statusLabel: "Feedback do sistema — sem vermelho/verde clínico",
+      statusLabel: "Feedback do sistema: sem vermelho/verde clínico",
       statusPills: ["SUCESSO", "ATENÇÃO", "ERRO"],
     },
     features: {
       eyebrow: "Por dentro do app",
       intro:
-        "As telas abaixo são recriadas em React a partir do app publicado — mesmo layout, mesma tipografia, mesmo roxo — com plantões e pessoas fictícios.",
+        "As telas abaixo são recriadas em React a partir do app publicado (mesmo layout, mesma tipografia, mesmo roxo), com plantões e pessoas fictícios.",
       items: [
         {
           title: "Descoberta estruturada",
@@ -336,13 +336,13 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         {
           title: "O plantão inteiro, antes de se candidatar",
-          text: "Uma tela com tudo que importa: horário, setor, requisitos, como chegar, condições de pagamento e quem está contratando — mais ações rápidas para salvar, compartilhar, adicionar à agenda ou passar o plantão para um colega.",
+          text: "Uma tela com tudo que importa: horário, setor, requisitos, como chegar, condições de pagamento e quem está contratando, mais ações rápidas para salvar, compartilhar, adicionar à agenda ou passar o plantão para um colega.",
           secondary:
-            "Deep links gerados no admin web ou no próprio app abrem exatamente esta tela dentro do app. O compartilhamento continua no WhatsApp — mas o destino agora é estruturado.",
+            "Deep links gerados no admin web ou no próprio app abrem exatamente esta tela dentro do app. O compartilhamento continua no WhatsApp, mas o destino agora é estruturado.",
         },
         {
           title: "O mês inteiro de relance",
-          text: "Um calendário de plantões confirmados, pendentes e cancelados — e, para cada dia, a equipe completa de plantão. O médico vê quais colegas dividem o plantão antes mesmo de sair de casa.",
+          text: "Um calendário de plantões confirmados, pendentes e cancelados e, para cada dia, a equipe completa de plantão. O médico vê quais colegas dividem o plantão antes mesmo de sair de casa.",
         },
         {
           title: "Check-in com prova",
@@ -350,7 +350,7 @@ const COPY: Record<"en" | "pt", Copy> = {
           secondary: (
             <TradeOff>
               Presença é um único fix de localização em cache e um cálculo de Haversine no
-              aparelho — sem rastreamento contínuo. A bateria e a privacidade dos médicos pesaram
+              aparelho, sem rastreamento contínuo. A bateria e a privacidade dos médicos pesaram
               mais que uma auditoria mais rica; e fora da janela de tempo o app pede uma
               justificativa por escrito em vez de bloquear o check-in.
             </TradeOff>
@@ -362,13 +362,13 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         {
           title: "Um pipeline de candidaturas",
-          text: "Salvos, em análise, confirmados — cada candidatura tem status visível, filtrável por hospital e data. A resposta para “será que me escolheram?” parou de morar no chat de outra pessoa.",
+          text: "Salvos, em análise, confirmados: cada candidatura tem status visível, filtrável por hospital e data. A resposta para “será que me escolheram?” parou de morar no chat de outra pessoa.",
         },
       ],
     },
     evidence: {
       eyebrow: "Domínio do design",
-      text: "O sistema existia no Figma antes de qualquer linha do app ser tocada — componentes, tokens e todos os fluxos em alta fidelidade — e os dois artefatos seguiram em sincronia até as lojas terem o produto real.",
+      text: "O sistema existia no Figma antes de qualquer linha do app ser tocada (componentes, tokens e todos os fluxos em alta fidelidade), e os dois artefatos seguiram em sincronia até as lojas terem o produto real.",
       captions: [
         "Biblioteca de componentes no Figma",
         "Fluxos em alta fidelidade",
@@ -382,7 +382,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     contact: {
       heading: "Quer a história completa da Revoluna?",
-      text: "Os trade-offs do geofence, a fronteira do no-code, as histórias de guerra da publicação nas lojas — fico feliz em detalhar qualquer parte.",
+      text: "Os trade-offs do geofence, a fronteira do no-code, as histórias de guerra da publicação nas lojas: fico feliz em detalhar qualquer parte.",
     },
   },
 };

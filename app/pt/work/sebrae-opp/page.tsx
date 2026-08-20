@@ -4,7 +4,7 @@ import { SebraeOppContent } from "@/app/work/sebrae-opp/sebrae-opp-content";
 
 const title = "Sebrae OPP — Plataforma de Dados Públicos";
 const description =
-  "Estudo de caso: dados públicos dispersos transformados em decisão para os 223 municípios da Paraíba — 13 fontes oficiais, zero bibliotecas de gráficos, com as telas reais recriadas em React.";
+  "Estudo de caso: dados públicos dispersos transformados em decisão para os 223 municípios da Paraíba. 13 fontes oficiais, zero bibliotecas de gráficos, com as telas reais recriadas em React.";
 
 export const metadata: Metadata = {
   title,

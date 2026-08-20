@@ -56,12 +56,12 @@ const COPY = {
       {
         role: "Mobile App Development",
         description:
-          "A mobile app where doctors find, apply to, and check in to shifts — with custom deep linking, geofence-validated check-in, and FCM push notifications.",
+          "A mobile app where doctors find, apply to, and check in to shifts, with custom deep linking, geofence-validated check-in, and FCM push notifications.",
       },
       {
         role: "Full-Stack & Data",
         description:
-          "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba — React frontend, Fastify API, and Python ETL.",
+          "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba, with a React frontend, Fastify API, and Python ETL.",
       },
     ],
   },
@@ -78,12 +78,12 @@ const COPY = {
       {
         role: "Desenvolvimento Mobile",
         description:
-          "App em que médicos encontram, se candidatam e fazem check-in em plantões — com deep linking customizado, check-in validado por geofence e push via FCM.",
+          "App em que médicos encontram, se candidatam e fazem check-in em plantões, com deep linking customizado, check-in validado por geofence e push via FCM.",
       },
       {
         role: "Full-Stack & Dados",
         description:
-          "Observatório de políticas públicas que unifica indicadores socioeconômicos dos 223 municípios da Paraíba — frontend em React, API Fastify e ETL em Python.",
+          "Observatório de políticas públicas que unifica indicadores socioeconômicos dos 223 municípios da Paraíba, com frontend em React, API Fastify e ETL em Python.",
       },
     ],
   },

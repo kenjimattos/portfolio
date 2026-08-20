@@ -75,7 +75,7 @@ export function RelatoriosScreen() {
           <div>
             <h1 className="text-3xl font-normal tracking-tight">Folha de Pagamento</h1>
             <p className="text-hst-muted">
-              Dados de {MES_ATUAL} — vagas fechadas com check-in/check-out
+              Dados de {MES_ATUAL}: vagas fechadas com check-in/check-out
             </p>
           </div>
           <HButton variant="outline">
@@ -126,7 +126,7 @@ export function RelatoriosScreen() {
               Relatório de Folha de Pagamento
             </div>
             <p className="text-sm text-hst-muted">
-              Dados de julho de 2025 — Vagas fechadas com check-in/check-out
+              Dados de julho de 2025: vagas fechadas com check-in/check-out
             </p>
           </div>
           <div className="p-6 pt-0">

@@ -108,7 +108,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       </>
     ),
     subtitle:
-      "The web platform hospitals and staffing teams use to plan schedules, approve candidates, control attendance and handle payments — in one place.",
+      "The web platform hospitals and staffing teams use to plan schedules, approve candidates, control attendance and handle payments, all in one place.",
     roleTags: ["UI/UX Design", "Front-end", "Back-end", "Product", "Architecture", "Engineering"],
     links: [
       {
@@ -122,7 +122,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       label: "Live recreation — explore it",
       note: "Rebuilt in React for this case study · Brazilian product, UI in Portuguese · fictional data",
       caption:
-        "Use the sidebar to move between modules — dashboard, schedule, jobs, payments and reports are fully navigable.",
+        "Use the sidebar to move between modules: dashboard, schedule, jobs, payments and reports are fully navigable.",
     },
     results: {
       items: [
@@ -132,33 +132,33 @@ const COPY: Record<"en" | "pt", Copy> = {
         { value: "36", label: "Granular permissions across 4 roles in the multi-tenant access model" },
       ],
       statement:
-        "All of it built from zero — no admin template, no off-the-shelf UI kit. Today Houston runs the entire lifecycle of a medical shift as the operation’s single source of truth, with an experience that outclasses the incumbent tools in its market. Judge that claim yourself in the recreation above.",
+        "All of it built from zero, with no admin template and no off-the-shelf UI kit. Today Houston runs the entire lifecycle of a medical shift as the operation’s single source of truth, with an experience that outclasses the incumbent tools in its market. Judge that claim yourself in the recreation above.",
       footnote:
         "Scope and operational figures above come from the real platform. Data shown inside the recreation is fictional.",
     },
     story: {
       eyebrow: "From tool to platform",
       headline: "A platform designed around operational clarity and scalability.",
-      text: "Houston began as a simple support tool for job postings coming from the mobile app. As the operation grew, hiring teams needed visibility, control and automation across the entire lifecycle of medical shifts — so it was rebuilt into the platform above.",
+      text: "Houston began as a simple support tool for job postings coming from the mobile app. As the operation grew, hiring teams needed visibility, control and automation across the entire lifecycle of medical shifts, so it was rebuilt into the platform above.",
       imageAlt: "Screenshot of the first version of Houston, a simple support tool",
-      imageCaption: "Where it started — the previous version of Houston",
+      imageCaption: "Where it started: the previous version of Houston",
       personas: [
         {
           label: "Primary user",
           title: "The escalista",
-          text: "The person who finds doctors and fills the schedule — often with little formal training and even less tooling: spreadsheets at best, sometimes not even that, where every update risks a silent error. Houston is designed around them first: plain vocabulary, one obvious way to do each task, mistakes that are hard to make.",
+          text: "The person who finds doctors and fills the schedule, often with little formal training and even less tooling: spreadsheets at best, sometimes not even that, where every update risks a silent error. Houston is designed around them first: plain vocabulary, one obvious way to do each task, mistakes that are hard to make.",
         },
         {
           label: "Also served",
           title: "Coordinators & managers",
-          text: "The people who run escalista teams need the opposite altitude — a managerial and financial view of the operation: dashboards, reports and payroll across hospitals and groups.",
+          text: "The people who run escalista teams need the opposite altitude: a managerial and financial view of the operation: dashboards, reports and payroll across hospitals and groups.",
         },
       ],
       cards: [
         {
           number: "01",
           title: "Operational clarity first",
-          text: "One vocabulary across scheduling, applications, attendance and payments — operators never relearn the interface.",
+          text: "One vocabulary across scheduling, applications, attendance and payments, so operators never relearn the interface.",
         },
         {
           number: "02",
@@ -168,7 +168,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         {
           number: "03",
           title: "Multi-tenant by structure",
-          text: "Permissions enforced in the frontend and revalidated on the backend — never one without the other.",
+          text: "Permissions enforced in the frontend and revalidated on the backend, never one without the other.",
         },
         {
           number: "04",
@@ -179,19 +179,19 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     design: {
       intro:
-        "All design here is mine, end to end — and it never passed through a design tool. Under real delivery pressure, flows and screens were designed directly in code and iterated against the live operation. The system below is what kept that fast process coherent.",
+        "All design here is mine, end to end, and it never passed through a design tool. Under real delivery pressure, flows and screens were designed directly in code and iterated against the live operation. The system below is what kept that fast process coherent.",
       description:
-        "A single variable typeface carries the whole platform. Thin weights keep dense operational screens light; regular anchors headings and metrics. There is no bold anywhere — hierarchy comes from size and color.",
+        "A single variable typeface carries the whole platform. Thin weights keep dense operational screens light; regular anchors headings and metrics. There is no bold anywhere: hierarchy comes from size and color.",
       paletteMeta: [
         { category: "Primary", name: "Purple" },
         { category: "Neutral", name: "App Background" },
         { category: "Neutral", name: "Ink" },
       ],
       support: {
-        label: "Support palette — grade identity",
-        text: "32 colors available when creating a grade. Each schedule keeps its color across the calendar, shift views and reports — diverse hues tuned to sit comfortably next to the primary purple.",
+        label: "Support palette",
+        text: "32 colors available when creating a grade. Each schedule keeps its color across the calendar, shift views and reports, with diverse hues tuned to sit comfortably next to the primary purple.",
       },
-      statusLabel: "Status language — the palette at work",
+      statusLabel: "Status language",
       statusPills: ["ABERTA", "FECHADA", "URGENTE", "PENDENTE", "AUTORIZADO", "PAGO"],
       weights: [
         { label: "Thin", weight: 100 },
@@ -202,18 +202,18 @@ const COPY: Record<"en" | "pt", Copy> = {
     features: {
       eyebrow: "Inside the platform",
       intro:
-        "Each module below is the real screen, recreated in React with fictional data — sort tables, flip months, expand reports.",
+        "Each module below is the real screen, recreated in React with fictional data: sort tables, flip months, expand reports.",
       items: [
         {
           title: "Operational Dashboard",
           text: "A real-time overview of open and filled shifts, pending applications, operational risk, and payroll totals, with global month-based filtering.",
-          caption: "Interactive recreation — fictional data",
+          caption: "Interactive recreation with fictional data",
         },
         {
           title: "Schedule Builder",
           text: "An interactive grid-based interface for creating and managing medical schedules. Supports drag and drop creation, resizing, duplication, conflict detection, and batch publishing of shifts.",
           caption:
-            "Live recreation, replayed on a loop — drag to create, resize, conflict rejected, publish. Conflict detection is the real logic.",
+            "Live recreation, replayed on a loop: drag to create, resize, conflict rejected, publish. Conflict detection is the real logic.",
         },
         {
           title: "Shift Calendar",
@@ -222,44 +222,44 @@ const COPY: Record<"en" | "pt", Copy> = {
             <TradeOff>
               The calendar began on an off-the-shelf library and outgrew it: grouping shifts by
               time, status colors and per-shift actions didn’t fit its model. I rebuilt it from
-              scratch — more code to own, fewer views — in exchange for full control over the
+              scratch (more code to own, fewer views) in exchange for full control over the
               screen escalistas spend their day in.
             </TradeOff>
           ),
-          caption: "Interactive recreation — fictional data",
+          caption: "Interactive recreation with fictional data",
         },
         {
           title: "Job & Application Management",
           text: "Centralized management of job postings and applications with bulk actions, recurrence handling, and conflict validation.",
-          caption: "Interactive recreation — fictional data",
+          caption: "Interactive recreation with fictional data",
         },
         {
           title: "Attendance & Payments",
           text: "Integrated check-in and check-out control with approval flows, payment authorization, and batch operations for large volumes of shifts.",
-          caption: "Interactive recreation — fictional data",
+          caption: "Interactive recreation with fictional data",
         },
         {
           title: "Reports & Insights",
           text: "Operational and financial reports covering payroll, productivity, schedules, and exports, with unified filtering across the platform.",
-          caption: "Interactive recreation — fictional data",
+          caption: "Interactive recreation with fictional data",
         },
         {
           title: "Doctors & Teams",
           text: "Management of medical staff, teams, favorites, and pre-registered doctors, enabling faster assignments and better organization.",
-          mediaNote: "Interactive recreation — search, favorite, expand",
+          mediaNote: "Interactive recreation: search, favorite, expand",
         },
         {
           title: "Access Control & Permissions",
-          text: "Role-based access control governs permissions across schedules, applications, attendance, and payments — a requirement that became core as Houston turned multi-tenant.",
+          text: "Role-based access control governs permissions across schedules, applications, attendance, and payments, a requirement that became core as Houston turned multi-tenant.",
           secondary: (
             <TradeOff>
               Rather than a free-form permission editor, Houston ships four fixed roles with their
-              36 permissions predefined at the database level. Operators assign a cargo — never a
+              36 permissions predefined at the database level. Operators assign a cargo, never a
               checkbox matrix. We traded configurability for lower cognitive load and a safer
               daily operation: that’s why the modal beside has no permissions screen.
             </TradeOff>
           ),
-          mediaNote: "Interactive recreation — fictional data",
+          mediaNote: "Interactive recreation with fictional data",
         },
       ],
     },
@@ -279,12 +279,12 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     contact: {
       heading: "Want the full story behind Houston?",
-      text: "Architecture decisions, trade-offs and what shipped when — happy to walk through any of it.",
+      text: "Architecture decisions, trade-offs and what shipped when: happy to walk through any of it.",
     },
   },
 
   pt: {
-    chips: ["2024 — atual", "Operações de saúde", "Plataforma SaaS"],
+    chips: ["Desde 2024", "Operações de saúde", "Plataforma SaaS"],
     headline: (
       <>
         Houston: de ferramenta interna à{" "}
@@ -292,7 +292,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       </>
     ),
     subtitle:
-      "A plataforma web que hospitais e equipes de escala usam para planejar escalas, aprovar candidatos, controlar presença e cuidar dos pagamentos — em um só lugar.",
+      "A plataforma web que hospitais e equipes de escala usam para planejar escalas, aprovar candidatos, controlar presença e cuidar dos pagamentos, tudo em um só lugar.",
     roleTags: ["UI/UX Design", "Front-end", "Back-end", "Produto", "Arquitetura", "Engenharia"],
     links: [
       {
@@ -303,10 +303,10 @@ const COPY: Record<"en" | "pt", Copy> = {
       { label: "Ver no GitHub", href: "https://github.com/kenjimattos/houston-III-demo" },
     ],
     showcase: {
-      label: "Recriação ao vivo — explore",
+      label: "Recriação ao vivo: explore",
       note: "Recriado em React para este case · dados fictícios",
       caption:
-        "Use a barra lateral para navegar entre os módulos — painel, escala, vagas, pagamentos e relatórios são totalmente navegáveis.",
+        "Use a barra lateral para navegar entre os módulos: painel, escala, vagas, pagamentos e relatórios são totalmente navegáveis.",
     },
     results: {
       items: [
@@ -316,33 +316,33 @@ const COPY: Record<"en" | "pt", Copy> = {
         { value: "36", label: "Permissões granulares em 4 cargos no modelo de acesso multi-tenant" },
       ],
       statement:
-        "Tudo construído do zero — sem template de admin, sem UI kit pronto. Hoje o Houston roda o ciclo de vida completo de um plantão médico como fonte única de verdade da operação, com uma experiência que supera as ferramentas estabelecidas do mercado. Julgue essa afirmação você mesmo na recriação acima.",
+        "Tudo construído do zero, sem template de admin e sem UI kit pronto. Hoje o Houston roda o ciclo de vida completo de um plantão médico como fonte única de verdade da operação, com uma experiência que supera as ferramentas estabelecidas do mercado. Julgue essa afirmação você mesmo na recriação acima.",
       footnote:
         "O escopo e os números operacionais acima vêm da plataforma real. Os dados exibidos na recriação são fictícios.",
     },
     story: {
       eyebrow: "De ferramenta a plataforma",
       headline: "Uma plataforma desenhada em torno de clareza operacional e escalabilidade.",
-      text: "O Houston nasceu como uma ferramenta simples de apoio às vagas publicadas no app mobile. Com o crescimento da operação, as equipes de contratação passaram a precisar de visibilidade, controle e automação sobre todo o ciclo de vida dos plantões — e ele foi reconstruído na plataforma acima.",
+      text: "O Houston nasceu como uma ferramenta simples de apoio às vagas publicadas no app mobile. Com o crescimento da operação, as equipes de contratação passaram a precisar de visibilidade, controle e automação sobre todo o ciclo de vida dos plantões, e ele foi reconstruído na plataforma acima.",
       imageAlt: "Captura de tela da primeira versão do Houston, uma ferramenta simples de apoio",
-      imageCaption: "Onde tudo começou — a versão anterior do Houston",
+      imageCaption: "Onde tudo começou: a versão anterior do Houston",
       personas: [
         {
           label: "Usuário principal",
           title: "O escalista",
-          text: "A pessoa que encontra médicos e preenche a escala — muitas vezes com pouca formação e menos ferramenta ainda: planilha na melhor das hipóteses, às vezes nem isso, onde cada atualização é um risco de erro silencioso. O Houston é desenhado primeiro para ela: vocabulário simples, um jeito óbvio de fazer cada tarefa, erros difíceis de cometer.",
+          text: "A pessoa que encontra médicos e preenche a escala, muitas vezes com pouca formação e menos ferramenta ainda: planilha na melhor das hipóteses, às vezes nem isso, onde cada atualização é um risco de erro silencioso. O Houston é desenhado primeiro para ela: vocabulário simples, um jeito óbvio de fazer cada tarefa, erros difíceis de cometer.",
         },
         {
           label: "Também atende",
           title: "Coordenadores & gestores",
-          text: "Quem gere os escalistas precisa da altitude oposta — uma visão gerencial e financeira da operação: dashboards, relatórios e folha de pagamento por hospital e por grupo.",
+          text: "Quem gere os escalistas precisa da altitude oposta: uma visão gerencial e financeira da operação: dashboards, relatórios e folha de pagamento por hospital e por grupo.",
         },
       ],
       cards: [
         {
           number: "01",
           title: "Clareza operacional primeiro",
-          text: "Um único vocabulário em escalas, candidaturas, presença e pagamentos — o operador nunca reaprende a interface.",
+          text: "Um único vocabulário em escalas, candidaturas, presença e pagamentos, e o operador nunca reaprende a interface.",
         },
         {
           number: "02",
@@ -352,7 +352,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         {
           number: "03",
           title: "Multi-tenant por estrutura",
-          text: "Permissões aplicadas no frontend e revalidadas no backend — nunca uma sem a outra.",
+          text: "Permissões aplicadas no frontend e revalidadas no backend, nunca uma sem a outra.",
         },
         {
           number: "04",
@@ -363,19 +363,19 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     design: {
       intro:
-        "Todo o design aqui é meu, de ponta a ponta — e nunca passou por uma ferramenta de design. Sob pressão real de entrega, fluxos e telas foram desenhados direto no código e iterados contra a operação ao vivo. O sistema abaixo é o que manteve esse processo rápido coerente.",
+        "Todo o design aqui é meu, de ponta a ponta, e nunca passou por uma ferramenta de design. Sob pressão real de entrega, fluxos e telas foram desenhados direto no código e iterados contra a operação ao vivo. O sistema abaixo é o que manteve esse processo rápido coerente.",
       description:
-        "Uma única fonte variável carrega a plataforma inteira. Pesos finos mantêm leves as telas operacionais densas; o regular ancora títulos e métricas. Não existe bold em lugar nenhum — a hierarquia vem de tamanho e cor.",
+        "Uma única fonte variável carrega a plataforma inteira. Pesos finos mantêm leves as telas operacionais densas; o regular ancora títulos e métricas. Não existe bold em lugar nenhum: a hierarquia vem de tamanho e cor.",
       paletteMeta: [
         { category: "Primária", name: "Roxo" },
         { category: "Neutra", name: "Fundo do app" },
         { category: "Neutra", name: "Tinta" },
       ],
       support: {
-        label: "Paleta de apoio — identidade das grades",
-        text: "32 cores disponíveis ao criar uma grade. Cada escala mantém sua cor no calendário, nas visões de plantão e nos relatórios — matizes diversos afinados para conviver com o roxo primário.",
+        label: "Paleta de apoio: identidade das grades",
+        text: "32 cores disponíveis ao criar uma grade. Cada escala mantém sua cor no calendário, nas visões de plantão e nos relatórios, com matizes diversos afinados para conviver com o roxo primário.",
       },
-      statusLabel: "Linguagem de status — a paleta em uso",
+      statusLabel: "Linguagem de status: a paleta em uso",
       statusPills: ["ABERTA", "FECHADA", "URGENTE", "PENDENTE", "AUTORIZADO", "PAGO"],
       weights: [
         { label: "Thin", weight: 100 },
@@ -386,64 +386,64 @@ const COPY: Record<"en" | "pt", Copy> = {
     features: {
       eyebrow: "Por dentro da plataforma",
       intro:
-        "Cada módulo abaixo é a tela real, recriada em React com dados fictícios — ordene tabelas, troque de mês, expanda relatórios.",
+        "Cada módulo abaixo é a tela real, recriada em React com dados fictícios: ordene tabelas, troque de mês, expanda relatórios.",
       items: [
         {
           title: "Painel operacional",
           text: "Uma visão em tempo real de vagas abertas e preenchidas, candidaturas pendentes, risco operacional e totais de folha, com filtro global por mês.",
-          caption: "Recriação interativa — dados fictícios",
+          caption: "Recriação interativa com dados fictícios",
         },
         {
           title: "Criação de escalas",
           text: "Uma grade interativa para criar e gerenciar escalas médicas. Suporta criação por arrastar e soltar, redimensionamento, duplicação, detecção de conflitos e publicação em lote de plantões.",
           caption:
-            "Recriação ao vivo, em loop — arrastar para criar, redimensionar, conflito rejeitado, publicar. A detecção de conflito é a lógica real.",
+            "Recriação ao vivo, em loop: arrastar para criar, redimensionar, conflito rejeitado, publicar. A detecção de conflito é a lógica real.",
         },
         {
           title: "Calendário de plantões",
-          text: "Visões de calendário customizadas — semanal, mensal e diária — com ações rápidas, atribuição de candidatos e acompanhamento de status.",
+          text: "Visões de calendário customizadas (semanal, mensal e diária) com ações rápidas, atribuição de candidatos e acompanhamento de status.",
           secondary: (
             <TradeOff>
               O calendário começou numa biblioteca pronta e cresceu além dela: agrupar plantões
               por horário, cores de status e ações por plantão não cabiam no modelo. Reconstruí do
-              zero — mais código para manter, menos visões — em troca de controle total sobre a
+              zero (mais código para manter, menos visões) em troca de controle total sobre a
               tela em que o escalista passa o dia.
             </TradeOff>
           ),
-          caption: "Recriação interativa — dados fictícios",
+          caption: "Recriação interativa com dados fictícios",
         },
         {
           title: "Gestão de vagas e candidaturas",
           text: "Gestão centralizada de vagas e candidaturas com ações em lote, tratamento de recorrência e validação de conflitos.",
-          caption: "Recriação interativa — dados fictícios",
+          caption: "Recriação interativa com dados fictícios",
         },
         {
           title: "Presença e pagamentos",
           text: "Controle integrado de check-in e check-out com fluxos de aprovação, autorização de pagamento e operações em lote para grandes volumes de plantões.",
-          caption: "Recriação interativa — dados fictícios",
+          caption: "Recriação interativa com dados fictícios",
         },
         {
           title: "Relatórios e insights",
           text: "Relatórios operacionais e financeiros cobrindo folha, produtividade, escalas e exportações, com filtros unificados em toda a plataforma.",
-          caption: "Recriação interativa — dados fictícios",
+          caption: "Recriação interativa com dados fictícios",
         },
         {
           title: "Médicos e equipes",
           text: "Gestão do corpo clínico, equipes, favoritos e médicos pré-cadastrados, acelerando atribuições e melhorando a organização.",
-          mediaNote: "Recriação interativa — busque, favorite, expanda",
+          mediaNote: "Recriação interativa: busque, favorite, expanda",
         },
         {
           title: "Controle de acesso e permissões",
-          text: "Controle de acesso por cargo governa as permissões em escalas, candidaturas, presença e pagamentos — um requisito que virou central quando o Houston se tornou multi-tenant.",
+          text: "Controle de acesso por cargo governa as permissões em escalas, candidaturas, presença e pagamentos, um requisito que virou central quando o Houston se tornou multi-tenant.",
           secondary: (
             <TradeOff>
               Em vez de um editor livre de permissões, o Houston entrega quatro cargos fixos com
-              suas 36 permissões predefinidas no banco. O operador atribui um cargo — nunca uma
+              suas 36 permissões predefinidas no banco. O operador atribui um cargo, nunca uma
               matriz de checkboxes. Trocamos configurabilidade por menos carga cognitiva e uma
               operação diária mais segura: por isso o modal ao lado não tem tela de permissões.
             </TradeOff>
           ),
-          mediaNote: "Recriação interativa — dados fictícios",
+          mediaNote: "Recriação interativa com dados fictícios",
         },
       ],
     },
@@ -463,7 +463,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     contact: {
       heading: "Quer a história completa do Houston?",
-      text: "Decisões de arquitetura, trade-offs e o que foi entregue quando — fico feliz em detalhar qualquer parte.",
+      text: "Decisões de arquitetura, trade-offs e o que foi entregue quando: fico feliz em detalhar qualquer parte.",
     },
   },
 };

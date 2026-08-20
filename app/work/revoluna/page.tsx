@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { RevolunaContent } from "./revoluna-content";
 
-const title = "Revoluna — Mobile App for Medical Shifts";
+const title = "Revoluna: Mobile App for Medical Shifts";
 const description =
-  "Case study: designing and shipping a mobile app for medical shifts in Brazil — 38 releases on the App Store and Google Play, with the real screens recreated in React.";
+  "Case study: designing and shipping a mobile app for medical shifts in Brazil: 38 releases on the App Store and Google Play, with the real screens recreated in React.";
 
 export const metadata: Metadata = {
   title,

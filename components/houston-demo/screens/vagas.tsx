@@ -98,7 +98,7 @@ export function VagasScreen() {
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-3xl font-normal tracking-tight">Vagas</h1>
-          <p className="text-hst-muted">Gerencie os plantões publicados — {MES_ATUAL}</p>
+          <p className="text-hst-muted">Gerencie os plantões publicados em {MES_ATUAL}</p>
         </div>
 
         {/* Filtros (display-only) */}
@@ -163,7 +163,7 @@ export function VagasScreen() {
                   <HTableCell>
                     <div>{vaga.data}</div>
                     <div className="text-xs text-hst-muted">
-                      {vaga.horaInicio} — {vaga.horaFim}
+                      {vaga.horaInicio} às {vaga.horaFim}
                     </div>
                   </HTableCell>
                   <HTableCell>{vaga.hospital}</HTableCell>

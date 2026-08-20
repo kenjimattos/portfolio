@@ -25,7 +25,7 @@ const COPY = {
     sent: "Message Sent!",
     tryAgain: "Try Again",
     send: "Send Message",
-    successNote: "Thanks — your message is on its way. I'll get back to you soon.",
+    successNote: "Thanks, your message is on its way. I'll get back to you soon.",
     errorNote: (email: string) =>
       `Something went wrong. Please try again, or email me directly at ${email}.`,
     pitch:
@@ -47,7 +47,7 @@ const COPY = {
     sent: "Mensagem enviada!",
     tryAgain: "Tentar de novo",
     send: "Enviar mensagem",
-    successNote: "Obrigado — sua mensagem está a caminho. Respondo em breve.",
+    successNote: "Obrigado, sua mensagem está a caminho. Respondo em breve.",
     errorNote: (email: string) =>
       `Algo deu errado. Tente de novo ou me escreva direto em ${email}.`,
     pitch:
