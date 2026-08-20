@@ -100,7 +100,7 @@ type Copy = {
 
 const COPY: Record<"en" | "pt", Copy> = {
   en: {
-    chips: ["2024 — ongoing", "Health operations", "SaaS platform"],
+    chips: ["2025", "Health operations", "SaaS platform"],
     headline: (
       <>
         Houston: from internal tool to the{" "}
@@ -284,7 +284,7 @@ const COPY: Record<"en" | "pt", Copy> = {
   },
 
   pt: {
-    chips: ["Desde 2024", "Operações de saúde", "Plataforma SaaS"],
+    chips: ["2025", "Operações de saúde", "Plataforma SaaS"],
     headline: (
       <>
         Houston: de ferramenta interna à{" "}
