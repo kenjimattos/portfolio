@@ -16,7 +16,7 @@ const BASE_PROJECTS = [
   {
     id: 1,
     name: "Houston",
-    year: "2024",
+    year: "2025",
     tags: ["React", "TypeScript", "Tailwind", "Supabase"],
     image: "/img/work-houston.png",
     href: "/work/houston",
