@@ -25,18 +25,22 @@ const ACCENT = "#1555AD";
 const ACCENT_INK = "#1a365d";
 const ACCENT_TINT = "#EDF4FF";
 
-function TradeOff({ children }: { children: ReactNode }) {
+function Labeled({ label, children }: { label: string; children: ReactNode }) {
   return (
     <>
       <span
         className="font-mono uppercase tracking-widest block mb-2"
         style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
       >
-        Trade-off
+        {label}
       </span>
       {children}
     </>
   );
+}
+
+function TradeOff({ children }: { children: ReactNode }) {
+  return <Labeled label="Trade-off">{children}</Labeled>;
 }
 
 /* --------------------------- shared, non-text data --------------------------- */
@@ -236,6 +240,12 @@ const COPY: Record<"en" | "pt", Copy> = {
         {
           title: "Attendance & Payments",
           text: "Integrated check-in and check-out control with approval flows, payment authorization, and batch operations for large volumes of shifts.",
+          secondary: (
+            <Labeled label="Team">
+              This module was built by the engineer I supervised. I owned the interface design and
+              the review, they wrote the implementation.
+            </Labeled>
+          ),
           caption: "Interactive recreation with fictional data",
         },
         {
@@ -420,6 +430,12 @@ const COPY: Record<"en" | "pt", Copy> = {
         {
           title: "Presença e pagamentos",
           text: "Controle integrado de check-in e check-out com fluxos de aprovação, autorização de pagamento e operações em lote para grandes volumes de plantões.",
+          secondary: (
+            <Labeled label="Time">
+              Este módulo foi desenvolvido pelo engenheiro que eu supervisionava. O design da
+              interface e a revisão do código foram meus, a implementação foi dele.
+            </Labeled>
+          ),
           caption: "Recriação interativa com dados fictícios",
         },
         {
