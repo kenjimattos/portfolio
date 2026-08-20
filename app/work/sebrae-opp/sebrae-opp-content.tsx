@@ -92,7 +92,7 @@ type Copy = {
 
 const COPY: Record<"en" | "pt", Copy> = {
   en: {
-    chips: ["2025", "Gov-tech · Public data", "Solo, end to end"],
+    chips: ["2026", "Gov-tech · Public data", "Solo, end to end"],
     headline: (
       <>
         Sebrae OPP: scattered public data turned into{" "}
@@ -234,7 +234,7 @@ const COPY: Record<"en" | "pt", Copy> = {
   },
 
   pt: {
-    chips: ["2025", "Gov-tech · Dados públicos", "Solo, de ponta a ponta"],
+    chips: ["2026", "Gov-tech · Dados públicos", "Solo, de ponta a ponta"],
     headline: (
       <>
         Sebrae OPP: dados públicos dispersos transformados em{" "}
