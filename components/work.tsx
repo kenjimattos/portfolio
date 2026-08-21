@@ -40,6 +40,15 @@ const BASE_PROJECTS = [
     href: "/work/sebrae-opp",
     color: "#161726",
   },
+  {
+    id: 4,
+    name: "Finance",
+    year: "2026",
+    tags: ["TypeScript", "Express", "SQLite", "React"],
+    image: "/img/work-finance.png",
+    href: "/work/finance",
+    color: "#3B1B0A",
+  },
 ] as const;
 
 const COPY = {
@@ -63,6 +72,11 @@ const COPY = {
         description:
           "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba, with a React frontend, Fastify API, and Python ETL.",
       },
+      {
+        role: "Full-Stack & Data Modeling",
+        description:
+          "Self-hosted credit-card manager on an Open Finance API that recycles transaction IDs, with identity minted locally, a six-outcome sync engine, and the business rules under test.",
+      },
     ],
   },
   pt: {
@@ -84,6 +98,11 @@ const COPY = {
         role: "Full-Stack & Dados",
         description:
           "Observatório de políticas públicas que unifica indicadores socioeconômicos dos 223 municípios da Paraíba, com frontend em React, API Fastify e ETL em Python.",
+      },
+      {
+        role: "Full-Stack & Modelagem de dados",
+        description:
+          "Gestor de gastos self-hosted sobre uma API de Open Finance que recicla IDs de transação, com identidade cunhada localmente, motor de sync com seis desfechos e a regra de negócio sob teste.",
       },
     ],
   },

@@ -6,6 +6,7 @@ const PATHS: { path: string; priority: number }[] = [
   { path: "/work/houston", priority: 0.8 },
   { path: "/work/revoluna", priority: 0.8 },
   { path: "/work/sebrae-opp", priority: 0.8 },
+  { path: "/work/finance", priority: 0.8 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

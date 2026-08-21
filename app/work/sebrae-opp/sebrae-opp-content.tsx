@@ -417,7 +417,7 @@ export function SebraeOppContent() {
       accent={ACCENT}
       accentInk={ACCENT_INK}
       accentTint={ACCENT_TINT}
-      nextProject={{ href: "/work/houston", label: "Houston" }}
+      nextProject={{ href: "/work/finance", label: "Finance" }}
     >
       <CaseHero
         chips={t.chips}

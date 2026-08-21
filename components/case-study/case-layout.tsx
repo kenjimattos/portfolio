@@ -582,6 +582,7 @@ export function CaseStory({
   headline,
   text,
   image,
+  media,
   imageCaption,
   personas,
   cards,
@@ -589,7 +590,10 @@ export function CaseStory({
   eyebrow: string;
   headline: string;
   text: string;
-  image: CaseImage;
+  /** Supporting artwork. Omit and pass `media` when the case has no photo. */
+  image?: CaseImage;
+  /** Free-form alternative to `image` (e.g. a recreated screen). */
+  media?: ReactNode;
   imageCaption?: string;
   /** Who the product serves — rendered between the story and the cards */
   personas?: { label: string; title: string; text: string }[];
@@ -620,17 +624,21 @@ export function CaseStory({
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative rounded-lg overflow-hidden">
-            <Image
-              quality={90}
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          </div>
+        <div className="flex flex-col items-center gap-4 w-full">
+          {image ? (
+            <div className="relative rounded-lg overflow-hidden">
+              <Image
+                quality={90}
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+            </div>
+          ) : (
+            <div className="w-full">{media}</div>
+          )}
           {imageCaption && (
             <span
               className="text-foreground font-mono"
@@ -1084,12 +1092,16 @@ export function CaseEvidence({
   eyebrow,
   text,
   items,
+  children,
   stackLabel = "Stack",
   stack,
 }: {
   eyebrow: string;
   text?: string;
-  items: { image: CaseImage; caption: string }[];
+  /** Screenshot grid. Omit when the evidence is rendered as `children`. */
+  items?: { image: CaseImage; caption: string }[];
+  /** Free-form evidence (diagrams, recreated panels) in place of `items`. */
+  children?: ReactNode;
   stackLabel?: string;
   stack?: string[];
 }) {
@@ -1107,11 +1119,12 @@ export function CaseEvidence({
           {text}
         </p>
       )}
+      {children}
       <div
         className="grid gap-6"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))" }}
       >
-        {items.map((item) => (
+        {(items ?? []).map((item) => (
           <div key={item.caption} className="flex flex-col gap-3">
             <div className="rounded-lg overflow-hidden">
               <Image
