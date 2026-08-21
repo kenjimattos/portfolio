@@ -55,6 +55,21 @@
   --color-opp-warning: #F5E421;
   --color-opp-alert: #F14635;
   --color-opp-inactive: #64748b;
+  /* Finance app demo (recreated web app — editorial / financial-press) */
+  --color-fin-paper: #fbf8f4;
+  --color-fin-tint: #f5efe6;
+  --color-fin-rule: #e4ddcf;
+  --color-fin-shadow: #d9d0bd;
+  --color-fin-ink: #1a1614;
+  --color-fin-ink-soft: #3a322d;
+  --color-fin-ink-muted: #6a615a;
+  --color-fin-ink-faint: #9b9289;
+  --color-fin-accent: #c2410c;
+  --color-fin-accent-soft: #e8784a;
+  --color-fin-positive: #4d7c0f;
+  --font-fraunces: var(--font-fraunces);
+  --font-jetbrains: var(--font-jetbrains);
+  --font-inter-fin: var(--font-inter-fin);
   --font-monoblock: var(--font-monoblock);
   --font-epicpro: var(--font-epicpro);
   --font-intel: var(--font-intel);
@@ -242,6 +257,37 @@
     color: inherit;
     font-weight: inherit;
     line-height: 1.5;
+  }
+
+  /* Finance demo: same base-style neutralization as .hst-app */
+  .fin-app h1,
+  .fin-app h2,
+  .fin-app h3,
+  .fin-app h4,
+  .fin-app h5,
+  .fin-app h6,
+  .fin-app p {
+    font-size: 1em;
+    color: inherit;
+    font-weight: inherit;
+    line-height: 1.5;
+  }
+
+  /* Paper grain of the real app: three tiny radial gradients composited and
+     multiplied over the warm paper, so the recreation reads as printed stock
+     rather than a flat surface. */
+  .fin-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--color-fin-shadow) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 80% 60%, var(--color-fin-shadow) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 40% 80%, var(--color-fin-shadow) 0.5px, transparent 0.5px);
+    background-size: 3px 3px, 5px 5px, 7px 7px;
   }
 
   /* Figma-native Glass effect recreated in the original OPP (light angle
