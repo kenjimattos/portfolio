@@ -90,6 +90,23 @@
 }
 
 @layer components {
+  .skip-link {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 100;
+    padding: 10px 18px;
+    background: var(--foreground);
+    color: var(--background);
+    border-radius: 2px;
+    font-size: 14px;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+  
   .btn-primary {
     @apply text-white bg-primary hover:bg-foreground rounded-xs cursor-pointer flex justify-center items-center;
     padding: clamp(10px, 0.5vw, 20px) clamp(10px, 2vw, 40px);

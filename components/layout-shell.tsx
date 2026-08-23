@@ -16,8 +16,11 @@ export function LayoutShell({ children }: LayoutShellProps) {
 
   return (
     <LocaleProvider locale={locale}>
+      <a href="#main" className="skip-link">
+        {locale === "pt" ? "Pular para o conteúdo" : "Skip to content"}
+      </a>
       {!hideGlobalChrome && <Header />}
-      <main>{children}</main>
+      <main id="main">{children}</main>
       {!hideGlobalChrome && <Footer />}
     </LocaleProvider>
   );
