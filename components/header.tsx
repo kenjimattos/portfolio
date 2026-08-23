@@ -42,6 +42,7 @@ export const Header = () => {
   const navRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +52,31 @@ export const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Scroll-spy: mark the nav link of the section currently in view
+  const isHome = pathname === home;
+  useEffect(() => {
+    if (!isHome) return;
+
+    const ids = ["work", "about", "contact"];
+    const visible = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        }
+        setActiveSection(ids.find((id) => visible.has(id)) ?? null);
+      },
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [isHome]);
 
   useGSAP(() => {
     if (prefersReducedMotion()) {
@@ -136,26 +162,31 @@ export const Header = () => {
             ref={navRef}
             className="hidden md:flex items-center gap-8"
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                data-header-item
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-foreground hover:text-primary transition-colors duration-300 relative group"
-                style={{
-                  fontSize: "clamp(14px, 1.2vw, 16px)",
-                  fontFamily: "var(--font-gabarito)",
-                  opacity: 0,
-                }}
-              >
-                {link.label}
-                {/* Underline effect */}
-                <span
-                  className="absolute left-0 -bottom-1 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full"
-                />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                isHome && activeSection === (link.href.split("#")[1] ?? "");
+              return (
+                <a
+                  key={link.href}
+                  data-header-item
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`${isActive ? "text-primary" : "text-foreground"} hover:text-primary transition-colors duration-300 relative group`}
+                  style={{
+                    fontSize: "clamp(14px, 1.2vw, 16px)",
+                    fontFamily: "var(--font-gabarito)",
+                    opacity: 0,
+                  }}
+                >
+                  {link.label}
+                  {/* Underline effect */}
+                  <span
+                    className={`absolute left-0 -bottom-1 h-px bg-primary transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                  />
+                </a>
+              );
+            })}
             <div data-header-item style={{ opacity: 0 }}>
               <LangToggle />
             </div>
