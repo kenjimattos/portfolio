@@ -288,31 +288,6 @@ export const About = () => {
               </div>
             ))}
           </div>
-
-          {/* Code signature */}
-          <div
-            className="mt-4 p-4 rounded-sm font-mono"
-            style={{
-              backgroundColor: "var(--color-foreground)",
-              color: "var(--color-background)",
-              fontSize: "clamp(12px, 1.2vw, 14px)",
-            }}
-          >
-            <span style={{ color: "rgba(255,255,249,0.5)" }}>{"// "}</span>
-            <span style={{ color: "var(--color-accent-cyan)" }}>const</span>{" "}
-            <span style={{ color: "#60a5fa" }}>kenji</span>{" "}
-            <span style={{ color: "rgba(255,255,249,0.5)" }}>=</span>{" "}
-            <span style={{ color: "#fbbf24" }}>{"{"}</span>{" "}
-            <span style={{ color: "var(--color-accent-purple-light)" }}>code</span>
-            <span style={{ color: "rgba(255,255,249,0.5)" }}>:</span>{" "}
-            <span style={{ color: "var(--color-accent-cyan)" }}>&quot;clean&quot;</span>
-            <span style={{ color: "rgba(255,255,249,0.5)" }}>,</span>{" "}
-            <span style={{ color: "var(--color-accent-purple-light)" }}>design</span>
-            <span style={{ color: "rgba(255,255,249,0.5)" }}>:</span>{" "}
-            <span style={{ color: "var(--color-accent-cyan)" }}>&quot;thoughtful&quot;</span>{" "}
-            <span style={{ color: "#fbbf24" }}>{"}"}</span>
-            <span style={{ color: "rgba(255,255,249,0.5)" }}>;</span>
-          </div>
         </div>
       </div>
     </section>
