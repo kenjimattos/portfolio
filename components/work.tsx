@@ -53,7 +53,7 @@ const BASE_PROJECTS = [
 
 const COPY = {
   en: {
-    heading: "Selected Work",
+    heading: "Selected work",
     viewCase: "View Case Study",
     github: "View more on GitHub",
     projects: [

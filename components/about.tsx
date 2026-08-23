@@ -15,12 +15,12 @@ const SKILL_ITEMS = [
   ["React", "Vite", "Next.js"],
   ["Tailwind CSS", "Bootstrap"],
   ["Git", "Figma", "Storybook"],
-  ["Node.js", "Fastify", "PostgresSQL", "MongoDB"],
+  ["Node.js", "Fastify", "PostgreSQL", "MongoDB"],
 ] as const;
 
 const COPY = {
   en: {
-    heading: "About Me",
+    heading: "About me",
     photoAlt: "Portrait of Kenji Mattos",
     bio1: "I build products end to end. On my latest projects I owned everything from the first Figma prototype to the React frontend, the PostgreSQL schema behind it, and the CI/CD pipeline that ships it: design, code, and deploy as one continuous job.",
     bio2: "Most of my work lives in complex operational and financial domains: scheduling, attendance, payments, and multi-tenant access control. The hard part isn't the interface; it's encoding messy business rules into systems that stay reliable when real money and real people depend on them.",

@@ -66,7 +66,7 @@ const TECH_BASE = [
 
 const COPY = {
   en: {
-    heading: "Tech Stack",
+    heading: "Tech stack",
     categories: ["Frontend", "Backend & Data", "Languages & Tools"],
     descriptions: [
       [
