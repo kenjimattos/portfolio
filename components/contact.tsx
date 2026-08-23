@@ -23,8 +23,8 @@ const COPY = {
     messagePlaceholder: "Tell me about your project...",
     sending: "Sending...",
     sent: "Message sent",
-    tryAgain: "Try Again",
-    send: "Send Message",
+    tryAgain: "Try again",
+    send: "Send message",
     successNote: "Thanks, your message is on its way. I'll get back to you soon.",
     errorNote: (email: string) =>
       `Something went wrong. Please try again, or email me directly at ${email}.`,
@@ -52,7 +52,7 @@ const COPY = {
       `Algo deu errado. Tente de novo ou me escreva direto em ${email}.`,
     pitch:
       "Estou disponível para projetos freelance e oportunidades full-time. Se você tem um projeto em mente ou só quer trocar uma ideia, me chama.",
-    responseTime: "Costumo responder em 24–48 horas.",
+    responseTime: "Costumo responder em 24-48 horas.",
     location: "Localização",
     locationValue: "São Bernardo do Campo, São Paulo, Brasil",
     connect: "Redes",

@@ -54,26 +54,26 @@ const BASE_PROJECTS = [
 const COPY = {
   en: {
     heading: "Selected work",
-    viewCase: "View Case Study",
+    viewCase: "View case study",
     github: "View more on GitHub",
     projects: [
       {
-        role: "Full-Stack Development",
+        role: "Full-stack development",
         description:
           "Web platform built to manage medical shift schedules and candidate workflows.",
       },
       {
-        role: "Mobile App Development",
+        role: "Mobile app development",
         description:
           "A mobile app where doctors find, apply to, and check in to shifts, with custom deep linking, geofence-validated check-in, and FCM push notifications.",
       },
       {
-        role: "Full-Stack & Data",
+        role: "Full-stack & data",
         description:
           "Public policy observatory unifying socioeconomic indicators for the 223 municipalities of Paraíba, with a React frontend, Fastify API, and Python ETL.",
       },
       {
-        role: "Full-Stack & Data Modeling",
+        role: "Full-stack & data modeling",
         description:
           "Self-hosted credit-card manager on an Open Finance API that recycles transaction IDs, with identity minted locally, a six-outcome sync engine, and the business rules under test.",
       },

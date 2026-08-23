@@ -67,7 +67,7 @@ const TECH_BASE = [
 const COPY = {
   en: {
     heading: "Tech stack",
-    categories: ["Frontend", "Backend & Data", "Languages & Tools"],
+    categories: ["Frontend", "Backend & data", "Languages & tools"],
     descriptions: [
       [
         "Component architecture, hooks, state management",
@@ -99,7 +99,7 @@ const COPY = {
   },
   pt: {
     heading: "Stack",
-    categories: ["Frontend", "Backend & Dados", "Linguagens & Ferramentas"],
+    categories: ["Frontend", "Backend & dados", "Linguagens & ferramentas"],
     descriptions: [
       [
         "Arquitetura de componentes, hooks, gestão de estado",
