@@ -1,5 +1,32 @@
 # Changelog
 
+## [2.3.2] - 2026-08-25
+
+### Added
+
+- Novo case study Finance (`/work/finance` e `/pt/work/finance`), gestor de gastos self-hosted sobre uma API de Open Finance: entrada na seção Work, imagem Open Graph própria e registro no sitemap
+- Recriação estática do produto em `components/finance-demo/`, no lugar de screenshots:
+  - Telas de dashboard (fatura, inbox de transações, split de despesas e abas de categoria), fluxo de caixa e importação de fatura
+  - Exhibits narrativos: diagrama de identidade, tabela da máquina de estados do sync, tira de sintomas, mapa de arquitetura, pipeline de slug, tabela de testes e prateleira de docs
+  - Frame de tela, primitivos de UI e fontes próprias do case (Fraunces, JetBrains Mono e Inter)
+- Tokens de cor e tipografia do Finance em `app/globals.css`, com o efeito de grão de papel (`.fin-grain`) e a neutralização de estilos base (`.fin-app`) equivalente à do Houston
+- README reescrito, cobrindo os quatro cases, o esquema EN/PT, as recriações interativas e a variável `NEXT_PUBLIC_SITE_URL`
+- Página 404 própria (`app/not-found.tsx`), bilíngue e no visual do site, com o numeral em contorno e link de volta para a home
+- Acessibilidade: link "pular para o conteúdo" no início da página, visível apenas ao navegar por teclado e traduzido conforme o locale
+- Header com scroll-spy: o link da seção em vista ganha estado ativo enquanto a página rola
+
+### Changed
+
+- `CaseStory` aceita `media` como alternativa a `image`, permitindo telas recriadas onde antes só cabia uma foto
+- `CaseEvidence` aceita `children` como alternativa a `items`, para evidências livres (diagramas e painéis recriados) no lugar da grade de screenshots
+- Sebrae OPP passa a apontar para Finance como próximo projeto
+- Copy do site padronizada em sentence case (Work, Tech Stack e Contact), com correção de typos e de capitalização de títulos
+
+### Removed
+
+- Bloco de "assinatura em código" da seção About
+- Classes utilitárias sem uso em `app/globals.css`
+
 ## [2.3.1] - 2026-08-20
 
 ### Added
