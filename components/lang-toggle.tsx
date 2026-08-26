@@ -19,36 +19,29 @@ export function LangToggle() {
 
   return (
     <div
-      className="flex items-center rounded-full border"
-      style={{
-        borderColor: "rgba(22, 22, 22, 0.15)",
-        padding: "3px",
-        backgroundColor: "rgba(255, 255, 249, 0.6)",
-      }}
+      className="flex"
+      style={{ border: "1px solid var(--ink)" }}
       aria-label="Language"
     >
-      {LOCALES.map(({ locale, label }) => (
-        <Link
-          key={locale}
-          href={localeHref(locale, base)}
-          aria-current={locale === active ? "true" : undefined}
-          className="rounded-full font-mono transition-colors duration-300"
-          style={{
-            fontSize: "clamp(10px, 0.9vw, 12px)",
-            letterSpacing: "0.08em",
-            padding: "4px 10px",
-            color:
-              locale === active
-                ? "var(--color-background)"
-                : "var(--color-foreground)",
-            backgroundColor:
-              locale === active ? "var(--color-foreground)" : "transparent",
-            opacity: locale === active ? 1 : 0.6,
-          }}
-        >
-          {label}
-        </Link>
-      ))}
+      {LOCALES.map(({ locale, label }) => {
+        const isActive = locale === active;
+        return (
+          <Link
+            key={locale}
+            href={localeHref(locale, base)}
+            aria-current={isActive ? "true" : undefined}
+            className="meta"
+            style={{
+              padding: "5px 9px",
+              background: isActive ? "var(--ink)" : "transparent",
+              color: isActive ? "var(--paper)" : "inherit",
+              transition: "background var(--t-state), color var(--t-state)",
+            }}
+          >
+            {label}
+          </Link>
+        );
+      })}
     </div>
   );
 }

@@ -1,15 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fffff9;
-  --foreground: #161616;
-  --primary: #0049FF;
+  /* ── Sistema editorial ────────────────────────────────────────────────
+     Papel, tinta, um vermelho de campo e um violeta de estado. As cores
+     antigas (--primary azul, os acentos ciano/roxo) saíram: o vermelho é
+     o único campo cheio da página e o violeta só aparece em foco, link
+     ativo e hover de rede. Tudo o mais é papel e tinta.
+     ------------------------------------------------------------------- */
+  --paper: #F5F5F5;
+  --grey: #D9D9D9;
+  --ink: #0A0303;
+  --ink-alt: #1A1A1A;
+  --red: #F40035;
+  --violet: #9A20FF;
 
-  /* Accent colors */
+  --ink-55: rgba(10, 3, 3, 0.55);
+  --ink-35: rgba(10, 3, 3, 0.35);
+  --ink-12: rgba(10, 3, 3, 0.12);
+  --paper-55: rgba(245, 245, 245, 0.55);
+  --paper-35: rgba(245, 245, 245, 0.35);
+  --paper-12: rgba(245, 245, 245, 0.12);
+
+  /* Grade: 12 colunas, 4 no mobile. */
+  --cols: 12;
+  --gutter: 24px;
+  --margin: clamp(16px, 4vw, 48px);
+  --maxw: 1600px;
+
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s6: 48px;
+  --s8: 64px;
+  --s12: 96px;
+  --s16: 128px;
+
+  /* Três tempos, e só três: estado (instantâneo), linha (o gesto longo
+     da inversão, aprovado no v1) e wipe (imagem e máscara). */
+  --t-state: 90ms linear;
+  --t-row: 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  --t-wipe: 900ms cubic-bezier(0.16, 1, 0.24, 1);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --primary: var(--red);
+
+  /* Legado das páginas de case, que ainda não foram passadas para o
+     sistema editorial. Sai junto com o redesign delas. */
   --accent-purple: #7800FF;
   --accent-purple-light: #B388FF;
   --accent-cyan: #00C8FF;
   --accent-cyan-dark: #0096C8;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --cols: 4;
+  }
 }
 
 @theme inline {
@@ -20,8 +68,20 @@
   --color-accent-purple-light: var(--accent-purple-light);
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-cyan-dark: var(--accent-cyan-dark);
-  --font-gabarito: var(--font-gabarito);
-  --font-gravitas: var(--font-gravitas);
+
+  --color-paper: var(--paper);
+  --color-grey: var(--grey);
+  --color-ink: var(--ink);
+  --color-ink-alt: var(--ink-alt);
+  --color-red: var(--red);
+  --color-violet: var(--violet);
+
+  --font-archivo: var(--font-archivo);
+  --font-martian: var(--font-martian);
+  /* Ponte: as páginas de case ainda pedem estas duas famílias pelo nome
+     antigo. Apontam para o Archivo até serem redesenhadas. */
+  --font-gabarito: var(--font-archivo);
+  --font-gravitas: var(--font-archivo);
   --text-primary: var(--foreground);
 
   /* Houston platform demo (recreated app) */
@@ -90,6 +150,703 @@
 }
 
 @layer components {
+  /* ── Primitivas editoriais ────────────────────────────────────────────
+     A medida, a grade e a linha de metadado. Ficam em CSS e não em
+     utilitários porque são o vocabulário da página inteira: aparecem em
+     todas as seções e mudam juntas quando a medida mudar.
+     ------------------------------------------------------------------- */
+  .wrap {
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--margin);
+  }
+
+  .ed-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: var(--gutter);
+  }
+
+  .meta {
+    font-family: var(--font-martian), ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-variation-settings: "wdth" 100;
+  }
+
+  .dim {
+    color: var(--ink-55);
+  }
+
+  .dimmer {
+    color: var(--ink-35);
+  }
+
+  /* Dentro de um campo escuro os dois tons se invertem. */
+  .on-ink .dim {
+    color: var(--paper-55);
+  }
+
+  .on-ink .dimmer {
+    color: var(--paper-35);
+  }
+
+  .btn-line {
+    display: inline-block;
+    border: 1px solid var(--ink);
+    padding: 8px 14px;
+    transition:
+      background var(--t-state),
+      color var(--t-state);
+  }
+
+  .btn-line:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ── Masthead: o campo vermelho sob o wordmark ─────────────────────── */
+  .masthead-tagline {
+    grid-column: 1 / span 7;
+    font-size: clamp(19px, 2vw, 26px);
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  .masthead-index {
+    grid-column: 9 / span 4;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .masthead-index-link {
+    display: inline-flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--t-state);
+  }
+
+  .masthead-index-link:hover {
+    border-bottom-color: var(--paper);
+  }
+
+  @media (max-width: 768px) {
+    .masthead-tagline {
+      grid-column: span 4;
+    }
+
+    .masthead-index {
+      grid-column: span 4;
+      margin-top: var(--s4);
+    }
+  }
+
+  /* ── Sobre: campo escuro com a palavra vertical ────────────────────── */
+  .about-band {
+    background: var(--ink-alt);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-band .sec-head {
+    padding-top: var(--s8);
+  }
+
+  .about-vword {
+    --vword-size: clamp(64px, 9vw, 150px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: var(--vword-size);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.045em;
+    line-height: 0.85;
+    font-variation-settings: "wdth" 112;
+    color: var(--violet);
+    display: flex;
+    align-items: center;
+    padding-block: var(--s6);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .about-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* A palavra vertical quebra em duas colunas na altura da faixa, então
+     o texto precisa ceder duas vezes o corpo dela, e não um palpite em
+     vw: com a reserva menor que a palavra, o parágrafo passava por cima
+     do violeta e ficava ilegível. */
+  @media (min-width: 1025px) {
+    .about-inner {
+      --vword-size: clamp(64px, 9vw, 150px);
+      padding-right: calc(var(--margin) + var(--vword-size) * 1.85);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .about-vword {
+      display: none;
+    }
+  }
+
+  .about-portrait {
+    grid-column: span 4;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--paper-35);
+    overflow: hidden;
+  }
+
+  .about-text {
+    grid-column: 6 / span 7;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .about-text p {
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+
+  .about-text p:first-child {
+    font-size: clamp(19px, 1.9vw, 24px);
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .about-portrait {
+      grid-column: span 4;
+      margin-bottom: var(--s4);
+    }
+
+    .about-text {
+      grid-column: span 4;
+    }
+  }
+
+  /* ── Stack: tabela ───────────────────────────────────────────────────
+     Filete grosso no cabeçalho, filete fino entre as linhas, e a linha
+     inteira acende em cinza no hover. É o mesmo gesto da lista de
+     trabalhos, num tempo curto porque aqui não há o que ler devagar. */
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stack-table th {
+    text-align: left;
+    font-weight: 400;
+    padding-block: var(--s2);
+    border-bottom: 2px solid var(--ink);
+    vertical-align: bottom;
+  }
+
+  .stack-table td {
+    padding-block: 14px;
+    border-bottom: 1px solid var(--ink-12);
+    vertical-align: baseline;
+  }
+
+  .stack-table tbody tr {
+    transition: background var(--t-state);
+  }
+
+  .stack-table tbody tr:hover {
+    background: var(--grey);
+  }
+
+  .st-cat {
+    width: 21%;
+    padding-right: var(--s3);
+  }
+
+  .st-name {
+    width: 22%;
+    padding-right: var(--s3);
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  .st-desc {
+    color: var(--ink-55);
+    font-size: 15px;
+  }
+
+  .stack-creed {
+    padding-block: var(--s6);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .stack-table .st-desc {
+      display: none;
+    }
+
+    .st-cat {
+      width: 34%;
+    }
+
+    .st-name {
+      width: 66%;
+    }
+  }
+
+  /* ── Contato ─────────────────────────────────────────────────────────
+     Campos sem caixa: só o filete de base, que engrossa em violeta no
+     foco. O formulário é um formulário de papel, não um cartão. */
+  .contact-left {
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s4);
+  }
+
+  .contact-pitch {
+    font-size: clamp(19px, 2vw, 26px);
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  .contact-social {
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid var(--ink);
+  }
+
+  .contact-social a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 16px;
+    border-bottom: 1px solid var(--ink-12);
+    font-size: 19px;
+    font-weight: 700;
+    transition:
+      color var(--t-state),
+      padding var(--t-state);
+  }
+
+  .contact-social a:hover {
+    color: var(--violet);
+    padding-left: 10px;
+  }
+
+  .contact-form {
+    grid-column: 7 / span 6;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-field input,
+  .contact-field textarea {
+    font: inherit;
+    font-size: 17px;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 10px 0;
+  }
+
+  .contact-field input::placeholder,
+  .contact-field textarea::placeholder {
+    color: var(--ink-35);
+  }
+
+  .contact-field input:focus,
+  .contact-field textarea:focus {
+    outline: 0;
+    border-bottom: 2px solid var(--violet);
+    padding-bottom: 9px;
+  }
+
+  .contact-field textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .contact-submit {
+    font-family: inherit;
+    font-size: 19px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    padding: 16px 24px;
+    align-self: flex-start;
+    display: inline-flex;
+    gap: 14px;
+    align-items: center;
+    transition: background var(--t-state);
+  }
+
+  .contact-submit:hover:not(:disabled) {
+    background: var(--red);
+  }
+
+  @media (max-width: 768px) {
+    .contact-left {
+      grid-column: span 4;
+      margin-bottom: var(--s6);
+    }
+
+    .contact-form {
+      grid-column: span 4;
+    }
+  }
+
+  /* Link de navegação: filete violeta que abre da esquerda. */
+  .nav-link {
+    position: relative;
+    padding: 4px 0;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--violet);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-state);
+  }
+
+  .nav-link:hover::after,
+  .nav-link[aria-current]::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link[aria-current] {
+    color: var(--violet);
+  }
+
+  /* ── Lista de trabalhos ───────────────────────────────────────────────
+     A lista é uma tabela: cada projeto é uma linha delimitada em cima e
+     embaixo por 1px, e a régua é o que faz as cinco linhas lerem como um
+     conjunto em vez de cinco blocos empilhados.
+
+     Três coisas mudaram em relação ao esboço:
+
+     1. O ano e o índice saíram do rodapé espelhado e subiram para uma
+        tarja de metadados no alto da coluna de texto. No esboço, quando a
+        linha alternava, o rodapé inteiro espelhava junto e o ano trocava
+        de lado a cada item — o olho perdia a coluna e a régua deixava de
+        existir. Agora a alternância move só a imagem: nada dentro do
+        texto espelha, e o ano cai sempre no mesmo lugar.
+     2. O palco cinza saiu. As quatro imagens já vêm com fundo cinza ou
+        bege próprio, então o campo cinza era moldura dentro de moldura —
+        e na inversão do hover o cinza de fora escurecia enquanto o de
+        dentro continuava claro, abrindo um buraco na linha. No lugar,
+        uma janela de proporção fixa com filete de 1px, a imagem em cover
+        e um zoom/ponto focal por projeto (as telas têm enquadramentos
+        muito diferentes: notebook em ângulo, mão segurando celular,
+        recorte de dashboard) para as quatro aparecerem na mesma escala.
+     3. Texto e imagem passam a dividir a mesma altura: a tarja encosta no
+        topo da janela e o rodapé de stack encosta na base dela. A linha é
+        delimitada pelas bordas da imagem, não por um padding arbitrário.
+     ------------------------------------------------------------------- */
+  .work-list {
+    border-top: 1px solid var(--ink);
+  }
+
+  .work-row {
+    display: block;
+    border-bottom: 1px solid var(--ink);
+    background: var(--paper);
+    transition:
+      background var(--t-row),
+      color var(--t-row);
+  }
+
+  .work-row .row-inner {
+    padding-block: clamp(32px, 4.5vw, 56px);
+    align-items: stretch;
+  }
+
+  /* grid-row: 1 nos três é obrigatório, não decorativo: numa linha
+     alternada a tela pede a coluna 1 depois que o texto já ocupou a 8, e
+     o auto-placement do grid não volta atrás — sem isso a imagem desce
+     para uma segunda faixa e a linha se parte no meio. */
+  .wr-idx {
+    grid-column: 1 / span 1;
+    grid-row: 1;
+  }
+
+  .wr-copy {
+    grid-column: 2 / span 5;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wr-shot {
+    grid-column: 8 / span 5;
+    grid-row: 1;
+  }
+
+  /* Alternância: a tela troca de lado, o índice acompanha o texto. */
+  .work-row[data-side="left"] .wr-idx {
+    grid-column: 7 / span 1;
+  }
+
+  .work-row[data-side="left"] .wr-copy {
+    grid-column: 8 / span 5;
+  }
+
+  .work-row[data-side="left"] .wr-shot {
+    grid-column: 1 / span 5;
+  }
+
+  .wr-num {
+    font-family: var(--font-martian), ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--ink-35);
+    transition: color var(--t-row);
+  }
+
+  .wr-bar {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--ink-12);
+    transition: border-color var(--t-row);
+  }
+
+  .wr-bar .kind {
+    color: var(--ink-35);
+    transition: color var(--t-row);
+  }
+
+  .wr-bar .name {
+    font-weight: 700;
+    transition: color var(--t-state);
+  }
+
+  .wr-bar .year {
+    margin-left: auto;
+    color: var(--ink-35);
+    transition: color var(--t-row);
+  }
+
+  .wr-head {
+    margin-top: var(--s3);
+    font-size: clamp(24px, 2.6vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.06;
+    max-width: 20ch;
+    font-variation-settings: "wdth" 106;
+  }
+
+  .wr-after {
+    margin-top: 12px;
+    color: var(--ink-55);
+    font-size: clamp(17px, 1.5vw, 21px);
+    font-weight: 500;
+    line-height: 1.28;
+    max-width: 30ch;
+    transition: color var(--t-row);
+  }
+
+  .wr-foot {
+    margin-top: auto;
+    padding-top: var(--s6);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s3);
+  }
+
+  .wr-stack {
+    color: var(--ink-35);
+    max-width: 34ch;
+    line-height: 1.5;
+    transition: color var(--t-row);
+  }
+
+  .wr-go {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    white-space: nowrap;
+  }
+
+  .wr-arrow {
+    font-size: 18px;
+    transition:
+      transform var(--t-row),
+      color var(--t-row);
+  }
+
+  .wr-window {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--ink);
+    background: var(--grey);
+    transition: border-color var(--t-row);
+  }
+
+  .wr-window img {
+    transform: scale(var(--z, 1));
+    transform-origin: var(--fx, 50%) var(--fy, 50%);
+    transition: transform var(--t-wipe);
+  }
+
+  .work-row:hover .wr-window img {
+    transform: scale(calc(var(--z, 1) * 1.04));
+  }
+
+  /* Inversão no hover: a linha inteira vira campo de tinta, no tempo
+     longo de 520ms. A janela troca o filete por papel — a imagem não
+     inverte, e é justamente por isso que ela precisa de contorno claro
+     para não flutuar solta no escuro. */
+  .work-row:hover,
+  .work-row:focus-visible {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .work-row:hover .wr-num {
+    color: var(--paper-35);
+  }
+
+  .work-row:hover .wr-bar {
+    border-bottom-color: var(--paper-35);
+  }
+
+  .work-row:hover .wr-bar .kind,
+  .work-row:hover .wr-bar .year {
+    color: var(--paper-55);
+  }
+
+  .work-row:hover .wr-after {
+    color: var(--paper-55);
+  }
+
+  .work-row:hover .wr-stack {
+    color: var(--paper-35);
+  }
+
+  .work-row:hover .wr-window {
+    border-color: var(--paper);
+  }
+
+  .work-row:hover .wr-bar .name {
+    color: var(--red);
+  }
+
+  .work-row:hover .wr-arrow {
+    transform: translateX(10px);
+    color: var(--red);
+  }
+
+  /* Empilhado, a tela sobe: numa lista visual é a imagem que segura o
+     scroll. Sem lados, não há o que alternar. */
+  @media (max-width: 900px) {
+    .work-row .wr-idx,
+    .work-row .wr-copy,
+    .work-row .wr-shot,
+    .work-row[data-side="left"] .wr-idx,
+    .work-row[data-side="left"] .wr-copy,
+    .work-row[data-side="left"] .wr-shot {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+
+    .work-row .wr-shot {
+      order: -1;
+      margin-bottom: var(--s4);
+    }
+
+    .work-row .wr-idx {
+      margin-bottom: var(--s2);
+    }
+
+    .wr-foot {
+      padding-top: var(--s4);
+    }
+  }
+
+  /* Cabeçalho de seção: número, título, nota. */
+  .sec-head {
+    padding-top: var(--s12);
+    padding-bottom: var(--s6);
+    align-items: end;
+  }
+
+  .sec-head .num {
+    grid-column: span 1;
+  }
+
+  .sec-head .title {
+    grid-column: span 7;
+  }
+
+  .sec-head .note {
+    grid-column: 9 / span 4;
+    padding-bottom: 8px;
+  }
+
+  /* O teto do corpo é ditado pela palavra mais longa das seções
+     ("RESOLVIDOS", 10 caracteres): em wdth 112 ela mede cerca de 7,4 em,
+     e a coluna do título tem 7 das 12 colunas. Acima disso o título
+     invade a nota à direita. */
+  .sec-head h2 {
+    font-size: clamp(36px, 6.2vw, 96px);
+  }
+
+  @media (max-width: 768px) {
+    .sec-head .num,
+    .sec-head .title,
+    .sec-head .note {
+      grid-column: span 4;
+    }
+
+    .sec-head .note {
+      margin-top: var(--s2);
+    }
+  }
+
   .skip-link {
     position: absolute;
     top: 12px;
@@ -105,15 +862,6 @@
 
   .skip-link:focus-visible {
     transform: translateY(0);
-  }
-
-  .contact-social-link {
-    border: 1px solid rgba(22, 22, 22, 0.1);
-  }
-
-  .contact-social-link:hover {
-    color: var(--hover-color);
-    border-color: var(--hover-border-color);
   }
 
   /* Houston demo: neutralize the portfolio's base heading/paragraph styles
@@ -234,19 +982,39 @@
 }
 
 @layer base {
-  h1{@apply text-foreground font-normal z-10 leading-[1em];
-    font-size: clamp(36px, 8vw, 118px);
-  }
+  /* Os títulos não têm mais tamanho global: cada seção do sistema
+     editorial dimensiona o seu, e o que vale para todos é só a família,
+     o peso e a caixa. Assim a régua da home não briga com a base. */
+  h1,
   h2 {
-    @apply text-foreground font-normal leading-[1.2em] line-clamp-2;
-    font-size: clamp(18px, 3vw, 48px);
+    color: var(--ink);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.9;
+    font-variation-settings: "wdth" 112;
   }
-  h3{
-    @apply text-gray-500 font-normal;
-    font-size: clamp(20px, 2vw, 30px);
+
+  h3,
+  h4 {
+    color: inherit;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
-  p{
-    @apply text-foreground font-normal leading-[1.2em];
+
+  p {
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--violet);
+    outline-offset: 2px;
   }
 }
 
@@ -266,7 +1034,12 @@ html[data-scroll-behavior="smooth"] {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-gabarito), Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  font-variation-settings: "wdth" 100;
+  text-wrap: pretty;
+  overflow-x: hidden;
 }

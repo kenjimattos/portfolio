@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Gabarito, Gravitas_One } from "next/font/google";
+import { Archivo, Martian_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { LayoutShell } from "@/components/layout-shell";
 import { siteConfig } from "@/config/site";
 
-const gabarito = Gabarito({
-  variable: "--font-gabarito",
+// Both faces are loaded as variable fonts with their width axis exposed. The
+// masthead animation opens the wordmark from wdth 62 to 112 against a fixed
+// textLength, so wdth has to be a live axis at runtime, not a baked instance.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  axes: ["wdth"],
 });
 
-const gravitasOne = Gravitas_One({
-  variable: "--font-gravitas",
+const martianMono = Martian_Mono({
+  variable: "--font-martian",
   subsets: ["latin"],
-  weight: "400",
+  axes: ["wdth"],
 });
 
 const defaultTitle =
@@ -56,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body
-        className={`${gabarito.variable} ${gravitasOne.variable} antialiased`}
+        className={`${archivo.variable} ${martianMono.variable} antialiased`}
       >
         <LayoutShell>{children}</LayoutShell>
         <Analytics />
