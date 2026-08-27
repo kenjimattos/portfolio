@@ -262,14 +262,29 @@
     padding-top: var(--s8);
   }
 
+  /* As duas colunas são dois elementos, não uma quebra de linha
+     automática: quebrada pelo navegador, "END TO END" é UMA caixa e não
+     há como uma metade descer antes da outra. row-reverse põe a primeira
+     coluna à direita, que é a ordem de leitura do vertical-rl. */
   .about-vword {
     --vword-size: clamp(64px, 9vw, 150px);
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding-block: var(--s6);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .about-vword-col {
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    white-space: nowrap;
     font-size: var(--vword-size);
     font-weight: 900;
     text-transform: uppercase;
@@ -277,12 +292,6 @@
     line-height: 0.85;
     font-variation-settings: "wdth" 112;
     color: var(--violet);
-    display: flex;
-    align-items: center;
-    padding-block: var(--s6);
-    pointer-events: none;
-    user-select: none;
-    z-index: 0;
   }
 
   .about-inner {

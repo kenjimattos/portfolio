@@ -37,33 +37,87 @@ export const About = () => {
   const t = COPY[useLocale()];
   const sectionRef = useRef<HTMLElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const colRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useGSAP(
     () => {
       const parts = bodyRef.current?.children;
-      if (!parts) return;
+      const cols = colRefs.current.filter((el): el is HTMLSpanElement => !!el);
+      if (!parts || cols.length === 0) return;
 
-      if (prefersReducedMotion()) {
+      const reduced = prefersReducedMotion();
+
+      if (reduced) {
         gsap.set(parts, { opacity: 1, y: 0 });
+      } else {
+        gsap.fromTo(
+          parts,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: bodyRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      /* A palavra vertical desce. As duas colunas caem de cima da faixa
+         para o lugar, "END TO" primeiro e "END" atrás — o escalonamento é
+         o que faz ler como duas peças sendo assentadas, e não como um
+         bloco só entrando.
+
+         A distância de partida é MEDIDA, não uma porcentagem chutada:
+         cada coluna começa exatamente com o seu rodapé encostando na
+         borda de cima da faixa, mais uma folga. Com porcentagem da
+         própria altura as duas colunas têm tamanhos diferentes ("END TO"
+         tem o dobro de "END"), e o valor que esconde uma deixa um fio da
+         outra aparecendo no topo. offsetTop e offsetHeight não são
+         afetados por transform, então dá para medir com a animação já
+         aplicada — e remedir a cada refresh do ScrollTrigger, que é
+         quando a fonte terminou de carregar ou a janela mudou.
+
+         É fundo e fica ATRÁS do texto que o visitante está lendo, então a
+         curva é toda de desaceleração: chega e para, sem quique. */
+      const starts = cols.map(() => 0);
+      const measure = () => {
+        cols.forEach((col, i) => {
+          starts[i] = -(col.offsetTop + col.offsetHeight + 16);
+        });
+      };
+      measure();
+
+      const drop = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+      const apply = (p: number) => {
+        cols.forEach((col, i) => {
+          const from = i * 0.15;
+          const to = 0.4 + i * 0.15;
+          const t = drop(Math.min(1, Math.max(0, (p - from) / (to - from))));
+          col.style.transform = `translateY(${(starts[i] * (1 - t)).toFixed(2)}px)`;
+        });
+      };
+
+      if (reduced) {
+        cols.forEach((col) => {
+          col.style.transform = "none";
+        });
         return;
       }
 
-      gsap.fromTo(
-        parts,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: bodyRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        onRefresh: measure,
+        onUpdate: (self) => apply(self.progress),
+      });
     },
     { scope: sectionRef }
   );
@@ -76,7 +130,17 @@ export const About = () => {
       style={{ marginTop: "var(--s16)" }}
     >
       <span className="about-vword" aria-hidden="true">
-        END TO END
+        {["END TO", "END"].map((part, i) => (
+          <span
+            key={part}
+            className="about-vword-col"
+            ref={(el) => {
+              colRefs.current[i] = el;
+            }}
+          >
+            {part}
+          </span>
+        ))}
       </span>
 
       <div className="wrap about-inner">
