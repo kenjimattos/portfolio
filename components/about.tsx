@@ -102,7 +102,7 @@ export const About = () => {
               src="/img/about-photo.png"
               alt={t.photoAlt}
               fill
-              quality={85}
+              quality={90}
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 30vw"
             />
