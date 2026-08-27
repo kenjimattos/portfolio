@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { siteConfig } from "@/config/site";
 import { localeHref, useLocale } from "@/lib/i18n";
+import { useScrollTo } from "@/lib/smooth-scroll";
 import { LangToggle } from "@/components/lang-toggle";
 
 const NAV_COPY = {
@@ -33,6 +34,7 @@ export const Header = () => {
   const pathname = usePathname();
   const locale = useLocale();
   const { links: navLinks, resume: resumeLabel, menu: menuLabel } = NAV_COPY[locale];
+  const scrollTo = useScrollTo();
   const home = localeHref(locale, "/");
   const headerRef = useRef<HTMLElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,13 +71,13 @@ export const Header = () => {
 
     const sectionId = href.split("#")[1] ?? "";
 
+    /* Uma rolagem só manda na página: usar scrollIntoView aqui faria o
+       salto nativo correr por cima da interpolação do Lenis. */
     if (pathname === home) {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      scrollTo(`#${sectionId}`);
     } else {
       router.push(home);
-      setTimeout(() => {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      setTimeout(() => scrollTo(`#${sectionId}`), 100);
     }
   };
 

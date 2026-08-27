@@ -1022,6 +1022,30 @@ html[data-scroll-behavior="smooth"] {
   scroll-behavior: smooth;
 }
 
+/* ── Lenis ──────────────────────────────────────────────────────────────
+   O que a lib precisa do CSS, e o desarme do scroll-behavior nativo: com
+   os dois ligados, cada âncora dispara duas rolagens concorrentes. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html[data-scroll-behavior="smooth"] {
     scroll-behavior: auto;

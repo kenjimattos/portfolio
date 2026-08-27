@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { LocaleProvider, basePathname, localeFromPathname } from "@/lib/i18n";
+import { SmoothScrollProvider } from "@/lib/smooth-scroll";
 
 type LayoutShellProps = {
   children: React.ReactNode;
@@ -16,12 +17,14 @@ export function LayoutShell({ children }: LayoutShellProps) {
 
   return (
     <LocaleProvider locale={locale}>
-      <a href="#main" className="skip-link">
-        {locale === "pt" ? "Pular para o conteúdo" : "Skip to content"}
-      </a>
-      {!hideGlobalChrome && <Header />}
-      <main id="main">{children}</main>
-      {!hideGlobalChrome && <Footer />}
+      <SmoothScrollProvider>
+        <a href="#main" className="skip-link">
+          {locale === "pt" ? "Pular para o conteúdo" : "Skip to content"}
+        </a>
+        {!hideGlobalChrome && <Header />}
+        <main id="main">{children}</main>
+        {!hideGlobalChrome && <Footer />}
+      </SmoothScrollProvider>
     </LocaleProvider>
   );
 }
