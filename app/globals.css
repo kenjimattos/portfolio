@@ -1625,6 +1625,116 @@
     color: var(--paper-35);
   }
 
+  /* ── A nota sobre o masthead ──────────────────────────────────────────
+     Tarja vermelha colada por cima do wordmark, fixa no canto de baixo.
+     O vermelho não é escolha de cor: é a primeira gota do campo que
+     depois toma o masthead inteiro. A rotação mínima é o que faz ler
+     como coisa colada em cima da página, e não como caixa do layout.
+     ------------------------------------------------------------------- */
+  /* Centro da tela, por cima do meio do wordmark: a tarja é carimbada em
+     cima da palavra impressa, e não encostada num canto. Centrar com a
+     propriedade `translate` — e não com `transform` — deixa o transform
+     inteiro livre para o GSAP: os dois se compõem sem disputar a mesma
+     declaração, e a nota continua centrada sem JavaScript nenhum. */
+  .mnote {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    z-index: 30;
+    width: min(420px, 82vw);
+    will-change: transform, opacity;
+  }
+
+  /* Duas peles para a mesma nota, trocadas por um atributo. O que muda
+     entre elas é QUEM é o vermelho: no carimbo o vermelho é o campo e a
+     caneta é de papel; no recorte o vermelho volta a ser só tinta de
+     caneta, sobre papel. Daí as cores serem variáveis do card e não
+     valores soltos nas regras. */
+  .mnote-card {
+    --note-bg: var(--red);
+    --note-fg: var(--paper);
+    --note-dim: var(--paper-55);
+    --pen: var(--paper);
+
+    display: block;
+    background: var(--note-bg);
+    color: var(--note-fg);
+    padding: 22px 24px 20px;
+    text-align: center;
+    transform: rotate(-1.1deg);
+    box-shadow: 0 22px 60px rgba(10, 3, 3, 0.22);
+  }
+
+  /* O recorte: um pedaço de papel pousado por cima da página impressa,
+     com a marcação em vermelho — a caneta do revisor. O filete de tinta
+     é o corte do papel, e a sombra dura, sem borrão, é o que faz ele
+     ficar EM CIMA do wordmark em vez de dentro do layout. */
+  .mnote-card[data-skin="slip"] {
+    --note-bg: var(--paper);
+    --note-fg: var(--ink);
+    --note-dim: var(--ink-35);
+    --pen: var(--red);
+
+    border: 1px solid var(--ink);
+    box-shadow: 10px 12px 0 var(--ink);
+  }
+
+  .mnote-cue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    color: var(--note-dim);
+    transition: color var(--t-state);
+  }
+
+  .mnote-card:hover .mnote-cue {
+    color: var(--note-fg);
+  }
+
+  .mnote-arrow {
+    width: 13px;
+    height: 25px;
+    flex: none;
+    overflow: visible;
+  }
+
+  .mnote-line {
+    font-size: clamp(19px, 1.7vw, 24px);
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: -0.015em;
+  }
+
+  /* O laço vaza da palavra nos quatro lados, e non-scaling-stroke segura
+     a espessura da caneta constante mesmo com o viewBox esticado para a
+     medida do texto — sem isso "em produção" e "in production" sairiam
+     com canetas de grossuras diferentes. */
+  .mnote-circled {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .mnote-loop {
+    position: absolute;
+    left: -12%;
+    width: 124%;
+    top: -58%;
+    height: 214%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .mnote {
+      width: calc(100vw - var(--margin) * 2);
+    }
+  }
+
+
   .skip-link {
     position: absolute;
     top: 12px;

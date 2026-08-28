@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { MastheadNote } from "@/components/home/masthead-note";
 import { About } from "@/components/about";
 import { Work } from "@/components/work";
 import { TechStack } from "@/components/tech-stack";
@@ -24,6 +25,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
+      <MastheadNote />
       <Work />
       <About />      
       <TechStack />
