@@ -1,377 +1,373 @@
 "use client";
 
-import { ReactNode } from "react";
-import Image from "next/image";
+/* Sebrae OPP — o primeiro case no editorial de problema.
+ *
+ * O recorte é deliberado e está na primeira linha da página: a concepção
+ * (que problema de política pública a plataforma ataca, quais indicadores
+ * importam, a Jornada do Município Empreendedor) é do Sebrae e da equipe,
+ * e o case não a reivindica. O que ele reivindica é o problema de entrega.
+ * Ceder o crédito da concepção não enfraquece o case — um leitor
+ * experiente desconfia de portfólio que reivindica tudo.
+ */
+
 import {
-  CaseContact,
-  CaseDesignLanguage,
-  CaseEm,
-  CaseFeature,
-  CaseFeatures,
+  CaseCTA,
+  CaseConstraints,
+  CaseDecision,
+  CaseDecisions,
+  CaseEvidence,
+  CaseFrontier,
   CaseHero,
-  CaseLayout,
-  CaseResults,
-  CaseShowcase,
-  CaseStory,
-  SectionEyebrow,
-} from "@/components/case-study/case-layout";
+  CaseIndex,
+  CaseOutcome,
+  CaseProof,
+  CaseSection,
+  CaseShell,
+  type EvidenceItem,
+  type Tension,
+} from "@/components/case-study/case-editorial";
 import { OppScreen } from "@/components/sebrae-demo/opp-frame";
-import { GlassExhibit } from "@/components/sebrae-demo/glass-exhibit";
+import { oppFontVars } from "@/components/sebrae-demo/fonts";
+import { FONT } from "@/components/sebrae-demo/ui";
 import { AgendasScreen } from "@/components/sebrae-demo/screens/agendas";
 import { PanoramaScreen } from "@/components/sebrae-demo/screens/panorama";
-import { RiscosScreen } from "@/components/sebrae-demo/screens/riscos";
 import { FormuladorScreen } from "@/components/sebrae-demo/screens/formulador";
 import { useLocale } from "@/lib/i18n";
 
-const ACCENT = "#161726";
-const ACCENT_INK = "#161726";
-const ACCENT_TINT = "#EEEFF8";
+const DEMO_URL = "https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/";
+const REPO_URL = "https://github.com/kenjimattos/sebrae-opp-snapshot";
 
-const PAD_X = "clamp(24px, 8vw, 180px)";
-const PAD_SECTION = "clamp(60px, 10vw, 120px)";
+/* ----------------------------------- copy ----------------------------------- */
 
-function TradeOff({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <>
-      <span
-        className="font-mono uppercase tracking-widest block mb-2"
-        style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
-      >
-        {label}
-      </span>
-      {children}
-    </>
-  );
-}
+type Panel = { label: string; chose: string; why?: string };
 
-/* ----------------------------------- copy ------------------------------------ */
-
-type FeatureCopy = {
-  title: string;
-  text: string;
-  secondary?: ReactNode;
-  caption?: string;
+type Decision = {
+  id: string;
+  tension: Tension;
+  design: Panel;
+  code: Panel;
+  cost: string;
+  proofCaption?: string;
 };
 
 type Copy = {
-  chips: string[];
-  headline: ReactNode;
-  subtitle: string;
-  roleTags: string[];
-  links: { label: string; href: string }[];
-  showcase: { label: string; note: string; caption: string };
-  results: { items: { value: string; label: string }[]; statement: string; footnote: string };
-  story: {
-    eyebrow: string;
-    headline: string;
-    text: string;
-    imageAlt: string;
-    imageCaption: string;
-    personas: { label: string; title: string; text: string }[];
-    cards: { number: string; title: string; text: string }[];
+  kicker: [string, string];
+  headline: string;
+  turn: string;
+  sub: string;
+  shotAlt: string;
+  role: { label: string; text: string; note: string };
+  indexLabel: string;
+  constraints: { label: string; text: string }[];
+  decisionsHeading: string;
+  decisionsNote: string;
+  railLabel: string;
+  costLabel: string;
+  decisions: Decision[];
+  frontier: { label: string; text: string };
+  outcome: {
+    heading: string;
+    measures: { value: string; label: string }[];
+    gaps: { label: string; items: string[] };
   };
-  design: {
-    intro: string;
-    description: string;
-    charsetCaption: string;
-    paletteMeta: { category: string; name: string }[];
-    glassLabel: string;
-    glassText: string;
-    statusLabel: string;
-    statusPills: string[];
-  };
-  features: { eyebrow: string; intro: string; items: FeatureCopy[] };
-  behind: {
-    eyebrow: string;
-    text: string;
-    quoteAttribution: string;
-    stackLabel: string;
-  };
-  contact: { heading: string; text: string };
+  evidence: { heading: string; items: EvidenceItem[] };
+  cta: { label: string; heading: string; invite: string; action: string };
+  next: string;
 };
 
 const COPY: Record<"en" | "pt", Copy> = {
   en: {
-    chips: ["2026", "Gov-tech · Public data", "Solo, end to end"],
-    headline: (
-      <>
-        Sebrae OPP: scattered public data turned into{" "}
-        <CaseEm>decisions for 223 municipalities</CaseEm>.
-      </>
-    ),
-    subtitle:
-      "An intelligence platform for Sebrae Paraíba that consolidates a dozen official sources into diagnosis, funding, training and a guided project writer, for every city in the state.",
-    roleTags: ["Product", "UI/UX Design", "Front-end", "Back-end", "Data Engineering", "Design System"],
-    links: [
-      {
-        label: "Open the live demo",
-        href: "https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/",
-      },
-      { label: "View on GitHub", href: "https://github.com/kenjimattos/sebrae-opp-snapshot" },
+    kicker: [
+      "Sebrae OPP · 2026 · public policy observatory",
+      "React 19 · TypeScript · Fastify · MongoDB · Python ETL",
     ],
-    showcase: {
-      label: "Live recreation: the real screen",
-      note: "Rebuilt in React for this case study · João Pessoa's indicators are real public data",
-      caption:
-        "All 223 municipalities drawn from real IBGE geometry as hand-written SVG. The product uses no map library, and neither does this recreation.",
+    headline: "Sebrae knew which platform had to exist.",
+    turn: "It just hadn't been built.",
+    sub: "Thirteen sources, 223 municipalities, from the ETL to the design system — in about three months.",
+    shotAlt: "Live React recreation · João Pessoa's real public data",
+    role: {
+      label: "My role",
+      text: "Design, frontend, API, data modelling and ETL: the whole delivery, one person, about three months. I drew the interface and the design system, wrote the choropleth by hand, modelled the collections and built the Python pipeline that reconciles thirteen official sources.",
+      note: "The conception isn't mine. Which public-policy problem the platform attacks, which indicators matter, and the Jornada do Município Empreendedor came from Sebrae and from the team. What I own is the delivery problem — making a platform of this scope viable without inventing data and without bloating the stack. Every decision below is of that kind.",
     },
-    results: {
+    indexLabel: "Decisions in this case",
+    constraints: [
+      {
+        label: "Context",
+        text: "223 municipalities in Paraíba, 22 socioeconomic indicators, an end user with no data team.",
+      },
+      {
+        label: "Constraint",
+        text: "One person on development, about three months, thirteen official data sources — and not all of them identify a municipality by its IBGE code.",
+      },
+    ],
+    decisionsHeading: "Decisions",
+    decisionsNote: "Four of them, and only what has proof attached.",
+    railLabel: "Jump to a decision",
+    costLabel: "Cost",
+    decisions: [
+      {
+        id: "d01",
+        tension: { a: "Ship fast", b: "own the token" },
+        design: {
+          label: "Design",
+          chose: "No chart library and no map library.",
+          why: "So that every visualization would obey the design system instead of resisting it.",
+        },
+        code: {
+          label: "Code",
+          chose: "A choropleth of all 223 municipalities in plain SVG, from the IBGE GeoJSON.",
+          why: "Lon/lat projection written by hand. 7 runtime dependencies.",
+        },
+        proofCaption:
+          "The 223 municipalities drawn as SVG. Every colour band is a design-system token, not a library default. This recreation uses no map library either.",
+        cost: "Extra weeks, and no ready-made map interaction.",
+      },
+      {
+        id: "d02",
+        tension: { a: "Ruler in the code", b: "ruler in the data" },
+        design: {
+          label: "Design",
+          chose: "An indicator's classification is content, not behaviour.",
+          why: "Whoever understands public policy has to be able to move the band without asking me.",
+        },
+        code: {
+          label: "Code",
+          chose: "Bands stored per indicator in MongoDB, computed server-side.",
+          why: "The ruler changes without a deploy.",
+        },
+        cost: "One more layer to read for whoever opens the repo.",
+      },
+      {
+        id: "d03",
+        tension: { a: "Fill the screen", b: "don't invent a cutoff" },
+        design: {
+          label: "Design",
+          chose: "A traffic light only where the official source publishes bands: 6 of 22 indicators.",
+          why: "An average with a sample smaller than 30 is hidden instead of shown.",
+        },
+        code: {
+          label: "Code",
+          chose: "The rule lives in the ETL and in the API, not in the component.",
+          why: "The screen has no way around it.",
+        },
+        proofCaption:
+          "Every variation renders neutral. With no official metadata saying which direction is better, the product declines to judge the number — the same rule that governs the traffic lights.",
+        cost: "16 indicators with no quick read, and an empty cell exactly for the small town, which is who needs it most. I chose empty over wrong.",
+      },
+      {
+        id: "d04",
+        tension: { a: "A useful LLM", b: "an LLM that invents numbers" },
+        design: {
+          label: "Design",
+          chose: "The policy writer drafts the text; the numbers come from the database.",
+        },
+        code: {
+          label: "Code",
+          chose: "Guardrails in the prompt and in how the payload is assembled.",
+        },
+        proofCaption:
+          "Ten guided steps, from identification to governance. Every figure in the draft is read from the municipality's record, never written by the model.",
+        cost: "Less fluid text. Not one invented number in a product built for public decisions.",
+      },
+    ],
+    frontier: {
+      label: "Where the line sits:",
+      text: "the ruler belongs to the official source. Deciding not to invent a cutoff when it doesn't exist was mine, in the code.",
+    },
+    outcome: {
+      heading: "Result",
+      measures: [
+        { value: "223", label: "municipalities, all of Paraíba" },
+        { value: "22", label: "indicators unified" },
+        { value: "13", label: "data sources reconciled" },
+        { value: "0", label: "chart or map libraries at runtime" },
+      ],
+      gaps: {
+        label: "What wasn't measured, and what's missing",
+        items: [
+          "Adoption, and effect on public decisions: I have no number for either.",
+          "The repository has no tests — and the classification ruler is exactly what should be under test.",
+        ],
+      },
+    },
+    evidence: {
+      heading: "Evidence",
       items: [
-        { value: "223", label: "Municipalities of Paraíba, every one of them in a single platform" },
-        { value: "13", label: "Official data sources unified by a 12k-line Python ETL pipeline" },
-        { value: "0", label: "Chart or map libraries: every visualization hand-built in SVG and CSS" },
-        { value: "1", label: "Person end to end: data, database, API, frontend and design system" },
-      ],
-      statement:
-        "Built to be honest: an indicator only gets a traffic light when its official source publishes cutoffs; agendas get no aggregate color because no official band exists for one; low-sample averages are hidden instead of shown. Public data that refuses to lie pretty.",
-      footnote:
-        "Figures come from the real codebase and public documentation. Indicator values in the recreations are real public data for João Pessoa.",
-    },
-    story: {
-      eyebrow: "From thirteen portals to one answer",
-      headline: "Every indicator lived in a different portal, in a different format.",
-      text: "RAIS, Receita Federal, Redesim, central bank tables, PNCP, IBGE, INEP: each with its own municipal code, its own layout, its own methodology. A small-town manager has no data team to reconcile them. OPP consolidates everything into one traceable model, organized around the Jornada do Município Empreendedor.",
-      imageAlt: "Scattered public data sources: spreadsheets, portals, APIs, CSVs and PDF reports",
-      imageCaption: "One indicator, many homes: spreadsheets, portals, APIs, CSVs, PDFs",
-      personas: [
+        { kind: "link", label: "Live platform", href: DEMO_URL, note: "vercel.app ↗" },
         {
-          label: "Primary user",
-          title: "The municipal manager",
-          text: "Mayors and economic development secretaries, most without any data team, who need to know where their city stands and what to do next. The platform reads like an answer, not like a database.",
+          kind: "link",
+          label: "Repository on GitHub",
+          href: REPO_URL,
+          note: "sebrae-opp-snapshot ↗",
         },
         {
-          label: "Also served",
-          title: "Sebrae analysts",
-          text: "The people advising those managers across all 223 municipalities, who need indicators that are comparable between cities and traceable to official sources and methodologies.",
-        },
-      ],
-      cards: [
-        {
-          number: "01",
-          title: "Refuse to lie",
-          text: "Only indicators with officially published cutoffs get a traffic light: 6 of 22. Low-sample averages are suppressed, not displayed.",
+          kind: "fact",
+          label: "GeoJSON of the 223 municipalities",
+          note: "IBGE, public source",
         },
         {
-          number: "02",
-          title: "Rules live in the data",
-          text: "Classification bands are stored per indicator in MongoDB and computed server-side, so the ruler changes without a deploy.",
-        },
-        {
-          number: "03",
-          title: "Zero visualization libraries",
-          text: "Choropleth map, gauges and progress bars are hand-built SVG/CSS: 7 runtime dependencies, full design-token control.",
-        },
-        {
-          number: "04",
-          title: "Three layers, one person",
-          text: "Python ETL → MongoDB → Fastify API → React 19, designed and shipped solo in about three months.",
+          kind: "fact",
+          label: "Python ETL: 27 generators, one data dictionary per source",
+          note: "so the team operates without me",
         },
       ],
     },
-    design: {
-      intro:
-        "All design here is mine, ported from a Figma design system into a token-driven setup: 16 composite type styles, semantic colors, spacing and dark mode as CSS variables. Gov-tech rarely looks like this on purpose: dark navy, electric lime, and a glass effect rebuilt from Figma's native material with CSS masks.",
-      description:
-        "Three typefaces, three jobs: Monoblock carries display numbers, titles and every button; Epic Pro ExtraBold anchors headlines; Intel One Mono sets all body text at weight 300. A mono-first system that makes data feel like the interface's native language.",
-      charsetCaption: "Monoblock · display & buttons, with Epic Pro for headings and Intel One Mono for body",
-      paletteMeta: [
-        { category: "Accent", name: "Electric Lime" },
-        { category: "Surface", name: "Deep Navy" },
-        { category: "Surface", name: "Panel" },
-      ],
-      glassLabel: "Glass: Figma's native material, rebuilt in CSS",
-      glassText:
-        "The interface's surfaces use a glass material recreated from Figma's native effect: inner bevel shadows at a −45° light angle, backdrop blur, and a 1px diagonal stroke cut with mask-composite. No images, no libraries: it inherits the theme tokens like everything else.",
-      statusLabel: "Semáforo: official cutoffs only",
-      statusPills: ["SUCESSO", "ATENÇÃO", "ALERTA", "SEM FAIXA OFICIAL"],
-    },
-    features: {
-      eyebrow: "Inside the platform",
-      intro:
-        "The screens below are recreated in React from the real product (dark theme, glass, hand-built visualizations), with João Pessoa's actual public indicators.",
-      items: [
-        {
-          title: "Socioeconomic Panorama",
-          text: "Twelve cards of economic fundamentals (PIB per capita, IDEB, GINI, formal wages, active companies), each with its variation and reference year, plus an AI-styled performance summary.",
-          secondary: (
-            <TradeOff label="Trade-off">
-              Every variation renders in neutral white, never green or red. Without official
-              metadata saying which direction is “better”, the product refuses to judge a number.
-              The restraint is deliberate, and it is the same rule that governs the traffic
-              lights.
-            </TradeOff>
-          ),
-          caption: "Static recreation in React; indicator values are real public data for João Pessoa",
-        },
-        {
-          title: "Strategic Risks",
-          text: "Risks are not curated by hand: the platform extracts every indicator sitting in an alert or warning band for the selected municipality and sorts it by severity: the diagnosis becomes an agenda.",
-          caption: "Static recreation in React; indicator values are real public data for João Pessoa",
-        },
-        {
-          title: "Project Formulator",
-          text: "A ten-step guided writer, from identification to governance, that turns diagnosis into a public project proposal, with per-municipality draft autosave and PDF export built on nothing but window.print.",
-          caption: "Static recreation in React; fictional draft content",
-        },
-        {
-          title: "One journey, four pillars",
-          text: "The platform is organized as a journey: diagnose the business environment, map funding (R$ 4,1 bi in parliamentary amendments and public calls), build capacity with ~45 curated courses, then write the project.",
-          secondary:
-            "Each pillar is a plug-in panel behind a registry: adding a new mode is one component and one entry in an object.",
-        },
-      ],
-    },
-    behind: {
-      eyebrow: "Behind the product",
-      text: "The frontend is the visible tenth. Underneath: 27 Python ETL generators that tamed each source's quirks (RFB municipal codes that differ from IBGE's, company size living in a different table than the establishment), emitting idempotent MongoDB seeds, documented down to a per-source data dictionary for Sebrae's team to operate without me.",
-      quoteAttribution: "From the ETL's own docstrings: every source's gotchas documented in code",
-      stackLabel: "Stack",
-    },
-    contact: {
+    cta: {
+      label: "Contact",
       heading: "Want the full story behind OPP?",
-      text: "The ETL gotchas, the honesty rules, the hand-built map: happy to walk through any of it.",
+      invite:
+        "The ETL gotchas, the honesty rules, the hand-built map: happy to walk through any of it.",
+      action: "Get in touch",
     },
+    next: "Finance",
   },
 
   pt: {
-    chips: ["2026", "Gov-tech · Dados públicos", "Solo, de ponta a ponta"],
-    headline: (
-      <>
-        Sebrae OPP: dados públicos dispersos transformados em{" "}
-        <CaseEm>decisões para 223 municípios</CaseEm>.
-      </>
-    ),
-    subtitle:
-      "Uma plataforma de inteligência para o Sebrae Paraíba que consolida mais de uma dezena de fontes oficiais em diagnóstico, recursos, capacitação e um formulador guiado de projetos, para cada cidade do estado.",
-    roleTags: ["Produto", "UI/UX Design", "Front-end", "Back-end", "Engenharia de Dados", "Design System"],
-    links: [
-      {
-        label: "Abrir o demo ao vivo",
-        href: "https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/",
-      },
-      { label: "Ver no GitHub", href: "https://github.com/kenjimattos/sebrae-opp-snapshot" },
+    kicker: [
+      "Sebrae OPP · 2026 · observatório de política pública",
+      "React 19 · TypeScript · Fastify · MongoDB · ETL em Python",
     ],
-    showcase: {
-      label: "Recriação ao vivo: a tela real",
-      note: "Recriado em React para este case · os indicadores de João Pessoa são dados públicos reais",
-      caption:
-        "Os 223 municípios desenhados a partir da geometria real do IBGE como SVG escrito à mão. O produto não usa biblioteca de mapa, e esta recriação também não.",
+    headline: "O Sebrae sabia qual plataforma precisava existir.",
+    turn: "Faltava construí-la.",
+    sub: "Treze fontes, 223 municípios, do ETL ao design system — em cerca de três meses.",
+    shotAlt: "Recriação em React · dados públicos reais de João Pessoa",
+    role: {
+      label: "Meu papel",
+      text: "Design, frontend, API, modelagem de dados e ETL: a entrega inteira, uma pessoa, cerca de três meses. Desenhei a interface e o design system, escrevi o coroplético à mão, modelei as coleções e construí o pipeline em Python que reconcilia treze fontes oficiais.",
+      note: "A concepção não é minha. Que problema de política pública a plataforma ataca, quais indicadores importam e a Jornada do Município Empreendedor são do Sebrae e da equipe. O que é meu é o problema de entrega — viabilizar uma plataforma desse escopo sem inventar dado e sem inchar a stack. É desse tipo toda decisão abaixo.",
     },
-    results: {
+    indexLabel: "Decisões deste case",
+    constraints: [
+      {
+        label: "Contexto",
+        text: "223 municípios da Paraíba, 22 indicadores socioeconômicos, usuário final sem time de dados.",
+      },
+      {
+        label: "Restrição",
+        text: "Uma pessoa no desenvolvimento, cerca de três meses, treze fontes de dados oficiais — e nem todas identificam o município pelo código do IBGE.",
+      },
+    ],
+    decisionsHeading: "Decisões",
+    decisionsNote: "Quatro, e só o que tem prova anexada.",
+    railLabel: "Ir para uma decisão",
+    costLabel: "Custou",
+    decisions: [
+      {
+        id: "d01",
+        tension: { a: "Entregar rápido", b: "controlar o token" },
+        design: {
+          label: "Design",
+          chose: "Nenhuma biblioteca de gráfico ou de mapa.",
+          why: "Para que toda visualização obedecesse ao design system em vez de resistir a ele.",
+        },
+        code: {
+          label: "Código",
+          chose: "Coroplético dos 223 municípios em SVG puro, a partir do GeoJSON do IBGE.",
+          why: "Projeção lon/lat escrita à mão. 7 dependências de runtime.",
+        },
+        proofCaption:
+          "Os 223 municípios desenhados em SVG. Cada faixa de cor é um token do design system, não um default de biblioteca. Esta recriação também não usa biblioteca de mapa.",
+        cost: "Semanas a mais, e nenhuma interação de mapa pronta.",
+      },
+      {
+        id: "d02",
+        tension: { a: "Régua no código", b: "régua no dado" },
+        design: {
+          label: "Design",
+          chose: "A classificação de cada indicador é conteúdo, não comportamento.",
+          why: "Quem entende de política pública precisa poder mudar a faixa sem me pedir.",
+        },
+        code: {
+          label: "Código",
+          chose: "Faixas por indicador no MongoDB, computadas no servidor.",
+          why: "A régua muda sem deploy.",
+        },
+        cost: "Uma camada a mais de leitura para quem abre o repo.",
+      },
+      {
+        id: "d03",
+        tension: { a: "Preencher a tela", b: "não inventar corte" },
+        design: {
+          label: "Design",
+          chose: "Semáforo só onde a fonte oficial publica faixa: 6 de 22 indicadores.",
+          why: "Média com amostra menor que 30 fica oculta em vez de exibida.",
+        },
+        code: {
+          label: "Código",
+          chose: "A regra vive no ETL e na API, não no componente.",
+          why: "A tela não tem como contornar.",
+        },
+        proofCaption:
+          "Toda variação é renderizada em tom neutro. Sem metadado oficial dizendo qual direção é melhor, o produto se recusa a julgar o número — é a mesma regra que governa os semáforos.",
+        cost: "16 indicadores sem leitura rápida, e célula vazia justamente para a cidade pequena, que é quem mais precisa. Escolhi vazio a errado.",
+      },
+      {
+        id: "d04",
+        tension: { a: "LLM útil", b: "LLM que inventa número" },
+        design: {
+          label: "Design",
+          chose: "O formulador redige o texto; os números vêm do banco.",
+        },
+        code: {
+          label: "Código",
+          chose: "Guardrails no prompt e na montagem do payload.",
+        },
+        proofCaption:
+          "Dez etapas guiadas, da identificação à governança. Todo número do rascunho é lido do registro do município, nunca escrito pelo modelo.",
+        cost: "Texto menos fluido. Nenhum número inventado num produto de decisão pública.",
+      },
+    ],
+    frontier: {
+      label: "Onde fica a fronteira:",
+      text: "a régua é da fonte oficial. A decisão de não inventar corte quando ela não existe foi minha, no código.",
+    },
+    outcome: {
+      heading: "Resultado",
+      measures: [
+        { value: "223", label: "municípios, a Paraíba inteira" },
+        { value: "22", label: "indicadores unificados" },
+        { value: "13", label: "fontes de dados reconciliadas" },
+        { value: "0", label: "bibliotecas de gráfico ou mapa em runtime" },
+      ],
+      gaps: {
+        label: "O que não foi medido, e o que falta",
+        items: [
+          "Adoção e efeito em decisão pública: não tenho número de nenhum dos dois.",
+          "O repositório não tem teste — e a régua de classificação é exatamente o que deveria estar sob teste.",
+        ],
+      },
+    },
+    evidence: {
+      heading: "Evidência",
       items: [
-        { value: "223", label: "Municípios da Paraíba, todos eles em uma única plataforma" },
-        { value: "13", label: "Fontes oficiais unificadas por um ETL em Python de 12 mil linhas" },
-        { value: "0", label: "Bibliotecas de gráfico ou mapa: cada visualização feita à mão em SVG e CSS" },
-        { value: "1", label: "Pessoa de ponta a ponta: dados, banco, API, frontend e design system" },
-      ],
-      statement:
-        "Construído para ser honesto: um indicador só ganha semáforo quando a fonte oficial publica cortes; agendas não têm cor agregada porque não existe faixa oficial para isso; médias com amostra baixa são ocultadas em vez de exibidas. Dados públicos que se recusam a mentir bonito.",
-      footnote:
-        "Os números vêm do código real e da documentação pública. Os valores de indicadores nas recriações são dados públicos reais de João Pessoa.",
-    },
-    story: {
-      eyebrow: "De treze portais para uma resposta",
-      headline: "Cada indicador vivia em um portal diferente, num formato diferente.",
-      text: "RAIS, Receita Federal, Redesim, tabelas do Banco Central, PNCP, IBGE, INEP: cada um com seu código de município, seu layout, sua metodologia. Um gestor de cidade pequena não tem equipe de dados para reconciliar tudo isso. O OPP consolida tudo em um modelo rastreável, organizado em torno da Jornada do Município Empreendedor.",
-      imageAlt: "Fontes de dados públicos dispersas: planilhas, portais, APIs, CSVs e relatórios em PDF",
-      imageCaption: "Um indicador, muitas casas: planilhas, portais, APIs, CSVs, PDFs",
-      personas: [
+        { kind: "link", label: "Plataforma no ar", href: DEMO_URL, note: "vercel.app ↗" },
         {
-          label: "Usuário principal",
-          title: "O gestor municipal",
-          text: "Prefeitos e secretários de desenvolvimento econômico, a maioria sem qualquer equipe de dados, que precisam saber onde a cidade está e o que fazer em seguida. A plataforma se lê como uma resposta, não como um banco de dados.",
+          kind: "link",
+          label: "Repositório no GitHub",
+          href: REPO_URL,
+          note: "sebrae-opp-snapshot ↗",
         },
         {
-          label: "Também atende",
-          title: "Analistas do Sebrae",
-          text: "Quem assessora esses gestores nos 223 municípios e precisa de indicadores comparáveis entre cidades e rastreáveis até as fontes e metodologias oficiais.",
-        },
-      ],
-      cards: [
-        {
-          number: "01",
-          title: "Recusar a mentira",
-          text: "Só indicadores com cortes oficialmente publicados ganham semáforo: 6 de 22. Médias com amostra baixa são suprimidas, não exibidas.",
+          kind: "fact",
+          label: "GeoJSON dos 223 municípios",
+          note: "IBGE, fonte pública",
         },
         {
-          number: "02",
-          title: "Regras vivem nos dados",
-          text: "As faixas de classificação ficam por indicador no MongoDB e são computadas no servidor, e a régua muda sem deploy.",
-        },
-        {
-          number: "03",
-          title: "Zero bibliotecas de visualização",
-          text: "Mapa coroplético, medidores e barras de progresso feitos à mão em SVG/CSS: 7 dependências de runtime, controle total dos tokens.",
-        },
-        {
-          number: "04",
-          title: "Três camadas, uma pessoa",
-          text: "ETL em Python → MongoDB → API Fastify → React 19, desenhado e entregue solo em cerca de três meses.",
+          kind: "fact",
+          label: "ETL em Python: 27 geradores, um dicionário de dados por fonte",
+          note: "para a equipe operar sem mim",
         },
       ],
     },
-    design: {
-      intro:
-        "Todo o design aqui é meu, portado de um design system no Figma para uma configuração guiada por tokens: 16 estilos compostos de tipografia, cores semânticas, espaçamento e dark mode como variáveis CSS. Gov-tech raramente tem essa cara de propósito: azul profundo, lima elétrico e um efeito de vidro reconstruído do material nativo do Figma com máscaras CSS.",
-      description:
-        "Três fontes, três papéis: a Monoblock carrega números de display, títulos e todos os botões; a Epic Pro ExtraBold ancora manchetes; a Intel One Mono compõe todo o corpo em peso 300. Um sistema mono-first que faz dado parecer a língua nativa da interface.",
-      charsetCaption: "Monoblock · display & botões, com Epic Pro nos títulos e Intel One Mono no corpo",
-      paletteMeta: [
-        { category: "Acento", name: "Lima elétrico" },
-        { category: "Superfície", name: "Azul profundo" },
-        { category: "Superfície", name: "Painel" },
-      ],
-      glassLabel: "Glass: o material nativo do Figma, reconstruído em CSS",
-      glassText:
-        "As superfícies da interface usam um material de vidro recriado do efeito nativo do Figma: sombras de bisel internas com luz a −45°, backdrop blur e um traço diagonal de 1px cortado com mask-composite. Sem imagens, sem bibliotecas: ele herda os tokens do tema como tudo o mais.",
-      statusLabel: "Semáforo: apenas cortes oficiais",
-      statusPills: ["SUCESSO", "ATENÇÃO", "ALERTA", "SEM FAIXA OFICIAL"],
-    },
-    features: {
-      eyebrow: "Por dentro da plataforma",
-      intro:
-        "As telas abaixo são recriadas em React a partir do produto real (tema escuro, glass, visualizações feitas à mão), com os indicadores públicos reais de João Pessoa.",
-      items: [
-        {
-          title: "Panorama socioeconômico",
-          text: "Doze cards de fundamentos econômicos (PIB per capita, IDEB, GINI, remuneração formal, empresas ativas), cada um com sua variação e ano de referência, além de um resumo de desempenho em estilo IA.",
-          secondary: (
-            <TradeOff label="Trade-off">
-              Toda variação é renderizada em branco neutro, nunca verde ou vermelho. Sem
-              metadados oficiais dizendo qual direção é “melhor”, o produto se recusa a julgar um
-              número. A contenção é deliberada, e é a mesma regra que governa os semáforos.
-            </TradeOff>
-          ),
-          caption: "Recriação estática em React; os valores são dados públicos reais de João Pessoa",
-        },
-        {
-          title: "Riscos estratégicos",
-          text: "Os riscos não são curados à mão: a plataforma extrai todo indicador em faixa de alerta ou atenção do município selecionado e ordena por severidade: o diagnóstico vira agenda.",
-          caption: "Recriação estática em React; os valores são dados públicos reais de João Pessoa",
-        },
-        {
-          title: "Formulador de projetos",
-          text: "Um redator guiado em dez etapas, da identificação à governança, que transforma diagnóstico em proposta de projeto público, com rascunho salvo por município e exportação em PDF construída apenas com window.print.",
-          caption: "Recriação estática em React; conteúdo do rascunho fictício",
-        },
-        {
-          title: "Uma jornada, quatro pilares",
-          text: "A plataforma se organiza como uma jornada: diagnosticar o ambiente de negócios, mapear recursos (R$ 4,1 bi em emendas parlamentares e editais), capacitar com ~45 cursos curados e, então, escrever o projeto.",
-          secondary:
-            "Cada pilar é um painel plugável atrás de um registry: adicionar um novo modo é um componente e uma entrada em um objeto.",
-        },
-      ],
-    },
-    behind: {
-      eyebrow: "Por trás do produto",
-      text: "O frontend é o décimo visível. Por baixo: 27 geradores de ETL em Python que domaram as manhas de cada fonte (código de município da RFB diferente do IBGE, porte da empresa morando em outra tabela que não a do estabelecimento), emitindo seeds idempotentes no MongoDB, documentados até um dicionário de dados por fonte para a equipe do Sebrae operar sem mim.",
-      quoteAttribution: "Das docstrings do próprio ETL: as manhas de cada fonte documentadas em código",
-      stackLabel: "Stack",
-    },
-    contact: {
+    cta: {
+      label: "Contato",
       heading: "Quer a história completa do OPP?",
-      text: "As manhas do ETL, as regras de honestidade, o mapa feito à mão: fico feliz em detalhar qualquer parte.",
+      invite:
+        "As manhas do ETL, as regras de honestidade, o mapa feito à mão: fico feliz em detalhar qualquer parte.",
+      action: "Fale comigo",
     },
+    next: "Finance",
   },
 };
 
@@ -380,217 +376,89 @@ const COPY: Record<"en" | "pt", Copy> = {
 export function SebraeOppContent() {
   const t = COPY[useLocale()];
 
-  const featureMedia: (ReactNode | undefined)[] = [
-    <OppScreen key="panorama" path="/home · panorama socioeconômico">
+  /* A prova entra dentro da decisão que ela prova, na ordem das decisões.
+     A 02 não tem tela: é uma decisão de modelagem, e inventar uma
+     ilustração para ela seria decoração. */
+  const proofs = [
+    /* O mapa isolado não se sustentava como prova: fora da tela, um SVG
+       de 223 caminhos vira ilustração. A decisão 01 é sobre a
+       visualização obedecer ao design system, e isso só se vê com o mapa
+       no lugar dele, ao lado dos indicadores que ele colore. */
+    <OppScreen key="agendas" path="/home" flat>
+      <AgendasScreen />
+    </OppScreen>,
+    null,
+    <OppScreen key="panorama" path="/home · panorama socioeconômico" flat>
       <PanoramaScreen />
     </OppScreen>,
-    <OppScreen key="riscos" path="/home · riscos estratégicos">
-      <RiscosScreen />
-    </OppScreen>,
-    <OppScreen key="formulador" path="/home · formulador de projetos">
+    <OppScreen key="formulador" path="/home · formulador de projetos" flat>
       <FormuladorScreen />
     </OppScreen>,
-    <div key="jornada" className="rounded-lg overflow-hidden">
-      <Image
-        quality={90}
-        src="/img/sebrae/jornada.png"
-        alt="Jornada do Município Empreendedor: the four-pillar navigation"
-        width={1920}
-        height={1200}
-        className="w-full"
-      />
-    </div>,
   ];
 
-  const features: CaseFeature[] = t.features.items.map((item, i) => ({
-    number: `0${i + 1}`,
-    title: item.title,
-    text: item.text,
-    secondaryText: item.secondary,
-    caption: item.caption,
-    layout: i === 3 ? "split" : undefined,
-    media: featureMedia[i],
-  }));
-
   return (
-    <CaseLayout
-      accent={ACCENT}
-      accentInk={ACCENT_INK}
-      accentTint={ACCENT_TINT}
-      nextProject={{ href: "/work/finance", label: "Finance" }}
-    >
+    <CaseShell nextProject={{ href: "/work/finance", label: t.next }}>
       <CaseHero
-        chips={t.chips}
+        kicker={t.kicker}
         headline={t.headline}
-        subtitle={t.subtitle}
-        roleTags={t.roleTags}
-        links={t.links}
-      >
-        <CaseShowcase
-          label={t.showcase.label}
-          note={t.showcase.note}
-          caption={t.showcase.caption}
-        >
-          <OppScreen path="/home">
+        turn={t.turn}
+        sub={t.sub}
+        /* Não é screenshot: é a recriação em React rodando na laje, com os
+           dados públicos reais de João Pessoa. Nenhuma imagem do produto
+           chega perto disso em nitidez, e o case inteiro argumenta que as
+           telas foram feitas à mão — mostrar o HTML vivo é a prova. */
+        media={
+          <div className={`${oppFontVars} opp-app text-white antialiased`} style={FONT.body}>
             <AgendasScreen />
-          </OppScreen>
-        </CaseShowcase>
-      </CaseHero>
-
-      <CaseResults
-        items={t.results.items}
-        statement={t.results.statement}
-        footnote={t.results.footnote}
-      />
-
-      <CaseStory
-        eyebrow={t.story.eyebrow}
-        headline={t.story.headline}
-        text={t.story.text}
-        image={{
-          src: "/img/sebrae/challenge.png",
-          alt: t.story.imageAlt,
-          width: 2420,
-          height: 1460,
-        }}
-        imageCaption={t.story.imageCaption}
-        personas={t.story.personas}
-        cards={t.story.cards}
-      />
-
-      <CaseDesignLanguage
-        intro={t.design.intro}
-        fontFamily="var(--font-monoblock), monospace"
-        typefaceName="Monoblock"
-        weights={[{ label: "Bold", weight: 700 }]}
-        description={t.design.description}
-        charsetCaption={t.design.charsetCaption}
-        palette={[
-          {
-            ...t.design.paletteMeta[0],
-            hex: "#D4FE07",
-            rgb: "(212, 254, 7)",
-            bg: "#D4FE07",
-            fg: "#161726",
-          },
-          {
-            ...t.design.paletteMeta[1],
-            hex: "#161726",
-            rgb: "(22, 23, 38)",
-            bg: "#161726",
-            fg: "#FFFFFF",
-          },
-          {
-            ...t.design.paletteMeta[2],
-            hex: "#1A1C31",
-            rgb: "(26, 28, 49)",
-            bg: "#1A1C31",
-            fg: "#FFFFFF",
-          },
-        ]}
-        extra={
-          <div className="mt-10">
-            <span
-              className="font-mono uppercase tracking-widest block mb-2"
-              style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
-            >
-              {t.design.glassLabel}
-            </span>
-            <p
-              className="text-foreground leading-relaxed mb-4"
-              style={{ fontSize: "clamp(13px, 1.2vw, 15px)", opacity: 0.65, maxWidth: "620px" }}
-            >
-              {t.design.glassText}
-            </p>
-            <GlassExhibit />
           </div>
         }
-        statusPills={{
-          label: t.design.statusLabel,
-          pills: [
-            { label: t.design.statusPills[0], cls: "bg-[#161726] text-[#40E629] border-[#40E629]/50" },
-            { label: t.design.statusPills[1], cls: "bg-[#161726] text-[#F5E421] border-[#F5E421]/50" },
-            { label: t.design.statusPills[2], cls: "bg-[#161726] text-[#F14635] border-[#F14635]/50" },
-            { label: t.design.statusPills[3], cls: "bg-[#161726] text-white/50 border-white/25" },
-          ],
-        }}
+        mediaTag={t.shotAlt}
+        role={t.role}
+      >
+        <CaseIndex label={t.indexLabel} items={t.decisions} />
+      </CaseHero>
+
+      <CaseConstraints rows={t.constraints} />
+
+      <CaseSection heading={t.decisionsHeading} note={t.decisionsNote}>
+        <CaseDecisions railLabel={t.railLabel} items={t.decisions}>
+          {t.decisions.map((d, i) => (
+            <CaseDecision
+              key={d.id}
+              id={d.id}
+              number={String(i + 1).padStart(2, "0")}
+              tension={d.tension}
+              design={d.design}
+              code={d.code}
+              cost={d.cost}
+              costLabel={t.costLabel}
+            >
+              {d.proofCaption && proofs[i] ? (
+                <CaseProof caption={d.proofCaption}>{proofs[i]}</CaseProof>
+              ) : null}
+            </CaseDecision>
+          ))}
+        </CaseDecisions>
+
+        <CaseFrontier label={t.frontier.label} text={t.frontier.text} />
+      </CaseSection>
+
+      <CaseOutcome
+        id="result"
+        heading={t.outcome.heading}
+        measures={t.outcome.measures}
+        gaps={t.outcome.gaps}
       />
 
-      <CaseFeatures eyebrow={t.features.eyebrow} intro={t.features.intro} features={features} />
+      <CaseEvidence id="evidence" heading={t.evidence.heading} items={t.evidence.items} />
 
-      {/* --------------------------- behind the product --------------------------- */}
-      <section
-        className="animate-section w-full"
-        style={{ padding: `${PAD_SECTION} ${PAD_X}`, opacity: 0 }}
-      >
-        <SectionEyebrow label={t.behind.eyebrow} />
-        <p
-          className="text-foreground leading-relaxed mb-10"
-          style={{ fontSize: "clamp(15px, 1.4vw, 18px)", opacity: 0.7, maxWidth: "740px" }}
-        >
-          {t.behind.text}
-        </p>
-
-        <div
-          className="rounded-lg p-8 font-mono"
-          style={{ backgroundColor: "#161726", maxWidth: "860px" }}
-        >
-          <p style={{ fontSize: "clamp(12px, 1.1vw, 14px)", color: "#D4FE07", opacity: 0.9 }}>
-            # gerar_seed_negocios_rfb_lake.py
-          </p>
-          <p
-            className="mt-3 leading-relaxed"
-            style={{ fontSize: "clamp(12px, 1.1vw, 14px)", color: "#fffff9", opacity: 0.75 }}
-          >
-            “MUNICÍPIO é o CÓDIGO DA RFB, NÃO o IBGE (≠ RAIS!). [...] SEM
-            threshold (semáforo): contagem bruta, sem faixa oficial
-            bom/atenção/alerta: <span style={{ color: "#D4FE07" }}>não inventamos cortes</span>.”
-          </p>
-          <p
-            className="mt-4"
-            style={{ fontSize: "clamp(10px, 1vw, 12px)", color: "#fffff9", opacity: 0.4 }}
-          >
-            {t.behind.quoteAttribution}
-          </p>
-        </div>
-
-        <div className="mt-12">
-          <span
-            className="font-mono uppercase tracking-widest block mb-4"
-            style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
-          >
-            {t.behind.stackLabel}
-          </span>
-          <div className="flex flex-wrap gap-2">
-            {[
-              "React 19",
-              "TypeScript",
-              "Vite",
-              "Tailwind CSS",
-              "Fastify",
-              "MongoDB",
-              "Python",
-              "BigQuery",
-              "Nginx",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 rounded-sm font-mono"
-                style={{
-                  fontSize: "clamp(11px, 1vw, 13px)",
-                  border: `1px solid color-mix(in srgb, ${ACCENT} 30%, transparent)`,
-                  color: ACCENT_INK,
-                  backgroundColor: "rgba(255, 255, 249, 0.5)",
-                }}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CaseContact heading={t.contact.heading} text={t.contact.text} email="kenjimattos@gmail.com" />
-    </CaseLayout>
+      <CaseCTA
+        label={t.cta.label}
+        heading={t.cta.heading}
+        invite={t.cta.invite}
+        action={t.cta.action}
+        email="kenjimattos@gmail.com"
+      />
+    </CaseShell>
   );
 }

@@ -13,17 +13,25 @@ const SCREEN_WIDTH = 1280;
 export function OppScreen({
   path,
   designWidth = SCREEN_WIDTH,
+  flat = false,
   children,
 }: {
   path: string;
   designWidth?: number;
+  /* No case editorial a tela entra sem palco e sem sombra: o sistema é de
+     filete e canto vivo, e uma janela flutuando seria moldura dentro de
+     moldura. Os cases antigos continuam no tratamento macio. */
+  flat?: boolean;
   children: ReactNode;
 }) {
   return (
     <div
       className={cx(
         oppFontVars,
-        "opp-app overflow-hidden rounded-xl border border-white/10 shadow-[0_24px_60px_-24px_rgba(22,23,38,0.55)]"
+        "opp-app overflow-hidden",
+        flat
+          ? "border border-[var(--ink)]"
+          : "rounded-xl border border-white/10 shadow-[0_24px_60px_-24px_rgba(22,23,38,0.55)]"
       )}
     >
       <ScaleBox designWidth={designWidth}>

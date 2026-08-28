@@ -29,9 +29,11 @@ import {
   useRef,
   type ReactNode,
 } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { basePathname } from "@/lib/i18n";
 import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -52,6 +54,48 @@ const SmoothScrollContext = createContext<
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+
+  /* Página nova começa no topo.
+     O Next zera a rolagem a cada navegação, mas o Lenis mantém a posição
+     dele por baixo: como é ele quem manda no scroll, no quadro seguinte
+     ele "corrige" a página de volta para onde a home estava, e o case
+     abre no meio. Quem precisa ser zerado é o Lenis, não a janela.
+
+     A chave é o caminho SEM o prefixo de idioma: trocar EN/PT é a mesma
+     página, e jogar o leitor para o topo ao trocar de idioma no meio de
+     um case seria perder o lugar da leitura. A primeira execução não faz
+     nada — aí a posição é do navegador (recarregar, voltar no histórico)
+     e ela deve ser respeitada. */
+  const pathname = usePathname();
+  const route = basePathname(pathname);
+  const lastRoute = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (lastRoute.current === null) {
+      lastRoute.current = route;
+      return;
+    }
+    if (lastRoute.current === route) return;
+    lastRoute.current = route;
+
+    const toTop = () => {
+      const lenis = lenisRef.current;
+      if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+      else window.scrollTo(0, 0);
+    };
+
+    toTop();
+
+    /* E de novo depois do refresh, no quadro seguinte. Os gatilhos da
+       página nova nasceram medindo a rolagem antiga — um pin de hero
+       nasceria concluído —, mas o próprio refresh do ScrollTrigger
+       mexe na posição para recalcular os pinos. Zerar antes e depois é
+       o que garante que a última palavra seja o topo. */
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      toTop();
+    });
+  }, [route]);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;

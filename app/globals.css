@@ -856,6 +856,775 @@
     }
   }
 
+  /* ── Case: o editorial de problema ────────────────────────────────────
+     A página de case é uma peça de leitura curta (orçamento de 90s), não
+     um tour de produto. Por isso quase tudo aqui é régua e medida: filete
+     de 1px separando bloco de bloco, uma coluna de texto que nunca passa
+     de 64ch, e só dois campos cheios na página inteira — a tinta do custo
+     e o vermelho do convite. A prova (screenshot, recriação) entra sem
+     moldura: já é uma tela dentro de uma tela, e emoldurar de novo faz o
+     mesmo erro que a lista de projetos fazia com o fundo cinza.
+     ------------------------------------------------------------------- */
+  .case-kicker {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s3);
+    padding-block: var(--s8) var(--s3);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  /* ── O palco do hero: um plano dividido ───────────────────────────────
+     Não é manchete de um lado e imagem do outro — isso é o layout que
+     todo portfólio faz. Aqui a página tem uma fronteira vertical, a
+     `--split`, e ela governa três coisas de uma vez: onde o campo escuro
+     começa, onde a manchete troca de tinta por papel, e onde o produto
+     aparece. A manchete atravessa essa fronteira: a mesma linha de texto
+     é preta sobre o papel e branca sobre o escuro, cortada no meio da
+     palavra. Como tudo lê a mesma variável, nada pode sair de registro.
+
+     Enquanto a página está presa, a fronteira caminha da borda direita
+     para dentro: o campo escuro invade a página e a manchete vai mudando
+     de cor por baixo. --split começa em 100vw no CSS de propósito — se o
+     JS não rodar, o hero é papel e tinta, inteiro e legível. */
+  .case-hero-stage {
+    --split: 100vw;
+    /* Onde a fronteira para. Fica no CSS porque quem anima precisa ler
+       daqui: com o valor duplicado no JS, mudar a composição exigia
+       lembrar de dois lugares. */
+    --split-end: 44vw;
+    position: relative;
+    width: 100vw;
+    height: clamp(520px, 64vh, 680px);
+    overflow: hidden;
+  }
+
+  /* O campo escuro começa no filete do kicker, não no topo da página: a
+     linha de metadado é do papel inteiro, e escurecer metade dela partia
+     o cabeçalho no meio. */
+  .case-hero-dark {
+    position: absolute;
+    top: var(--media-top, 108px);
+    bottom: 0;
+    left: var(--split);
+    right: 0;
+    background: #161726;
+  }
+
+  .case-hero-type {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* As duas camadas da manchete ocupam o mesmo lugar e têm a mesma
+     quebra: só a cor e o recorte mudam. */
+  /* A manchete é escrita pela rolagem, como a virada: o mesmo corte
+     horizontal, num tempo antes. O recorte fica na pilha e não em cada
+     camada porque a camada de cima já usa o clip dela para a fronteira —
+     dois clip-path não somam no mesmo elemento. */
+  .case-headline-stack {
+    position: relative;
+    margin-top: var(--s6);
+    clip-path: inset(0 var(--head-clip, 0%) 0 0);
+  }
+
+  .case-headline-over {
+    position: absolute;
+    inset: 0;
+    color: var(--paper);
+    /* A fronteira chega aqui em coordenada local: a `--split` é medida a
+       partir da borda da viewport, e este bloco começa depois da margem
+       da página (mais a metade do que sobra quando a janela passa da
+       medida máxima). */
+    clip-path: inset(
+      0 0 0
+        calc(var(--split) - (var(--margin) + max(0px, (100vw - var(--maxw)) / 2)))
+    );
+  }
+
+  /* A laje. O produto rodando de verdade, na densidade real, sangrando
+     pela borda direita da página e cortado por ela — não uma miniatura
+     emoldurada no meio do papel. É o único elemento do site que rompe a
+     margem, e rompe porque o argumento é esse: o sistema não cabe na
+     página, você está olhando um pedaço dele.
+
+     A sangria é medida a partir do próprio .wrap: da borda do conteúdo até
+     a borda da viewport há a margem, mais a metade do que sobra quando a
+     janela passa da medida máxima. */
+  /* A tela mora no campo escuro e a manchete passa POR CIMA dela: é isso
+     que faz o hero ser uma peça só em vez de texto ao lado de imagem. O
+     topo dela encosta no filete do kicker — a medida vem do cliente,
+     porque o kicker muda de altura com o idioma e com a quebra.
+
+     O véu é horizontal e nasce na fronteira, que é por onde as letras
+     entram: ele apaga o produto na faixa que o texto atravessa e some
+     antes da metade, onde o produto precisa ser lido. */
+  .case-hero-media {
+    position: absolute;
+    left: var(--split-end);
+    right: 0;
+    top: var(--media-top, 108px);
+    bottom: 0;
+    z-index: 1;
+    overflow: hidden;
+    /* A tela fica parada no lugar dela. Quem se move é a fronteira, e o
+       que ela faz é descobrir a tela — se o `left` fosse a própria
+       fronteira, a tela viajaria junto e o produto entraria deslizando. */
+    clip-path: inset(0 0 0 calc(var(--split) - var(--split-end)));
+    --slab-scale: 0.7;
+  }
+
+  .case-hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(22, 23, 38, 0.95) 0%,
+      rgba(22, 23, 38, 0.9) 26%,
+      rgba(22, 23, 38, 0.3) 54%,
+      rgba(22, 23, 38, 0) 70%
+    );
+  }
+
+  .case-hero-media-inner {
+    transform: scale(var(--slab-scale));
+    transform-origin: top left;
+    will-change: transform;
+  }
+
+  /* A etiqueta vive dentro da laje, sobre o campo escuro: dizer que é uma
+     recriação em React é obrigatório, e ela não pode custar altura num
+     bloco que precisa caber na viewport para poder prender a página. */
+  .case-hero-media-tag {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
+    padding: 8px 14px;
+    /* Fundo próprio: a etiqueta cai sobre a interface, e sobre cartões
+       claros ela sumiria. */
+    background: rgba(10, 3, 3, 0.82);
+    color: var(--paper-55);
+    font-size: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    .case-hero-media {
+      --slab-scale: 0.56;
+    }
+  }
+
+  /* No telefone não há fronteira: o campo escuro não cabe ao lado de
+     nada. O palco volta a ser papel com a manchete, e a tela entra
+     inteira embaixo, sangrando nas duas bordas. */
+  @media (max-width: 900px) {
+    /* A tela vem antes da manchete no HTML porque no desktop ela é um
+       plano posicionado por trás do texto. Empilhada, essa ordem se
+       inverte, então a coluna reordena em vez de mexer no markup. */
+    .case-hero-stage {
+      height: auto;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-hero-type {
+      order: 1;
+    }
+
+    .case-hero-media {
+      order: 2;
+    }
+
+    /* Sem manchete atravessando, o véu não tem função — e escurecer o
+       painel de indicadores por nada seria perder a prova. */
+    .case-hero-media::after {
+      display: none;
+    }
+
+    .case-hero-dark,
+    .case-headline-over {
+      display: none;
+    }
+
+    .case-hero-type .case-kicker::after {
+      width: 100%;
+    }
+
+    .case-hero-media {
+      position: relative;
+      clip-path: none;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+      margin-top: var(--s6);
+      height: 300px;
+      background: #161726;
+      border-block: 1px solid var(--ink);
+      --slab-scale: 0.42;
+    }
+  }
+
+  /* A medida é larga de propósito: as linhas precisam alcançar a
+     fronteira para atravessá-la. Com 18ch elas paravam antes e o efeito
+     todo não acontecia. */
+  .case-headline {
+    font-size: clamp(30px, 5vw, 74px);
+    font-weight: 900;
+    text-transform: none;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    max-width: 74vw;
+    font-variation-settings: "wdth" 108;
+  }
+
+  @media (max-width: 900px) {
+    .case-headline {
+      max-width: 18ch;
+    }
+  }
+
+  /* A virada. O problema está em tinta; a resolução chega depois, em
+     vermelho, revelada pela rolagem — é a mesma gramática do masthead da
+     home. O clip começa em 0 no CSS de propósito: se o JS não rodar, ou
+     se a pessoa pediu menos movimento, a frase está lá, inteira. */
+  .case-turn {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    color: var(--red);
+    clip-path: inset(0 var(--turn-clip, 0%) 0 0);
+  }
+
+  .case-sub {
+    display: block;
+    margin-top: var(--s2);
+    font-size: clamp(18px, 2.1vw, 28px);
+    font-weight: 500;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+    color: var(--ink-55);
+    max-width: 30ch;
+  }
+
+  /* O papel: qual foi a minha participação, em prosa, logo abaixo da
+     manchete. A segunda linha é onde o case cede o que não é dele —
+     ceder cedo é o que dá crédito ao resto. */
+  .case-role {
+    margin-top: var(--s8);
+    border-top: 3px solid var(--violet);
+    padding-top: var(--s3);
+    max-width: 64ch;
+  }
+
+  .case-role p {
+    margin-top: 10px;
+  }
+
+  .case-role strong {
+    font-weight: 700;
+  }
+
+  .case-index {
+    margin-top: var(--s8);
+    border-top: 1px solid var(--ink);
+  }
+
+  .case-index a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s3);
+    padding-block: 14px;
+    border-bottom: 1px solid var(--ink-12);
+    transition:
+      color var(--t-state),
+      padding var(--t-state);
+  }
+
+  .case-index a:hover {
+    color: var(--violet);
+    padding-left: 8px;
+  }
+
+  .case-index .t {
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .vs {
+    color: var(--red);
+  }
+
+  /* Constraints: três linhas, uma cada. */
+  .case-constraints {
+    border-top: 1px solid var(--ink);
+    margin-top: var(--s12);
+  }
+
+  .case-constraints .row {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    gap: var(--gutter);
+    padding-block: var(--s3);
+    border-bottom: 1px solid var(--ink-12);
+  }
+
+  .case-constraints .row p {
+    max-width: 64ch;
+  }
+
+  @media (max-width: 768px) {
+    .case-constraints .row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+
+  /* ── As decisões, com a trilha de leitura ─────────────────────────────
+     A trilha existe por causa do orçamento de leitura: com quatro
+     decisões o visitante precisa saber, a qualquer momento, quantas
+     faltam. Ela é sticky dentro da própria grade em vez de fixa na
+     viewport — assim nunca cruza o texto e some sozinha quando o bloco
+     das decisões acaba. */
+  .case-decisions {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: var(--gutter);
+  }
+
+  .case-rail {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+  }
+
+  .case-rail ol {
+    list-style: none;
+    border-top: 1px solid var(--ink);
+  }
+
+  .case-rail a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 10px;
+    color: var(--ink-35);
+    transition: color var(--t-state);
+  }
+
+  .case-rail a:hover {
+    color: var(--ink);
+  }
+
+  .case-rail a[data-active] {
+    color: var(--red);
+  }
+
+  .case-rail .tick {
+    display: block;
+    height: 1px;
+    width: 10px;
+    background: currentColor;
+    transition: width var(--t-row);
+  }
+
+  .case-rail a[data-active] .tick {
+    width: 28px;
+  }
+
+  @media (max-width: 1023px) {
+    .case-decisions {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .case-rail {
+      display: none;
+    }
+  }
+
+  .case-decision {
+    border-top: 1px solid var(--ink);
+    padding-top: var(--s4);
+    margin-top: var(--s8);
+    scroll-margin-top: 76px;
+  }
+
+  .case-decision:first-child {
+    margin-top: 0;
+  }
+
+  /* O número fica na goteira e o título ocupa o resto, mesmo quando quebra
+     em duas linhas: com flex-wrap o título longo empurrava o número para
+     uma linha só dele, e aí a 04 não alinhava com as outras três. */
+  .case-dec-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s3);
+  }
+
+  .case-dec-t {
+    min-width: 0;
+  }
+
+  .case-dec-n {
+    font-size: clamp(22px, 2.2vw, 34px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variation-settings: "wdth" 112;
+    color: var(--grey);
+  }
+
+  .case-dec-t {
+    font-size: clamp(23px, 3vw, 44px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    font-variation-settings: "wdth" 110;
+  }
+
+  /* Os dois painéis são a tese do portfólio renderizada: a mesma pessoa
+     decidiu os dois lados do mesmo problema. A costura entre eles é a
+     única linha da página que se desenha na rolagem — ela É a divisão. */
+  .case-panels {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: var(--s4);
+    border-top: 1px solid var(--ink-12);
+  }
+
+  .case-panel {
+    padding: var(--s3) 0;
+  }
+
+  .case-panel:first-child {
+    padding-right: var(--s4);
+  }
+
+  .case-panel + .case-panel {
+    padding-left: var(--s4);
+  }
+
+  .case-seam {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: var(--ink-12);
+    transform-origin: top;
+    pointer-events: none;
+  }
+
+  .case-panel .chose {
+    margin-top: 10px;
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .case-panel .why {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--ink-55);
+  }
+
+  /* Verbo honesto: onde a implementação foi escrita com IA, o selo diz.
+     Declarar é mais forte do que ser pego. */
+  .case-assisted {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: var(--font-martian), ui-monospace, monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--violet);
+    border: 1px solid var(--violet);
+    padding: 2px 5px;
+  }
+
+  @media (max-width: 768px) {
+    .case-panels {
+      grid-template-columns: 1fr;
+    }
+
+    .case-panel:first-child {
+      padding-right: 0;
+    }
+
+    .case-panel + .case-panel {
+      border-top: 1px solid var(--ink-12);
+      padding-left: 0;
+    }
+
+    .case-seam {
+      display: none;
+    }
+  }
+
+  /* A prova mora dentro da decisão que ela prova, e sem palco: a tela já
+     tem fundo próprio, então um segundo fundo atrás dela seria moldura
+     dentro de moldura — o mesmo erro que a lista de projetos cometia. */
+  .case-proof {
+    margin-top: var(--s4);
+  }
+
+  .case-proof figcaption {
+    margin-top: 12px;
+    max-width: 64ch;
+  }
+
+  .case-proof-live {
+    aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border: 1px dashed var(--ink-35);
+  }
+
+  .case-cost {
+    background: var(--ink-alt);
+    color: var(--paper);
+    border-top: 3px solid var(--red);
+    padding: var(--s3) var(--s4);
+    margin-top: var(--s4);
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
+    gap: var(--gutter);
+    align-items: baseline;
+  }
+
+  .case-cost p {
+    font-size: clamp(17px, 1.7vw, 22px);
+    line-height: 1.3;
+    font-weight: 500;
+    max-width: 52ch;
+  }
+
+  @media (max-width: 768px) {
+    .case-cost {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: var(--s3);
+    }
+  }
+
+  .case-frontier {
+    margin-top: var(--s6);
+    border-top: 3px solid var(--violet);
+    padding-top: var(--s3);
+    max-width: 64ch;
+    line-height: 1.5;
+  }
+
+  .case-frontier strong {
+    font-weight: 700;
+  }
+
+  /* Resultado. */
+  .case-measures {
+    border-top: 1px solid var(--ink);
+  }
+
+  .case-measure {
+    grid-column: span 3;
+    padding-block: var(--s3) var(--s4);
+    border-bottom: 1px solid var(--ink-12);
+  }
+
+  .case-measure .n {
+    font-size: clamp(38px, 4.6vw, 68px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    font-variation-settings: "wdth" 112;
+  }
+
+  .case-measure .t {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--ink-55);
+  }
+
+  @media (max-width: 768px) {
+    .case-measure {
+      grid-column: span 2;
+    }
+  }
+
+  /* O que não foi medido fica no mesmo peso do que foi. */
+  .case-gaps {
+    margin-top: var(--s6);
+    border-top: 3px solid var(--red);
+    padding-top: var(--s3);
+  }
+
+  .case-gaps ul {
+    list-style: none;
+    margin-top: var(--s2);
+  }
+
+  .case-gaps li {
+    padding-block: 11px;
+    border-bottom: 1px solid var(--ink-12);
+    font-size: 16px;
+    line-height: 1.4;
+    max-width: 76ch;
+  }
+
+  .case-evidence {
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid var(--ink);
+  }
+
+  .case-evidence a,
+  .case-evidence .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s3);
+    padding-block: 15px;
+    border-bottom: 1px solid var(--ink-12);
+    font-size: 18px;
+    font-weight: 700;
+    transition:
+      color var(--t-state),
+      padding var(--t-state);
+  }
+
+  .case-evidence a:hover {
+    color: var(--violet);
+    padding-left: 10px;
+  }
+
+  /* O convite: o único lugar do case onde se pede alguma coisa, e por isso
+     o único campo vermelho da página. */
+  .case-cta {
+    background: var(--red);
+    color: var(--paper);
+    margin-top: var(--s12);
+    padding-block: var(--s12);
+  }
+
+  .case-cta h2 {
+    color: var(--paper);
+    max-width: 15ch;
+    font-size: clamp(34px, 5.4vw, 74px);
+  }
+
+  .case-cta .invite {
+    margin-top: var(--s3);
+    max-width: 30ch;
+    font-size: clamp(19px, 2vw, 26px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .case-cta-actions {
+    margin-top: var(--s6);
+    display: flex;
+    gap: var(--s2);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-fill {
+    background: var(--paper);
+    color: var(--ink);
+    border: 0;
+    font-size: 19px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    padding: 16px 24px;
+    display: inline-flex;
+    gap: 14px;
+    align-items: center;
+    transition:
+      background var(--t-state),
+      color var(--t-state);
+  }
+
+  .btn-fill:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-ghost {
+    border: 2px solid var(--paper);
+    color: var(--paper);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    padding: 14px 22px;
+    display: inline-flex;
+    gap: 14px;
+    align-items: center;
+    transition:
+      background var(--t-state),
+      color var(--t-state);
+  }
+
+  .btn-ghost:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* Próximo case: a inversão longa, a mesma da lista de projetos. */
+  .case-next {
+    display: block;
+    border-top: 1px solid var(--ink);
+    padding-block: var(--s6);
+    transition:
+      background var(--t-row),
+      color var(--t-row);
+  }
+
+  .case-next:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .case-next .t {
+    font-size: clamp(30px, 4.4vw, 64px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    font-variation-settings: "wdth" 112;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s3);
+  }
+
+  .case-next .arrow {
+    transition:
+      transform var(--t-row),
+      color var(--t-row);
+  }
+
+  .case-next:hover .arrow {
+    transform: translateX(14px);
+    color: var(--red);
+  }
+
+  .case-next:hover .dimmer {
+    color: var(--paper-35);
+  }
+
   .skip-link {
     position: absolute;
     top: 12px;
