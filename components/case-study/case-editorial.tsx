@@ -30,6 +30,7 @@ import { localeHref, useLocale } from "@/lib/i18n";
 import { LangToggle } from "@/components/lang-toggle";
 import { Footer } from "@/components/footer";
 import { siteConfig } from "@/config/site";
+import { Marked } from "@/components/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -560,7 +561,9 @@ export function CaseOutcome({
 }: {
   id?: string;
   heading: string;
-  measures: { value: string; label: string }[];
+  /* `mark` circula UMA medida à mão. É a mesma caneta da home, e a
+     regra é a mesma: marca-se o número de que o leitor duvidaria. */
+  measures: { value: string; label: string; mark?: boolean }[];
   gaps: { label: string; items: string[] };
 }) {
   return (
@@ -568,7 +571,9 @@ export function CaseOutcome({
       <div className="ed-grid case-measures case-reveal" style={{ marginTop: "var(--s6)" }}>
         {measures.map((m) => (
           <div className="case-measure" key={m.label}>
-            <div className="n">{m.value}</div>
+            <div className="n">
+              {m.mark ? <Marked kind="loop">{m.value}</Marked> : m.value}
+            </div>
             <div className="t">{m.label}</div>
           </div>
         ))}

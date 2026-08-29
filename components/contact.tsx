@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n";
+import { Marked } from "@/components/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -159,6 +160,8 @@ export const Contact = () => {
         >
           <div className="contact-left">
             <p className="contact-pitch">{t.pitch}</p>
+            {/* A caneta circula o e-mail, e só ele: é o único item da
+                lista que é um convite, e não uma referência. */}
             <div className="contact-social">
               {socialLinks.map((link) => (
                 <a
@@ -167,7 +170,11 @@ export const Contact = () => {
                   target={link.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                 >
-                  {link.name}
+                  {link.href.startsWith("mailto:") ? (
+                    <Marked kind="loop">{link.name}</Marked>
+                  ) : (
+                    link.name
+                  )}
                   <span className="meta" aria-hidden="true">
                     ↗
                   </span>

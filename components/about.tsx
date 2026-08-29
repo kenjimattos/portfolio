@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n";
+import { Marked } from "@/components/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -15,8 +16,15 @@ const COPY = {
     heading: "About",
     note: ["São Bernardo do Campo", "São Paulo, Brazil"],
     photoAlt: "Portrait of Kenji Mattos",
+    /* A abertura é partida em três porque é ela que a caneta marca: o
+       laço cai na afirmação que o resto da seção precisa sustentar. */
+    lead: {
+      before: "I build",
+      marked: "whole products",
+      after:
+        ". On my latest projects I owned everything: from the first Figma prototype to the React frontend, the PostgreSQL schema behind it, and the CI/CD pipeline that puts it in production.",
+    },
     bio: [
-      "I build whole products. On my latest projects I owned everything: from the first Figma prototype to the React frontend, the PostgreSQL schema behind it, and the CI/CD pipeline that puts it in production.",
       "Most of my work lives in complex operational and financial domains: scheduling, attendance, payments, and multi-tenant access control. The hard part isn't the interface; it's encoding messy business rules into systems that stay reliable when real money and real people depend on them.",
       "I've also coordinated a small engineering team, setting code standards, review practices, and workflows as the system grew.",
     ],
@@ -25,8 +33,13 @@ const COPY = {
     heading: "Sobre",
     note: ["São Bernardo do Campo", "São Paulo, Brasil"],
     photoAlt: "Retrato de Kenji Mattos",
+    lead: {
+      before: "Eu construo",
+      marked: "produtos inteiros",
+      after:
+        ". Nos meus últimos projetos, fui responsável por tudo: do primeiro protótipo no Figma ao frontend em React, o schema PostgreSQL por trás e o pipeline de CI/CD que coloca tudo em produção.",
+    },
     bio: [
-      "Eu construo produtos inteiros. Nos meus últimos projetos, fui responsável por tudo: do primeiro protótipo no Figma ao frontend em React, o schema PostgreSQL por trás e o pipeline de CI/CD que coloca tudo em produção.",
       "A maior parte do meu trabalho vive em domínios operacionais e financeiros complexos: escalas, presença, pagamentos e controle de acesso multi-tenant. A parte difícil não é a interface; é codificar regras de negócio bagunçadas em sistemas que continuam confiáveis quando dinheiro e pessoas de verdade dependem deles.",
       "Também coordenei um pequeno time de engenharia, definindo padrões de código, práticas de review e fluxos de trabalho conforme o sistema crescia.",
     ],
@@ -172,8 +185,12 @@ export const About = () => {
             />
           </div>
           <div className="about-text">
-            {t.bio.map((paragraph, i) => (
-              <p key={i} className={i === 0 ? undefined : "dim"}>
+            <p>
+              {t.lead.before} <Marked kind="loop">{t.lead.marked}</Marked>
+              {t.lead.after}
+            </p>
+            {t.bio.map((paragraph) => (
+              <p key={paragraph} className="dim">
                 {paragraph}
               </p>
             ))}

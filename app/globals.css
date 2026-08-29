@@ -1694,13 +1694,6 @@
     color: var(--note-fg);
   }
 
-  .mnote-arrow {
-    width: 13px;
-    height: 25px;
-    flex: none;
-    overflow: visible;
-  }
-
   .mnote-line {
     font-size: clamp(19px, 1.7vw, 24px);
     font-weight: 600;
@@ -1708,24 +1701,49 @@
     letter-spacing: -0.015em;
   }
 
-  /* O laço vaza da palavra nos quatro lados, e non-scaling-stroke segura
-     a espessura da caneta constante mesmo com o viewBox esticado para a
-     medida do texto — sem isso "em produção" e "in production" sairiam
-     com canetas de grossuras diferentes. */
-  .mnote-circled {
+  /* ── A caneta ─────────────────────────────────────────────────────────
+     A geometria dos traços de revisão, compartilhada por todas as
+     páginas. Só o enquadramento mora aqui: cor, espessura e o desenho em
+     si estão no componente, porque são a mão, e a mão é uma só.
+     ------------------------------------------------------------------- */
+  .marked {
     position: relative;
     display: inline-block;
     white-space: nowrap;
   }
 
-  .mnote-loop {
+  .pen-mark {
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  /* Dentro de um trecho marcado o traço vira camada por cima da palavra;
+     solto (a seta), ele é um elemento normal da linha. */
+  .marked .pen-mark {
     position: absolute;
+  }
+
+  /* O laço vaza da palavra nos quatro lados — esbarrar na linha vizinha é
+     o que faz ele parecer feito por cima do texto já impresso, e não
+     reservado no layout. */
+  .marked .pen-mark[data-kind="loop"] {
     left: -12%;
     width: 124%;
     top: -58%;
     height: 214%;
-    overflow: visible;
-    pointer-events: none;
+  }
+
+  .marked .pen-mark[data-kind="underline"] {
+    left: -3%;
+    width: 106%;
+    top: 78%;
+    height: 46%;
+  }
+
+  .pen-mark[data-kind="arrow"] {
+    width: 13px;
+    height: 25px;
+    flex: none;
   }
 
   @media (max-width: 640px) {

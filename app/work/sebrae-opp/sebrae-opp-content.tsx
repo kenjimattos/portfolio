@@ -67,7 +67,7 @@ type Copy = {
   frontier: { label: string; text: string };
   outcome: {
     heading: string;
-    measures: { value: string; label: string }[];
+    measures: { value: string; label: string; mark?: boolean }[];
     gaps: { label: string; items: string[] };
   };
   evidence: { heading: string; items: EvidenceItem[] };
@@ -181,7 +181,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         { value: "223", label: "municipalities, all of Paraíba" },
         { value: "22", label: "indicators unified" },
         { value: "13", label: "data sources reconciled" },
-        { value: "0", label: "chart or map libraries at runtime" },
+        { value: "0", label: "chart or map libraries at runtime", mark: true },
       ],
       gaps: {
         label: "What wasn't measured, and what's missing",
@@ -328,7 +328,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         { value: "223", label: "municípios, a Paraíba inteira" },
         { value: "22", label: "indicadores unificados" },
         { value: "13", label: "fontes de dados reconciliadas" },
-        { value: "0", label: "bibliotecas de gráfico ou mapa em runtime" },
+        { value: "0", label: "bibliotecas de gráfico ou mapa em runtime", mark: true },
       ],
       gaps: {
         label: "O que não foi medido, e o que falta",
