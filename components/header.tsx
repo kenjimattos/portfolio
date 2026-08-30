@@ -96,7 +96,7 @@ export const Header = () => {
         <div className="wrap flex items-center justify-between" style={{ height: 56 }}>
           <Link
             href={home}
-            className="transition-colors hover:text-[var(--red)]"
+            className="transition-colors hover:text-red"
             style={{
               fontWeight: 900,
               fontSize: 20,
