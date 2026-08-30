@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n";
-import { Marked } from "@/components/marks";
+import { Marked } from "@/components/ui/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 

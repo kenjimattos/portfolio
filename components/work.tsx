@@ -9,7 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { localeHref, useLocale } from "@/lib/i18n";
-import { PenMark } from "@/components/marks";
+import { PenMark } from "@/components/ui/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 

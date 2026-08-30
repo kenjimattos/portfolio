@@ -1,5 +1,5 @@
 import { Hero } from "@/components/hero";
-import { MastheadNote } from "@/components/home/masthead-note";
+import { MastheadNote } from "@/components/ui/main-note";
 import { About } from "@/components/about";
 import { Work } from "@/components/work";
 import { TechStack } from "@/components/tech-stack";

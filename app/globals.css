@@ -1739,7 +1739,29 @@
     --pen: var(--red);
 
     border: 1px solid var(--ink);
-    box-shadow: 10px 12px 0 var(--ink);
+    box-shadow: 10px 12px 0 var(--note-shadow, var(--ink));
+  }
+
+  /* No case o recorte pousa em cima da laje escura do produto, e ali uma
+     sombra de tinta simplesmente não existe. A vermelha lê nos dois
+     campos — e a fronteira `--split` do herói passa por baixo dela
+     durante a animação, então ela precisa mesmo funcionar dos dois
+     lados. */
+  .mnote[data-place="case"] {
+    left: auto;
+    right: var(--margin);
+    top: 60%;
+    translate: 0 -50%;
+    width: min(360px, 42vw);
+  }
+
+  .mnote[data-place="case"] .mnote-card {
+    --note-shadow: var(--red);
+    text-align: left;
+  }
+
+  .mnote[data-place="case"] .mnote-cue {
+    justify-content: flex-start;
   }
 
   .mnote-cue {
@@ -1816,8 +1838,21 @@
     flex: none;
   }
 
+  @media (max-width: 900px) {
+    /* Empilhado não há laje à direita para apontar: o recorte do case
+       volta para o centro, como o da home. */
+    .mnote[data-place="case"] {
+      left: 50%;
+      right: auto;
+      top: 50%;
+      translate: -50% -50%;
+      width: min(420px, 82vw);
+    }
+  }
+
   @media (max-width: 640px) {
-    .mnote {
+    .mnote,
+    .mnote[data-place="case"] {
       width: calc(100vw - var(--margin) * 2);
     }
   }
