@@ -33,7 +33,7 @@ export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
-  const { links: navLinks, resume: resumeLabel, menu: menuLabel } = NAV_COPY[locale];
+  const { links: navLinks, menu: menuLabel } = NAV_COPY[locale];
   const scrollTo = useScrollTo();
   const home = localeHref(locale, "/");
   const headerRef = useRef<HTMLElement>(null);
@@ -128,14 +128,14 @@ export const Header = () => {
 
           <div className="flex items-center" style={{ gap: "var(--s2)" }}>
             <LangToggle />
-            <a
+            {/* <a
               href={siteConfig.profile.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="meta btn-line hidden md:inline-block"
             >
               {resumeLabel}
-            </a>
+            </a> */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -219,7 +219,7 @@ export const Header = () => {
             </a>
           ))}
 
-          <a
+          {/* <a
             href={siteConfig.profile.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -235,7 +235,7 @@ export const Header = () => {
             }}
           >
             {resumeLabel} ↗
-          </a>
+          </a> */}
         </nav>
       </div>
     </>
