@@ -261,7 +261,7 @@ export const Work = () => {
             href={siteConfig.profile.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="meta pen-btn gh-btn"
+            className="meta pen-btn pen-btn-self"
           >
             {t.github}
             <PenMark kind="arrow" on="hover" />

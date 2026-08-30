@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n";
-import { Marked } from "@/components/ui/marks";
+import { Marked, PenMark } from "@/components/ui/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -247,7 +247,9 @@ export const Contact = () => {
 
             <button
               type="submit"
-              className="contact-submit"
+              className="contact-submit pen-btn pen-btn-self"
+              data-size="lg"
+              data-state={status}
               disabled={status === "loading"}
               style={{ opacity: status === "loading" ? 0.7 : 1 }}
             >
@@ -258,9 +260,15 @@ export const Contact = () => {
                   : status === "error"
                     ? t.tryAgain
                     : t.send}
-              <span aria-hidden="true">
-                {status === "success" ? "✓" : "→"}
-              </span>
+              {/* Enviado, a caneta dá o visto, e ele é escrito na hora —
+                  não é gesto do leitor, é resposta do sistema. A chave
+                  força um traço novo a cada estado, senão o visto herdaria
+                  o tracejado já apagado da seta. */}
+              <PenMark
+                key={status}
+                kind={status === "success" ? "check" : "arrow"}
+                on={status === "success" ? "mount" : "hover"}
+              />
             </button>
 
             <p

@@ -30,8 +30,8 @@ import { localeHref, useLocale } from "@/lib/i18n";
 import { LangToggle } from "@/components/lang-toggle";
 import { Footer } from "@/components/footer";
 import { siteConfig } from "@/config/site";
-import { Marked } from "@/components/ui/marks";
 import { Note, type NoteCopy } from "@/components/ui/note";
+import { Marked, PenMark } from "@/components/ui/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -264,7 +264,7 @@ export function CaseShell({
           <span className="meta dimmer">{chrome.next}</span>
           <div className="t" style={{ marginTop: 6 }}>
             <span>{nextProject.label}</span>
-            <span className="arrow">→</span>
+            <PenMark kind="arrow" on="hover" />
           </div>
         </div>
       </Link>
@@ -666,12 +666,22 @@ export function CaseCTA({
         <h2 style={{ marginTop: "var(--s3)" }}>{heading}</h2>
         <p className="invite">{invite}</p>
         <div className="case-cta-actions">
-          <Link className="btn-fill" href={localeHref(locale, "/#contact")}>
-            {action} <span aria-hidden="true">↗</span>
+          {/* O primário é recorte; o secundário é só o e-mail, circulado a
+              caneta. Dois papéis colados lado a lado brigariam pela mesma
+              atenção, e a hierarquia da chamada morreria. */}
+          <Link
+            className="pen-btn pen-btn-self"
+            data-size="lg"
+            href={localeHref(locale, "/#contact")}
+          >
+            {action}
+            <PenMark kind="arrow" on="hover" />
           </Link>
-          <a className="btn-ghost" href={`mailto:${email}`}>
-            {email}
-          </a>
+          <Marked pen="ink" kind="loop" delay={0.5}>
+            <a className="btn-ghost" href={`mailto:${email}`}>
+              {email}
+            </a>
+          </Marked>
         </div>
       </div>
     </section>

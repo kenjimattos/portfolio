@@ -24,7 +24,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(useGSAP);
 
-export type MarkKind = "loop" | "underline" | "arrow";
+export type MarkKind = "loop" | "underline" | "arrow" | "check";
 
 /* O laço dá a volta e PASSA do ponto onde começou — quem circula uma
    palavra à mão nunca fecha a curva em cima do próprio começo. É esse
@@ -47,6 +47,13 @@ const MARKS: Record<MarkKind, { view: string; stretch: boolean; paths: string[] 
     view: "0 0 22 42",
     stretch: false,
     paths: ["M11 2 C 8 14, 14 24, 11 37 M3 27 C 6 32, 9 35, 11 39 C 13 34, 17 30, 20 26"],
+  },
+  /* O visto do revisor: desce curto, sobe longo e passa do fim, como
+     quem confere uma linha e segue para a próxima. */
+  check: {
+    view: "0 0 26 26",
+    stretch: false,
+    paths: ["M3 13 C 5 15, 7 17, 9 21 C 13 13, 18 6, 24 2"],
   },
 };
 
@@ -177,7 +184,7 @@ export function PenMark({
          uma medida velha de antes de a janela mudar deixaria a seta com
          um buraco no fim. */
       if (on === "hover") {
-        const host = svg.closest<HTMLElement>("a") ?? svg.parentElement;
+        const host = svg.closest<HTMLElement>("a, button") ?? svg.parentElement;
         if (!host) return;
 
         /* A caneta em curso é guardada, e é ELA que morre na saída. Matar

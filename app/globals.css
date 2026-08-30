@@ -516,25 +516,17 @@
   }
 
   .contact-submit {
-    font-family: inherit;
-    font-size: 19px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    cursor: pointer;
-    background: var(--ink);
-    color: var(--paper);
-    border: 0;
-    padding: 16px 24px;
     align-self: flex-start;
-    display: inline-flex;
-    gap: 14px;
-    align-items: center;
-    transition: background var(--t-state);
   }
 
-  .contact-submit:hover:not(:disabled) {
-    background: var(--red);
+  /* Enviado, o visto fica — então o vão dele também. Sem isso a marca
+     cairia por cima do rótulo, que nesse estado é o mais longo dos
+     quatro. */
+  /* A classe do recorte entra no seletor por causa da ORDEM: `.pen-btn
+     [data-size]` vem depois no arquivo e, com a mesma especificidade,
+     venceria este recuo. */
+  .pen-btn.contact-submit[data-state="success"] {
+    padding-right: 58px;
   }
 
   @media (max-width: 768px) {
@@ -743,12 +735,58 @@
     background: var(--paper);
     color: var(--ink);
     border: 1px solid var(--ink);
-    box-shadow: 7px 8px 0 var(--ink);
+    box-shadow: 7px 8px 0 var(--btn-shadow, var(--ink));
+    font-family: inherit;
+    cursor: pointer;
     transition:
       box-shadow var(--t-row),
       transform var(--t-row),
       border-color var(--t-row),
       padding var(--t-row);
+  }
+
+  /* O recorte grande, para chamada de ação: mesma peça, corpo de
+     manchete. */
+  .pen-btn[data-size="lg"] {
+    font-size: 19px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    padding: 15px 22px;
+    box-shadow: 9px 10px 0 var(--btn-shadow, var(--ink));
+  }
+
+  .pen-btn[data-size="lg"] .pen-mark[data-kind="arrow"],
+  .pen-btn[data-size="lg"] .pen-mark[data-kind="check"] {
+    top: calc(50% - 14px);
+    right: 16px;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Quem responde ao próprio cursor, e não ao de uma linha inteira. */
+  /* A sombra do hover é variável porque depende do CHÃO: vermelha sobre
+     papel e sobre tinta, mas sobre o campo vermelho ela sumiria na cor
+     do fundo — ali quem responde é o deslize e a caneta. */
+  .pen-btn-self:hover {
+    box-shadow: 7px 8px 0 var(--btn-shadow-hover, var(--red));
+    transform: translateX(6px);
+    padding-right: 44px;
+  }
+
+  .pen-btn-self[data-size="lg"]:hover {
+    box-shadow: 9px 10px 0 var(--btn-shadow-hover, var(--red));
+    padding-right: 58px;
+  }
+
+  .pen-btn:disabled {
+    cursor: default;
+  }
+
+  .pen-btn-self:disabled:hover {
+    box-shadow: 9px 10px 0 var(--btn-shadow, var(--ink));
+    transform: none;
+    padding-right: 22px;
   }
 
   /* A seta é a caneta girada: o desenho aponta para baixo, -90° manda
@@ -760,12 +798,18 @@
      "ver case" fica centrado. O espaço aparece no hover, pelo recuo: a
      borda de fora do recorte está parada, então o vão abre para dentro e
      a tinta é escrita no lugar em que já estava. */
-  .pen-btn .pen-mark[data-kind="arrow"] {
+  .pen-btn .pen-mark[data-kind="arrow"],
+  .pen-btn .pen-mark[data-kind="check"] {
     position: absolute;
     top: calc(50% - 11px);
     right: 12px;
     width: 22px;
     height: 22px;
+  }
+
+  /* O giro é da seta, e só dela: o desenho aponta para baixo, -90° manda
+     para a direita. O visto já nasce na direção certa. */
+  .pen-btn .pen-mark[data-kind="arrow"] {
     transform: rotate(-90deg);
   }
 
@@ -774,15 +818,6 @@
      salta), o contorno vira papel e a sombra vira vermelha. */
   .work-row:hover .wr-go {
     border-color: var(--paper);
-    box-shadow: 7px 8px 0 var(--red);
-    transform: translateX(6px);
-    padding-right: 44px;
-  }
-
-  /* No GitHub não há linha para inverter: quem responde ao cursor é o
-     próprio recorte, e ele desliza na direção da seta — que aqui é a
-     mesma de todas as outras, para a direita. */
-  .gh-btn:hover {
     box-shadow: 7px 8px 0 var(--red);
     transform: translateX(6px);
     padding-right: 44px;
@@ -1595,6 +1630,10 @@
   /* O convite: o único lugar do case onde se pede alguma coisa, e por isso
      o único campo vermelho da página. */
   .case-cta {
+    /* O recorte aqui pousa em campo vermelho: a sombra fica de tinta nos
+       dois estados, porque vermelha ela sumiria no próprio fundo. */
+    --btn-shadow-hover: var(--ink);
+
     background: var(--red);
     color: var(--paper);
     margin-top: var(--s12);
@@ -1619,40 +1658,21 @@
   .case-cta-actions {
     margin-top: var(--s6);
     display: flex;
-    gap: var(--s2);
+    gap: var(--s4);
     flex-wrap: wrap;
     align-items: center;
   }
 
-  .btn-fill {
-    background: var(--paper);
-    color: var(--ink);
-    border: 0;
-    font-size: 19px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    padding: 16px 24px;
-    display: inline-flex;
-    gap: 14px;
-    align-items: center;
-    transition:
-      background var(--t-state),
-      color var(--t-state);
-  }
-
-  .btn-fill:hover {
-    background: var(--ink);
-    color: var(--paper);
-  }
-
+  /* O secundário não é recorte nem contorno: é o e-mail cru, com o laço
+     da caneta em volta. Dois papéis colados lado a lado brigariam pela
+     mesma atenção, e a hierarquia da chamada morreria. O recuo é só a
+     folga que o laço precisa para não encostar no vizinho. */
   .btn-ghost {
-    border: 2px solid var(--paper);
     color: var(--paper);
     font-size: 19px;
     font-weight: 800;
     letter-spacing: -0.01em;
-    padding: 14px 22px;
+    padding: 5px 10px;
     display: inline-flex;
     gap: 14px;
     align-items: center;
@@ -1662,7 +1682,6 @@
   }
 
   .btn-ghost:hover {
-    background: var(--paper);
     color: var(--ink);
   }
 
@@ -1694,15 +1713,11 @@
     gap: var(--s3);
   }
 
-  .case-next .arrow {
-    transition:
-      transform var(--t-row),
-      color var(--t-row);
-  }
-
-  .case-next:hover .arrow {
-    transform: translateX(14px);
-    color: var(--red);
+  .case-next .pen-mark[data-kind="arrow"] {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    transform: rotate(-90deg);
   }
 
   .case-next:hover .dimmer {
