@@ -239,6 +239,16 @@
     border-bottom-color: var(--paper);
   }
 
+  /* A seta do índice: a caneta girada para a direita, com caixa quadrada
+     porque girar não muda a caixa de layout. Ela fica no fluxo — aqui não
+     há rótulo centrado a proteger, e o vão dela é o próprio `gap` da
+     linha. */
+  .masthead-index-link .pen-mark[data-kind="arrow"] {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-90deg);
+  }
+
   @media (max-width: 768px) {
     .masthead-tagline {
       grid-column: span 4;

@@ -17,7 +17,7 @@
    sairia com traço gordo e palavra longa com traço fino, e a mão
    deixaria de ser a mesma mão. */
 
-import { useRef, type ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
@@ -85,6 +85,13 @@ const CAP_PAD = 4;
 export function PenMark({
   kind,
   className,
+  /* A cor da caneta. Ela é herdada do contexto por padrão — é assim que
+     as duas peles da nota trocam de tinta sem que a marcação saiba onde
+     está —, e esta prop escreve a MESMA variável, para não existirem
+     dois jeitos de dizer a mesma coisa. Serve para quem chama de um
+     lugar onde o contexto não resolve: uma seta de papel dentro do campo
+     vermelho do masthead, por exemplo. */
+  pen,
   /* "scroll" é o normal: a caneta passa quando a marcação entra na tela.
      "mount" é para quem já nasce visível — a nota do masthead, que
      precisa desenhar ANTES do primeiro gesto de rolagem. "hover" é para
@@ -96,6 +103,7 @@ export function PenMark({
 }: {
   kind: MarkKind;
   className?: string;
+  pen?: "red" | "paper" | "ink";
   on?: "scroll" | "mount" | "hover";
   delay?: number;
 }) {
@@ -279,6 +287,7 @@ export function PenMark({
       data-kind={kind}
       viewBox={mark.view}
       preserveAspectRatio={mark.stretch ? "none" : undefined}
+      style={pen ? ({ "--pen": `var(--${pen})` } as CSSProperties) : undefined}
       aria-hidden="true"
     >
       {mark.paths.map((d) => (
@@ -304,18 +313,20 @@ export function PenMark({
 export function Marked({
   children,
   kind = "loop",
+  pen,
   on,
   delay,
 }: {
   children: ReactNode;
   kind?: Extract<MarkKind, "loop" | "underline">;
+  pen?: "red" | "paper" | "ink";
   on?: "scroll" | "mount";
   delay?: number;
 }) {
   return (
     <span className="marked">
       {children}
-      <PenMark kind={kind} on={on} delay={delay} />
+      <PenMark kind={kind} pen={pen} on={on} delay={delay} />
     </span>
   );
 }

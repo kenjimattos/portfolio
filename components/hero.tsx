@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n";
+import { PenMark } from "@/components/ui/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -402,11 +403,14 @@ export const Hero = () => {
               <span className="meta" style={{ opacity: 0.85 }}>
                 {t.indexLabel}
               </span>
+              {/* A seta é a mesma caneta das marcações, escrita quando o
+                  cursor chega. Aqui ela é de papel: o campo é vermelho, e
+                  a caneta vermelha do padrão sumiria dentro dele. */}
               {t.index.map((item) => (
                 <a key={item.href} href={item.href} className="masthead-index-link">
                   <span>{item.n}</span>
                   <span>{item.label}</span>
-                  <span aria-hidden="true">→</span>
+                  <PenMark kind="arrow" pen="paper" on="hover" />
                 </a>
               ))}
             </div>
