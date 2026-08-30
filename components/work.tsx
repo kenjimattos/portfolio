@@ -223,7 +223,7 @@ export const Work = () => {
                         invertidas o recorte inteiro espelha junto. A
                         caneta escreve a seta quando o cursor chega na
                         linha, e desfaz quando ele sai. */}
-                    <span className="meta wr-go">
+                    <span className="meta wr-go pen-btn">
                       {t.viewCase}
                       <PenMark kind="arrow" on="hover" />
                     </span>
@@ -261,9 +261,10 @@ export const Work = () => {
             href={siteConfig.profile.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="meta btn-line"
+            className="meta pen-btn gh-btn"
           >
-            {t.github} &nbsp;↗
+            {t.github}
+            <PenMark kind="arrow" on="hover" />
           </a>
         </div>
       </div>

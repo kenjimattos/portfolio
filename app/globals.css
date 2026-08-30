@@ -722,12 +722,18 @@
     transition: color var(--t-row);
   }
 
-  /* O "ver case" é o mesmo recorte da nota do masthead: papel, filete de
-     tinta e a sombra dura, sem borrão. A sombra é o que faz o botão
-     ficar EM CIMA da linha em vez de dentro dela — e é ela que muda de
-     lado quando a linha inverte, porque uma sombra que continua caindo
-     para o mesmo lado denuncia que o espelho é falso. */
-  .wr-go {
+  /* ── O botão-recorte ──────────────────────────────────────────────────
+     O mesmo recorte da nota: papel, filete de tinta e a sombra dura, sem
+     borrão. A sombra é o que faz o botão ficar EM CIMA da página em vez
+     de dentro do layout.
+
+     A geometria mora aqui e o GESTO mora em quem usa: no "ver case" quem
+     dispara é a linha inteira (a caneta aponta para a tela do projeto, e
+     a sombra troca de lado quando a linha espelha, porque uma sombra que
+     continua caindo para o mesmo lado denuncia que o espelho é falso);
+     no GitHub quem dispara é o próprio botão.
+     ------------------------------------------------------------------- */
+  .pen-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -754,17 +760,13 @@
      "ver case" fica centrado. O espaço aparece no hover, pelo recuo: a
      borda de fora do recorte está parada, então o vão abre para dentro e
      a tinta é escrita no lugar em que já estava. */
-  .wr-go .pen-mark[data-kind="arrow"] {
+  .pen-btn .pen-mark[data-kind="arrow"] {
     position: absolute;
     top: calc(50% - 11px);
     right: 12px;
     width: 22px;
     height: 22px;
     transform: rotate(-90deg);
-  }
-
-  .work-row:hover .wr-go {
-    padding-right: 44px;
   }
 
   /* Com a linha invertida em campo de tinta, o filete e a sombra somem
@@ -774,6 +776,16 @@
     border-color: var(--paper);
     box-shadow: 7px 8px 0 var(--red);
     transform: translateX(6px);
+    padding-right: 44px;
+  }
+
+  /* No GitHub não há linha para inverter: quem responde ao cursor é o
+     próprio recorte, e ele desliza na direção da seta — que aqui é a
+     mesma de todas as outras, para a direita. */
+  .gh-btn:hover {
+    box-shadow: 7px 8px 0 var(--red);
+    transform: translateX(6px);
+    padding-right: 44px;
   }
 
   @media (min-width: 901px) {
