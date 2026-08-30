@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { localeHref, useLocale } from "@/lib/i18n";
+import { PenMark } from "@/components/marks";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -216,11 +217,15 @@ export const Work = () => {
                   <p className="wr-after">{project.after}</p>
                   <div className="wr-foot">
                     <span className="meta wr-stack">{project.stack}</span>
+                    {/* Mesmo recorte da nota do masthead: papel, filete de
+                        tinta e a sombra dura. A seta é a mesma caneta, e
+                        aponta sempre para a tela do projeto — nas linhas
+                        invertidas o recorte inteiro espelha junto. A
+                        caneta escreve a seta quando o cursor chega na
+                        linha, e desfaz quando ele sai. */}
                     <span className="meta wr-go">
                       {t.viewCase}
-                      <span className="wr-arrow" aria-hidden="true">
-                        →
-                      </span>
+                      <PenMark kind="arrow" on="hover" />
                     </span>
                   </div>
                 </div>

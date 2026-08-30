@@ -75,18 +75,28 @@ function screenLength(path: SVGPathElement, sx: number, sy: number) {
   return total;
 }
 
+/* A folga que esconde as pontas. Com `dasharray` e `dashoffset` iguais ao
+   comprimento, o traço some — mas o começo do tracejado cai exatamente no
+   começo do caminho, e a ponta ARREDONDADA da caneta continua pintando um
+   pingo de tinta ali. Empurrar o tracejado alguns pixels a mais tira a
+   ponta para fora do caminho, e o repouso fica limpo de verdade. */
+const CAP_PAD = 4;
+
 export function PenMark({
   kind,
   className,
   /* "scroll" é o normal: a caneta passa quando a marcação entra na tela.
      "mount" é para quem já nasce visível — a nota do masthead, que
-     precisa desenhar ANTES do primeiro gesto de rolagem. */
+     precisa desenhar ANTES do primeiro gesto de rolagem. "hover" é para
+     marcação de gesto: a caneta escreve quando o cursor chega e desfaz
+     quando ele sai, e por isso é a única que precisa medir de novo a
+     cada entrada. */
   on = "scroll",
   delay = 0,
 }: {
   kind: MarkKind;
   className?: string;
-  on?: "scroll" | "mount";
+  on?: "scroll" | "mount" | "hover";
   delay?: number;
 }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -108,16 +118,20 @@ export function PenMark({
         return;
       }
 
-      const box = svg.getBoundingClientRect();
-      const view = svg.viewBox.baseVal;
-      const sx = view.width ? box.width / view.width : 1;
-      const sy = view.height ? box.height / view.height : 1;
-
-      paths.forEach((path) => {
-        const len = screenLength(path, sx, sy) || path.getTotalLength();
-        path.style.strokeDasharray = `${len}`;
-        path.style.strokeDashoffset = `${len}`;
-      });
+      /* Medir é sempre no tamanho de agora: o traço só sabe o próprio
+         comprimento depois de saber a largura que coube na tela. */
+      const hide = () => {
+        const box = svg.getBoundingClientRect();
+        const view = svg.viewBox.baseVal;
+        const sx = view.width ? box.width / view.width : 1;
+        const sy = view.height ? box.height / view.height : 1;
+        paths.forEach((path) => {
+          const len = screenLength(path, sx, sy) || path.getTotalLength();
+          path.style.strokeDasharray = `${len}`;
+          path.style.strokeDashoffset = `${len + CAP_PAD}`;
+        });
+      };
+      hide();
 
       const draw = () =>
         gsap.to(paths, {
@@ -139,6 +153,62 @@ export function PenMark({
       if (on === "mount") {
         draw();
         return;
+      }
+
+      /* Marcação de gesto. O anfitrião é a linha inteira, não o traço:
+         quem passa o mouse mira o projeto, não a seta de 22px. O foco de
+         teclado conta como chegada, senão a seta só existiria para quem
+         usa mouse.
+
+         Remede a cada entrada porque o `dasharray` daqui não pode ser
+         apagado no fim — ele ainda precisa esconder o traço na saída —, e
+         uma medida velha de antes de a janela mudar deixaria a seta com
+         um buraco no fim. */
+      if (on === "hover") {
+        const host = svg.closest<HTMLElement>("a") ?? svg.parentElement;
+        if (!host) return;
+
+        /* A caneta em curso é guardada, e é ELA que morre na saída. Matar
+           por alvo (`killTweensOf`) não alcançava este tween: ele nasce
+           dentro de um ouvinte de evento, fora da execução do contexto do
+           useGSAP, e sair antes do fim deixava o traço continuar sendo
+           escrito por cima do valor que a saída acabara de gravar — a
+           seta ficava pela metade na tela. */
+        let pen: gsap.core.Tween | null = null;
+
+        const enter = () => {
+          pen?.kill();
+          hide();
+          pen = gsap.to(paths, {
+            strokeDashoffset: 0,
+            duration: 0.85,
+            ease: "power1.inOut",
+            stagger: 0.12,
+          });
+        };
+
+        /* A saída é um corte seco. Desenhar ao contrário parece a caneta
+           sendo desfeita, e ninguém fica olhando o próprio gesto voltar:
+           quem saiu já está mirando a linha seguinte, e a espera do
+           recolhimento vira lentidão. Some, e o `hide` ainda remede para
+           a próxima entrada. */
+        const leave = () => {
+          pen?.kill();
+          pen = null;
+          hide();
+        };
+
+        host.addEventListener("pointerenter", enter);
+        host.addEventListener("pointerleave", leave);
+        host.addEventListener("focus", enter);
+        host.addEventListener("blur", leave);
+
+        return () => {
+          host.removeEventListener("pointerenter", enter);
+          host.removeEventListener("pointerleave", leave);
+          host.removeEventListener("focus", enter);
+          host.removeEventListener("blur", leave);
+        };
       }
 
       /* Quem dispara é o IntersectionObserver, e não um ScrollTrigger.

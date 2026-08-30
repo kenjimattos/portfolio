@@ -712,18 +712,85 @@
     transition: color var(--t-row);
   }
 
+  /* O "ver case" é o mesmo recorte da nota do masthead: papel, filete de
+     tinta e a sombra dura, sem borrão. A sombra é o que faz o botão
+     ficar EM CIMA da linha em vez de dentro dela — e é ela que muda de
+     lado quando a linha inverte, porque uma sombra que continua caindo
+     para o mesmo lado denuncia que o espelho é falso. */
   .wr-go {
+    position: relative;
     display: inline-flex;
-    align-items: baseline;
-    gap: 12px;
+    align-items: center;
+    justify-content: center;
     white-space: nowrap;
+    padding: 9px 14px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    box-shadow: 7px 8px 0 var(--ink);
+    transition:
+      box-shadow var(--t-row),
+      transform var(--t-row),
+      border-color var(--t-row),
+      padding var(--t-row);
   }
 
-  .wr-arrow {
-    font-size: 18px;
-    transition:
-      transform var(--t-row),
-      color var(--t-row);
+  /* A seta é a caneta girada: o desenho aponta para baixo, -90° manda
+     para a direita. Caixa quadrada porque girar não muda a caixa de
+     layout.
+
+     E ela sai do fluxo. Em repouso não existe seta, e um vão reservado
+     para ela deixaria o rótulo torto dentro do recorte — fora do fluxo,
+     "ver case" fica centrado. O espaço aparece no hover, pelo recuo: a
+     borda de fora do recorte está parada, então o vão abre para dentro e
+     a tinta é escrita no lugar em que já estava. */
+  .wr-go .pen-mark[data-kind="arrow"] {
+    position: absolute;
+    top: calc(50% - 11px);
+    right: 12px;
+    width: 22px;
+    height: 22px;
+    transform: rotate(-90deg);
+  }
+
+  .work-row:hover .wr-go {
+    padding-right: 44px;
+  }
+
+  /* Com a linha invertida em campo de tinta, o filete e a sombra somem
+     na cor do fundo: o recorte continua de papel (agora é ele que
+     salta), o contorno vira papel e a sombra vira vermelha. */
+  .work-row:hover .wr-go {
+    border-color: var(--paper);
+    box-shadow: 7px 8px 0 var(--red);
+    transform: translateX(6px);
+  }
+
+  @media (min-width: 901px) {
+    /* Linha com a tela à esquerda: o rodapé inteiro espelha, o recorte
+       vai para o lado da imagem, a seta gira para o outro lado e a
+       sombra cai para a esquerda. A seta aponta para a tela nas quatro
+       linhas — é essa a regra, não a posição. */
+    .work-row[data-side="left"] .wr-foot {
+      flex-direction: row-reverse;
+    }
+
+    .work-row[data-side="left"] .wr-go {
+      box-shadow: -7px 8px 0 var(--ink);
+    }
+
+    .work-row[data-side="left"] .wr-go .pen-mark[data-kind="arrow"] {
+      right: auto;
+      left: 12px;
+      transform: rotate(90deg);
+    }
+
+    .work-row[data-side="left"]:hover .wr-go {
+      box-shadow: -7px 8px 0 var(--red);
+      transform: translateX(-6px);
+      padding-right: 14px;
+      padding-left: 44px;
+    }
   }
 
   .wr-window {
@@ -781,11 +848,6 @@
   }
 
   .work-row:hover .wr-bar .name {
-    color: var(--red);
-  }
-
-  .work-row:hover .wr-arrow {
-    transform: translateX(10px);
     color: var(--red);
   }
 
