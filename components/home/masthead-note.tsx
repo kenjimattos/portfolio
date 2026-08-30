@@ -75,7 +75,7 @@ export const MastheadNote = () => {
            traços é o `delay` de cada <PenMark> lá embaixo. Sem essa pausa
            o desenho acontece enquanto o masthead ainda está se
            registrando, e as duas coisas competem. */
-        gsap.from(card, { autoAlpha: 0, y: 18, duration: 0.5, ease: "power2.out", delay: 0.35 });
+        gsap.from(card, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", delay: 0 });
       }
 
       /* A saída é presa à rolagem: some no ritmo do gesto, e voltar ao
@@ -103,7 +103,7 @@ export const MastheadNote = () => {
       <a className="mnote-card" data-skin={SKIN} href="#work">
         <p className="mnote-line">
           {t.before}{" "}
-          <Marked kind="loop" on="mount" delay={1.1}>
+          <Marked kind="loop" on="mount">
             {t.circled}
           </Marked>
           {t.after}
@@ -112,7 +112,7 @@ export const MastheadNote = () => {
         {/* A seta vem DEPOIS da frase e aponta para baixo: no centro da
             tela ela não é decoração de canto, é a direção. */}
         <span className="mnote-cue meta">
-          <PenMark kind="arrow" on="mount" delay={1.55} />
+          <PenMark kind="arrow" on="mount" />
           {t.cue}
         </span>
       </a>
