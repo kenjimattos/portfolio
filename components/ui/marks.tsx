@@ -110,14 +110,6 @@ export function PenMark({
       const paths = svg.querySelectorAll<SVGPathElement>("path");
       const reduced = prefersReducedMotion();
 
-      /* Sem animação não existe tracejado: o traço é o traço inteiro. */
-      if (reduced) {
-        paths.forEach((path) => {
-          path.style.strokeDasharray = "none";
-        });
-        return;
-      }
-
       /* Medir é sempre no tamanho de agora: o traço só sabe o próprio
          comprimento depois de saber a largura que coube na tela. */
       const hide = () => {
@@ -131,6 +123,18 @@ export function PenMark({
           path.style.strokeDashoffset = `${len + CAP_PAD}`;
         });
       };
+
+      /* Sem animação não existe tracejado: o traço é o traço inteiro.
+         Marcação de gesto é a exceção — ela precisa continuar sumindo
+         quando o cursor sai, então segue medida e escondida, e aparece
+         de uma vez em vez de ser desenhada. */
+      if (reduced && on !== "hover") {
+        paths.forEach((path) => {
+          path.style.strokeDasharray = "none";
+        });
+        return;
+      }
+
       hide();
 
       const draw = () =>
@@ -176,8 +180,30 @@ export function PenMark({
            seta ficava pela metade na tela. */
         let pen: gsap.core.Tween | null = null;
 
-        const enter = () => {
+        /* Quem manda é o `:hover` do próprio anfitrião, e não o tipo do
+           ponteiro. No toque não existe "estar em cima", mas o navegador
+           mantém um hover PEGAJOSO: a linha fica escura até você tocar em
+           outra. A seta pertence a esse estado — enquanto o campo está
+           escuro ela está lá, e ela sai junto quando o campo sai. Ler o
+           `:hover` é o que faz as duas coisas serem a mesma coisa por
+           construção, em vez de duas regras que precisam concordar.
+
+           Foi por isso que perguntar `(hover: hover)` ou olhar
+           `pointerType === "touch"` deu errado das duas vezes: as duas
+           perguntas são sobre o DISPOSITIVO, e o que importa aqui é o
+           estado de agora. */
+        let shown = false;
+
+        const show = () => {
+          if (shown) return;
+          shown = true;
           pen?.kill();
+          if (reduced) {
+            paths.forEach((path) => {
+              path.style.strokeDasharray = "none";
+            });
+            return;
+          }
           hide();
           pen = gsap.to(paths, {
             strokeDashoffset: 0,
@@ -192,22 +218,34 @@ export function PenMark({
            quem saiu já está mirando a linha seguinte, e a espera do
            recolhimento vira lentidão. Some, e o `hide` ainda remede para
            a próxima entrada. */
-        const leave = () => {
+        const clear = () => {
+          if (!shown) return;
+          shown = false;
           pen?.kill();
           pen = null;
           hide();
         };
 
-        host.addEventListener("pointerenter", enter);
-        host.addEventListener("pointerleave", leave);
-        host.addEventListener("focus", enter);
-        host.addEventListener("blur", leave);
+        /* A rede de segurança: qualquer toque na página pode ter mudado o
+           hover pegajoso desta linha sem que ela receba um evento
+           próprio. Em vez de confiar no `pointerleave` chegar, pergunta-se
+           ao navegador quem está em hover agora. */
+        const sync = () => (host.matches(":hover") ? show() : clear());
+
+        host.addEventListener("pointerenter", show);
+        host.addEventListener("pointerleave", clear);
+        host.addEventListener("focus", show);
+        host.addEventListener("blur", clear);
+        window.addEventListener("pointerup", sync);
+        window.addEventListener("pointercancel", sync);
 
         return () => {
-          host.removeEventListener("pointerenter", enter);
-          host.removeEventListener("pointerleave", leave);
-          host.removeEventListener("focus", enter);
-          host.removeEventListener("blur", leave);
+          host.removeEventListener("pointerenter", show);
+          host.removeEventListener("pointerleave", clear);
+          host.removeEventListener("focus", show);
+          host.removeEventListener("blur", clear);
+          window.removeEventListener("pointerup", sync);
+          window.removeEventListener("pointercancel", sync);
         };
       }
 
