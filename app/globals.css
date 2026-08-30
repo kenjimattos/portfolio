@@ -1713,6 +1713,25 @@
     gap: var(--s3);
   }
 
+  /* A volta, no cabeçalho do case. */
+  .case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Aqui a caneta não tem cor própria: ela toma a do link, que passa a
+     violeta no hover. Seta em tinta ao lado de um rótulo violeta leria
+     como duas coisas, e é uma só. */
+  .case-back .pen-mark[data-kind="arrow"] {
+    --pen: currentColor;
+
+    width: 16px;
+    height: 16px;
+    flex: none;
+    transform: rotate(90deg);
+  }
+
   .case-next .pen-mark[data-kind="arrow"] {
     width: 40px;
     height: 40px;

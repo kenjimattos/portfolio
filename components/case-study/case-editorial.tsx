@@ -39,8 +39,8 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const HEADER_HEIGHT = 57;
 
 const CHROME = {
-  en: { back: "← Work", next: "Next", assisted: "AI-assisted implementation" },
-  pt: { back: "← Projetos", next: "Próximo", assisted: "Implementação assistida por IA" },
+  en: { back: "Work", next: "Next", assisted: "AI-assisted implementation" },
+  pt: { back: "Projetos", next: "Próximo", assisted: "Implementação assistida por IA" },
 } as const;
 
 /* --------------------------------- chrome --------------------------------- */
@@ -245,11 +245,16 @@ export function CaseShell({
             {siteConfig.brand.logoText}
           </Link>
 
+          {/* A volta é a mesma caneta, virada para o outro lado: o desenho
+              aponta para baixo, 90° manda para a esquerda. Ela vem ANTES
+              do rótulo, porque é para lá que o link leva — e escreve na
+              cor do próprio link, que vira violeta no hover. */}
           <Link
             href={localeHref(locale, "/#work")}
-            className="meta transition-colors hover:text-violet"
+            className="meta case-back transition-colors hover:text-violet"
             style={{ transitionDuration: "90ms" }}
           >
+            <PenMark kind="arrow" on="hover" />
             {chrome.back}
           </Link>
 
