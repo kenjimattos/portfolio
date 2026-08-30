@@ -1759,8 +1759,16 @@
   .mnote-line {
     font-size: clamp(19px, 1.7vw, 24px);
     font-weight: 600;
-    line-height: 1.28;
+    line-height: 1;
     letter-spacing: -0.015em;
+  }
+
+  /* O laço da nota desce um pouco em relação ao padrão. Aqui a entrelinha
+     é curta e a palavra marcada cai na última linha: centrado como nas
+     outras marcações, o traço sobrava para cima e apertava a linha de
+     cima em vez de abraçar a de baixo. */
+  .mnote .marked .pen-mark[data-kind="loop"] {
+    top: -42%;
   }
 
   /* ── A caneta ─────────────────────────────────────────────────────────
