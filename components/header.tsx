@@ -144,8 +144,8 @@ export const Header = () => {
                 width: 34,
                 height: 32,
                 border: "1px solid",
-                borderColor: isMobileMenuOpen ? "var(--paper)" : "var(--ink)",
-                color: isMobileMenuOpen ? "var(--paper)" : "var(--ink)",
+                borderColor: "var(--ink)",
+                color: "var(--ink)",
               }}
               aria-label={menuLabel}
               aria-expanded={isMobileMenuOpen}
