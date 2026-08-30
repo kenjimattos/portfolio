@@ -55,7 +55,7 @@ const SmoothScrollContext = createContext<
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
-  /* Página nova começa no topo.
+  /* Página nova começa no topo, ou na âncora que o link pediu.
      O Next zera a rolagem a cada navegação, mas o Lenis mantém a posição
      dele por baixo: como é ele quem manda no scroll, no quadro seguinte
      ele "corrige" a página de volta para onde a home estava, e o case
@@ -78,23 +78,59 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     if (lastRoute.current === route) return;
     lastRoute.current = route;
 
-    const toTop = () => {
+    /* …a não ser que a navegação tenha pedido um lugar. Um link para
+       "/#contact" vindo de um case precisa abrir a home NA seção, e o
+       zeramento acima apagaria exatamente isso: o Next leva o leitor até
+       a âncora e o Lenis, no quadro seguinte, o traz de volta ao topo.
+       Então o alvo é a âncora quando ela existe, e o topo quando não. */
+    const anchor = () => {
+      const hash = window.location.hash;
+      if (hash.length < 2) return null;
+      try {
+        return document.querySelector<HTMLElement>(hash);
+      } catch {
+        return null;
+      }
+    };
+
+    const settle = () => {
       const lenis = lenisRef.current;
+      const target = anchor();
+
+      if (target) {
+        if (lenis) lenis.scrollTo(target, { offset: -HEADER_HEIGHT, immediate: true, force: true });
+        else target.scrollIntoView();
+        return;
+      }
+
       if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
       else window.scrollTo(0, 0);
     };
 
-    toTop();
+    settle();
 
     /* E de novo depois do refresh, no quadro seguinte. Os gatilhos da
        página nova nasceram medindo a rolagem antiga — um pin de hero
        nasceria concluído —, mas o próprio refresh do ScrollTrigger
-       mexe na posição para recalcular os pinos. Zerar antes e depois é
-       o que garante que a última palavra seja o topo. */
+       mexe na posição para recalcular os pinos. Resolver antes e depois
+       é o que garante que a última palavra seja a certa — e a segunda
+       medida da âncora é a boa, porque só depois do refresh a página
+       tem a altura que os pinos reservam. */
     requestAnimationFrame(() => {
       ScrollTrigger.refresh();
-      toTop();
+      settle();
     });
+
+    /* E uma última, um instante depois. O refresh recalcula os pinos, mas
+       a página continua crescendo por baixo enquanto as fontes assentam e
+       as recriações montam — medida no quadro do refresh, a âncora ficava
+       141px acima do lugar. Só a âncora pede isso: o topo é zero em
+       qualquer altura de página. */
+    const late = window.setTimeout(() => {
+      if (anchor()) settle();
+    }, 320);
+
+    return () => window.clearTimeout(late);
   }, [route]);
 
   useEffect(() => {
