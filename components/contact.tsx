@@ -160,8 +160,10 @@ export const Contact = () => {
         >
           <div className="contact-left">
             <p className="contact-pitch">{t.pitch}</p>
-            {/* A caneta circula o e-mail, e só ele: é o único item da
-                lista que é um convite, e não uma referência. */}
+            {/* A caneta é do gesto: a sublinha é escrita na linha em que o
+                cursor está, e apagada quando ele sai. A linha ainda anda
+                um pouco; o que não acontece é a fonte virar violeta —
+                sublinhar e trocar a cor diria a mesma coisa duas vezes. */}
             <div className="contact-social">
               {socialLinks.map((link) => (
                 <a
@@ -170,14 +172,9 @@ export const Contact = () => {
                   target={link.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                 >
-                  {link.href.startsWith("mailto:") ? (
-                    <Marked kind="loop">{link.name}</Marked>
-                  ) : (
-                    link.name
-                  )}
-                  <span className="meta" aria-hidden="true">
-                    ↗
-                  </span>
+                  <Marked kind="underline" pen="violet" on="hover">
+                    {link.name}
+                  </Marked>
                 </a>
               ))}
             </div>

@@ -463,13 +463,12 @@
     border-bottom: 1px solid var(--ink-12);
     font-size: 19px;
     font-weight: 700;
-    transition:
-      color var(--t-state),
-      padding var(--t-state);
+    transition: padding var(--t-state);
   }
 
+  /* A linha continua andando no hover; o que saiu foi a troca de cor da
+     fonte, que dizia a mesma coisa que a sublinha. */
   .contact-social a:hover {
-    color: var(--violet);
     padding-left: 10px;
   }
 

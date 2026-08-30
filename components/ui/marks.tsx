@@ -110,7 +110,7 @@ export function PenMark({
 }: {
   kind: MarkKind;
   className?: string;
-  pen?: "red" | "paper" | "ink";
+  pen?: "red" | "paper" | "ink" | "violet";
   on?: "scroll" | "mount" | "hover";
   delay?: number;
 }) {
@@ -134,7 +134,13 @@ export function PenMark({
         const sy = view.height ? box.height / view.height : 1;
         paths.forEach((path) => {
           const len = screenLength(path, sx, sy) || path.getTotalLength();
-          path.style.strokeDasharray = `${len}`;
+          /* O vão é o TRIPLO do traço, e não igual a ele. `dasharray: len`
+             repete traço-e-vão do mesmo tamanho, então basta a medida
+             ficar um pouco curta — e ela fica, quando o traço é medido
+             antes de a fonte assentar e a palavra ainda vai crescer —
+             para a SEGUNDA repetição espiar no fim do caminho. Era o
+             fiapo de tinta que sobrava nas linhas em repouso. */
+          path.style.strokeDasharray = `${len} ${len * 3}`;
           path.style.strokeDashoffset = `${len + CAP_PAD}`;
         });
       };
@@ -326,8 +332,8 @@ export function Marked({
 }: {
   children: ReactNode;
   kind?: Extract<MarkKind, "loop" | "underline">;
-  pen?: "red" | "paper" | "ink";
-  on?: "scroll" | "mount";
+  pen?: "red" | "paper" | "ink" | "violet";
+  on?: "scroll" | "mount" | "hover";
   delay?: number;
 }) {
   return (
