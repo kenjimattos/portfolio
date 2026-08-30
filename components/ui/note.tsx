@@ -18,9 +18,9 @@
       também com movimento reduzido: aqui o deslocamento não é enfeite, é
       o que tira o recorte da frente do conteúdo.
 
-   A colocação é `place`, e ela muda só onde o recorte pousa — o centro da
-   tela na home, o canto da laje do produto no case. Frase, caneta e saída
-   são as mesmas. */
+   A nota pousa sempre no centro da tela, na home e no case: é o lugar de
+   quem interrompe a leitura para dizer uma coisa só. O que muda de uma
+   página para a outra é a frase. */
 
 import { useRef } from "react";
 import gsap from "gsap";
@@ -49,8 +49,7 @@ export function Note({
   circled,
   after,
   href,
-  place = "center",
-}: NoteCopy & { href: string; place?: "center" | "case" }) {
+}: NoteCopy & { href: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -75,7 +74,7 @@ export function Note({
   );
 
   return (
-    <div className="mnote" data-place={place} ref={rootRef}>
+    <div className="mnote" ref={rootRef}>
       <a className="mnote-card" data-skin={SKIN} href={href}>
         <p className="mnote-line">
           {before} <Marked kind="loop" on="mount">{circled}</Marked>

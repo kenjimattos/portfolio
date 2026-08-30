@@ -30,7 +30,8 @@ import { localeHref, useLocale } from "@/lib/i18n";
 import { LangToggle } from "@/components/lang-toggle";
 import { Footer } from "@/components/footer";
 import { siteConfig } from "@/config/site";
-import { Marked } from "@/components/marks";
+import { Marked } from "@/components/ui/marks";
+import { Note, type NoteCopy } from "@/components/ui/note";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -246,7 +247,7 @@ export function CaseShell({
 
           <Link
             href={localeHref(locale, "/#work")}
-            className="meta transition-colors hover:text-[var(--violet)]"
+            className="meta transition-colors hover:text-violet"
             style={{ transitionDuration: "90ms" }}
           >
             {chrome.back}
@@ -283,6 +284,7 @@ export function CaseHero({
   media,
   mediaWidth = 1280,
   mediaTag,
+  note,
   role,
   children,
 }: {
@@ -299,6 +301,11 @@ export function CaseHero({
      honesto, em vez de espremer a tela inteira até virar ruído. */
   mediaWidth?: number;
   mediaTag?: string;
+  /* O recorte de papel no centro da tela, com uma frase do projeto —
+     nunca sobre o site nem sobre o método. Ele some na primeira rolagem,
+     e o `href` leva à primeira decisão, que é onde aquilo que ele afirma
+     é provado. */
+  note?: NoteCopy & { href: string };
   role: { label: string; text: string; note?: string };
   children?: ReactNode;
 }) {
@@ -352,6 +359,8 @@ export function CaseHero({
           <p className="case-sub">{sub}</p>
         </div>
       </div>
+
+      {note ? <Note {...note} /> : null}
 
       <div className="wrap">
         <div className="case-role">

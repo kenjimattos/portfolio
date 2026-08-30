@@ -1687,15 +1687,14 @@
     color: var(--paper-35);
   }
 
-  /* ── A nota sobre o masthead ──────────────────────────────────────────
-     Tarja vermelha colada por cima do wordmark, fixa no canto de baixo.
-     O vermelho não é escolha de cor: é a primeira gota do campo que
-     depois toma o masthead inteiro. A rotação mínima é o que faz ler
-     como coisa colada em cima da página, e não como caixa do layout.
-     ------------------------------------------------------------------- */
-  /* Centro da tela, por cima do meio do wordmark: a tarja é carimbada em
-     cima da palavra impressa, e não encostada num canto. Centrar com a
-     propriedade `translate` — e não com `transform` — deixa o transform
+  /* ── A nota ───────────────────────────────────────────────────────────
+     O recorte de papel que interrompe a primeira tela — o wordmark na
+     home, o herói no case — para dizer uma coisa só, e sai na primeira
+     rolagem. A rotação mínima é o que faz ler como coisa colada em cima
+     da página, e não como caixa do layout.
+
+     Ela pousa sempre no centro, e por cima do que estiver embaixo.
+     Centrar com a propriedade `translate` — e não com `transform` — deixa o transform
      inteiro livre para o GSAP: os dois se compõem sem disputar a mesma
      declaração, e a nota continua centrada sem JavaScript nenhum. */
   .mnote {
@@ -1739,29 +1738,7 @@
     --pen: var(--red);
 
     border: 1px solid var(--ink);
-    box-shadow: 10px 12px 0 var(--note-shadow, var(--ink));
-  }
-
-  /* No case o recorte pousa em cima da laje escura do produto, e ali uma
-     sombra de tinta simplesmente não existe. A vermelha lê nos dois
-     campos — e a fronteira `--split` do herói passa por baixo dela
-     durante a animação, então ela precisa mesmo funcionar dos dois
-     lados. */
-  .mnote[data-place="case"] {
-    left: auto;
-    right: var(--margin);
-    top: 60%;
-    translate: 0 -50%;
-    width: min(360px, 42vw);
-  }
-
-  .mnote[data-place="case"] .mnote-card {
-    --note-shadow: var(--red);
-    text-align: left;
-  }
-
-  .mnote[data-place="case"] .mnote-cue {
-    justify-content: flex-start;
+    box-shadow: 10px 12px 0 var(--ink);
   }
 
   .mnote-cue {
@@ -1838,21 +1815,8 @@
     flex: none;
   }
 
-  @media (max-width: 900px) {
-    /* Empilhado não há laje à direita para apontar: o recorte do case
-       volta para o centro, como o da home. */
-    .mnote[data-place="case"] {
-      left: 50%;
-      right: auto;
-      top: 50%;
-      translate: -50% -50%;
-      width: min(420px, 82vw);
-    }
-  }
-
   @media (max-width: 640px) {
-    .mnote,
-    .mnote[data-place="case"] {
+    .mnote {
       width: calc(100vw - var(--margin) * 2);
     }
   }

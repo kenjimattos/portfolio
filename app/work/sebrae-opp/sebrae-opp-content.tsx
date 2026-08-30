@@ -56,6 +56,7 @@ type Copy = {
   turn: string;
   sub: string;
   shotAlt: string;
+  note: { cue: string; before: string; circled: string; after: string; href: string };
   role: { label: string; text: string; note: string };
   indexLabel: string;
   constraints: { label: string; text: string }[];
@@ -85,6 +86,18 @@ const COPY: Record<"en" | "pt", Copy> = {
     turn: "It just hadn't been built.",
     sub: "Thirteen sources, 223 municipalities, from the ETL to the design system — in about three months.",
     shotAlt: "Live React recreation · João Pessoa's real public data",
+    /* A frase é o arco do PROJETO: começou sem nada e terminou como
+       plataforma, com dado oficial e um modelo dentro. O laço cai no fim
+       da frase, no que ela tem de mais difícil de acreditar — e a prova
+       disso é a decisão 04, onde o modelo redige o texto e todo número
+       vem do banco. */
+    note: {
+      cue: "Scroll",
+      before: "From absolute zero to a platform with official data and an",
+      circled: "embedded LLM",
+      after: ".",
+      href: "#d01",
+    },
     role: {
       label: "My role",
       text: "Design, frontend, API, data modelling and ETL: the whole delivery, one person, about three months. I drew the interface and the design system, wrote the choropleth by hand, modelled the collections and built the Python pipeline that reconciles thirteen official sources.",
@@ -232,6 +245,13 @@ const COPY: Record<"en" | "pt", Copy> = {
     turn: "Faltava construí-la.",
     sub: "Treze fontes, 223 municípios, do ETL ao design system — em cerca de três meses.",
     shotAlt: "Recriação em React · dados públicos reais de João Pessoa",
+    note: {
+      cue: "Role",
+      before: "Do zero absoluto a uma plataforma com dados oficiais e",
+      circled: "LLM embarcada",
+      after: ".",
+      href: "#d01",
+    },
     role: {
       label: "Meu papel",
       text: "Design, frontend, API, modelagem de dados e ETL: a entrega inteira, uma pessoa, cerca de três meses. Desenhei a interface e o design system, escrevi o coroplético à mão, modelei as coleções e construí o pipeline em Python que reconcilia treze fontes oficiais.",
@@ -413,6 +433,7 @@ export function SebraeOppContent() {
           </div>
         }
         mediaTag={t.shotAlt}
+        note={t.note}
         role={t.role}
       >
         <CaseIndex label={t.indexLabel} items={t.decisions} />
