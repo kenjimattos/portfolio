@@ -141,12 +141,18 @@ export const Contact = () => {
           <div className="num">
             <span className="meta dimmer">/04</span>
           </div>
+          {/* A seção de contato é onde a página pede uma ação, e o laço é
+              o que separa um pedido de um rótulo. Enquadramento de bloco:
+              o título já tem duas linhas de altura própria, então a volta
+              abraça o conjunto em vez de orbitar em torno dele. */}
           <div className="title">
-            <h2>
-              {t.heading[0]}
-              <br />
-              {t.heading[1]}
-            </h2>
+            <Marked kind="loop" variant="c" pen="violet" on="scroll" fit="block">
+              <h2>
+                {t.heading[0]}
+                <br />
+                {t.heading[1]}
+              </h2>
+            </Marked>
           </div>
           <div className="note">
             <p className="meta dim">{t.note}</p>
@@ -172,7 +178,7 @@ export const Contact = () => {
                   target={link.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                 >
-                  <Marked kind="underline" pen="violet" on="hover">
+                  <Marked kind="underline" pen="violet" on="hover" variant="a">
                     {link.name}
                   </Marked>
                 </a>

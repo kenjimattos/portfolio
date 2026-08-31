@@ -470,6 +470,8 @@
      fonte, que dizia a mesma coisa que a sublinha. */
   .contact-social a:hover {
     padding-left: 10px;
+    color: var(--paper);
+    background-color: var(--ink);
   }
 
   .contact-form {
@@ -1855,6 +1857,37 @@
     width: 124%;
     top: -58%;
     height: 214%;
+  }
+
+  /* Marcação de BLOCO: título de duas linhas, parágrafo curto. A caixa
+     já é alta por conta do conteúdo, então a sobra é pequena — o que no
+     enquadramento de palavra é ar necessário, aqui seria uma órbita
+     passando longe do texto em cima e invadindo o de baixo. */
+  .marked[data-fit="block"] .pen-mark[data-kind="loop"] {
+    left: -25%;
+    width: 150%;
+    top: -25%;
+    height: 150%;
+  }
+
+  .marked[data-fit="block"] .pen-mark[data-kind="underline"] {
+    top: 92%;
+    height: 26%;
+  }
+
+  /* Na tela estreita a sobra encolhe. O laço de bloco vaza para os lados
+     de propósito — uma elipse que abraça um retângulo precisa ser maior
+     que ele —, mas ali não existe margem para vazar: o traço sairia pela
+     borda e voltaria cortado. Encolhida, a volta passa por dentro das
+     letras das pontas em vez de por fora, que é o que a mão faz quando o
+     papel acaba. */
+  @media (max-width: 640px) {
+    .marked[data-fit="block"] .pen-mark[data-kind="loop"] {
+      left: -11%;
+      width: 122%;
+      top: -24%;
+      height: 148%;
+    }
   }
 
   .marked .pen-mark[data-kind="underline"] {

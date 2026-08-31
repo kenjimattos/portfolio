@@ -377,6 +377,17 @@ export function Marked({
   pen,
   on,
   delay,
+  /* O que está sendo marcado: uma PALAVRA no meio de uma frase, ou um
+     BLOCO — um título de duas linhas, um parágrafo curto.
+
+     A diferença não é decorativa. O enquadramento de palavra abre muito
+     para cima e para baixo (o dobro da altura do texto) porque uma linha
+     só de corpo é baixa e o laço precisa desse ar para não parecer um
+     grifo. Aplicado a um título de duas linhas, esse mesmo dobro vira
+     uma órbita: o traço passa longe do texto por cima e invade o
+     parágrafo de baixo. No bloco a sobra é pequena, porque a altura já
+     veio do próprio conteúdo. */
+  fit = "word",
 }: {
   children: ReactNode;
   kind?: Extract<MarkKind, "loop" | "underline">;
@@ -384,9 +395,10 @@ export function Marked({
   pen?: "red" | "paper" | "ink" | "violet";
   on?: "scroll" | "mount" | "hover";
   delay?: number;
+  fit?: "word" | "block";
 }) {
   return (
-    <span className="marked">
+    <span className="marked" data-fit={fit === "block" ? "block" : undefined}>
       {children}
       <PenMark kind={kind} variant={variant} pen={pen} on={on} delay={delay} />
     </span>

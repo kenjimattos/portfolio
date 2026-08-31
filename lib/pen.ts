@@ -47,6 +47,25 @@ function taper(t: number, { head = 0, tail = 0, headP = 1, tailP = 1 }: Taper = 
 
 const round = (n: number) => Math.round(n * 100) / 100;
 
+/* A caneta que se troca conforme o tamanho do que se marca.
+
+   Espessura fixa em pixels é a verdade de UMA caneta, e foi o que
+   consertou a marcação miúda: o laço em volta de uma palavra de corpo
+   sai com o mesmo traço do laço em volta de outra. Mas ninguém circula
+   um título de 120px com a mesma caneta que usa num parágrafo — troca
+   por um marcador. Levado ao pé da letra, o modelo dava um fio de 2px em
+   volta de um laço de 880px, que lê como risco perdido e não como marca.
+
+   Então o peso cresce, mas MUITO menos que o tamanho: expoente 0,45, ou
+   seja, marcação cinco vezes maior ganha só o dobro de tinta. E nunca
+   encolhe abaixo de 1 — a calibragem miúda é o chão, não o meio da
+   escala. `ref` é a altura em que cada traço foi calibrado, que é a
+   altura da própria referência que o originou. */
+function weight(h: number, ref: number) {
+  return Math.min(3.2, Math.max(1, Math.pow(h / ref, 0.45)));
+}
+
+
 type Point = { x: number; y: number };
 
 /* Contorno fechado a partir da linha de centro: vai por um lado e volta
@@ -103,11 +122,24 @@ type LoopSpec = {
   taper: Taper;
 };
 
+/* O laço é uma ELIPSE, não uma volta qualquer: ele é achatado porque a
+   mão corre na direção da leitura e só vira nas pontas. Deixado solto na
+   caixa, um trecho de duas linhas — ou uma palavra curta — dá uma caixa
+   quase quadrada, e o traço sai redondo: deixa de ser marca de revisor e
+   vira um círculo desenhado em volta de alguma coisa.
+
+   Então o raio horizontal tem um PISO em função do vertical. Quando a
+   caixa é alta demais o laço ALARGA em vez de achatar — achatar seria
+   deixar a última linha de fora, e um laço que não abraça o que marcou
+   não marcou nada. Ele vaza para os lados, que é exatamente o que a mão
+   faz no papel e o que o resto da marcação já assume. */
+const FLAT = 1.75;
+
 function drawLoop(w: number, h: number, o: LoopSpec): Stroke[] {
   const cx = w / 2;
   const cy = h / 2;
-  const rx = (w / 2) * o.fill;
   const ry = (h / 2) * o.fill;
+  const rx = Math.max((w / 2) * o.fill, ry * FLAT);
   const tilt = rad(o.tilt);
   const ct = Math.cos(tilt);
   const st = Math.sin(tilt);
@@ -124,7 +156,8 @@ function drawLoop(w: number, h: number, o: LoopSpec): Stroke[] {
     return { x: cx + x * ct - y * st, y: cy + x * st + y * ct };
   };
 
-  return [outline(center, (t, dir) => nib(dir, o.nib) * taper(t, o.taper))];
+  const ink = weight(h, 62);
+  return [outline(center, (t, dir) => nib(dir, o.nib) * ink * taper(t, o.taper))];
 }
 
 /* ── A sublinha ────────────────────────────────────────────────────────
@@ -149,7 +182,8 @@ function drawStroke(w: number, h: number, o: StrokeSpec): Stroke {
     y: y0 + Math.sin(t * Math.PI) * h * o.bow - t * t * h * o.lift,
   });
 
-  return outline(center, (t, dir) => nib(dir, o.nib) * taper(t, o.taper), 120);
+  const ink = weight(h, 14);
+  return outline(center, (t, dir) => nib(dir, o.nib) * ink * taper(t, o.taper), 120);
 }
 
 /* Um traço entre dois pontos. É o tijolo de qualquer gesto que não corra
