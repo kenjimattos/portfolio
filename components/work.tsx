@@ -198,6 +198,12 @@ export const Work = () => {
               className="work-row"
               /* Ímpares com a tela à direita, pares à esquerda. */
               data-side={index % 2 === 1 ? "left" : "right"}
+              /* E a cor do acento alterna junto. Hoje ela bate com o lado
+                 porque as duas contam de dois em dois, mas são coisas
+                 diferentes: uma é o espelhamento do layout, a outra é o
+                 ritmo da cor. Separadas, mudar o desenho da lista não
+                 obriga a mudar a paleta. */
+              data-accent={index % 2 === 1 ? "violet" : "red"}
               style={{ opacity: 0 }}
             >
               <div className="ed-grid row-inner">

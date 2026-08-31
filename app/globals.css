@@ -598,13 +598,25 @@
     border-top: 1px solid var(--ink);
   }
 
+  /* O acento da linha. Ele é uma variável e não uma cor escrita em cada
+     regra porque as três coisas que acendem no hover — o nome do
+     projeto, a sombra do recorte e a caneta da seta — são o MESMO acento
+     visto em três lugares. Escrito três vezes, alternar viraria seis
+     regras que precisam concordar; escrito uma, a linha diz a sua cor e
+     o resto obedece. */
   .work-row {
+    --accent: var(--red);
+
     display: block;
     border-bottom: 1px solid var(--ink);
     background: var(--paper);
     transition:
       background var(--t-row),
       color var(--t-row);
+  }
+
+  .work-row[data-accent="violet"] {
+    --accent: var(--violet);
   }
 
   .work-row .row-inner {
@@ -817,9 +829,16 @@
   /* Com a linha invertida em campo de tinta, o filete e a sombra somem
      na cor do fundo: o recorte continua de papel (agora é ele que
      salta), o contorno vira papel e a sombra vira vermelha. */
+  /* A caneta da seta é o terceiro lugar em que o acento aparece, e ela o
+     recebe pelo mesmo caminho que qualquer outra marcação do site: a
+     variável do contexto. */
+  .wr-go {
+    --pen: var(--accent);
+  }
+
   .work-row:hover .wr-go {
     border-color: var(--paper);
-    box-shadow: 7px 8px 0 var(--red);
+    box-shadow: 7px 8px 0 var(--accent);
     transform: translateX(6px);
     padding-right: 44px;
   }
@@ -844,7 +863,7 @@
     }
 
     .work-row[data-side="left"]:hover .wr-go {
-      box-shadow: -7px 8px 0 var(--red);
+      box-shadow: -7px 8px 0 var(--accent);
       transform: translateX(-6px);
       padding-right: 14px;
       padding-left: 44px;
@@ -906,7 +925,7 @@
   }
 
   .work-row:hover .wr-bar .name {
-    color: var(--red);
+    color: var(--accent);
   }
 
   /* Empilhado, a tela sobe: numa lista visual é a imagem que segura o
