@@ -5,93 +5,77 @@
    masthead inventou o gesto; daqui para frente ele é uma peça, não um
    desenho avulso colado em cada seção.
 
-   São três traços e nada além disso — laço, sublinha e seta. A régua é
-   simples: a caneta marca UMA coisa por seção, e marca a afirmação que
-   o visitante deveria desconfiar. Marca de revisor repetida em tudo vira
-   textura, e textura não afirma nada.
+   São quatro traços e nada além disso — laço, sublinha, seta e visto. A
+   régua é simples: a caneta marca UMA coisa por seção, e marca a
+   afirmação que o visitante deveria desconfiar. Marca de revisor
+   repetida em tudo vira textura, e textura não afirma nada.
 
-   Os traços são desenhados, não decorados: cada path se mede sozinho
-   (`getTotalLength`) e entra quando fica visível, uma vez só. E
-   `non-scaling-stroke` mantém a espessura da caneta constante mesmo com
-   o viewBox esticado até a medida da palavra — sem isso, palavra curta
-   sairia com traço gordo e palavra longa com traço fino, e a mão
-   deixaria de ser a mesma mão. */
+   A geometria mora em `lib/pen.ts`, porque é desenho e não componente:
+   cada traço é um contorno PREENCHIDO, gerado no tamanho medido da
+   palavra a partir de uma linha de centro mais um perfil de largura.
+   Aqui mora só o resto — quando o traço é escrito, e o que o esconde
+   antes disso. */
 
-import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useId, useRef, type CSSProperties, type ReactNode } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/motion";
-
-gsap.registerPlugin(useGSAP);
+import {
+  ARROW_BOX,
+  CHECK_BOX,
+  arrow,
+  check,
+  loop,
+  underline,
+  type LoopVariant,
+  type Stroke,
+  type UnderlineVariant,
+} from "@/lib/pen";
 
 export type MarkKind = "loop" | "underline" | "arrow" | "check";
+export type MarkVariant = LoopVariant | UnderlineVariant;
 
-/* O laço dá a volta e PASSA do ponto onde começou — quem circula uma
-   palavra à mão nunca fecha a curva em cima do próprio começo. É esse
-   excesso que separa o traço de uma elipse de software. A sublinha vem
-   em duas passadas, pelo mesmo motivo: uma passada só é uma borda. */
-const MARKS: Record<MarkKind, { view: string; stretch: boolean; paths: string[] }> = {
-  loop: {
-    view: "0 0 208 62",
-    stretch: true,
-    paths: [
-      "M150 10 C 96 1, 34 5, 16 22 C 1 37, 38 52, 100 54 C 162 56, 197 45, 192 27 C 188 13, 162 6, 126 7",
-    ],
-  },
-  underline: {
-    view: "0 0 208 24",
-    stretch: true,
-    paths: ["M4 8 C 58 1, 132 15, 205 4", "M13 18 C 68 12, 140 22, 195 13"],
-  },
-  arrow: {
-    view: "0 0 22 42",
-    stretch: false,
-    paths: ["M11 2 C 8 14, 14 24, 11 37 M3 27 C 6 32, 9 35, 11 39 C 13 34, 17 30, 20 26"],
-  },
-  /* O visto do revisor: desce curto, sobe longo e passa do fim, como
-     quem confere uma linha e segue para a próxima. */
-  check: {
-    view: "0 0 26 26",
-    stretch: false,
-    paths: ["M3 13 C 5 15, 7 17, 9 21 C 13 13, 18 6, 24 2"],
-  },
+/* Quem estica e quem não estica. O laço e a sublinha são gerados na
+   medida exata da palavra — é por isso que a espessura da caneta fica
+   igual numa palavra curta e numa comprida, sem `non-scaling-stroke` e
+   sem os remendos que ele obrigava. A seta e o visto têm caixa própria e
+   entram inteiros na caixa que o CSS reservar, como sempre entraram. */
+const NATURAL: Partial<Record<MarkKind, { w: number; h: number }>> = {
+  arrow: ARROW_BOX,
+  check: CHECK_BOX,
 };
 
-/* O comprimento do traço COMO ELE É DESENHADO NA TELA.
-   `getTotalLength()` responde em unidades do viewBox, e com
-   `non-scaling-stroke` o tracejado é medido depois da transformação, no
-   espaço da tela. Quando o viewBox é esticado até a medida da palavra os
-   dois números deixam de bater: num laço de 208 unidades esticado para
-   273px, o comprimento real é ~20% maior que o declarado, o `dasharray`
-   fica CURTO e o último pedaço da curva nunca é pintado — o laço fecha
-   com um buraco, por mais que a animação termine.
+/* Quantos traços cada marcação tem. Precisa ser sabido ANTES de medir:
+   os elementos nascem vazios no HTML e só recebem o desenho depois, já
+   com a medida na mão — assim não existe um quadro em que a marcação
+   aparece no tamanho errado. */
+const PARTS: Record<MarkKind, (variant?: MarkVariant) => number> = {
+  loop: () => 1,
+  underline: (variant) => (variant === "a" ? 1 : 2),
+  arrow: () => 3,
+  check: () => 2,
+};
 
-   Então o caminho é amostrado e somado no espaço da tela. Vale para
-   qualquer proporção, inclusive a que ainda não existe: uma palavra
-   nova, um idioma novo, uma janela de outro tamanho. */
-function screenLength(path: SVGPathElement, sx: number, sy: number) {
-  const len = path.getTotalLength();
-  const steps = 160;
-  let total = 0;
-  let prev = path.getPointAtLength(0);
-  for (let i = 1; i <= steps; i++) {
-    const point = path.getPointAtLength((len * i) / steps);
-    total += Math.hypot((point.x - prev.x) * sx, (point.y - prev.y) * sy);
-    prev = point;
-  }
-  return total;
-}
-
-/* A folga que esconde as pontas. Com `dasharray` e `dashoffset` iguais ao
-   comprimento, o traço some — mas o começo do tracejado cai exatamente no
-   começo do caminho, e a ponta ARREDONDADA da caneta continua pintando um
-   pingo de tinta ali. Empurrar o tracejado alguns pixels a mais tira a
-   ponta para fora do caminho, e o repouso fica limpo de verdade. */
-const CAP_PAD = 4;
+/* A velocidade da escrita, por traço. Não é a mesma duração para todos
+   de propósito: a sublinha é um caminho muito mais curto que o laço, e
+   dar a ela o mesmo tempo dá uma caneta mais LENTA — o risco reto parece
+   arrastado mesmo estando certo no relógio. O que precisa bater entre os
+   traços é a velocidade, não a duração. */
+const DURATION: Record<MarkKind, number> = {
+  loop: 0.5,
+  underline: 0.3,
+  arrow: 0.42,
+  check: 0.34,
+};
 
 export function PenMark({
   kind,
   className,
+  /* Qual dos três laços, ou qual das duas sublinhas. Os três laços têm o
+     mesmo peso e diferem só no caminho — a lente aberta à esquerda, a
+     saída por baixo, o rabo cruzando —, então alternar entre eles não
+     faz um parecer mais importante que o outro. */
+  variant,
   /* A cor da caneta. Ela é herdada do contexto por padrão — é assim que
      as duas peles da nota trocam de tinta sem que a marcação saiba onde
      está —, e esta prop escreve a MESMA variável, para não existirem
@@ -103,95 +87,148 @@ export function PenMark({
      "mount" é para quem já nasce visível — a nota do masthead, que
      precisa desenhar ANTES do primeiro gesto de rolagem. "hover" é para
      marcação de gesto: a caneta escreve quando o cursor chega e desfaz
-     quando ele sai, e por isso é a única que precisa medir de novo a
-     cada entrada. */
+     quando ele sai. */
   on = "scroll",
   delay = 0,
 }: {
   kind: MarkKind;
   className?: string;
+  variant?: MarkVariant;
   pen?: "red" | "paper" | "ink" | "violet";
   on?: "scroll" | "mount" | "hover";
   delay?: number;
 }) {
   const ref = useRef<SVGSVGElement>(null);
-  const mark = MARKS[kind];
+  const uid = useId().replace(/:/g, "");
+  const natural = NATURAL[kind];
+  const count = PARTS[kind](variant);
 
   useGSAP(
     () => {
       const svg = ref.current;
       if (!svg) return;
 
-      const paths = svg.querySelectorAll<SVGPathElement>("path");
+      const fills = Array.from(svg.querySelectorAll<SVGPathElement>("path[data-fill]"));
+      const spines = Array.from(svg.querySelectorAll<SVGPathElement>("path[data-spine]"));
+      const regions = Array.from(svg.querySelectorAll<SVGMaskElement>("mask"));
       const reduced = prefersReducedMotion();
 
-      /* Medir é sempre no tamanho de agora: o traço só sabe o próprio
-         comprimento depois de saber a largura que coube na tela. */
-      const hide = () => {
+      let cover: number[] = [];
+
+      /* Desenhar é sempre no tamanho de agora. O traço só sabe a própria
+         forma depois de saber a largura que coube na tela — e quando a
+         janela muda, ou a fonte assenta e a palavra cresce, ele precisa
+         ser desenhado de novo, não esticado. */
+      const build = () => {
         const box = svg.getBoundingClientRect();
-        const view = svg.viewBox.baseVal;
-        const sx = view.width ? box.width / view.width : 1;
-        const sy = view.height ? box.height / view.height : 1;
-        paths.forEach((path) => {
-          const len = screenLength(path, sx, sy) || path.getTotalLength();
-          /* O vão é o TRIPLO do traço, e não igual a ele. `dasharray: len`
-             repete traço-e-vão do mesmo tamanho, então basta a medida
-             ficar um pouco curta — e ela fica, quando o traço é medido
-             antes de a fonte assentar e a palavra ainda vai crescer —
-             para a SEGUNDA repetição espiar no fim do caminho. Era o
-             fiapo de tinta que sobrava nas linhas em repouso. */
-          path.style.strokeDasharray = `${len} ${len * 3}`;
-          path.style.strokeDashoffset = `${len + CAP_PAD}`;
+        const w = natural ? natural.w : Math.max(1, box.width);
+        const h = natural ? natural.h : Math.max(1, box.height);
+
+        if (!natural) svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+
+        let parts: Stroke[];
+        if (kind === "loop") parts = loop(w, h, (variant as LoopVariant) ?? "a");
+        else if (kind === "underline") parts = underline(w, h, (variant as UnderlineVariant) ?? "b");
+        else if (kind === "arrow") parts = arrow();
+        else parts = check();
+
+        cover = parts.map((part) => part.cover);
+
+        parts.forEach((part, i) => {
+          fills[i]?.setAttribute("d", part.d);
+          spines[i]?.setAttribute("d", part.spine);
+          spines[i]?.setAttribute("stroke-width", String(Math.ceil(part.cover)));
+          /* A máscara precisa de folga: o rabo do laço sai da caixa, e
+             uma região apertada cortaria justamente a parte que faz o
+             traço parecer solto. */
+          const mask = regions[i];
+          if (mask) {
+            mask.setAttribute("x", String(-w));
+            mask.setAttribute("y", String(-h));
+            mask.setAttribute("width", String(w * 3));
+            mask.setAttribute("height", String(h * 3));
+          }
         });
       };
+
+      /* Esconder é empurrar a máscara para fora do caminho. O vão é o
+         dobro do traço para que a segunda repetição do tracejado não
+         espie no fim, e a folga extra tira a ponta ARREDONDADA da
+         máscara de cima do começo do caminho — sem ela sobra um pingo de
+         tinta visível no repouso. */
+      const hide = () => {
+        spines.forEach((spine, i) => {
+          const len = spine.getTotalLength();
+          spine.style.strokeDasharray = `${len} ${len * 2}`;
+          spine.style.strokeDashoffset = `${len + (cover[i] ?? 2)}`;
+        });
+      };
+
+      const reveal = () => {
+        spines.forEach((spine) => {
+          spine.style.strokeDasharray = "none";
+          spine.style.strokeDashoffset = "";
+        });
+      };
+
+      build();
 
       /* Sem animação não existe tracejado: o traço é o traço inteiro.
          Marcação de gesto é a exceção — ela precisa continuar sumindo
          quando o cursor sai, então segue medida e escondida, e aparece
-         de uma vez em vez de ser desenhada. */
+         de uma vez em vez de ser escrita. */
       if (reduced && on !== "hover") {
-        paths.forEach((path) => {
-          path.style.strokeDasharray = "none";
-        });
+        reveal();
         return;
       }
 
       hide();
+      let drawn = false;
 
       const draw = () =>
-        gsap.to(paths, {
+        gsap.to(spines, {
           strokeDashoffset: 0,
-          duration: 0.7,
-          ease: "power1.inOut",
-          stagger: 0.18,
+          duration: DURATION[kind],
+          ease: "power2.out",
+          stagger: 0.07,
           delay,
-          /* Terminado o desenho o tracejado sai de cena. A medida foi
-             feita para o tamanho de agora; se a janela mudar depois, um
-             dasharray velho reabriria o buraco no fim da curva. */
-          onComplete: () =>
-            paths.forEach((path) => {
-              path.style.strokeDasharray = "none";
-              path.style.strokeDashoffset = "";
-            }),
+          onComplete: () => {
+            drawn = true;
+            reveal();
+          },
         });
+
+      /* A palavra muda de tamanho depois de montada: a fonte assenta, a
+         janela vira, o idioma troca. O traço é redesenhado na medida
+         nova — e volta a se esconder se ainda não tiver sido escrito. */
+      let observer: ResizeObserver | null = null;
+      if (!natural && typeof ResizeObserver !== "undefined") {
+        let first = true;
+        observer = new ResizeObserver(() => {
+          if (first) {
+            first = false;
+            return;
+          }
+          build();
+          if (drawn || (reduced && on !== "hover")) reveal();
+          else hide();
+        });
+        observer.observe(svg);
+      }
+      const stop = () => observer?.disconnect();
 
       if (on === "mount") {
         draw();
-        return;
+        return stop;
       }
 
       /* Marcação de gesto. O anfitrião é a linha inteira, não o traço:
          quem passa o mouse mira o projeto, não a seta de 22px. O foco de
          teclado conta como chegada, senão a seta só existiria para quem
-         usa mouse.
-
-         Remede a cada entrada porque o `dasharray` daqui não pode ser
-         apagado no fim — ele ainda precisa esconder o traço na saída —, e
-         uma medida velha de antes de a janela mudar deixaria a seta com
-         um buraco no fim. */
+         usa mouse. */
       if (on === "hover") {
         const host = svg.closest<HTMLElement>("a, button") ?? svg.parentElement;
-        if (!host) return;
+        if (!host) return stop;
 
         /* A caneta em curso é guardada, e é ELA que morre na saída. Matar
            por alvo (`killTweensOf`) não alcançava este tween: ele nasce
@@ -205,14 +242,9 @@ export function PenMark({
            ponteiro. No toque não existe "estar em cima", mas o navegador
            mantém um hover PEGAJOSO: a linha fica escura até você tocar em
            outra. A seta pertence a esse estado — enquanto o campo está
-           escuro ela está lá, e ela sai junto quando o campo sai. Ler o
+           escuro ela está lá, e sai junto quando o campo sai. Ler o
            `:hover` é o que faz as duas coisas serem a mesma coisa por
-           construção, em vez de duas regras que precisam concordar.
-
-           Foi por isso que perguntar `(hover: hover)` ou olhar
-           `pointerType === "touch"` deu errado das duas vezes: as duas
-           perguntas são sobre o DISPOSITIVO, e o que importa aqui é o
-           estado de agora. */
+           construção, em vez de duas regras que precisam concordar. */
         let shown = false;
 
         const show = () => {
@@ -220,25 +252,23 @@ export function PenMark({
           shown = true;
           pen?.kill();
           if (reduced) {
-            paths.forEach((path) => {
-              path.style.strokeDasharray = "none";
-            });
+            reveal();
             return;
           }
+          build();
           hide();
-          pen = gsap.to(paths, {
+          pen = gsap.to(spines, {
             strokeDashoffset: 0,
-            duration: 0.85,
-            ease: "power1.inOut",
-            stagger: 0.12,
+            duration: DURATION[kind],
+            ease: "power2.out",
+            stagger: 0.07,
           });
         };
 
         /* A saída é um corte seco. Desenhar ao contrário parece a caneta
            sendo desfeita, e ninguém fica olhando o próprio gesto voltar:
            quem saiu já está mirando a linha seguinte, e a espera do
-           recolhimento vira lentidão. Some, e o `hide` ainda remede para
-           a próxima entrada. */
+           recolhimento vira lentidão. */
         const clear = () => {
           if (!shown) return;
           shown = false;
@@ -261,6 +291,7 @@ export function PenMark({
         window.addEventListener("pointercancel", sync);
 
         return () => {
+          stop();
           host.removeEventListener("pointerenter", show);
           host.removeEventListener("pointerleave", clear);
           host.removeEventListener("focus", show);
@@ -288,9 +319,12 @@ export function PenMark({
       );
       io.observe(svg);
 
-      return () => io.disconnect();
+      return () => {
+        stop();
+        io.disconnect();
+      };
     },
-    { scope: ref }
+    { scope: ref, dependencies: [kind, variant] }
   );
 
   return (
@@ -298,22 +332,35 @@ export function PenMark({
       ref={ref}
       className={className ? `pen-mark ${className}` : "pen-mark"}
       data-kind={kind}
-      viewBox={mark.view}
-      preserveAspectRatio={mark.stretch ? "none" : undefined}
+      viewBox={natural ? `0 0 ${natural.w} ${natural.h}` : "0 0 100 100"}
       style={pen ? ({ "--pen": `var(--${pen})` } as CSSProperties) : undefined}
       aria-hidden="true"
     >
-      {mark.paths.map((d) => (
+      <defs>
+        {Array.from({ length: count }, (_, i) => (
+          <mask key={i} id={`${uid}-${i}`} maskUnits="userSpaceOnUse">
+            {/* A máscara é a única coisa que a animação toca: ela anda
+                pelo caminho e vai descobrindo o contorno. */}
+            <path
+              data-spine=""
+              d=""
+              fill="none"
+              stroke="#fff"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </mask>
+        ))}
+      </defs>
+      {Array.from({ length: count }, (_, i) => (
         <path
-          key={d}
-          d={d}
-          fill="none"
+          key={i}
+          data-fill=""
+          d=""
           /* --pen é do contexto: dentro do carimbo vermelho a caneta é de
              papel, em qualquer outro lugar é vermelha. */
-          stroke="var(--pen, var(--red))"
-          strokeWidth="2"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
+          fill="var(--pen, var(--red))"
+          mask={`url(#${uid}-${i})`}
         />
       ))}
     </svg>
@@ -326,12 +373,14 @@ export function PenMark({
 export function Marked({
   children,
   kind = "loop",
+  variant,
   pen,
   on,
   delay,
 }: {
   children: ReactNode;
   kind?: Extract<MarkKind, "loop" | "underline">;
+  variant?: MarkVariant;
   pen?: "red" | "paper" | "ink" | "violet";
   on?: "scroll" | "mount" | "hover";
   delay?: number;
@@ -339,7 +388,7 @@ export function Marked({
   return (
     <span className="marked">
       {children}
-      <PenMark kind={kind} pen={pen} on={on} delay={delay} />
+      <PenMark kind={kind} variant={variant} pen={pen} on={on} delay={delay} />
     </span>
   );
 }
