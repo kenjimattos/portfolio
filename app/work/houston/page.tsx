@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { HoustonContent } from "./houston-content";
 
-const title = "Houston — Medical Shift Management Platform";
+const title = "Houston · Medical Shift Operations Platform";
 const description =
-  "Case study: evolving an internal tool into a multi-tenant medical shift management platform with scheduling, attendance, payments, and RBAC.";
+  "Case study: from internal tool to a multi-tenant platform running schedules, applications and access for 2,000+ doctors, designed directly in code.";
 
 export const metadata: Metadata = {
   title,

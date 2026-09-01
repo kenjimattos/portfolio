@@ -21,6 +21,7 @@
  */
 
 import { CSSProperties, ReactNode, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -289,6 +290,7 @@ export function CaseHero({
   sub,
   media,
   mediaWidth = 1280,
+  cover,
   mediaTag,
   note,
   role,
@@ -306,6 +308,10 @@ export function CaseHero({
      reduzido por --slab-scale, então a densidade é a real e o corte é
      honesto, em vez de espremer a tela inteira até virar ruído. */
   mediaWidth?: number;
+  /* A alternativa à recriação: a imagem de capa do projeto, em cover,
+     com o mesmo enquadramento da lista de trabalhos. Ganha da `media`
+     quando as duas vierem. */
+  cover?: { src: string; alt: string; zoom?: number; fx?: string; fy?: string };
   mediaTag?: string;
   /* O recorte de papel no centro da tela, com uma frase do projeto —
      nunca sobre o site nem sobre o método. Ele some na primeira rolagem,
@@ -336,7 +342,30 @@ export function CaseHero({
       <div className="case-hero-stage" data-case-turn>
         <div className="case-hero-dark" aria-hidden="true" />
 
-        {media ? (
+        {cover ? (
+          <div
+            className="case-hero-media"
+            data-case-media
+            data-cover=""
+            style={
+              {
+                "--z": cover.zoom ?? 1,
+                "--fx": cover.fx ?? "50%",
+                "--fy": cover.fy ?? "50%",
+              } as CSSProperties
+            }
+          >
+            <Image
+              src={cover.src}
+              alt={cover.alt}
+              fill
+              quality={90}
+              priority
+              sizes="(max-width: 900px) 100vw, 56vw"
+            />
+            {mediaTag ? <span className="meta case-hero-media-tag">{mediaTag}</span> : null}
+          </div>
+        ) : media ? (
           <div className="case-hero-media" data-case-media>
             <div
               className="case-hero-media-inner"
@@ -498,6 +527,7 @@ export function CaseDecision({
   id,
   number,
   tension,
+  context,
   design,
   code,
   cost,
@@ -507,6 +537,9 @@ export function CaseDecision({
   id: string;
   number: string;
   tension: Tension;
+  /* A história que a decisão carrega, quando ela não nasce limpa — vem
+     antes dos painéis, porque os painéis são a resposta. */
+  context?: string;
   design: CasePanel;
   code: CasePanel;
   cost: string;
@@ -532,6 +565,8 @@ export function CaseDecision({
           <TensionText tension={tension} />
         </h3>
       </div>
+
+      {context ? <p className="case-dec-context">{context}</p> : null}
 
       <div className="case-panels">
         <span className="case-seam" aria-hidden="true" />

@@ -1,496 +1,427 @@
 "use client";
 
-import { ReactNode } from "react";
+/* Houston — o segundo case no editorial de problema.
+ *
+ * A atribuição está na primeira dobra, como no Sebrae: a demanda era dos
+ * fundadores e o prazo era da reunião; o que o case reivindica é
+ * transformar demanda em produto rodando em produção, sem quebrar a
+ * operação. Onde a implementação profunda foi escrita com IA, o selo
+ * diz (d01 e d03) — e a d03 abre com o erro admitido, porque é a
+ * decisão que o Kenji defende inteira.
+ *
+ * O hero usa a imagem de capa do projeto em vez da recriação viva: a
+ * capa é clara, então o véu é o curto (data-cover) e a manchete ainda
+ * troca de tinta por papel na fronteira. As recriações continuam sendo
+ * a prova — dentro das decisões que provam.
+ */
+
 import {
-  CaseContact,
-  CaseDesignLanguage,
-  CaseEm,
+  CaseCTA,
+  CaseConstraints,
+  CaseDecision,
+  CaseDecisions,
   CaseEvidence,
-  CaseFeature,
-  CaseFeatures,
+  CaseFrontier,
   CaseHero,
-  CaseLayout,
-  CaseResults,
-  CaseShowcase,
-  CaseStory,
-} from "@/components/case-study/case-layout";
-import { HoustonApp, HoustonPanel, HoustonScreen } from "@/components/houston-demo/houston-frame";
-import { TeamsEmbed } from "@/components/houston-demo/embeds/teams";
+  CaseIndex,
+  CaseOutcome,
+  CaseProof,
+  CaseSection,
+  CaseShell,
+  type EvidenceItem,
+  type Tension,
+} from "@/components/case-study/case-editorial";
+import { HoustonScreen } from "@/components/houston-demo/houston-frame";
 import { AccessControlEmbed } from "@/components/houston-demo/embeds/access-control";
-import { ScheduleBuilderEmbed } from "@/components/houston-demo/embeds/schedule-builder";
-import { ComponentLibraryExhibit } from "@/components/houston-demo/embeds/component-library";
+import { AccessExhibit } from "@/components/houston-demo/access-exhibit";
+import { SystemSpecimen } from "@/components/houston-demo/system-specimen";
 import { geologica } from "@/components/houston-demo/geologica";
+import { cx } from "@/components/houston-demo/ui";
 import { useLocale } from "@/lib/i18n";
 
-const ACCENT = "#1555AD";
-const ACCENT_INK = "#1a365d";
-const ACCENT_TINT = "#EDF4FF";
+const DEMO_URL = "https://houston-demo.vercel.app/";
+const REPO_URL = "https://github.com/kenjimattos/houston-III-demo";
 
-function Labeled({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <>
-      <span
-        className="font-mono uppercase tracking-widest block mb-2"
-        style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
-      >
-        {label}
-      </span>
-      {children}
-    </>
-  );
-}
+/* ----------------------------------- copy ----------------------------------- */
 
-function TradeOff({ children }: { children: ReactNode }) {
-  return <Labeled label="Trade-off">{children}</Labeled>;
-}
+type Panel = { label: string; chose: string; why?: string; authorship?: "own" | "assisted" };
 
-/* --------------------------- shared, non-text data --------------------------- */
-
-const SUPPORT_COLORS = [
-  "#3B82F6", "#EF4444", "#10B981", "#F59E0B", "#8B5CFF", "#EC4899", "#14B8A6", "#F97316",
-  "#6366F1", "#EF4675", "#06B6D4", "#84CC16", "#A855F7", "#F43F5E", "#22D3EE", "#FBB040",
-  "#8B5CF6", "#F87171", "#34D399", "#FBBF24", "#C084FC", "#FB7185", "#67E8F9", "#FCD34D",
-  "#6D28D9", "#DC2626", "#059669", "#D97706", "#7C3AED", "#BE185D", "#0891B2", "#CA8A04",
-];
-
-const STATUS_PILL_CLS = [
-  "bg-gray-50 text-gray-700 border-gray-200",
-  "bg-orange-50 text-orange-700 border-orange-200",
-  "bg-red-50 text-red-700 border-red-200",
-  "bg-yellow-50 text-yellow-700 border-yellow-200",
-  "bg-blue-50 text-blue-700 border-blue-200",
-  "bg-green-50 text-green-700 border-green-200",
-];
-
-/* ----------------------------------- copy ------------------------------------ */
-
-type FeatureCopy = {
-  title: string;
-  text: string;
-  secondary?: ReactNode;
-  caption?: string;
-  mediaNote?: string;
+type Decision = {
+  id: string;
+  tension: Tension;
+  context?: string;
+  design: Panel;
+  code: Panel;
+  cost: string;
+  proofCaption: string;
 };
 
 type Copy = {
-  chips: string[];
-  headline: ReactNode;
-  subtitle: string;
-  roleTags: string[];
-  links: { label: string; href: string; hint?: string }[];
-  showcase: { label: string; note: string; caption: string };
-  results: { items: { value: string; label: string }[]; statement: string; footnote: string };
-  story: {
-    eyebrow: string;
-    headline: string;
-    text: string;
-    imageAlt: string;
-    imageCaption: string;
-    personas: { label: string; title: string; text: string }[];
-    cards: { number: string; title: string; text: string }[];
+  kicker: [string, string];
+  headline: string;
+  turn: string;
+  sub: string;
+  coverAlt: string;
+  shotTag: string;
+  note: { cue: string; before: string; circled: string; after: string; href: string };
+  role: { label: string; text: string; note: string };
+  indexLabel: string;
+  constraints: { label: string; text: string }[];
+  decisionsHeading: string;
+  decisionsNote: string;
+  railLabel: string;
+  costLabel: string;
+  decisions: Decision[];
+  frontier: { label: string; text: string };
+  outcome: {
+    heading: string;
+    measures: { value: string; label: string; mark?: boolean }[];
+    gaps: { label: string; items: string[] };
   };
-  design: {
-    intro: string;
-    description: string;
-    paletteMeta: { category: string; name: string }[];
-    library: { label: string; text: string };
-    support: { label: string; text: string };
-    statusLabel: string;
-    statusPills: string[];
-    weights: { label: string; weight: number }[];
-  };
-  features: { eyebrow: string; intro: string; items: FeatureCopy[] };
-  evidence: { eyebrow: string; text: string; captions: string[]; alts: string[] };
-  contact: { heading: string; text: string };
+  evidence: { heading: string; items: EvidenceItem[] };
+  cta: { label: string; heading: string; invite: string; action: string };
+  next: string;
 };
 
 const COPY: Record<"en" | "pt", Copy> = {
   en: {
-    chips: ["2025", "Health operations", "SaaS platform"],
-    headline: (
-      <>
-        Houston: from internal tool to the{" "}
-        <CaseEm>platform running medical shifts</CaseEm> at scale.
-      </>
-    ),
-    subtitle:
-      "The web platform hospitals and staffing teams use to plan schedules, approve candidates, control attendance and handle payments, all in one place.",
-    roleTags: ["UI/UX Design", "Front-end", "Back-end", "Product", "Architecture", "Engineering"],
-    links: [
-      {
-        label: "Open the live demo",
-        href: "https://houston-demo.vercel.app/",
-        hint: "demo@houston.local · demo123456",
-      },
-      { label: "View on GitHub", href: "https://github.com/kenjimattos/houston-III-demo" },
+    kicker: [
+      "Houston · 2025 · medical shift operations platform",
+      "React · TypeScript · Next.js · Supabase · PostgreSQL",
     ],
-    showcase: {
-      label: "Live recreation — explore it",
-      note: "Rebuilt in React for this case study · Brazilian product, UI in Portuguese · fictional data",
-      caption:
-        "Use the sidebar to move between modules: dashboard, schedule, jobs, payments and reports are fully navigable.",
+    headline: "The people scheduling 2,000 doctors had, at best, a spreadsheet.",
+    turn: "Today they run a platform.",
+    sub: "From internal tool to multi-tenant platform: schedules, applications and access for 2,000+ doctors, designed directly in code.",
+    coverAlt: "The Houston control panel on a laptop",
+    shotTag: "Platform dashboard · fictional data",
+    /* A frase é a afirmação mais difícil de acreditar do case — e a prova
+       dela é a decisão 02, para onde a nota aponta. */
+    note: {
+      cue: "Scroll",
+      before: "36 permissions, 4 roles and",
+      circled: "no permissions screen",
+      after: ".",
+      href: "#d02",
     },
-    results: {
-      items: [
-        { value: "0 → 1", label: "Internal tool rebuilt into a production-grade platform" },
-        { value: "2,000+", label: "Doctors registered and managed through the platform" },
-        { value: "8", label: "Core modules covering the full lifecycle of a medical shift" },
-        { value: "36", label: "Granular permissions across 4 roles in the multi-tenant access model" },
-      ],
-      statement:
-        "All of it built from zero, with no admin template and no off-the-shelf UI kit. Today Houston runs the entire lifecycle of a medical shift as the operation’s single source of truth, with an experience that outclasses the incumbent tools in its market. Judge that claim yourself in the recreation above.",
-      footnote:
-        "Scope and operational figures above come from the real platform. Data shown inside the recreation is fictional.",
+    role: {
+      label: "My role",
+      text: "Product, design, frontend, backend and database: a year and a half on the project, most of it alone; for four months, coordinating a contracted developer through issues, PRs and a kanban flow on GitHub Projects, with the CI/CD built side by side. I defined the type, spacing, widths and color hierarchy over retokenized shadcn/ui primitives, and designed the flows directly in code, against the live operation. The custom calendar and the schedule grid were born almost entirely from generative AI: I specified, reviewed and tested, with adjustments by the developer through the issues and PR flow. I built the access redesign, from RLS to the BFF, pairing with Claude. The decisions are mine.",
+      note: "The demand wasn't mine. It came from the founders, with an investor or client set to see the feature working, in meetings that appeared without warning. What was mine was turning demand into product running in production, racing the clock, without breaking the operation. Every decision below is of that kind.",
     },
-    story: {
-      eyebrow: "From tool to platform",
-      headline: "A platform designed around operational clarity and scalability.",
-      text: "Houston began as a simple support tool for job postings coming from the mobile app. As the operation grew, hiring teams needed visibility, control and automation across the entire lifecycle of medical shifts, so it was rebuilt into the platform above.",
-      imageAlt: "Screenshot of the first version of Houston, a simple support tool",
-      imageCaption: "Where it started: the previous version of Houston",
-      personas: [
-        {
-          label: "Primary user",
-          title: "The escalista",
-          text: "The person who finds doctors and fills the schedule, often with little formal training and even less tooling: spreadsheets at best, sometimes not even that, where every update risks a silent error. Houston is designed around them first: plain vocabulary, one obvious way to do each task, mistakes that are hard to make.",
-        },
-        {
-          label: "Also served",
-          title: "Coordinators & managers",
-          text: "The people who run escalista teams need the opposite altitude: a managerial and financial view of the operation: dashboards, reports and payroll across hospitals and groups.",
-        },
-      ],
-      cards: [
-        {
-          number: "01",
-          title: "Operational clarity first",
-          text: "One vocabulary across scheduling, applications, attendance and payments, so operators never relearn the interface.",
-        },
-        {
-          number: "02",
-          title: "Rules live in the database",
-          text: "Core business rules enforced at the PostgreSQL level, with a managed migration lifecycle.",
-        },
-        {
-          number: "03",
-          title: "Multi-tenant by structure",
-          text: "Permissions enforced in the frontend and revalidated on the backend, never one without the other.",
-        },
-        {
-          number: "04",
-          title: "A team, not a hero",
-          text: "Standards, reviews and CI/CD let a team of three ship fast as complexity grew.",
-        },
-      ],
-    },
-    design: {
-      intro:
-        "All design here is mine, end to end, and it never passed through a design tool. Under real delivery pressure, flows and screens were designed directly in code and iterated against the live operation. The system below is what kept that fast process coherent.",
-      description:
-        "A single variable typeface carries the whole platform. Thin weights keep dense operational screens light; regular anchors headings and metrics. There is no bold anywhere: hierarchy comes from size and color.",
-      paletteMeta: [
-        { category: "Primary", name: "Purple" },
-        { category: "Neutral", name: "App Background" },
-        { category: "Neutral", name: "Ink" },
-      ],
-      library: {
-        label: "Component library",
-        text: "Houston is built on shadcn/ui. That choice is about accessibility and speed, not about skipping the work: the primitives were copied into the repo, retokenized to this design language and extended by hand. Everything specific to running medical shifts, the schedule grid, the calendar, the permission layer, the operational tables, had to be designed and written from scratch, reviewed in pull requests and shipped against a live operation.",
+    indexLabel: "Decisions in this case",
+    constraints: [
+      {
+        label: "Context",
+        text: "2,000+ doctors across hospitals and groups, multi-tenant, and a primary user, the escalista, the person who builds the shift schedule, coming from a spreadsheet at best.",
       },
-      support: {
-        label: "Support palette",
-        text: "32 colors available when creating a grade. Each schedule keeps its color across the calendar, shift views and reports, with diverse hues tuned to sit comfortably next to the primary purple.",
+      {
+        label: "Constraint",
+        text: "Founder demands with a meeting for a deadline: the feature an investor needed to see had to be live and working, and the meetings appeared without warning. One person for most of it; a contracted developer for four months.",
       },
-      statusLabel: "Status language",
-      statusPills: ["ABERTA", "FECHADA", "URGENTE", "PENDENTE", "AUTORIZADO", "PAGO"],
-      weights: [
-        { label: "Thin", weight: 100 },
-        { label: "Regular", weight: 400 },
-        { label: "Medium", weight: 500 },
-      ],
+    ],
+    decisionsHeading: "Decisions",
+    decisionsNote: "Four of them, and only what has proof attached.",
+    railLabel: "Jump to a decision",
+    costLabel: "Cost",
+    decisions: [
+      {
+        id: "d01",
+        tension: { a: "Off-the-shelf library", b: "the escalista's screen" },
+        design: {
+          label: "Design",
+          chose: "Rebuild the calendar when the library became the bottleneck, not before.",
+          why: "Grouping shifts by time, status colors and per-shift actions didn't fit the ready-made model. The library was the right call until it wasn't.",
+        },
+        code: {
+          label: "Code",
+          chose: "A custom calendar in React, no view library: grouping by time, status language and per-shift actions.",
+          why: "Fewer views than the library, full control over the screen the escalista lives in.",
+          authorship: "assisted",
+        },
+        proofCaption:
+          "The custom calendar, recreated: shifts grouped by time, status colors, per-shift actions. None of it fit the library this screen started on.",
+        cost: "More code to own, and every new view is ours to build.",
+      },
+      {
+        id: "d02",
+        tension: { a: "Configurable", b: "operable" },
+        design: {
+          label: "Design",
+          chose: "No permissions screen: a manager assigns a role, never a checkbox matrix.",
+          why: "Editing permissions was more engineering than the manager needed, and room to compromise sensitive data. I chose to protect the user from the mistake.",
+        },
+        code: {
+          label: "Code",
+          chose: "4 fixed roles with 36 permissions predefined in the database; the frontend hides what the role can't do, the BFF decides.",
+          why: "Changing a permission is a product decision: a database change by PR, with a Supabase preview, homologation, then a release to production.",
+        },
+        proofCaption:
+          "The access modal, recreated: a role, not a checkbox matrix. The permissions screen doesn't exist on purpose.",
+        cost: "A permission change is never one click. At the time, I trusted that path to no one but myself.",
+      },
+      {
+        id: "d03",
+        tension: { a: "Permissions in the database", b: "permissions in the BFF" },
+        context:
+          "The RBAC was implemented by the contracted developer under my supervision, from my specification, over about two months. Once done, the system couldn't take the complexity and became too slow to operate. When the developer's contract came to an end, the feature the founders needed was sitting in homologation, not working, and I was alone with it. In days, the diagnosis: Supabase RLS was checking row by row what each user could see.",
+        design: {
+          label: "Design",
+          chose: "Keep the roles and the 36 permissions exactly as specified: the problem wasn't the access model, it was where it ran.",
+          why: "I didn't foresee that RLS wouldn't take the complexity; the mistake was mine, and the specification survived it.",
+        },
+        code: {
+          label: "Code",
+          chose: "Supabase closed behind a service key; the BFF in Next API routes decides what each user sees, with the user's information in the JWT. In days, RLS was out of the path.",
+          why: "The slowness was row-by-row checking in the database. The filtering now happens once, in the BFF, and load time plummeted.",
+          authorship: "assisted",
+        },
+        proofCaption:
+          "The access path, redrawn: no data query leaves the browser. Supabase Auth issues the JWT, with claims customized through an Auth Hook; the data sits behind a service key, and the BFF decides.",
+        cost: "The database is no longer the last line of defense: the BFF is what guarantees access now, and that responsibility lives in code we maintain.",
+      },
+      {
+        id: "d04",
+        tension: { a: "Design tool", b: "straight to code" },
+        design: {
+          label: "Design",
+          chose: "No Figma: flows and screens designed directly in code, against the live operation.",
+          why: "Features had meeting deadlines. Coherence came from the system: type, spacing, widths and color hierarchy defined once.",
+        },
+        code: {
+          label: "Code",
+          chose: "shadcn/ui primitives copied into the repo and retokenized; no bold anywhere in the product, hierarchy from size and color.",
+          why: "A single variable typeface, Geologica; thin weights keep dense screens light.",
+        },
+        proofCaption:
+          "The system that kept code-first design coherent: one variable typeface, three weights, no bold anywhere; hierarchy from size and color.",
+        cost: "No explorable artifact outside the product, and a harder onboarding for the next designer.",
+      },
+    ],
+    frontier: {
+      label: "Where the line sits:",
+      text: "the demand was the founders' and the deadline was the meeting's. Deciding what became platform and what stayed locked in the database was mine.",
     },
-    features: {
-      eyebrow: "Inside the platform",
-      intro:
-        "Each module below is the real screen, recreated in React with fictional data: sort tables, flip months, expand reports.",
-      items: [
-        {
-          title: "Operational Dashboard",
-          text: "A real-time overview of open and filled shifts, pending applications, operational risk, and payroll totals, with global month-based filtering.",
-          caption: "Interactive recreation with fictional data",
-        },
-        {
-          title: "Schedule Builder",
-          text: "An interactive grid-based interface for creating and managing medical schedules. Supports drag and drop creation, resizing, duplication, conflict detection, and batch publishing of shifts.",
-          caption:
-            "Live recreation, replayed on a loop: drag to create, resize, conflict rejected, publish. Conflict detection is the real logic.",
-        },
-        {
-          title: "Shift Calendar",
-          text: "Custom calendar views for weekly, monthly, and daily management, with quick actions, candidate assignment, and status tracking.",
-          secondary: (
-            <TradeOff>
-              The calendar began on an off-the-shelf library and outgrew it: grouping shifts by
-              time, status colors and per-shift actions didn’t fit its model. I rebuilt it from
-              scratch (more code to own, fewer views) in exchange for full control over the
-              screen escalistas spend their day in.
-            </TradeOff>
-          ),
-          caption: "Interactive recreation with fictional data",
-        },
-        {
-          title: "Job & Application Management",
-          text: "Centralized management of job postings and applications with bulk actions, recurrence handling, and conflict validation.",
-          caption: "Interactive recreation with fictional data",
-        },
-        {
-          title: "Attendance & Payments",
-          text: "Integrated check-in and check-out control with approval flows, payment authorization, and batch operations for large volumes of shifts.",
-          secondary: (
-            <Labeled label="Team">
-              This module was built by the engineer I supervised. I owned the interface design and
-              the review, they wrote the implementation.
-            </Labeled>
-          ),
-          caption: "Interactive recreation with fictional data",
-        },
-        {
-          title: "Reports & Insights",
-          text: "Operational and financial reports covering payroll, productivity, schedules, and exports, with unified filtering across the platform.",
-          caption: "Interactive recreation with fictional data",
-        },
-        {
-          title: "Doctors & Teams",
-          text: "Management of medical staff, teams, favorites, and pre-registered doctors, enabling faster assignments and better organization.",
-          mediaNote: "Interactive recreation: search, favorite, expand",
-        },
-        {
-          title: "Access Control & Permissions",
-          text: "Role-based access control governs permissions across schedules, applications, attendance, and payments, a requirement that became core as Houston turned multi-tenant.",
-          secondary: (
-            <TradeOff>
-              Rather than a free-form permission editor, Houston ships four fixed roles with their
-              36 permissions predefined at the database level. Operators assign a cargo, never a
-              checkbox matrix. We traded configurability for lower cognitive load and a safer
-              daily operation: that’s why the modal beside has no permissions screen.
-            </TradeOff>
-          ),
-          mediaNote: "Interactive recreation with fictional data",
-        },
+    outcome: {
+      heading: "Result",
+      measures: [
+        { value: "0 → 1", label: "internal tool to a platform in production" },
+        { value: "2,000+", label: "doctors registered and managed" },
+        { value: "36", label: "permissions across 4 roles, specified by me" },
+        { value: "0", label: "permissions screens", mark: true },
       ],
+      gaps: {
+        label: "What wasn't measured, and what's missing",
+        items: [
+          "Business impact (time per schedule, errors avoided): I never measured it. What I claim is scope and scale, not outcome numbers.",
+          "The platform is internal and the production code is private. The proof here is the recreation, and only what it can reproduce.",
+        ],
+      },
     },
     evidence: {
-      eyebrow: "Behind the product",
-      text: "The work you can’t click: pull-request driven reviews, business rules and migrations managed at the PostgreSQL level, and a CI/CD pipeline behind every release.",
-      captions: [
-        "Code review culture on GitHub",
-        "Versioned PostgreSQL migrations",
-        "CI/CD on every release",
-      ],
-      alts: [
-        "Houston codebase and pull requests on GitHub",
-        "PostgreSQL database migration files for Houston",
-        "Houston CI/CD pipeline runs",
+      heading: "Evidence",
+      items: [
+        { kind: "link", label: "Live recreation", href: DEMO_URL, note: "vercel.app ↗" },
+        {
+          kind: "link",
+          label: "Recreation repository",
+          href: REPO_URL,
+          note: "houston-III-demo ↗",
+        },
+        {
+          kind: "fact",
+          label: "Versioned PostgreSQL migrations and CI/CD on every release",
+          note: "from the real platform",
+        },
+        {
+          kind: "fact",
+          label:
+            "Database versioned through GitHub: every PR spins a Supabase preview; homologation and production ship by release",
+          note: "versioning and rollback for the database",
+        },
+        {
+          kind: "fact",
+          label: "All data in the recreation is fictional",
+          note: "the production code is private",
+        },
       ],
     },
-    contact: {
+    cta: {
+      label: "Contact",
       heading: "Want the full story behind Houston?",
-      text: "Architecture decisions, trade-offs and what shipped when: happy to walk through any of it.",
+      invite:
+        "The access redesign, the custom calendar, the roles model: happy to walk through any of it.",
+      action: "Get in touch",
     },
+    next: "Revoluna",
   },
 
   pt: {
-    chips: ["2025", "Operações de saúde", "Plataforma SaaS"],
-    headline: (
-      <>
-        Houston: de ferramenta interna à{" "}
-        <CaseEm>plataforma que roda plantões médicos</CaseEm> em escala.
-      </>
-    ),
-    subtitle:
-      "A plataforma web que hospitais e equipes de escala usam para planejar escalas, aprovar candidatos, controlar presença e cuidar dos pagamentos, tudo em um só lugar.",
-    roleTags: ["UI/UX Design", "Front-end", "Back-end", "Produto", "Arquitetura", "Engenharia"],
-    links: [
-      {
-        label: "Abrir o demo ao vivo",
-        href: "https://houston-demo.vercel.app/",
-        hint: "demo@houston.local · demo123456",
-      },
-      { label: "Ver no GitHub", href: "https://github.com/kenjimattos/houston-III-demo" },
+    kicker: [
+      "Houston · 2025 · plataforma de operação de plantões médicos",
+      "React · TypeScript · Next.js · Supabase · PostgreSQL",
     ],
-    showcase: {
-      label: "Recriação ao vivo: explore",
-      note: "Recriado em React para este case · dados fictícios",
-      caption:
-        "Use a barra lateral para navegar entre os módulos: painel, escala, vagas, pagamentos e relatórios são totalmente navegáveis.",
+    headline: "Quem escala 2.000 médicos tinha, na melhor das hipóteses, uma planilha.",
+    turn: "Hoje opera uma plataforma.",
+    sub: "De ferramenta interna a plataforma multi-tenant: escalas, candidaturas e acesso para mais de 2.000 médicos, desenhada direto no código.",
+    coverAlt: "O Painel de Controle do Houston num notebook",
+    shotTag: "Painel da plataforma · dados fictícios",
+    note: {
+      cue: "Role",
+      before: "36 permissões, 4 cargos e",
+      circled: "nenhuma tela de permissões",
+      after: ".",
+      href: "#d02",
     },
-    results: {
-      items: [
-        { value: "0 → 1", label: "Ferramenta interna reconstruída em plataforma de nível de produção" },
-        { value: "2.000+", label: "Médicos cadastrados e geridos pela plataforma" },
-        { value: "8", label: "Módulos centrais cobrindo o ciclo completo de um plantão médico" },
-        { value: "36", label: "Permissões granulares em 4 cargos no modelo de acesso multi-tenant" },
-      ],
-      statement:
-        "Tudo construído do zero, sem template de admin e sem UI kit pronto. Hoje o Houston roda o ciclo de vida completo de um plantão médico como fonte única de verdade da operação, com uma experiência que supera as ferramentas estabelecidas do mercado. Julgue essa afirmação você mesmo na recriação acima.",
-      footnote:
-        "O escopo e os números operacionais acima vêm da plataforma real. Os dados exibidos na recriação são fictícios.",
+    role: {
+      label: "Meu papel",
+      text: "Produto, design, frontend, backend e banco: um ano e meio no projeto, a maior parte sozinho; por quatro meses, coordenando um desenvolvedor contratado por issues, PRs e kanban no GitHub Projects, com o CI/CD montado lado a lado. Defini fontes, espaçamentos, larguras e hierarquia de cores sobre primitivos do shadcn/ui retokenizados, e desenhei os fluxos direto no código, contra a operação ao vivo. O calendário próprio e a grade de escala nasceram quase integralmente com IA generativa: eu especificava, revisava e testava, com ajustes do desenvolvedor no fluxo de issues e PRs. O redesenho do acesso, do RLS para o BFF, construí em par com Claude. As decisões são minhas.",
+      note: "A demanda não era minha. Ela chegava dos fundadores, com investidor ou cliente marcado para ver a feature funcionando, em reuniões que apareciam sem aviso. O que era meu era transformar demanda em produto rodando em produção, correndo contra o relógio, sem quebrar a operação. É desse tipo toda decisão abaixo.",
     },
-    story: {
-      eyebrow: "De ferramenta a plataforma",
-      headline: "Uma plataforma desenhada em torno de clareza operacional e escalabilidade.",
-      text: "O Houston nasceu como uma ferramenta simples de apoio às vagas publicadas no app mobile. Com o crescimento da operação, as equipes de contratação passaram a precisar de visibilidade, controle e automação sobre todo o ciclo de vida dos plantões, e ele foi reconstruído na plataforma acima.",
-      imageAlt: "Captura de tela da primeira versão do Houston, uma ferramenta simples de apoio",
-      imageCaption: "Onde tudo começou: a versão anterior do Houston",
-      personas: [
-        {
-          label: "Usuário principal",
-          title: "O escalista",
-          text: "A pessoa que encontra médicos e preenche a escala, muitas vezes com pouca formação e menos ferramenta ainda: planilha na melhor das hipóteses, às vezes nem isso, onde cada atualização é um risco de erro silencioso. O Houston é desenhado primeiro para ela: vocabulário simples, um jeito óbvio de fazer cada tarefa, erros difíceis de cometer.",
-        },
-        {
-          label: "Também atende",
-          title: "Coordenadores & gestores",
-          text: "Quem gere os escalistas precisa da altitude oposta: uma visão gerencial e financeira da operação: dashboards, relatórios e folha de pagamento por hospital e por grupo.",
-        },
-      ],
-      cards: [
-        {
-          number: "01",
-          title: "Clareza operacional primeiro",
-          text: "Um único vocabulário em escalas, candidaturas, presença e pagamentos, e o operador nunca reaprende a interface.",
-        },
-        {
-          number: "02",
-          title: "Regras vivem no banco",
-          text: "Regras de negócio centrais aplicadas no PostgreSQL, com ciclo de migrations versionado.",
-        },
-        {
-          number: "03",
-          title: "Multi-tenant por estrutura",
-          text: "Permissões aplicadas no frontend e revalidadas no backend, nunca uma sem a outra.",
-        },
-        {
-          number: "04",
-          title: "Um time, não um herói",
-          text: "Padrões, reviews e CI/CD permitiram que um time de três entregasse rápido mesmo com a complexidade crescendo.",
-        },
-      ],
-    },
-    design: {
-      intro:
-        "Todo o design aqui é meu, de ponta a ponta, e nunca passou por uma ferramenta de design. Sob pressão real de entrega, fluxos e telas foram desenhados direto no código e iterados contra a operação ao vivo. O sistema abaixo é o que manteve esse processo rápido coerente.",
-      description:
-        "Uma única fonte variável carrega a plataforma inteira. Pesos finos mantêm leves as telas operacionais densas; o regular ancora títulos e métricas. Não existe bold em lugar nenhum: a hierarquia vem de tamanho e cor.",
-      paletteMeta: [
-        { category: "Primária", name: "Roxo" },
-        { category: "Neutra", name: "Fundo do app" },
-        { category: "Neutra", name: "Tinta" },
-      ],
-      library: {
-        label: "Biblioteca de componentes",
-        text: "O Houston é construído sobre shadcn/ui. A escolha é por acessibilidade e velocidade, não por pular trabalho: os primitivos foram copiados para o repositório, retokenizados para esta linguagem visual e estendidos à mão. Tudo que é específico de rodar plantão médico, a grade de escala, o calendário, a camada de permissões, as tabelas operacionais, precisou ser desenhado e escrito do zero, revisado em pull request e entregue contra uma operação ao vivo.",
+    indexLabel: "Decisões deste case",
+    constraints: [
+      {
+        label: "Contexto",
+        text: "Mais de 2.000 médicos entre hospitais e grupos, multi-tenant, e uma usuária primária, a escalista, que na melhor das hipóteses vinha de uma planilha.",
       },
-      support: {
-        label: "Paleta de apoio: identidade das grades",
-        text: "32 cores disponíveis ao criar uma grade. Cada escala mantém sua cor no calendário, nas visões de plantão e nos relatórios, com matizes diversos afinados para conviver com o roxo primário.",
+      {
+        label: "Restrição",
+        text: "Demandas dos fundadores com prazo de reunião: a feature que o investidor precisava ver tinha que estar no ar, funcionando, e as reuniões apareciam sem aviso. Uma pessoa na maior parte do tempo; um desenvolvedor contratado por quatro meses.",
       },
-      statusLabel: "Linguagem de status: a paleta em uso",
-      statusPills: ["ABERTA", "FECHADA", "URGENTE", "PENDENTE", "AUTORIZADO", "PAGO"],
-      weights: [
-        { label: "Thin", weight: 100 },
-        { label: "Regular", weight: 400 },
-        { label: "Medium", weight: 500 },
-      ],
+    ],
+    decisionsHeading: "Decisões",
+    decisionsNote: "Quatro, e só o que tem prova anexada.",
+    railLabel: "Ir para uma decisão",
+    costLabel: "Custou",
+    decisions: [
+      {
+        id: "d01",
+        tension: { a: "Biblioteca pronta", b: "a tela da escalista" },
+        design: {
+          label: "Design",
+          chose: "Reconstruir o calendário quando a biblioteca virou o gargalo, e não antes.",
+          why: "Agrupar plantões por horário, cores de status e ações por plantão não cabiam no modelo pronto. A biblioteca foi a escolha certa até deixar de ser.",
+        },
+        code: {
+          label: "Código",
+          chose: "Calendário próprio em React, sem biblioteca de visões: agrupamento por horário, linguagem de status e ações por plantão.",
+          why: "Menos visões que a biblioteca, controle total sobre a tela em que a escalista passa o dia.",
+          authorship: "assisted",
+        },
+        proofCaption:
+          "O calendário próprio, recriado: plantões agrupados por horário, cores de status, ações por plantão. Nada disso cabia na biblioteca em que esta tela começou.",
+        cost: "Mais código para manter, e cada visão nova é nossa para construir.",
+      },
+      {
+        id: "d02",
+        tension: { a: "Configurável", b: "operável" },
+        design: {
+          label: "Design",
+          chose: "Nenhuma tela de permissões: o gestor atribui um cargo, nunca uma matriz de checkboxes.",
+          why: "Editar permissão era mais engenharia do que o gestor precisava, e margem para comprometer dado sensível. Escolhi proteger o usuário do erro.",
+        },
+        code: {
+          label: "Código",
+          chose: "4 cargos fixos com 36 permissões predefinidas no banco; o front esconde o que o cargo não pode, o BFF decide.",
+          why: "Mudar permissão é decisão de produto: alteração no banco por PR, com preview do Supabase, homologação e release para produção.",
+        },
+        proofCaption:
+          "O modal de acesso, recriado: um cargo, não uma matriz de checkboxes. A tela de permissões não existe de propósito.",
+        cost: "Mudança de permissão nunca é um clique. Na época, eu só confiava esse caminho a mim mesmo.",
+      },
+      {
+        id: "d03",
+        tension: { a: "Permissão no banco", b: "permissão no BFF" },
+        context:
+          "O RBAC foi implementado pelo desenvolvedor contratado sob minha supervisão, a partir da minha especificação, em cerca de dois meses. Pronto, o sistema não comportou a complexidade e ficou lento demais para operar. Quando o contrato do desenvolvedor chegou ao fim, a feature de que os founders precisavam estava em homologação, sem funcionar, e eu estava sozinho com ela. Em dias, o diagnóstico: o RLS do Supabase verificava linha a linha o que o usuário podia ver.",
+        design: {
+          label: "Design",
+          chose: "Manter os cargos e as 36 permissões exatamente como especificados: o problema não era o modelo de acesso, era onde ele rodava.",
+          why: "Não previ que o RLS não aguentaria a complexidade; o erro foi meu, e a especificação sobreviveu a ele.",
+        },
+        code: {
+          label: "Código",
+          chose: "Supabase fechado atrás de chave de serviço; o BFF em Next API routes decide o que cada usuário vê, com as informações do usuário no JWT. Em dias, o RLS saiu do caminho.",
+          why: "A lentidão era verificação linha a linha no banco. O filtro passou a ser feito uma vez, no BFF, e o tempo de carregamento despencou.",
+          authorship: "assisted",
+        },
+        proofCaption:
+          "O caminho do acesso, redesenhado: nenhuma consulta de dados sai do navegador. O Supabase Auth emite o JWT, com claims customizadas via Auth Hook; os dados ficam atrás de chave de serviço, e o BFF decide.",
+        cost: "O banco deixou de ser a última linha de defesa: quem garante o acesso agora é o BFF, e essa responsabilidade é do código que mantemos.",
+      },
+      {
+        id: "d04",
+        tension: { a: "Ferramenta de design", b: "código direto" },
+        design: {
+          label: "Design",
+          chose: "Nenhum Figma: fluxos e telas desenhados direto no código, contra a operação ao vivo.",
+          why: "A feature tinha prazo de reunião. A coerência vinha do sistema: fontes, espaçamentos, larguras e hierarquia de cores definidos uma vez.",
+        },
+        code: {
+          label: "Código",
+          chose: "Primitivos do shadcn/ui copiados para o repositório e retokenizados; sem bold no produto inteiro, hierarquia por tamanho e cor.",
+          why: "Uma única fonte variável, a Geologica; pesos finos mantêm leves as telas densas.",
+        },
+        proofCaption:
+          "O sistema que manteve o design direto no código coerente: uma fonte variável, três pesos, nenhum bold; hierarquia por tamanho e cor.",
+        cost: "Nenhum artefato explorável fora do produto, e onboarding mais difícil para o próximo designer.",
+      },
+    ],
+    frontier: {
+      label: "Onde fica a fronteira:",
+      text: "a demanda era dos fundadores e o prazo era da reunião. Decidir o que virava plataforma e o que ficava travado no banco foi meu.",
     },
-    features: {
-      eyebrow: "Por dentro da plataforma",
-      intro:
-        "Cada módulo abaixo é a tela real, recriada em React com dados fictícios: ordene tabelas, troque de mês, expanda relatórios.",
-      items: [
-        {
-          title: "Painel operacional",
-          text: "Uma visão em tempo real de vagas abertas e preenchidas, candidaturas pendentes, risco operacional e totais de folha, com filtro global por mês.",
-          caption: "Recriação interativa com dados fictícios",
-        },
-        {
-          title: "Criação de escalas",
-          text: "Uma grade interativa para criar e gerenciar escalas médicas. Suporta criação por arrastar e soltar, redimensionamento, duplicação, detecção de conflitos e publicação em lote de plantões.",
-          caption:
-            "Recriação ao vivo, em loop: arrastar para criar, redimensionar, conflito rejeitado, publicar. A detecção de conflito é a lógica real.",
-        },
-        {
-          title: "Calendário de plantões",
-          text: "Visões de calendário customizadas (semanal, mensal e diária) com ações rápidas, atribuição de candidatos e acompanhamento de status.",
-          secondary: (
-            <TradeOff>
-              O calendário começou numa biblioteca pronta e cresceu além dela: agrupar plantões
-              por horário, cores de status e ações por plantão não cabiam no modelo. Reconstruí do
-              zero (mais código para manter, menos visões) em troca de controle total sobre a
-              tela em que o escalista passa o dia.
-            </TradeOff>
-          ),
-          caption: "Recriação interativa com dados fictícios",
-        },
-        {
-          title: "Gestão de vagas e candidaturas",
-          text: "Gestão centralizada de vagas e candidaturas com ações em lote, tratamento de recorrência e validação de conflitos.",
-          caption: "Recriação interativa com dados fictícios",
-        },
-        {
-          title: "Presença e pagamentos",
-          text: "Controle integrado de check-in e check-out com fluxos de aprovação, autorização de pagamento e operações em lote para grandes volumes de plantões.",
-          secondary: (
-            <Labeled label="Time">
-              Este módulo foi desenvolvido pelo engenheiro que eu supervisionava. O design da
-              interface e a revisão do código foram meus, a implementação foi dele.
-            </Labeled>
-          ),
-          caption: "Recriação interativa com dados fictícios",
-        },
-        {
-          title: "Relatórios e insights",
-          text: "Relatórios operacionais e financeiros cobrindo folha, produtividade, escalas e exportações, com filtros unificados em toda a plataforma.",
-          caption: "Recriação interativa com dados fictícios",
-        },
-        {
-          title: "Médicos e equipes",
-          text: "Gestão do corpo clínico, equipes, favoritos e médicos pré-cadastrados, acelerando atribuições e melhorando a organização.",
-          mediaNote: "Recriação interativa: busque, favorite, expanda",
-        },
-        {
-          title: "Controle de acesso e permissões",
-          text: "Controle de acesso por cargo governa as permissões em escalas, candidaturas, presença e pagamentos, um requisito que virou central quando o Houston se tornou multi-tenant.",
-          secondary: (
-            <TradeOff>
-              Em vez de um editor livre de permissões, o Houston entrega quatro cargos fixos com
-              suas 36 permissões predefinidas no banco. O operador atribui um cargo, nunca uma
-              matriz de checkboxes. Trocamos configurabilidade por menos carga cognitiva e uma
-              operação diária mais segura: por isso o modal ao lado não tem tela de permissões.
-            </TradeOff>
-          ),
-          mediaNote: "Recriação interativa com dados fictícios",
-        },
+    outcome: {
+      heading: "Resultado",
+      measures: [
+        { value: "0 → 1", label: "de ferramenta interna a plataforma em produção" },
+        { value: "2.000+", label: "médicos cadastrados e geridos" },
+        { value: "36", label: "permissões em 4 cargos, especificadas por mim" },
+        { value: "0", label: "telas de permissões", mark: true },
       ],
+      gaps: {
+        label: "O que não foi medido, e o que falta",
+        items: [
+          "Impacto de negócio (tempo por escala, erro evitado): nunca medi. O que afirmo é escopo e escala, não número de resultado.",
+          "A plataforma é interna e o código de produção é privado. A prova aqui é a recriação, e só o que ela consegue reproduzir.",
+        ],
+      },
     },
     evidence: {
-      eyebrow: "Por trás do produto",
-      text: "O trabalho que não dá para clicar: reviews guiados por pull request, regras de negócio e migrations geridas no PostgreSQL, e um pipeline de CI/CD por trás de cada release.",
-      captions: [
-        "Cultura de code review no GitHub",
-        "Migrations PostgreSQL versionadas",
-        "CI/CD em cada release",
-      ],
-      alts: [
-        "Código e pull requests do Houston no GitHub",
-        "Arquivos de migration PostgreSQL do Houston",
-        "Execuções do pipeline de CI/CD do Houston",
+      heading: "Evidência",
+      items: [
+        { kind: "link", label: "Recriação no ar", href: DEMO_URL, note: "vercel.app ↗" },
+        {
+          kind: "link",
+          label: "Repositório da recriação",
+          href: REPO_URL,
+          note: "houston-III-demo ↗",
+        },
+        {
+          kind: "fact",
+          label: "Migrations PostgreSQL versionadas e CI/CD em cada release",
+          note: "da plataforma real",
+        },
+        {
+          kind: "fact",
+          label:
+            "Banco versionado pelo GitHub: cada PR cria um preview do Supabase; homologação e produção saem por release",
+          note: "versionamento e rollback do banco",
+        },
+        {
+          kind: "fact",
+          label: "Todos os dados da recriação são fictícios",
+          note: "o código de produção é privado",
+        },
       ],
     },
-    contact: {
+    cta: {
+      label: "Contato",
       heading: "Quer a história completa do Houston?",
-      text: "Decisões de arquitetura, trade-offs e o que foi entregue quando: fico feliz em detalhar qualquer parte.",
+      invite:
+        "O redesenho do acesso, o calendário próprio, o modelo de cargos: fico feliz em detalhar qualquer parte.",
+      action: "Fale comigo",
     },
+    next: "Revoluna",
   },
 };
 
@@ -499,207 +430,86 @@ const COPY: Record<"en" | "pt", Copy> = {
 export function HoustonContent() {
   const t = COPY[useLocale()];
 
-  const featureMedia: { media: (c: FeatureCopy) => ReactNode; layout?: "split" }[] = [
-    { media: () => <HoustonScreen screen="painel" /> },
-    {
-      media: () => (
-        <HoustonPanel designWidth={1140}>
-          <ScheduleBuilderEmbed />
-        </HoustonPanel>
-      ),
-    },
-    { media: () => <HoustonScreen screen="escala" /> },
-    { media: () => <HoustonScreen screen="vagas" /> },
-    { media: () => <HoustonScreen screen="pagamentos" /> },
-    { media: () => <HoustonScreen screen="relatorios" /> },
-    {
-      layout: "split",
-      media: (c) => (
-        <div className="flex flex-col gap-3">
-          <HoustonPanel designWidth={660}>
-            <TeamsEmbed />
-          </HoustonPanel>
-          <span className="font-mono" style={{ fontSize: "clamp(10px, 0.9vw, 11px)", opacity: 0.5 }}>
-            {c.mediaNote}
-          </span>
-        </div>
-      ),
-    },
-    {
-      layout: "split",
-      media: (c) => (
-        <div className="mx-auto w-full flex flex-col gap-3" style={{ maxWidth: 390 }}>
-          <HoustonPanel designWidth={500}>
-            <AccessControlEmbed />
-          </HoustonPanel>
-          <span className="font-mono" style={{ fontSize: "clamp(10px, 0.9vw, 11px)", opacity: 0.5 }}>
-            {c.mediaNote}
-          </span>
-        </div>
-      ),
-    },
+  /* A prova entra dentro da decisão que ela prova. As duas primeiras são
+     as recriações que já existiam; as duas últimas são peças novas — o
+     exhibit de arquitetura da d03 e o specimen do sistema da d04. */
+  const proofs = [
+    <HoustonScreen key="escala" screen="escala" />,
+    <div
+      key="access"
+      className={cx(geologica.variable, "hst-app mx-auto w-full max-w-140 antialiased")}
+      style={{ fontFamily: "var(--font-geologica), sans-serif" }}
+    >
+      <AccessControlEmbed />
+    </div>,
+    <AccessExhibit key="exhibit" />,
+    <SystemSpecimen key="specimen" />,
   ];
 
-  const features: CaseFeature[] = t.features.items.map((item, i) => ({
-    number: `0${i + 1}`,
-    title: item.title,
-    text: item.text,
-    secondaryText: item.secondary,
-    caption: item.caption,
-    layout: featureMedia[i].layout,
-    media: featureMedia[i].media(item),
-  }));
-
   return (
-    <CaseLayout
-      accent={ACCENT}
-      accentInk={ACCENT_INK}
-      accentTint={ACCENT_TINT}
-      nextProject={{ href: "/work/revoluna", label: "Revoluna" }}
-    >
+    <CaseShell nextProject={{ href: "/work/revoluna", label: t.next }}>
       <CaseHero
-        chips={t.chips}
+        kicker={t.kicker}
         headline={t.headline}
-        subtitle={t.subtitle}
-        roleTags={t.roleTags}
-        links={t.links}
+        turn={t.turn}
+        sub={t.sub}
+        /* A capa do projeto, com o enquadramento da lista de trabalhos.
+           A recriação viva não sai do case — desce para as decisões,
+           onde ela é prova e não vitrine. */
+        cover={{
+          src: "/img/work-houston.png",
+          alt: t.coverAlt,
+          zoom: 1.02,
+          fx: "62%",
+          fy: "48%",
+        }}
+        mediaTag={t.shotTag}
+        note={t.note}
+        role={t.role}
       >
-        <CaseShowcase
-          label={t.showcase.label}
-          note={t.showcase.note}
-          caption={t.showcase.caption}
-        >
-          <HoustonApp initialScreen="painel" />
-        </CaseShowcase>
+        <CaseIndex label={t.indexLabel} items={t.decisions} />
       </CaseHero>
 
-      <CaseResults
-        items={t.results.items}
-        statement={t.results.statement}
-        footnote={t.results.footnote}
-      />
+      <CaseConstraints rows={t.constraints} />
 
-      <CaseStory
-        eyebrow={t.story.eyebrow}
-        headline={t.story.headline}
-        text={t.story.text}
-        image={{
-          src: "/img/houston/first-version.png",
-          alt: t.story.imageAlt,
-          width: 1210,
-          height: 730,
-        }}
-        imageCaption={t.story.imageCaption}
-        personas={t.story.personas}
-        cards={t.story.cards}
-      />
-
-      <CaseDesignLanguage
-        intro={t.design.intro}
-        fontClassName={geologica.variable}
-        fontFamily="var(--font-geologica), sans-serif"
-        typefaceName="Geologica"
-        weights={t.design.weights}
-        description={t.design.description}
-        palette={[
-          {
-            ...t.design.paletteMeta[0],
-            hex: "#A369ED",
-            rgb: "(163, 105, 237)",
-            bg: "#A369ED",
-            fg: "#FFFFFF",
-          },
-          {
-            ...t.design.paletteMeta[1],
-            hex: "#F3F3F3",
-            rgb: "(243, 243, 243)",
-            bg: "#F3F3F3",
-            fg: "#18181B",
-            border: "rgba(22, 22, 22, 0.08)",
-          },
-          {
-            ...t.design.paletteMeta[2],
-            hex: "#18181B",
-            rgb: "(24, 24, 27)",
-            bg: "#18181B",
-            fg: "#FFFFFF",
-          },
-        ]}
-        supportPalette={{
-          label: t.design.support.label,
-          text: t.design.support.text,
-          colors: SUPPORT_COLORS,
-        }}
-        extra={
-          <div className="mt-14">
-            <span
-              className="font-mono uppercase tracking-widest block mb-2"
-              style={{ fontSize: "clamp(10px, 0.9vw, 12px)", color: ACCENT_INK }}
+      <CaseSection heading={t.decisionsHeading} note={t.decisionsNote}>
+        <CaseDecisions railLabel={t.railLabel} items={t.decisions}>
+          {t.decisions.map((d, i) => (
+            <CaseDecision
+              key={d.id}
+              id={d.id}
+              number={String(i + 1).padStart(2, "0")}
+              tension={d.tension}
+              context={d.context}
+              design={d.design}
+              code={d.code}
+              cost={d.cost}
+              costLabel={t.costLabel}
             >
-              {t.design.library.label}
-            </span>
-            <p
-              className="text-foreground leading-relaxed mb-8"
-              style={{ fontSize: "clamp(15px, 1.4vw, 18px)", maxWidth: "780px" }}
-            >
-              {t.design.library.text}
-            </p>
-            <ComponentLibraryExhibit />
-          </div>
-        }
-        statusPills={{
-          label: t.design.statusLabel,
-          pills: t.design.statusPills.map((label, i) => ({ label, cls: STATUS_PILL_CLS[i] })),
-        }}
+              <CaseProof caption={d.proofCaption}>{proofs[i]}</CaseProof>
+            </CaseDecision>
+          ))}
+        </CaseDecisions>
+
+        <CaseFrontier label={t.frontier.label} text={t.frontier.text} />
+      </CaseSection>
+
+      <CaseOutcome
+        id="result"
+        heading={t.outcome.heading}
+        measures={t.outcome.measures}
+        gaps={t.outcome.gaps}
       />
 
-      <CaseFeatures eyebrow={t.features.eyebrow} intro={t.features.intro} features={features} />
+      <CaseEvidence id="evidence" heading={t.evidence.heading} items={t.evidence.items} />
 
-      <CaseEvidence
-        eyebrow={t.evidence.eyebrow}
-        text={t.evidence.text}
-        items={[
-          {
-            image: {
-              src: "/img/houston/github.png",
-              alt: t.evidence.alts[0],
-              width: 1080,
-              height: 742,
-            },
-            caption: t.evidence.captions[0],
-          },
-          {
-            image: {
-              src: "/img/houston/database.png",
-              alt: t.evidence.alts[1],
-              width: 1080,
-              height: 796,
-            },
-            caption: t.evidence.captions[1],
-          },
-          {
-            image: {
-              src: "/img/houston/ci-cd.png",
-              alt: t.evidence.alts[2],
-              width: 1080,
-              height: 595,
-            },
-            caption: t.evidence.captions[2],
-          },
-        ]}
-        stack={[
-          "React",
-          "TypeScript",
-          "Next.js",
-          "Tailwind CSS",
-          "shadcn/ui",
-          "Supabase",
-          "PostgreSQL",
-          "CI/CD",
-        ]}
+      <CaseCTA
+        label={t.cta.label}
+        heading={t.cta.heading}
+        invite={t.cta.invite}
+        action={t.cta.action}
+        email="kenjimattos@gmail.com"
       />
-
-      <CaseContact heading={t.contact.heading} text={t.contact.text} email="kenjimattos@gmail.com" />
-    </CaseLayout>
+    </CaseShell>
   );
 }

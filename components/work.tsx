@@ -38,9 +38,9 @@ const BASE_PROJECTS = [
     stack: "React · TypeScript · Supabase · shadcn/ui retokenizado",
     image: "/img/work-houston.png",
     href: "/work/houston",
-    zoom: 1.18,
+    zoom: 1.02,
     fx: "62%",
-    fy: "52%",
+    fy: "48%",
   },
   {
     id: "revoluna",

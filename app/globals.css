@@ -1137,7 +1137,12 @@
     --split-end: 44vw;
     position: relative;
     width: 100vw;
-    height: clamp(520px, 64vh, 680px);
+    /* Piso, não teto: uma manchete mais longa que a do Sebrae (a do
+       Houston tem seis linhas em PT) empurra o palco para baixo em vez
+       de ser cortada por ele. Quem decide se ainda dá para prender a
+       página continua sendo a medida no JS. */
+    min-height: clamp(520px, 64vh, 680px);
+    padding-bottom: var(--s6);
     overflow: hidden;
   }
 
@@ -1554,6 +1559,14 @@
     letter-spacing: -0.035em;
     line-height: 0.95;
     font-variation-settings: "wdth" 110;
+  }
+
+  /* O contexto em prosa. Algumas decisões chegam com história — o RBAC
+     que não aguentou, no Houston — e ela vem antes dos painéis, porque
+     os painéis são a resposta. */
+  .case-dec-context {
+    margin-top: var(--s3);
+    max-width: 64ch;
   }
 
   /* Os dois painéis são a tese do portfólio renderizada: a mesma pessoa
