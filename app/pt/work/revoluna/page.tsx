@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { RevolunaContent } from "@/app/work/revoluna/revoluna-content";
 
-const title = "Revoluna — App Mobile de Plantões Médicos";
+const title = "Revoluna · App Mobile de Plantões Médicos";
 const description =
   "Estudo de caso: design e lançamento de um app de plantões médicos no Brasil: 38 releases na App Store e no Google Play, com as telas reais recriadas em React.";
 

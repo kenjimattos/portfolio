@@ -8,7 +8,7 @@ import { Contact } from "@/components/contact";
 import { siteConfig } from "@/config/site";
 
 const title =
-  "Kenji Mattos — Engenheiro de Software";
+  "Kenji Mattos · Engenheiro de Software";
 const description =
   "Engenheiro de Software construindo plataformas de ponta a ponta, do design ao código em produção.";
 

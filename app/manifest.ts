@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Kenji Mattos — Software Engineer",
+    name: "Kenji Mattos · Software Engineer",
     short_name: "Kenji Mattos",
     description:
       "Software Engineer building production-grade platforms end to end.",

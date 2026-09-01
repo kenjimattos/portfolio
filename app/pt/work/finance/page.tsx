@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { FinanceContent } from "@/app/work/finance/finance-content";
 
-const title = "Finance — Diagnóstico de uma API de Open Finance";
+const title = "Finance · Diagnóstico de uma API de Open Finance";
 const description =
   "Estudo de caso: um gestor de gastos self-hosted em que transações mudavam de valor sozinhas. Diagnóstico, identidade local da transação, máquina de estados de sync com seis desfechos e 132 testes sobre regra de negócio.";
 

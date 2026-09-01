@@ -3,7 +3,7 @@ import { ogSize, renderOgImage } from "@/lib/og";
 export const size = ogSize;
 export const contentType = "image/png";
 export const alt =
-  "Kenji Mattos — Software Engineer";
+  "Kenji Mattos · Software Engineer";
 
 export default function OgImage() {
   return renderOgImage({
