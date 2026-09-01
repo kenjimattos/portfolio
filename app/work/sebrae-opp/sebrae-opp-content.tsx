@@ -2,12 +2,14 @@
 
 /* Sebrae OPP — o primeiro case no editorial de problema.
  *
- * O recorte é deliberado e está na primeira linha da página: a concepção
- * (que problema de política pública a plataforma ataca, quais indicadores
- * importam, a Jornada do Município Empreendedor) é do Sebrae e da equipe,
- * e o case não a reivindica. O que ele reivindica é o problema de entrega.
- * Ceder o crédito da concepção não enfraquece o case — um leitor
- * experiente desconfia de portfólio que reivindica tudo.
+ * O recorte é deliberado e está na primeira linha da página, em três
+ * atribuições: a concepção (que problema de política pública a plataforma
+ * ataca, quais indicadores importam, a Jornada do Município Empreendedor)
+ * é do Sebrae e da equipe; a linguagem visual é do Lucas Nicolov; o que o
+ * case reivindica é o problema de entrega — transformar um Figma sem
+ * estrutura de handoff num sistema em código e viabilizar a plataforma.
+ * Ceder o crédito da concepção e do visual não enfraquece o case — um
+ * leitor experiente desconfia de portfólio que reivindica tudo.
  */
 
 import {
@@ -27,6 +29,7 @@ import {
   type Tension,
 } from "@/components/case-study/case-editorial";
 import { OppScreen } from "@/components/sebrae-demo/opp-frame";
+import { DsFoundation, DsSignature } from "@/components/sebrae-demo/design-system-exhibit";
 import { oppFontVars } from "@/components/sebrae-demo/fonts";
 import { FONT } from "@/components/sebrae-demo/ui";
 import { AgendasScreen } from "@/components/sebrae-demo/screens/agendas";
@@ -39,7 +42,7 @@ const REPO_URL = "https://github.com/kenjimattos/sebrae-opp-snapshot";
 
 /* ----------------------------------- copy ----------------------------------- */
 
-type Panel = { label: string; chose: string; why?: string };
+type Panel = { label: string; chose: string; why?: string; authorship?: "own" | "assisted" };
 
 type Decision = {
   id: string;
@@ -65,6 +68,11 @@ type Copy = {
   railLabel: string;
   costLabel: string;
   decisions: Decision[];
+  /* A prova da decisão 01 é um arco em três figuras: fundação (tokens,
+     tipo, primitivos), peça-assinatura ampliada e a tela como o sistema
+     em uso. As duas primeiras têm legenda própria; a terceira usa o
+     proofCaption da própria decisão. */
+  ds: { typeRoles: [string, string, string]; foundation: string; signature: string };
   frontier: { label: string; text: string };
   outcome: {
     heading: string;
@@ -84,7 +92,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     ],
     headline: "Sebrae knew which platform had to exist.",
     turn: "It just hadn't been built.",
-    sub: "Thirteen sources, 223 municipalities, from the ETL to the design system — in about three months.",
+    sub: "Seventeen sources, 223 municipalities, from the ETL to the design system, in about three months.",
     shotAlt: "Live React recreation · João Pessoa's real public data",
     /* A frase é o arco do PROJETO: começou sem nada e terminou como
        plataforma, com dado oficial e um modelo dentro. O laço cai no fim
@@ -100,8 +108,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "My role",
-      text: "Design, frontend, API, data modelling and ETL: the whole delivery, one person, about three months. I drew the interface and the design system, wrote the choropleth by hand, modelled the collections and built the Python pipeline that reconciles thirteen official sources.",
-      note: "The conception isn't mine. Which public-policy problem the platform attacks, which indicators matter, and the Jornada do Município Empreendedor came from Sebrae and from the team. What I own is the delivery problem — making a platform of this scope viable without inventing data and without bloating the stack. Every decision below is of that kind.",
+      text: "Design system, frontend, API, data modelling and ETL: the whole delivery, one person, about three months. I rebuilt the design for handoff, organizing the components and defining the tokens for color, spacing, typography and radius, and implemented the system in Tailwind pairing with Claude, iterating together to the final version. I specified and reviewed the SVG choropleth, the collection modelling and the Python pipeline that reconciles seventeen official sources: the code is Claude's, the decisions are mine.",
+      note: "The conception and the visual language aren't mine. Which public-policy problem the platform attacks, which indicators matter, and the Jornada do Município Empreendedor came from Sebrae and from the team. The visual language is Lucas Nicolov's, who sat closer to clients and users: the visuals and the experience were his, and he tested the first version in person. The Figma was visual exploration, not a handoff spec. What I own is the delivery problem: turning that visual into a system, and making a platform of this scope viable without inventing data and without bloating the stack. Every decision below is of that kind.",
     },
     indexLabel: "Decisions in this case",
     constraints: [
@@ -111,7 +119,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         label: "Constraint",
-        text: "One person on development, about three months, thirteen official data sources — and not all of them identify a municipality by its IBGE code.",
+        text: "One person on development, about three months, seventeen official data sources, and not all of them identify a municipality by its IBGE code.",
       },
     ],
     decisionsHeading: "Decisions",
@@ -124,17 +132,18 @@ const COPY: Record<"en" | "pt", Copy> = {
         tension: { a: "Ship fast", b: "own the token" },
         design: {
           label: "Design",
-          chose: "No chart library and no map library.",
+          chose: "Systematize before the screens: custom tokens, typography and primitives. No chart library, no map library.",
           why: "So that every visualization would obey the design system instead of resisting it.",
         },
         code: {
           label: "Code",
-          chose: "A choropleth of all 223 municipalities in plain SVG, from the IBGE GeoJSON.",
-          why: "Lon/lat projection written by hand. 7 runtime dependencies.",
+          chose: "Tokens as CSS variables, primitives in Tailwind; the choropleth of all 223 municipalities in plain SVG, from the IBGE GeoJSON.",
+          why: "Custom lon/lat projection instead of a map library. 7 runtime dependencies.",
+          authorship: "assisted",
         },
         proofCaption:
-          "The 223 municipalities drawn as SVG. Every colour band is a design-system token, not a library default. This recreation uses no map library either.",
-        cost: "Extra weeks, and no ready-made map interaction.",
+          "The system in use: the 223 municipalities drawn as SVG, and every colour on the choropleth is one of the tokens above, not a library default. This recreation uses no map library either.",
+        cost: "No map interactions for free, and maintaining the SVG is on me.",
       },
       {
         id: "d02",
@@ -165,7 +174,7 @@ const COPY: Record<"en" | "pt", Copy> = {
           why: "The screen has no way around it.",
         },
         proofCaption:
-          "Every variation renders neutral. With no official metadata saying which direction is better, the product declines to judge the number — the same rule that governs the traffic lights.",
+          "Every variation renders neutral. With no official metadata saying which direction is better, the product declines to judge the number. It is the same rule that governs the traffic lights.",
         cost: "16 indicators with no quick read, and an empty cell exactly for the small town, which is who needs it most. I chose empty over wrong.",
       },
       {
@@ -184,6 +193,13 @@ const COPY: Record<"en" | "pt", Copy> = {
         cost: "Less fluid text. Not one invented number in a product built for public decisions.",
       },
     ],
+    ds: {
+      typeRoles: ["display & buttons", "h1", "body"],
+      foundation:
+        "8 color tokens, 3 typefaces and the primitives built on them: everything the screens on this page use. Nothing here is an illustration: these are the real components, rendered live.",
+      signature:
+        "The signature piece, enlarged: the square marker carries the bar's full gradient, offset by its own position: that's how it samples the exact colour of the value. The real component under zoom, not a redrawing.",
+    },
     frontier: {
       label: "Where the line sits:",
       text: "the ruler belongs to the official source. Deciding not to invent a cutoff when it doesn't exist was mine, in the code.",
@@ -193,14 +209,14 @@ const COPY: Record<"en" | "pt", Copy> = {
       measures: [
         { value: "223", label: "municipalities, all of Paraíba" },
         { value: "22", label: "indicators unified" },
-        { value: "13", label: "data sources reconciled" },
+        { value: "17", label: "data sources reconciled" },
         { value: "0", label: "chart or map libraries at runtime", mark: true },
       ],
       gaps: {
         label: "What wasn't measured, and what's missing",
         items: [
           "Adoption, and effect on public decisions: I have no number for either.",
-          "The repository has no tests — and the classification ruler is exactly what should be under test.",
+          "The repository has no tests, and the classification ruler is exactly what should be under test.",
         ],
       },
     },
@@ -221,7 +237,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         {
           kind: "fact",
-          label: "Python ETL: 27 generators, one data dictionary per source",
+          label: "Python ETL: 29 generators, one data dictionary per source",
           note: "so the team operates without me",
         },
       ],
@@ -230,7 +246,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       label: "Contact",
       heading: "Want the full story behind OPP?",
       invite:
-        "The ETL gotchas, the honesty rules, the hand-built map: happy to walk through any of it.",
+        "The ETL gotchas, the honesty rules, the plain-SVG map: happy to walk through any of it.",
       action: "Get in touch",
     },
     next: "Finance",
@@ -243,7 +259,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     ],
     headline: "O Sebrae sabia qual plataforma precisava existir.",
     turn: "Faltava construí-la.",
-    sub: "Treze fontes, 223 municípios, do ETL ao design system — em cerca de três meses.",
+    sub: "Dezessete fontes, 223 municípios, do ETL ao design system, em cerca de três meses.",
     shotAlt: "Recriação em React · dados públicos reais de João Pessoa",
     note: {
       cue: "Role",
@@ -254,8 +270,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "Meu papel",
-      text: "Design, frontend, API, modelagem de dados e ETL: a entrega inteira, uma pessoa, cerca de três meses. Desenhei a interface e o design system, escrevi o coroplético à mão, modelei as coleções e construí o pipeline em Python que reconcilia treze fontes oficiais.",
-      note: "A concepção não é minha. Que problema de política pública a plataforma ataca, quais indicadores importam e a Jornada do Município Empreendedor são do Sebrae e da equipe. O que é meu é o problema de entrega — viabilizar uma plataforma desse escopo sem inventar dado e sem inchar a stack. É desse tipo toda decisão abaixo.",
+      text: "Design system, frontend, API, modelagem de dados e ETL: a entrega inteira, uma pessoa, cerca de três meses. Reconstruí o design para handoff, organizando os componentes e definindo os tokens de cor, espaçamento, tipografia e raio, e implementei o sistema em Tailwind com Claude como par, evoluindo juntos até a versão final. O coroplético em SVG, a modelagem das coleções e o pipeline em Python que reconcilia dezessete fontes oficiais, eu especifiquei e revisei: o código é do Claude, as decisões são minhas.",
+      note: "A concepção e a linguagem visual não são minhas. Que problema de política pública a plataforma ataca, quais indicadores importam e a Jornada do Município Empreendedor são do Sebrae e da equipe. A linguagem visual é do Lucas Nicolov, que ficava mais perto dos clientes e usuários: dele eram o visual e a experiência, e ele testou a primeira versão presencialmente. O Figma era exploração visual, não especificação de handoff. O que é meu é o problema de entrega: transformar esse visual num sistema, e viabilizar uma plataforma desse escopo sem inventar dado e sem inchar a stack. É desse tipo toda decisão abaixo.",
     },
     indexLabel: "Decisões deste case",
     constraints: [
@@ -265,7 +281,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         label: "Restrição",
-        text: "Uma pessoa no desenvolvimento, cerca de três meses, treze fontes de dados oficiais — e nem todas identificam o município pelo código do IBGE.",
+        text: "Uma pessoa no desenvolvimento, cerca de três meses, dezessete fontes de dados oficiais, e nem todas identificam o município pelo código do IBGE.",
       },
     ],
     decisionsHeading: "Decisões",
@@ -278,17 +294,18 @@ const COPY: Record<"en" | "pt", Copy> = {
         tension: { a: "Entregar rápido", b: "controlar o token" },
         design: {
           label: "Design",
-          chose: "Nenhuma biblioteca de gráfico ou de mapa.",
+          chose: "Sistematizar antes das telas: tokens, tipografia e primitivos próprios. Nenhuma biblioteca de gráfico ou de mapa.",
           why: "Para que toda visualização obedecesse ao design system em vez de resistir a ele.",
         },
         code: {
           label: "Código",
-          chose: "Coroplético dos 223 municípios em SVG puro, a partir do GeoJSON do IBGE.",
-          why: "Projeção lon/lat escrita à mão. 7 dependências de runtime.",
+          chose: "Tokens em variáveis CSS, primitivos em Tailwind; o coroplético dos 223 municípios em SVG puro, a partir do GeoJSON do IBGE.",
+          why: "Projeção lon/lat própria em vez de biblioteca de mapa. 7 dependências de runtime.",
+          authorship: "assisted",
         },
         proofCaption:
-          "Os 223 municípios desenhados em SVG. Cada faixa de cor é um token do design system, não um default de biblioteca. Esta recriação também não usa biblioteca de mapa.",
-        cost: "Semanas a mais, e nenhuma interação de mapa pronta.",
+          "O sistema em uso: os 223 municípios desenhados em SVG, e cada cor do coroplético é um dos tokens acima, não um default de biblioteca. Esta recriação também não usa biblioteca de mapa.",
+        cost: "Nenhuma interação de mapa de graça, e a manutenção do SVG é minha.",
       },
       {
         id: "d02",
@@ -319,7 +336,7 @@ const COPY: Record<"en" | "pt", Copy> = {
           why: "A tela não tem como contornar.",
         },
         proofCaption:
-          "Toda variação é renderizada em tom neutro. Sem metadado oficial dizendo qual direção é melhor, o produto se recusa a julgar o número — é a mesma regra que governa os semáforos.",
+          "Toda variação é renderizada em tom neutro. Sem metadado oficial dizendo qual direção é melhor, o produto se recusa a julgar o número. É a mesma regra que governa os semáforos.",
         cost: "16 indicadores sem leitura rápida, e célula vazia justamente para a cidade pequena, que é quem mais precisa. Escolhi vazio a errado.",
       },
       {
@@ -338,6 +355,13 @@ const COPY: Record<"en" | "pt", Copy> = {
         cost: "Texto menos fluido. Nenhum número inventado num produto de decisão pública.",
       },
     ],
+    ds: {
+      typeRoles: ["display e botões", "h1", "corpo"],
+      foundation:
+        "8 tokens de cor, 3 famílias tipográficas e os primitivos construídos sobre eles: tudo que as telas desta página usam. Nada aqui é ilustração: são os componentes reais, renderizados ao vivo.",
+      signature:
+        "A peça-assinatura, ampliada: o marcador quadrado carrega o gradiente inteiro da barra, deslocado pela própria posição: é assim que ele amostra a cor exata do valor. O componente real em zoom, não um redesenho.",
+    },
     frontier: {
       label: "Onde fica a fronteira:",
       text: "a régua é da fonte oficial. A decisão de não inventar corte quando ela não existe foi minha, no código.",
@@ -347,14 +371,14 @@ const COPY: Record<"en" | "pt", Copy> = {
       measures: [
         { value: "223", label: "municípios, a Paraíba inteira" },
         { value: "22", label: "indicadores unificados" },
-        { value: "13", label: "fontes de dados reconciliadas" },
+        { value: "17", label: "fontes de dados reconciliadas" },
         { value: "0", label: "bibliotecas de gráfico ou mapa em runtime", mark: true },
       ],
       gaps: {
         label: "O que não foi medido, e o que falta",
         items: [
           "Adoção e efeito em decisão pública: não tenho número de nenhum dos dois.",
-          "O repositório não tem teste — e a régua de classificação é exatamente o que deveria estar sob teste.",
+          "O repositório não tem teste, e a régua de classificação é exatamente o que deveria estar sob teste.",
         ],
       },
     },
@@ -375,7 +399,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         {
           kind: "fact",
-          label: "ETL em Python: 27 geradores, um dicionário de dados por fonte",
+          label: "ETL em Python: 29 geradores, um dicionário de dados por fonte",
           note: "para a equipe operar sem mim",
         },
       ],
@@ -384,7 +408,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       label: "Contato",
       heading: "Quer a história completa do OPP?",
       invite:
-        "As manhas do ETL, as regras de honestidade, o mapa feito à mão: fico feliz em detalhar qualquer parte.",
+        "As manhas do ETL, as regras de honestidade, o mapa em SVG puro: fico feliz em detalhar qualquer parte.",
       action: "Fale comigo",
     },
     next: "Finance",
@@ -396,14 +420,26 @@ const COPY: Record<"en" | "pt", Copy> = {
 export function SebraeOppContent() {
   const t = COPY[useLocale()];
 
+  /* A decisão 01 é sobre a visualização obedecer ao design system, então a
+     prova dela é o próprio sistema, em arco: a fundação (tokens, tipo,
+     primitivos), a peça-assinatura em close e, fechando, a tela — o mapa
+     deixou de ser a prova e virou o finale, o sistema em uso, ao lado dos
+     indicadores que ele colore. */
+  const dsProof = (
+    <>
+      <CaseProof caption={t.ds.foundation}>
+        <DsFoundation typeRoles={t.ds.typeRoles} />
+      </CaseProof>
+      <CaseProof caption={t.ds.signature}>
+        <DsSignature />
+      </CaseProof>
+    </>
+  );
+
   /* A prova entra dentro da decisão que ela prova, na ordem das decisões.
      A 02 não tem tela: é uma decisão de modelagem, e inventar uma
      ilustração para ela seria decoração. */
   const proofs = [
-    /* O mapa isolado não se sustentava como prova: fora da tela, um SVG
-       de 223 caminhos vira ilustração. A decisão 01 é sobre a
-       visualização obedecer ao design system, e isso só se vê com o mapa
-       no lugar dele, ao lado dos indicadores que ele colore. */
     <OppScreen key="agendas" path="/home" flat>
       <AgendasScreen />
     </OppScreen>,
@@ -426,7 +462,7 @@ export function SebraeOppContent() {
         /* Não é screenshot: é a recriação em React rodando na laje, com os
            dados públicos reais de João Pessoa. Nenhuma imagem do produto
            chega perto disso em nitidez, e o case inteiro argumenta que as
-           telas foram feitas à mão — mostrar o HTML vivo é a prova. */
+           telas foram feitas sob medida — mostrar o HTML vivo é a prova. */
         media={
           <div className={`${oppFontVars} opp-app text-white antialiased`} style={FONT.body}>
             <AgendasScreen />
@@ -454,6 +490,7 @@ export function SebraeOppContent() {
               cost={d.cost}
               costLabel={t.costLabel}
             >
+              {d.id === "d01" ? dsProof : null}
               {d.proofCaption && proofs[i] ? (
                 <CaseProof caption={d.proofCaption}>{proofs[i]}</CaseProof>
               ) : null}

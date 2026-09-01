@@ -21,17 +21,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
    torta mesmo com todas as linhas do mesmo tamanho. */
 const BASE_PROJECTS = [
   {
-    id: "houston",
-    name: "Houston",
-    year: "2025",
-    stack: "React · TypeScript · Supabase · shadcn/ui retokenizado",
-    image: "/img/work-houston.png",
-    href: "/work/houston",
-    zoom: 1.18,
-    fx: "62%",
-    fy: "52%",
-  },
-  {
     id: "sebrae-opp",
     name: "Sebrae OPP",
     year: "2026",
@@ -41,6 +30,17 @@ const BASE_PROJECTS = [
     zoom: 2.05,
     fx: "70%",
     fy: "41%",
+  },
+  {
+    id: "houston",
+    name: "Houston",
+    year: "2025",
+    stack: "React · TypeScript · Supabase · shadcn/ui retokenizado",
+    image: "/img/work-houston.png",
+    href: "/work/houston",
+    zoom: 1.18,
+    fx: "62%",
+    fy: "52%",
   },
   {
     id: "revoluna",
@@ -77,20 +77,20 @@ const COPY = {
     alt: (name: string) => `${name} interface`,
     projects: [
       {
+        kind: "Gov-tech",
+        head: "Sebrae knew which platform needed to exist. What was missing was building it.",
+        after:
+          "Seventeen sources, 223 municipalities, from the ETL to the design system, in about three months.",
+      },
+      {
         kind: "Web platform",
         head: "Registering a hospital took ten minutes, and the address came out wrong.",
         after: "Today it takes thirty seconds, and it doesn't.",
       },
       {
-        kind: "Gov-tech",
-        head: "Sebrae knew which platform needed to exist. What was missing was building it.",
-        after:
-          "Thirteen sources, 223 municipalities, from the ETL to the design system — in about three months.",
-      },
-      {
         kind: "Mobile app",
         head: "Shift check-in ran on trust.",
-        after: "It now runs on a geofence — without treating the doctor as a suspect.",
+        after: "It now runs on a geofence, without treating the doctor as a suspect.",
       },
       {
         kind: "Personal project",
@@ -107,20 +107,20 @@ const COPY = {
     alt: (name: string) => `Interface do ${name}`,
     projects: [
       {
+        kind: "Gov-tech",
+        head: "O Sebrae sabia qual plataforma precisava existir. Faltava construí-la.",
+        after:
+          "Dezessete fontes, 223 municípios, do ETL ao design system, em cerca de três meses.",
+      },
+      {
         kind: "Plataforma web",
         head: "Cadastrar um hospital levava dez minutos e o endereço saía errado.",
         after: "Hoje leva trinta segundos e não sai.",
       },
       {
-        kind: "Gov-tech",
-        head: "O Sebrae sabia qual plataforma precisava existir. Faltava construí-la.",
-        after:
-          "Treze fontes, 223 municípios, do ETL ao design system — em cerca de três meses.",
-      },
-      {
         kind: "App mobile",
         head: "O check-in do plantão dependia de confiança.",
-        after: "Passou a depender de geofence — sem transformar o médico em suspeito.",
+        after: "Passou a depender de geofence, sem transformar o médico em suspeito.",
       },
       {
         kind: "Projeto pessoal",

@@ -140,13 +140,18 @@ export function PenMark({
           spines[i]?.setAttribute("stroke-width", String(Math.ceil(part.cover)));
           /* A máscara precisa de folga: o rabo do laço sai da caixa, e
              uma região apertada cortaria justamente a parte que faz o
-             traço parecer solto. */
+             traço parecer solto. A folga vem da MAIOR dimensão, não de
+             cada uma: numa caixa alta e estreita — o laço em volta de um
+             dígito — o piso de achatamento faz a volta correr muito além
+             da largura, e uma região proporcional só à largura fatiava a
+             elipse num corte reto dos dois lados. */
           const mask = regions[i];
           if (mask) {
-            mask.setAttribute("x", String(-w));
-            mask.setAttribute("y", String(-h));
-            mask.setAttribute("width", String(w * 3));
-            mask.setAttribute("height", String(h * 3));
+            const slack = Math.max(w, h) * 1.5;
+            mask.setAttribute("x", String(-slack));
+            mask.setAttribute("y", String(-slack));
+            mask.setAttribute("width", String(w + slack * 2));
+            mask.setAttribute("height", String(h + slack * 2));
           }
         });
       };
