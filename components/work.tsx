@@ -27,9 +27,9 @@ const BASE_PROJECTS = [
     stack: "React 19 · TypeScript · Fastify · MongoDB · Python ETL",
     image: "/img/work-sebrae-opp.png",
     href: "/work/sebrae-opp",
-    zoom: 2.05,
-    fx: "70%",
-    fy: "41%",
+    zoom: 1,
+    fx: "58%",
+    fy: "50%",
   },
   {
     id: "houston",

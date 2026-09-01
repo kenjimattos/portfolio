@@ -30,8 +30,6 @@ import {
 } from "@/components/case-study/case-editorial";
 import { OppScreen } from "@/components/sebrae-demo/opp-frame";
 import { DsFoundation, DsSignature } from "@/components/sebrae-demo/design-system-exhibit";
-import { oppFontVars } from "@/components/sebrae-demo/fonts";
-import { FONT } from "@/components/sebrae-demo/ui";
 import { AgendasScreen } from "@/components/sebrae-demo/screens/agendas";
 import { PanoramaScreen } from "@/components/sebrae-demo/screens/panorama";
 import { FormuladorScreen } from "@/components/sebrae-demo/screens/formulador";
@@ -59,6 +57,7 @@ type Copy = {
   turn: string;
   sub: string;
   shotAlt: string;
+  coverAlt: string;
   note: { cue: string; before: string; circled: string; after: string; href: string };
   role: { label: string; text: string; note: string };
   indexLabel: string;
@@ -94,6 +93,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     turn: "It just hadn't been built.",
     sub: "Seventeen sources, 223 municipalities, from the ETL to the design system, in about three months.",
     shotAlt: "Live React recreation · João Pessoa's real public data",
+    coverAlt: "The OPP indicators screen on a laptop",
     /* A frase é o arco do PROJETO: começou sem nada e terminou como
        plataforma, com dado oficial e um modelo dentro. O laço cai no fim
        da frase, no que ela tem de mais difícil de acreditar — e a prova
@@ -261,6 +261,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     turn: "Faltava construí-la.",
     sub: "Dezessete fontes, 223 municípios, do ETL ao design system, em cerca de três meses.",
     shotAlt: "Recriação em React · dados públicos reais de João Pessoa",
+    coverAlt: "A tela de indicadores do OPP num notebook",
     note: {
       cue: "Role",
       before: "Do zero absoluto a uma plataforma com dados oficiais e",
@@ -459,15 +460,18 @@ export function SebraeOppContent() {
         headline={t.headline}
         turn={t.turn}
         sub={t.sub}
-        /* Não é screenshot: é a recriação em React rodando na laje, com os
-           dados públicos reais de João Pessoa. Nenhuma imagem do produto
-           chega perto disso em nitidez, e o case inteiro argumenta que as
-           telas foram feitas sob medida — mostrar o HTML vivo é a prova. */
-        media={
-          <div className={`${oppFontVars} opp-app text-white antialiased`} style={FONT.body}>
-            <AgendasScreen />
-          </div>
-        }
+        /* A capa do projeto, com o enquadramento da lista de trabalhos.
+           A tela dentro dela ainda é a recriação em React com os dados
+           reais de João Pessoa — composta sobre o mockup, não screenshot.
+           A recriação viva não sai do case: desce para as decisões, onde
+           ela é prova e não vitrine. */
+        cover={{
+          src: "/img/work-sebrae-opp.png",
+          alt: t.coverAlt,
+          zoom: 1,
+          fx: "58%",
+          fy: "50%",
+        }}
         mediaTag={t.shotAlt}
         note={t.note}
         role={t.role}

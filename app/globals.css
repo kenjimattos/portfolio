@@ -1259,6 +1259,31 @@
     }
   }
 
+  /* A laje com capa. Quando a recriação não vive no hero, entra a imagem
+     de capa do projeto, em cover, com o mesmo enquadramento da lista de
+     trabalhos (--z/--fx/--fy). O véu encurta e clareia: ele foi calibrado
+     para a laje escura do OPP, e sobre uma capa clara o quase-preto
+     afogava a interface — aqui ele segura a manchete de papel só até
+     onde ela alcança e libera a imagem logo depois. */
+  .case-hero-media[data-cover] img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: var(--fx, 50%) var(--fy, 50%);
+    transform: scale(var(--z, 1));
+    transform-origin: var(--fx, 50%) var(--fy, 50%);
+  }
+
+  .case-hero-media[data-cover]::after {
+    background: linear-gradient(
+      90deg,
+      rgba(22, 23, 38, 0.78) 0%,
+      rgba(22, 23, 38, 0.68) 30%,
+      rgba(22, 23, 38, 0.22) 56%,
+      rgba(22, 23, 38, 0) 72%
+    );
+  }
+
   /* No telefone não há fronteira: o campo escuro não cabe ao lado de
      nada. O palco volta a ser papel com a manchete, e a tela entra
      inteira embaixo, sangrando nas duas bordas. */
