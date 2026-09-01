@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n";
 import { Marked, PenMark } from "@/components/ui/marks";
+import { CopyEmail } from "@/components/ui/copy-email";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -50,10 +51,13 @@ const COPY = {
   },
 } as const;
 
+/* O e-mail não é um link: ele é copiado. `mailto:` entrega o endereço ao
+   programa que o sistema acha que é o cliente de e-mail, e na maioria das
+   máquinas isso é uma janela que a pessoa fecha sem entender. */
 const socialLinks = [
   { name: "GitHub", href: siteConfig.profile.githubUrl },
   { name: "LinkedIn", href: siteConfig.profile.linkedinUrl },
-  { name: siteConfig.profile.email, href: `mailto:${siteConfig.profile.email}` },
+  { name: siteConfig.profile.email, href: null },
 ];
 
 export const Contact = () => {
@@ -171,18 +175,26 @@ export const Contact = () => {
                 um pouco; o que não acontece é a fonte virar violeta —
                 sublinhar e trocar a cor diria a mesma coisa duas vezes. */}
             <div className="contact-social">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                >
-                  <Marked kind="underline" pen="violet" on="hover" variant="a">
-                    {link.name}
-                  </Marked>
-                </a>
-              ))}
+              {socialLinks.map((link) =>
+                link.href ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Marked kind="underline" pen="violet" on="hover" variant="a">
+                      {link.name}
+                    </Marked>
+                  </a>
+                ) : (
+                  <CopyEmail key={link.name} email={link.name}>
+                    <Marked kind="underline" pen="violet" on="hover" variant="a">
+                      {link.name}
+                    </Marked>
+                  </CopyEmail>
+                )
+              )}
             </div>
           </div>
 

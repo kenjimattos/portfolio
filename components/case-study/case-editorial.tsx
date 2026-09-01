@@ -32,6 +32,7 @@ import { Footer } from "@/components/footer";
 import { siteConfig } from "@/config/site";
 import { Note, type NoteCopy } from "@/components/ui/note";
 import { Marked, PenMark } from "@/components/ui/marks";
+import { CopyEmail } from "@/components/ui/copy-email";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -683,9 +684,7 @@ export function CaseCTA({
             <PenMark kind="arrow" on="hover" />
           </Link>
           <Marked pen="ink" kind="loop" delay={0.5}>
-            <a className="btn-ghost" href={`mailto:${email}`}>
-              {email}
-            </a>
+            <CopyEmail className="btn-ghost" email={email} />
           </Marked>
         </div>
       </div>

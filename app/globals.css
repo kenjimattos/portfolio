@@ -455,7 +455,11 @@
     border-top: 2px solid var(--ink);
   }
 
-  .contact-social a {
+  /* A linha do e-mail não é um link — é um botão que copia —, mas na
+     lista ela é uma linha como as outras. Quem decide isso é a lista, e
+     não o que cada item por dentro é. */
+  .contact-social a,
+  .contact-social .copy-email {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -468,10 +472,20 @@
 
   /* A linha continua andando no hover; o que saiu foi a troca de cor da
      fonte, que dizia a mesma coisa que a sublinha. */
-  .contact-social a:hover {
+  .contact-social a:hover,
+  .contact-social .copy-email:hover {
     padding-left: 10px;
     color: var(--paper);
     background-color: var(--ink);
+  }
+
+  /* O aviso encosta na ponta direita da linha, que é o lugar que o
+     `space-between` já reservava. Solto ao lado do endereço ele sairia
+     da coluna do texto e ficaria boiando no vão do formulário. */
+  .contact-social .copy-flag {
+    left: auto;
+    /* Recuado o bastante para a sombra dura caber dentro da linha. */
+    right: 6px;
   }
 
   .contact-form {
@@ -756,6 +770,95 @@
       transform var(--t-row),
       border-color var(--t-row),
       padding var(--t-row);
+  }
+
+  /* ── O e-mail que se copia ───────────────────────────────────────────
+     O botão não tem aparência própria: quem manda nele é a classe que o
+     chamador passa, porque em cada lugar ele já era outra coisa — um
+     rótulo fantasma no campo vermelho do case, um item sublinhado na
+     lista de redes. O reset vem em `:where()`, de especificidade zero,
+     justamente para perder de qualquer classe que venha depois: ele
+     apaga o botão do navegador e sai da frente.
+     ------------------------------------------------------------------- */
+  .copy-email {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  :where(.copy-email button) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    cursor: pointer;
+  }
+
+  /* O aviso. Fora do fluxo de propósito: reservar o lugar dele deixaria
+     um vão permanente ao lado do e-mail para uma coisa que aparece dois
+     segundos, e aparecer empurrando o texto seria pior do que não
+     avisar. */
+  .copy-flag {
+    position: absolute;
+    left: calc(100% + 14px);
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 5;
+    gap: 8px;
+    padding: 6px 10px;
+    box-shadow: 5px 6px 0 var(--btn-shadow, var(--ink));
+    font-family: var(--font-martian), ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    pointer-events: none;
+    animation: copy-flag-in 240ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+
+  /* No recorte comum o visto é absoluto, encostado na borda direita —
+     ali o rótulo é centrado e a marca não pode empurrá-lo. No aviso é o
+     contrário: são duas coisas lado a lado, e o visto volta para o
+     fluxo. */
+  .copy-flag.pen-btn .pen-mark[data-kind="check"] {
+    position: static;
+    width: 13px;
+    height: 13px;
+    flex: none;
+  }
+
+  @keyframes copy-flag-in {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+  }
+
+  /* Na tela estreita não há vão à direita: o aviso desce. Ele passa por
+     cima do que estiver embaixo, e tudo bem — são dois segundos, e ele
+     tem papel e filete para se destacar do que cobre. */
+  @media (max-width: 640px) {
+    .copy-flag {
+      left: 0;
+      top: calc(100% + 10px);
+      translate: 0 0;
+    }
+
+    /* Menos na lista de redes, onde a linha é larga e alta o bastante
+       para o aviso caber DENTRO dela em qualquer tela — descer ali seria
+       cobrir o formulário para resolver um problema que não existe. */
+    .contact-social .copy-flag {
+      top: 50%;
+      translate: 0 -50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .copy-flag {
+      animation: none;
+    }
   }
 
   /* O recorte grande, para chamada de ação: mesma peça, corpo de

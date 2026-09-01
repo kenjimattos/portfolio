@@ -15,6 +15,7 @@ import { ArrowLeft, ArrowUp, ExternalLink, MousePointerClick } from "lucide-reac
 import { prefersReducedMotion } from "@/lib/motion";
 import { localeHref, useLocale } from "@/lib/i18n";
 import { LangToggle } from "@/components/lang-toggle";
+import { CopyEmail } from "@/components/ui/copy-email";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -1233,13 +1234,10 @@ export function CaseContact({
           <ArrowUp size={16} className="rotate-45" />
         </Link>
         {email && (
-          <a
-            href={`mailto:${email}`}
+          <CopyEmail
+            email={email}
             className="font-mono text-foreground transition-colors duration-300 hover:text-primary"
-            style={{ fontSize: "clamp(13px, 1.2vw, 15px)", opacity: 0.8 }}
-          >
-            {email}
-          </a>
+          />
         )}
       </div>
     </section>
