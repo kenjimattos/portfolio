@@ -49,9 +49,9 @@ const BASE_PROJECTS = [
     stack: "Figma · Flutter · FlutterFlow · Supabase · duas lojas em 2 meses",
     image: "/img/work-revoluna.png",
     href: "/work/revoluna",
-    zoom: 1.22,
-    fx: "66%",
-    fy: "44%",
+    zoom: 1.4,
+    fx: "100%",
+    fy: "10%",
   },
   {
     id: "finance",

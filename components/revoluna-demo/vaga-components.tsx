@@ -241,7 +241,7 @@ function NavGlyphs() {
         // eslint-disable-next-line @next/next/no-img-element -- asset estático local
         <img
           key={src}
-          src={`/img/revoluna/ds/${src}`}
+          src={`/img/revoluna/navigation-icons/${src}`}
           alt={alt}
           loading="lazy"
           className="w-auto"

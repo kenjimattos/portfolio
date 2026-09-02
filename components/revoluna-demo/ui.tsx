@@ -115,11 +115,11 @@ export function TabBar({ active }: { active: (typeof TABS)[number]["id"] }) {
 // então o avatar só os renderiza no tamanho pedido. Hospitais sem logo
 // (dados de apoio) caem no tile de iniciais.
 const HOSPITAL_LOGOS: Record<string, string> = {
-  BP: "/img/revoluna/ds/hospitals/bp.png",
-  SL: "/img/revoluna/ds/hospitals/sirio.png",
-  SC: "/img/revoluna/ds/hospitals/stacatarina.png",
-  NJ: "/img/revoluna/ds/hospitals/novedejulho.svg",
-  AS: "/img/revoluna/ds/hospitals/assuncao.svg",
+  BP: "/img/revoluna/hospitals/bp.svg",
+  CG: "/img/revoluna/hospitals/cristovao.svg",
+  SL: "/img/revoluna/hospitals/sirio.svg",
+  NJ: "/img/revoluna/hospitals/novedejulho.svg",
+  AS: "/img/revoluna/hospitals/assuncao.svg",
 };
 
 export function HospitalAvatar({
