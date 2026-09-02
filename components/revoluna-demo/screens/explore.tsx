@@ -12,7 +12,8 @@ import {
   X,
 } from "lucide-react";
 import { SHIFTS } from "../data";
-import { AppHeader, FONT, ScreenTitle, ShiftCard, TabBar } from "../ui";
+import { AppHeader, FONT, ScreenTitle, TabBar } from "../ui";
+import { ShiftCard } from "../vaga-components";
 
 const FILTERS = [
   { label: "Publicação", Icon: Clock, active: true },

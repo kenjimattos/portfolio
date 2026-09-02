@@ -3,7 +3,8 @@
 
 import { ChevronDown, Clock, Heart, ThumbsUp, X } from "lucide-react";
 import { CONFIRMED_SHIFTS } from "../data";
-import { AppHeader, FONT, ScreenTitle, ShiftCard, TabBar, cx } from "../ui";
+import { AppHeader, FONT, ScreenTitle, TabBar, cx } from "../ui";
+import { ShiftCard } from "../vaga-components";
 
 const TABS = [
   { label: "Salvos", Icon: Heart },

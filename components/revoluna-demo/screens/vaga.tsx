@@ -3,26 +3,13 @@
 // quick actions, info accordions and the apply CTA.
 
 import {
-  Calendar,
-  ChevronDown,
-  ChevronUp,
   Clock,
-  HandCoins,
-  Heart,
   RefreshCw,
-  Send,
-  Sun,
   Users,
 } from "lucide-react";
 import { DETAIL_ACCORDIONS, DETAIL_SHIFT } from "../data";
-import { FONT, HospitalAvatar, RevButton } from "../ui";
-
-const ACTIONS = [
-  { label: "Ver\ndepois", Icon: Heart },
-  { label: "Salvar na\nagenda", Icon: Calendar },
-  { label: "Compartilhar\nVaga", Icon: Send },
-  { label: "Passar\nplantão", Icon: HandCoins },
-];
+import { FONT, HospitalAvatar, RevButton, TurnoIcon } from "../ui";
+import { VagaAccordion, VagaQuickActions } from "../vaga-components";
 
 export function VagaScreen() {
   const s = DETAIL_SHIFT;
@@ -42,7 +29,7 @@ export function VagaScreen() {
         </p>
 
         <div className="mt-4 flex items-center gap-3">
-          <HospitalAvatar initials={s.initials} gradient={s.gradient} size={44} rounded={10} />
+          <HospitalAvatar initials={s.initials} rounded={10} />
           <span className="text-rev-text" style={{ ...FONT.heading, fontSize: 17 }}>
             {s.hospital}
           </span>
@@ -60,7 +47,7 @@ export function VagaScreen() {
             {s.end}
           </p>
           <p className="mt-1.5 flex items-center gap-1.5 text-rev-text" style={{ ...FONT.body, fontSize: 14 }}>
-            <Sun size={15} className="text-rev-primary" /> {s.turno}
+            <TurnoIcon turno="diurno" size={15} /> {s.turno}
             <span className="mx-1 text-rev-muted">·</span>
             <RefreshCw size={14} className="text-rev-tertiary" /> {s.tipo}
           </p>
@@ -79,42 +66,16 @@ export function VagaScreen() {
         </div>
 
         {/* quick actions */}
-        <div className="mt-5 flex items-start justify-between border-t border-rev-border/70 px-1 pt-5">
-          {ACTIONS.map(({ label, Icon }) => (
-            <div key={label} className="flex w-16 flex-col items-center gap-1.5">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-rev-tint">
-                <Icon size={20} className="text-rev-primary" strokeWidth={1.8} />
-              </div>
-              <span
-                className="whitespace-pre-line text-center text-rev-text/80"
-                style={{ ...FONT.body, fontSize: 11, lineHeight: 1.25 }}
-              >
-                {label}
-              </span>
-            </div>
-          ))}
+        <div className="mt-5 flex border-t border-rev-border/70 px-1 pt-5">
+          <VagaQuickActions />
         </div>
 
         {/* accordions */}
         <div className="mt-4">
           {DETAIL_ACCORDIONS.map(({ label, open, body }) => (
-            <div key={label} className="border-t border-rev-border/70 py-3.5">
-              <div className="flex items-center justify-between">
-                <span className="text-rev-text" style={{ ...FONT.display, fontSize: 15 }}>
-                  {label}
-                </span>
-                {open ? (
-                  <ChevronUp size={18} className="text-rev-primary" />
-                ) : (
-                  <ChevronDown size={18} className="text-rev-primary" />
-                )}
-              </div>
-              {open && body && (
-                <p className="mt-2 text-rev-text/75" style={{ ...FONT.body, fontSize: 13 }}>
-                  {body}
-                </p>
-              )}
-            </div>
+            <VagaAccordion key={label} label={label} open={open}>
+              {body}
+            </VagaAccordion>
           ))}
         </div>
       </div>

@@ -2,17 +2,19 @@
 // Colors and typography mirror the real FlutterFlow theme
 // (Geologica + #A369ED primary — the values in app-revoluna's theme file).
 
-import { CSSProperties, ReactNode } from "react";
+import { ComponentType, CSSProperties, ReactNode } from "react";
 import {
   Calendar,
   ChevronDown,
-  Clock,
   Home,
   MapPin,
   Menu,
+  Moon,
   Search,
   Sun,
-  Users,
+  Sunrise,
+  Sunset,
+  Users
 } from "lucide-react";
 
 export function cx(...parts: (string | false | null | undefined)[]) {
@@ -108,84 +110,94 @@ export function TabBar({ active }: { active: (typeof TABS)[number]["id"] }) {
 
 /* ---------------------------- hospital avatar ------------------------------ */
 
+// Os logos reais dos hospitais do app, como estão no Figma do produto:
+// tiles completos de 70×70 com fundo e cantos embutidos no próprio asset,
+// então o avatar só os renderiza no tamanho pedido. Hospitais sem logo
+// (dados de apoio) caem no tile de iniciais.
+const HOSPITAL_LOGOS: Record<string, string> = {
+  BP: "/img/revoluna/ds/hospitals/bp.png",
+  SL: "/img/revoluna/ds/hospitals/sirio.png",
+  SC: "/img/revoluna/ds/hospitals/stacatarina.png",
+  NJ: "/img/revoluna/ds/hospitals/novedejulho.svg",
+  AS: "/img/revoluna/ds/hospitals/assuncao.svg",
+};
+
 export function HospitalAvatar({
   initials,
-  gradient,
-  size = 52,
   rounded = 12,
 }: {
   initials: string;
-  gradient: string;
-  size?: number;
+  className?: string;
   rounded?: number;
 }) {
+  const logo = HOSPITAL_LOGOS[initials];
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- asset estático local
+      <img
+        src={logo}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="w-[13dvw] md:w-[6dvw] lg:w-[3dvw] xl:w-[4dvw]"
+        style={{ borderRadius: rounded }}
+      />
+    );
+}
+
+/* --------------------------------- turno ----------------------------------- */
+
+// Os cinco turnos do app, cada um com seu ícone: sol (diurno), lua
+// (noturno), sol nascente, sol poente — e a varinha mágica do turno
+// "Cinderela", o plantão que acaba à meia-noite.
+export type Turno = "diurno" | "noturno" | "nascente" | "poente" | "cinderela";
+
+// A varinha de fada, com a estrelinha na ponta — não a de ilusionista.
+// A lucide não tem essa; desenhada no traço da própria lucide.
+function WandStar({ size = 24, className }: { size?: number; className?: string }) {
   return (
-    <div
-      className="flex shrink-0 items-center justify-center text-white"
-      style={{
-        width: size,
-        height: size,
-        borderRadius: rounded,
-        background: gradient,
-        ...FONT.display,
-        fontSize: size * 0.32,
-      }}
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
       aria-hidden
     >
-      {initials}
-    </div>
+      <path d="M4 20 14 10.5" />
+      <path
+        d="M17 3.5 18.1 6.4 21 7.5 18.1 8.6 17 11.5 15.9 8.6 13 7.5 15.9 6.4 Z"
+        fill="currentColor"
+        stroke="none"
+      />
+    </svg>
   );
 }
 
-/* ------------------------------- shift card -------------------------------- */
+type TurnoGlyph = ComponentType<{ size?: number; className?: string }>;
 
-export type Shift = {
-  id: string;
-  specialty: string;
-  hospital: string;
-  initials: string;
-  gradient: string;
-  distance: string;
-  date: string;
-  value: string;
-  sector: string;
-  published: string;
-  cashUpfront?: boolean;
+export const TURNOS: Record<Turno, { Icon: TurnoGlyph; label: string }> = {
+  diurno: { Icon: Sun, label: "Diurno" },
+  noturno: { Icon: Moon, label: "Noturno" },
+  nascente: { Icon: Sunrise, label: "Manhã" },
+  poente: { Icon: Sunset, label: "Tarde" },
+  cinderela: { Icon: WandStar, label: "Cinderela" },
 };
 
-export function ShiftCard({ shift }: { shift: Shift }) {
-  return (
-    <div className="flex items-center gap-3.5 border-b border-rev-tint px-5 py-4">
-      <HospitalAvatar initials={shift.initials} gradient={shift.gradient} />
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-rev-text" style={{ ...FONT.display, fontSize: 15 }}>
-          {shift.specialty}
-        </span>
-        <span className="flex items-center gap-1 text-rev-text/75" style={{ ...FONT.body, fontSize: 12 }}>
-          {shift.hospital}
-          <MapPin size={12} className="shrink-0 text-rev-tertiary" />
-          {shift.distance}
-        </span>
-        <span className="text-rev-text" style={{ ...FONT.heading, fontSize: 14 }}>
-          {shift.date} · {shift.value}
-        </span>
-        <span className="flex items-center gap-1 text-rev-muted" style={{ ...FONT.body, fontSize: 11 }}>
-          <Sun size={11} className="text-rev-primary" /> · {shift.sector} ·{" "}
-          <Clock size={11} className="text-rev-tertiary" /> {shift.published}
-        </span>
-      </div>
-      {shift.cashUpfront && (
-        <div className="flex flex-col items-center gap-1 self-start pt-1">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-rev-tint text-rev-primary" style={{ fontSize: 13, ...FONT.display }}>
-            !
-          </span>
-          <span className="text-rev-text/70" style={{ ...FONT.body, fontSize: 10 }}>
-            À vista
-          </span>
-        </div>
-      )}
-    </div>
-  );
+export function TurnoIcon({
+  turno = "diurno",
+  size = 11,
+  className = "text-rev-primary",
+}: {
+  turno?: Turno;
+  size?: number;
+  className?: string;
+}) {
+  const { Icon } = TURNOS[turno];
+  return <Icon size={size} className={className} />;
 }
 
 /* --------------------------------- button ---------------------------------- */

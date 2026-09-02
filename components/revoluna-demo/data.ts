@@ -1,78 +1,84 @@
 // Fictional dataset for the recreated Revoluna screens. Structure and
 // PT-BR labels mirror the real app; hospitals, values and people are dummies.
 
-import type { Shift } from "./ui";
+import type { Shift } from "./vaga-components";
 
 /* --------------------------------- shifts ---------------------------------- */
 
-const GRAD = {
-  gold: "linear-gradient(135deg, #C9A45C, #8A6A2F)",
-  wine: "linear-gradient(135deg, #B0356B, #5E1B3A)",
-  teal: "linear-gradient(135deg, #2FB1A5, #14615B)",
-  navy: "linear-gradient(135deg, #4A6FD4, #22367A)",
-};
-
+/* Os hospitais são os reais do app, com os dados dos cards do próprio
+   Figma (especialidade, valor, data); distâncias e setores são de apoio. */
 export const SHIFTS: Shift[] = [
   {
     id: "s1",
+    turno: "diurno",
     specialty: "Anestesiologia",
-    hospital: "Santa Sara Day Hospital",
-    initials: "SS",
-    gradient: GRAD.gold,
-    distance: "22 km",
-    date: "10/07",
-    value: "R$ 2.000,00",
+    hospital: "Beneficência Portuguesa",
+    initials: "BP",
+    distance: "6 km",
+    date: "12/02",
+    value: "R$ 2.300,00",
     sector: "Centro Cirúrgico",
     published: "há 2 dias",
     cashUpfront: true,
   },
   {
     id: "s2",
-    specialty: "Anestesiologia",
-    hospital: "Hospital Ibirapuera",
-    initials: "HI",
-    gradient: GRAD.wine,
-    distance: "15 km",
-    date: "18/07",
-    value: "R$ 2.000,00",
-    sector: "Centro Cirúrgico",
-    published: "há 8 dias",
+    turno: "noturno",
+    specialty: "Clínica Médica",
+    hospital: "Sírio-Libanês",
+    initials: "SL",
+    distance: "8 km",
+    date: "25/02",
+    value: "R$ 1.500,00",
+    sector: "Pronto Atendimento",
+    published: "há 1 dia",
   },
   {
     id: "s3",
-    specialty: "Anestesiologia",
-    hospital: "Cirurgia Center",
-    initials: "CC",
-    gradient: GRAD.teal,
-    distance: "18 km",
-    date: "16/07",
+    turno: "nascente",
+    specialty: "Ortopedia e Traumatologia",
+    hospital: "Santa Catarina",
+    initials: "SC",
+    distance: "7 km",
+    date: "25/02",
     value: "R$ 2.000,00",
     sector: "Centro Cirúrgico",
-    published: "há 8 dias",
+    published: "há 1 semana",
   },
   {
     id: "s4",
-    specialty: "Clínica Médica",
-    hospital: "Hospital Vila Mariana",
-    initials: "VM",
-    gradient: GRAD.navy,
+    turno: "poente",
+    specialty: "Cardiologia",
+    hospital: "Nove de Julho",
+    initials: "NJ",
     distance: "9 km",
-    date: "20/07",
-    value: "R$ 1.400,00",
-    sector: "Pronto-Socorro",
-    published: "há 1 dia",
+    date: "03/03",
+    value: "R$ 2.500,00",
+    sector: "Unidade Coronariana",
+    published: "há 3 dias",
   },
+  {
+    id: "s5",
+    turno: "cinderela",
+    specialty: "Pediatria",
+    hospital: "Hospital Assunção",
+    initials: "AS",
+    distance: "12 km",
+    date: "25/02",
+    value: "R$ 1.200,00",
+    sector: "Pronto Socorro",
+    published: "Ontem",
+  }
 ];
 
 /* ------------------------------ shift detail -------------------------------- */
 
 export const DETAIL_SHIFT = {
   specialty: "Anestesiologia",
-  value: "R$ 2.000,00",
-  hospital: "Cirurgia Center",
-  initials: "CC",
-  gradient: GRAD.teal,
-  weekday: "quarta-feira, 16/07/2025",
+  value: "R$ 2.300,00",
+  hospital: "Hosp. Beneficência Portuguesa",
+  initials: "BP",
+  weekday: "quarta-feira, 12/02/2025",
   start: "08:00",
   end: "20:00",
   turno: "Diurno",
