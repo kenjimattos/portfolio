@@ -23,13 +23,10 @@ const FILTERS = [
   { label: "À vista", Icon: CircleAlert },
 ];
 
-export function ExploreScreen() {
+export function ExploreFilter() {
   return (
-    <div className="flex h-full flex-col bg-white">
-      <AppHeader />
-      <ScreenTitle>Explorar</ScreenTitle>
-
-      {/* sort / filter row */}
+    <>
+    {/* sort / filter row */}
       <div className="flex items-start justify-between px-6 pt-4">
         {FILTERS.map(({ label, Icon, active }) => (
           <div key={label} className="flex flex-col items-center gap-1.5">
@@ -71,6 +68,18 @@ export function ExploreScreen() {
           opacity: 0.5,
         }}
       />
+    </>
+  );
+}     
+
+export function ExploreScreen() {
+  return (
+    <div className="flex h-full flex-col bg-white">
+      <AppHeader />
+      <ScreenTitle>Explorar</ScreenTitle>
+
+      {/* filters */}
+      <ExploreFilter />
 
       {/* shift list */}
       <div className="flex-1 overflow-hidden">
