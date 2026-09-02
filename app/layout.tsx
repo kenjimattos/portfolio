@@ -21,7 +21,7 @@ const martianMono = Martian_Mono({
 });
 
 const defaultTitle =
-  "Kenji Mattos · Software Engineer | React, Next.js, PostgreSQL";
+  "Kenji Mattos · Software Engineer | React, TypeScript, Next.js, Node.js";
 const defaultDescription =
   "Software Engineer building production-grade platforms end to end, from design to code in production.";
 
