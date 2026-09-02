@@ -6,8 +6,9 @@
  * o modelo de negócio e a primeira versão do app são da Revoluna; o que
  * o case reivindica é o novo design e a entrega do MVP, uma pessoa, até as
  * duas lojas. A tensão que organiza tudo é a fronteira do no-code: o
- * FlutterFlow compra velocidade, e as 27 custom actions em Dart marcam
- * exatamente onde o produto exigiu código.
+ * FlutterFlow compra velocidade, e as 37 peças de Dart próprio (25 custom
+ * actions, 9 custom functions, 3 widgets) marcam exatamente onde o produto
+ * exigiu código. Números contados no repositório em 02/09/2026.
  *
  * O hero usa a imagem de capa do projeto, como no Houston. As recriações
  * de telefone não saem do case: descem para as decisões, onde cada tela
@@ -127,7 +128,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     ],
     headline: "A shift vacancy was a post lost in a WhatsApp group.",
     turn: "It became a product on both stores.",
-    sub: "Marketplace and management for medical shifts: from the design system in Figma to a shipped MVP, 38 releases on the App Store and Google Play, one person.",
+    sub: "Marketplace and management for medical shifts: from the design system in Figma to a shipped MVP, 16 documented versions on the App Store and Google Play, one person.",
     coverAlt: "The Revoluna app screens on smartphones",
     shotTag: "App screens recreated in React · real hospitals, fictional shift data",
     /* A frase é a afirmação mais concreta do case, e a prova dela é a
@@ -141,7 +142,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "My role",
-      text: "Product design and delivery: I built the product's design in Figma, component library, tokens and every high-fidelity flow, then built the MVP myself in FlutterFlow. The 27 custom actions and 5 custom widgets in Dart covered what the no-code couldn't: geofence, deep links, push, OTP, calendar. Some of those functions I wrote by hand; the rest I specified, reviewed and tested, written with generative AI. I published and maintained the app on both stores, 38 releases up to v2.3.2, with a versioned changelog.",
+      text: "Product design and delivery: I built the product's design in Figma, component library, tokens and every high-fidelity flow, then built the MVP myself in FlutterFlow. The 25 custom actions, 9 custom functions and 3 widgets in Dart covered what the no-code couldn't: geofence, deep links, push, OTP, calendar. Some of those functions I wrote by hand; the rest I specified, reviewed and tested, written with generative AI. I published and maintained the app on both stores, 16 documented versions up to v2.3.2, with a changelog that records the commits behind each one.",
       note: "The product isn't mine. Revoluna existed before me: the problem, the business model and the app's first version belong to the founders. I joined as a Product Designer to build a new experience, and what I claim is the delivery: turning that new design into a shipped MVP that real doctors could validate on real shifts, one person, without stopping the operation. Every decision below is of that kind.",
     },
     indexLabel: "Decisions in this case",
@@ -170,7 +171,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         code: {
           label: "Code",
-          chose: "27 custom actions and 5 custom widgets in Dart where the no-code ended: geofence, deep links, push, OTP, calendar.",
+          chose: "25 custom actions, 9 custom functions and 3 widgets in Dart where the no-code ended: geofence, deep links, push, OTP, calendar.",
           why: "The boundary is explicit: what differentiates the product is code; what is an ordinary screen is not.",
           authorship: "assisted",
         },
@@ -246,8 +247,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     outcome: {
       heading: "Result",
       measures: [
-        { value: "38", label: "releases on both stores, v2.3.2" },
-        { value: "27", label: "custom Dart actions where the no-code ended" },
+        { value: "16", label: "documented versions on both stores, up to v2.3.2" },
+        { value: "37", label: "pieces of my own Dart: 25 actions, 9 functions, 3 widgets" },
         { value: "100 m", label: "radius validating every check-in against the hospital" },
         { value: "1", label: "person, from Figma to both stores", mark: true },
       ],
@@ -266,11 +267,11 @@ const COPY: Record<"en" | "pt", Copy> = {
           kind: "link",
           label: "Published on the App Store and Google Play",
           href: STORE_URL,
-          note: "38 builds · v2.3.2",
+          note: "16 documented versions · build 38 · v2.3.2",
         },
         {
           kind: "fact",
-          label: "27 custom actions and 5 custom widgets in Dart",
+          label: "25 custom actions, 9 custom functions and 3 widgets in Dart",
           note: "geofence, deep links, push, OTP, calendar",
         },
         {
@@ -303,7 +304,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     ],
     headline: "A vaga de plantão era um post perdido num grupo de WhatsApp.",
     turn: "Virou produto nas duas lojas.",
-    sub: "Marketplace e gestão de plantões médicos: do design system no Figma ao MVP publicado, 38 releases na App Store e no Google Play, uma pessoa.",
+    sub: "Marketplace e gestão de plantões médicos: do design system no Figma ao MVP publicado, 16 versões documentadas na App Store e no Google Play, uma pessoa.",
     coverAlt: "As telas do app Revoluna em smartphones",
     shotTag: "Telas recriadas em React · hospitais reais, plantões fictícios",
     note: {
@@ -315,7 +316,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "Meu papel",
-      text: "Product design e entrega: construí o design do produto no Figma, biblioteca de componentes, tokens e todos os fluxos em alta fidelidade, e construí o MVP sozinho em FlutterFlow. As 27 custom actions e os 5 widgets em Dart cobriram o que o no-code não fazia: geofence, deep links, push, OTP, calendário. Algumas dessas funções escrevi à mão; as demais especifiquei, revisei e testei, escritas com IA generativa. Publiquei e mantive o app nas duas lojas, 38 releases até a v2.3.2, com changelog versionado.",
+      text: "Product design e entrega: construí o design do produto no Figma, biblioteca de componentes, tokens e todos os fluxos em alta fidelidade, e construí o MVP sozinho em FlutterFlow. As 25 custom actions, as 9 custom functions e os 3 widgets em Dart cobriram o que o no-code não fazia: geofence, deep links, push, OTP, calendário. Algumas dessas funções escrevi à mão; as demais especifiquei, revisei e testei, escritas com IA generativa. Publiquei e mantive o app nas duas lojas, 16 versões documentadas até a v2.3.2, com changelog registrando os commits de cada uma.",
       note: "O produto não é meu. A Revoluna existia antes de mim: o problema, o modelo de negócio e a primeira versão do app são dos fundadores. Entrei como Product Designer para construir uma experiência nova, e o que reivindico é a entrega: transformar esse novo design num MVP publicado, que médicos reais validaram em plantões reais, uma pessoa, sem parar a operação. É desse tipo toda decisão abaixo.",
     },
     indexLabel: "Decisões deste case",
@@ -344,7 +345,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         },
         code: {
           label: "Código",
-          chose: "27 custom actions e 5 widgets customizados em Dart onde o no-code acabou: geofence, deep links, push, OTP, calendário.",
+          chose: "25 custom actions, 9 custom functions e 3 widgets em Dart onde o no-code acabou: geofence, deep links, push, OTP, calendário.",
           why: "A fronteira é explícita: o que diferencia o produto é código; o que é tela comum, não.",
           authorship: "assisted",
         },
@@ -420,8 +421,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     outcome: {
       heading: "Resultado",
       measures: [
-        { value: "38", label: "releases nas duas lojas, v2.3.2" },
-        { value: "27", label: "custom actions em Dart onde o no-code acabou" },
+        { value: "16", label: "versões documentadas nas duas lojas, até a v2.3.2" },
+        { value: "37", label: "peças de Dart próprio: 25 actions, 9 functions, 3 widgets" },
         { value: "100 m", label: "raio que valida cada check-in contra o hospital" },
         { value: "1", label: "pessoa, do Figma às duas lojas", mark: true },
       ],
@@ -437,13 +438,14 @@ const COPY: Record<"en" | "pt", Copy> = {
       heading: "Evidência",
       items: [
         {
-          kind: "fact",
+          kind: "link",
           label: "Publicado na App Store e no Google Play",
-          note: "38 builds · v2.3.2",
+          href: STORE_URL,
+          note: "16 versões documentadas · build 38 · v2.3.2",
         },
         {
           kind: "fact",
-          label: "27 custom actions e 5 widgets customizados em Dart",
+          label: "25 custom actions, 9 custom functions e 3 widgets em Dart",
           note: "geofence, deep links, push, OTP, calendário",
         },
         {
