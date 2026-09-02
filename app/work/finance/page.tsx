@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { FinanceContent } from "./finance-content";
 
-const title = "Finance: Diagnosing an Open Finance API";
+const title = "Finance: Cash Flow by Bill Window";
 const description =
-  "Case study: a self-hosted credit-card manager where transactions changed value on their own. Diagnosis, local transaction identity, a six-outcome sync state machine, and 132 tests on the business rules.";
+  "Case study: a self-hosted credit-card spending manager where a purchase enters the cash flow on the day the bill is paid. Local transaction identity, a balance anchored instead of read, reconciliation against the issuer's statement, and 132 tests on the business rules.";
 
 export const metadata: Metadata = {
   title,

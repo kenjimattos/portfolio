@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { FinanceContent } from "@/app/work/finance/finance-content";
 
-const title = "Finance · Diagnóstico de uma API de Open Finance";
+const title = "Finance · Fluxo de Caixa por Janela de Fatura";
 const description =
-  "Estudo de caso: um gestor de gastos self-hosted em que transações mudavam de valor sozinhas. Diagnóstico, identidade local da transação, máquina de estados de sync com seis desfechos e 132 testes sobre regra de negócio.";
+  "Estudo de caso: um gestor de gastos self-hosted em que a compra de cartão entra no fluxo de caixa no dia em que a fatura é paga. Identidade local da transação, saldo ancorado em vez de lido, conciliação contra o boleto do emissor e 132 testes sobre regra de negócio.";
 
 export const metadata: Metadata = {
   title,

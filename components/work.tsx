@@ -60,9 +60,9 @@ const BASE_PROJECTS = [
     stack: "TypeScript · Express · SQLite · React",
     image: "/img/work-finance.png",
     href: "/work/finance",
-    zoom: 1.04,
-    fx: "56%",
-    fy: "38%",
+    zoom: 1.2,
+    fx: "100%",
+    fy: "35%",
   },
 ] as const;
 
