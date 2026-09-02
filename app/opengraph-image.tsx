@@ -3,13 +3,13 @@ import { ogSize, renderOgImage } from "@/lib/og";
 export const size = ogSize;
 export const contentType = "image/png";
 export const alt =
-  "Kenji Mattos · Software Engineer";
+  "DESIGN SCHEMA DEPLOY: the masthead of Kenji Mattos, software engineer and designer";
 
-export default function OgImage() {
+export default async function OgImage() {
   return renderOgImage({
-    title: "Kenji Mattos",
-    subtitle:
-      "Software Engineer — I design, build, and ship products end to end.",
-    tags: ["React", "Next.js", "PostgreSQL", "Product Design"],
+    lines: ["DESIGN", "SCHEMA", "DEPLOY"],
+    tagline:
+      "I design, build, and put into production: interface, business logic, database, and deploy.",
+    kicker: "Portfolio",
   });
 }

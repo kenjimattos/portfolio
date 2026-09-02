@@ -2,13 +2,14 @@ import { ogSize, renderOgImage } from "@/lib/og";
 
 export const size = ogSize;
 export const contentType = "image/png";
-export const alt = "Houston · Medical Shift Management Platform | Kenji Mattos";
+export const alt = "Houston: Medical Shift Management Platform | Kenji Mattos";
 
-export default function OgImage() {
+export default async function OgImage() {
   return renderOgImage({
-    title: "Houston",
-    subtitle:
-      "A production-grade platform for medical shift operations: scheduling, attendance, payments, and multi-tenant RBAC.",
-    tags: ["Full-Stack", "PostgreSQL", "CI/CD"],
+    lines: ["HOUSTON"],
+    tagline:
+      "Medical shift operations end to end: scheduling, attendance, payments, and multi-tenant access.",
+    kicker: "Work / Houston",
+    stack: ["Full-stack", "PostgreSQL", "CI/CD"],
   });
 }
