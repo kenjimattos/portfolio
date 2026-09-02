@@ -13,7 +13,7 @@ import { cx } from "./ui";
 export const PHONE_WIDTH = 393;
 export const PHONE_HEIGHT = 852;
 
-function StatusBar({ time, dark }: { time: string; dark?: boolean }) {
+export function StatusBar({ time, dark }: { time: string; dark?: boolean }) {
   const fg = dark ? "#ffffff" : "#111111";
   return (
     <div
