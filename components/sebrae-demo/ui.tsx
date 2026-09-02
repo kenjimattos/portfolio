@@ -18,20 +18,6 @@ export const FONT = {
 
 /* --------------------------------- surfaces --------------------------------- */
 
-export function OppGlass({
-  className,
-  children,
-  bevel,
-}: {
-  className?: string;
-  children: ReactNode;
-  bevel?: boolean;
-}) {
-  return (
-    <div className={cx("opp-glass", bevel && "opp-glass-bevel", className)}>{children}</div>
-  );
-}
-
 /* ---------------------------------- buttons ---------------------------------- */
 
 export function OppButton({

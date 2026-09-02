@@ -215,44 +215,6 @@ export const ECON_CARDS: EconCard[] = [
 export const IA_ANALYSIS_TEXT =
   "João Pessoa apresenta base econômica em expansão: PIB per capita cresceu 15,3% e a remuneração média acompanha, com 70,8 mil empresas ativas. O contraste está na educação — o IDEB dos anos finais recuou 13% — e na concentração de renda, que segue elevada (GINI 0,620). Priorize as agendas de educação empreendedora e inclusão produtiva.";
 
-/* ---------------------------------- riscos ----------------------------------- */
-
-export type Risk = {
-  value: string;
-  indicatorLabel: string;
-  description: string;
-  severity: "alert" | "warning";
-  severityLabel: string;
-  context: string;
-};
-
-export const RISKS: Risk[] = [
-  {
-    value: "4,0",
-    indicatorLabel: "IDEB Anos Finais",
-    description: "Queda de 13% na última edição coloca a educação básica em trajetória de risco.",
-    severity: "alert",
-    severityLabel: "ALERTA",
-    context: "Educação empreendedora depende da base escolar",
-  },
-  {
-    value: "6,38",
-    indicatorLabel: "IGM – Governança Municipal",
-    description: "Governança abaixo da faixa oficial de excelência limita a execução de políticas.",
-    severity: "warning",
-    severityLabel: "ATENÇÃO",
-    context: "Meta: alcançar a faixa ≥ 7,51 do IGM-CFA",
-  },
-  {
-    value: "0,431",
-    indicatorLabel: "ISDEL – Governança",
-    description: "Articulação para o desenvolvimento local abaixo do corte superior do índice.",
-    severity: "warning",
-    severityLabel: "ATENÇÃO",
-    context: "Corte oficial da faixa superior: 0,471",
-  },
-];
-
 /* --------------------------------- formulador -------------------------------- */
 
 export const FORMULATOR_STEPS = [
@@ -270,18 +232,8 @@ export const FORMULATOR_STEPS = [
 
 /* ----------------------------------- jornada ---------------------------------- */
 
-export const PILLARS = [
-  { id: "ambiente", label: "Ambiente de negócio", icon: "ChartColumn" },
-  { id: "recursos", label: "Mapeamento de recursos", icon: "DollarSign" },
-  { id: "capacitacao", label: "Capacitação", icon: "GraduationCap" },
-  { id: "formulador", label: "Formulador", icon: "Briefcase" },
-] as const;
-
 export const AMBIENTE_MODES = ["Eixos prioritários", "Panorama socioeconômico", "Riscos estratégicos"];
 
 /* ------------------------------------ mapa ------------------------------------ */
 
-// A few municipalities tinted on the static map for texture (besides the
-// selected one) — ids from the IBGE GeoJSON.
-export const MAP_SELECTED_ID = "2504009"; // Campina Grande
 export const MAP_TOOLTIP = { id: MUNICIPIO_ID, name: MUNICIPIO };

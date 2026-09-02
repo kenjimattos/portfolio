@@ -276,23 +276,3 @@ export function ComoChegarBody() {
     </div>
   );
 }
-
-export function PagamentoBody() {
-  return (
-    <ul className="flex list-disc flex-col gap-1 pl-4">
-      <li>
-        Em 60 dias ·{" "}
-        <span className="text-rev-tertiary underline decoration-rev-tertiary/50">
-          clique aqui para antecipar
-        </span>
-      </li>
-      <li>
-        PIX Pessoa Jurídica ·{" "}
-        <span className="text-rev-tertiary underline decoration-rev-tertiary/50">
-          ainda não tem CNPJ?
-        </span>
-      </li>
-      <li>Hora Extra: R$ 500,00</li>
-    </ul>
-  );
-}

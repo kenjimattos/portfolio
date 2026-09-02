@@ -161,14 +161,6 @@ export type Candidatura = {
   recebidaEm: string;
 };
 
-export const CANDIDATURAS: Candidatura[] = [
-  { id: 901, medico: MEDICOS[2], vaga: "23/07 · UTI Noturno · Hospital Santa Helena", status: "PENDENTE", recebidaEm: "21/07/2025 13:58" },
-  { id: 902, medico: MEDICOS[6], vaga: "22/07 · Pronto-Socorro · Hospital São Lucas", status: "PENDENTE", recebidaEm: "21/07/2025 11:24" },
-  { id: 903, medico: MEDICOS[4], vaga: "24/07 · Pediatria · Hospital Vida Nova", status: "APROVADO", recebidaEm: "20/07/2025 18:07" },
-  { id: 904, medico: MEDICOS[7], vaga: "25/07 · UTI Adulto · Hospital Monte Sinai", status: "PENDENTE", recebidaEm: "20/07/2025 16:41" },
-  { id: 905, medico: MEDICOS[5], vaga: "26/07 · Pronto-Socorro · Hospital Santa Helena", status: "REPROVADO", recebidaEm: "19/07/2025 22:15" },
-];
-
 /* --------------------------------- pagamentos -------------------------------- */
 
 export type Pagamento = {

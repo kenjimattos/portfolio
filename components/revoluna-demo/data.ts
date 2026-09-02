@@ -173,30 +173,3 @@ export const LOCK_NOTIFICATIONS = [
 ];
 
 /* ------------------------------ meus plantões -------------------------------- */
-
-export const PLANTOES_TABS = ["Salvos", "Em análise", "Confirmados"] as const;
-
-export const CONFIRMED_SHIFTS: Shift[] = [
-  {
-    id: "c1",
-    specialty: "Anestesiologia",
-    hospital: "Beneficência Portuguesa",
-    initials: "BP",
-    distance: "6 km",
-    date: "12/02",
-    value: "R$ 2.300,00",
-    sector: "Centro Cirúrgico",
-    published: "há 2 dias",
-  },
-  {
-    id: "c2",
-    specialty: "Anestesiologia",
-    hospital: "Nove de Julho",
-    initials: "NJ",
-    distance: "9 km",
-    date: "03/03",
-    value: "R$ 2.500,00",
-    sector: "Unidade Coronariana",
-    published: "há 3 dias",
-  },
-];
