@@ -1,5 +1,58 @@
 # Changelog
 
+## [3.0.0] - 2026-09-03
+
+### Added
+
+- Vocabulário de marcação à mão (`components/marks.tsx` e `lib/pen.ts`): a caneta de revisão como peça do site, com três laços, duas sublinhas, a seta e o visto. O traço não é uma curva com espessura constante, é um contorno preenchido gerado a partir de uma linha de centro mais um perfil de largura — a espessura muda com a direção, como a ponta chanfrada de um marcador segurado num ângulo fixo. Quem anda na animação é uma máscara por cima do preenchimento, e um `ResizeObserver` redesenha a marcação quando a palavra cresce
+- Régua de uso da caneta: uma marcação por seção, sempre sobre a afirmação de que o leitor deveria desconfiar. Marca de revisor repetida em tudo vira textura, e textura não afirma nada
+- Nota manuscrita sobre o masthead da home: um recorte de papel pousado no centro da tela, com o laço em volta de "em produção" e a seta apontando para baixo. Ela é desenhada na carga, não na rolagem — uma pista de rolagem que só aparece depois de rolar chega tarde demais — e sai presa ao scrub no primeiro meio-viewport
+- A mesma nota abre os cases, com uma frase do projeto (nunca sobre o site ou o método) e um `href` que leva à decisão que prova aquilo que ela afirma. `note` é campo opcional do hero: um case sem nada de surpreendente para afirmar não tem nota
+- Sistema editorial de case study (`components/case-study/case-editorial.tsx`): o case deixa de ser um tour de produto e vira um problema com duas ou três decisões, na espinha CaseHero → CaseConstraints → CaseDecisions → CaseOutcome → CaseEvidence → CaseCTA, com orçamento de leitura de 90 segundos. `CaseDecision` põe lado a lado a escolha de design e a de implementação para o mesmo problema, com duas regras nos tipos: `cost` é obrigatório (decisão sem custo declarado ou não foi decisão, ou está sendo vendida) e `authorship: "assisted"` existe para o verbo ser honesto onde a implementação profunda foi escrita com IA
+- Hero de plano dividido: uma fronteira `--split` governa onde o campo escuro começa, onde a manchete troca tinta por papel e quanto da capa já está descoberto. A manchete é escrita duas vezes com a mesma quebra, para uma linha só de texto poder ser preta no papel e branca no escuro, cortada no meio da palavra
+- Rolagem suave com Lenis (`lib/smooth-scroll.tsx`), com reset de posição na troca de rota
+- Botão de recorte como padrão de ação (`.pen-btn`): papel, filete de tinta, sombra dura e a caneta escrevendo a seta no gesto. Cobre o envio do formulário, a chamada do case, o "próximo projeto", o "ver case" das linhas de projeto e o GitHub, com `data-size="lg"` e `.pen-btn-self` para quem responde ao próprio cursor
+- O e-mail vai para a área de transferência: três caminhos (`navigator.clipboard`, o `execCommand` antigo e, em último caso, o endereço selecionado com a instrução certa para o sistema de quem lê), e um aviso com o visto sendo escrito na hora, também anunciado por `aria-live`
+- Novas provas dentro dos cases: specimen do sistema e exhibit de acesso no Houston, exhibit de design system e tela de WhatsApp no Revoluna, tela de conciliação e exhibit de design system no Finance, e o arco de fundação → IndicatorBar → sistema em uso no Sebrae
+- Imagem de Open Graph redesenhada no sistema editorial: papel, tinta e o campo vermelho no pé, no lugar do fundo escuro com os gradientes que saíram do site no redesign. O cartão passa a ser o masthead, e os quatro cases usam o mesmo desenho com a stack como linha de índice sob o wordmark
+- Archivo (500 e 900) e Martian Mono (400) versionados em `assets/fonts/`, com as licenças OFL: o Satori desenha o Open Graph no servidor e não enxerga as fontes carregadas pelo `next/font`
+- Capas novas dos quatro projetos, e o mesmo enquadramento da lista de trabalhos passa a valer no topo de cada case
+
+### Changed
+
+- Redesign editorial de todo o site: papel e tinta com acentos vermelho e violeta, no lugar do sistema anterior. Masthead da home reanimado e colunas verticais de palavras no Sobre com queda por rolagem
+- Os quatro cases reescritos sobre o sistema editorial — Sebrae OPP, Houston, Revoluna e Finance — cada um com as recriações em React deixando de ser vitrine no topo para virar prova dentro da decisão que sustentam
+- Finance muda de premissa: cai "nenhum banco mostra a fatura em aberto" e entra o eixo verdadeiro, os apps mostram a fatura e a despesa mas não ligam as duas na data certa, porque arquivam a compra pela data da transação
+- Sebrae abre a lista de projetos na home
+- O acento de cada linha de projeto alterna entre vermelho e violeta, com a cor escrita uma vez na linha: nome, sombra do recorte e caneta acendem juntos em vez de três regras precisando concordar
+- As setas tipográficas (`→`, `↗`, `←`) somem de todo o site, substituídas pela caneta escrita no gesto — índice do masthead, lista de redes, botões e a volta no cabeçalho do case
+- O cabeçalho do case troca o link único de volta por Home / Work / About, no mesmo padrão do header global
+- O hero do case passa a ter um caminho só, a capa do projeto, e a etiqueta de crédito sai de cima da imagem para uma faixa própria abaixo dela — com o palco crescendo pela faixa, para a capa não encolher
+- Título profissional e copy revisados; travessões padronizados fora dos textos; nomes de tecnologia escritos em palavras neutras de idioma
+- O preto do site vira um token só (`ink`)
+- Seção Tech Stack oculta na home
+- Fontes e imagens do Revoluna reorganizadas, com logos e ícones refeitos
+
+### Fixed
+
+- Navegação com âncora abre a página no lugar pedido: o Next levava o leitor até a âncora e o Lenis o trazia de volta ao topo no quadro seguinte. Agora a navegação resolve um alvo em vez de um zero, e a âncora é remedida depois do refresh porque a página continua crescendo enquanto as fontes assentam e as recriações montam
+- A seta do gesto passa a seguir o `:hover` do anfitrião, e não o tipo de dispositivo: no toque o navegador mantém um hover pegajoso, e perguntar por `(hover: hover)` desligava a caneta justamente no estado que ela deveria acompanhar
+- A nota do case sai antes de a manchete se escrever: as duas ocupavam o mesmo trecho de rolagem, e a frase era escrita debaixo do papel
+- Manchetes de case com altura de linha corrigida, resolvendo o corte de letras que passam da baseline
+- Números do Revoluna auditados contra o repositório do app: 25 custom actions (não 27), 3 custom widgets (não 5), 16 versões no CHANGELOG (o 38 era o build do pubspec) e uma categoria inteira que faltava, as 9 custom functions — o número honesto é maior que o publicado, 37 peças de Dart próprio em três categorias
+- Números do Sebrae auditados no repositório do projeto: 17 fontes oficiais e 29 geradores de ETL, no lugar dos 13 e 27 desatualizados
+- Páginas em português não emitiam `og:image`: a convenção de arquivo do Next só vale no segmento onde o arquivo mora, e não havia nenhum sob `app/pt/`
+- Botão de menu volta a ficar visível no mobile
+- Fiapos de tinta nas marcações em repouso e a ponta arredondada pintando um pingo no começo do caminho — dois defeitos que sumiram junto com a máquina de traço esticado
+- A Intel One Mono, a monoespaçada do design system do OPP, ganha pilha de fallback: ela não está na base de métricas do `next/font`, então o build avisava a cada compilação e uma falha no download caía no `monospace` genérico, que no Windows é a Courier New. A ordem da pilha é por avanço e não por x-height, porque numa recriação de interface monoespaçada a largura do caractere é a largura das colunas
+
+### Removed
+
+- Os dois layouts antigos de case (`case-layout` e `case-study-template`) e os módulos que nenhuma página importa depois dos redesigns: embeds de biblioteca de componentes, montagem de escala e times do Houston, tela de plantões do Revoluna, exhibit de glass e tela de riscos do Sebrae, com os dados e primitivos que só eles usavam
+- As capturas de tela dos projetos em `public/`, já substituídas pelas recriações em React
+- `non-scaling-stroke` e os três remendos que ele obrigava (medir o caminho no espaço da tela, o vão triplo do tracejado e a folga da ponta arredondada): o traço passa a ser gerado na medida da palavra em vez de esticado até ela
+- Botão de currículo no header
+
 ## [2.3.2] - 2026-08-25
 
 ### Added
