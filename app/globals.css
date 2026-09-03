@@ -1128,6 +1128,10 @@
      de cor por baixo. --split começa em 100vw no CSS de propósito — se o
      JS não rodar, o hero é papel e tinta, inteiro e legível. */
   .case-hero-stage {
+    /* A altura da faixa de crédito. O palco cresce exatamente por ela, em
+       vez de descontá-la da capa — por isso a faixa tem altura declarada
+       e não altura de conteúdo: as duas medidas precisam ser a mesma. */
+    --tag-h: 30px;
     --split: 100vw;
     /* Onde a fronteira para. Fica no CSS porque quem anima precisa ler
        daqui: com o valor duplicado no JS, mudar a composição exigia
@@ -1139,8 +1143,11 @@
        Houston tem seis linhas em PT) empurra o palco para baixo em vez
        de ser cortada por ele. Quem decide se ainda dá para prender a
        página continua sendo a medida no JS. */
-    min-height: clamp(520px, 64vh, 680px);
-    padding-bottom: var(--s6);
+    /* A faixa de crédito entra na medida em vez de sair da capa: subir a
+       laje cruzaria o filete do kicker, e descontar da moldura encolhia
+       a imagem. O palco cresce por ela e a base desce junto. */
+    min-height: calc(clamp(520px, 64vh, 680px) + var(--tag-h));
+    padding-bottom: calc(var(--s6) + var(--tag-h));
     overflow: hidden;
   }
 
@@ -1216,59 +1223,22 @@
        que ela faz é descobrir a tela — se o `left` fosse a própria
        fronteira, a tela viajaria junto e o produto entraria deslizando. */
     clip-path: inset(0 0 0 calc(var(--split) - var(--split-end)));
-    --slab-scale: 0.7;
+    /* Uma coluna: a moldura da capa toma toda a altura que sobra, e a
+       faixa da etiqueta fica embaixo dela, fora da imagem. */
+    display: flex;
+    flex-direction: column;
   }
 
-  .case-hero-media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(
-      90deg,
-      rgba(22, 23, 38, 0.95) 0%,
-      rgba(22, 23, 38, 0.9) 26%,
-      rgba(22, 23, 38, 0.3) 54%,
-      rgba(22, 23, 38, 0) 70%
-    );
+  .case-hero-media-frame {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
   }
 
-  .case-hero-media-inner {
-    transform: scale(var(--slab-scale));
-    transform-origin: top left;
-    will-change: transform;
-  }
-
-  /* A etiqueta vive dentro da laje, sobre o campo escuro: dizer que é uma
-     recriação em React é obrigatório, e ela não pode custar altura num
-     bloco que precisa caber na viewport para poder prender a página. */
-  .case-hero-media-tag {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: 3;
-    padding: 8px 14px;
-    /* Fundo próprio: a etiqueta cai sobre a interface, e sobre cartões
-       claros ela sumiria. */
-    background: rgba(10, 3, 3, 0.82);
-    color: var(--paper-55);
-    font-size: 10px;
-  }
-
-  @media (max-width: 1200px) {
-    .case-hero-media {
-      --slab-scale: 0.56;
-    }
-  }
-
-  /* A laje com capa. Quando a recriação não vive no hero, entra a imagem
-     de capa do projeto, em cover, com o mesmo enquadramento da lista de
-     trabalhos (--z/--fx/--fy). O véu encurta e clareia: ele foi calibrado
-     para a laje escura do OPP, e sobre uma capa clara o quase-preto
-     afogava a interface — aqui ele segura a manchete de papel só até
-     onde ela alcança e libera a imagem logo depois. */
-  .case-hero-media[data-cover] img {
+  /* A capa entra em cover, com o mesmo enquadramento da lista de
+     trabalhos (--z/--fx/--fy). */
+  .case-hero-media img {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -1277,7 +1247,15 @@
     transform-origin: var(--fx, 50%) var(--fy, 50%);
   }
 
-  .case-hero-media[data-cover]::after {
+  .case-hero-media-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    /* Calibrado para capa clara: o quase-preto afogava a imagem. Ele
+       segura a manchete de papel só até onde ela alcança e libera a
+       capa logo depois. */
     background: linear-gradient(
       90deg,
       rgba(22, 23, 38, 0.78) 0%,
@@ -1285,6 +1263,22 @@
       rgba(22, 23, 38, 0.22) 56%,
       rgba(22, 23, 38, 0) 72%
     );
+  }
+
+  /* A etiqueta vive na faixa abaixo da capa, sobre o campo escuro:
+     creditar o que a imagem mostra é obrigatório, mas o crédito não
+     pode comer a imagem. A faixa é rasa de propósito — o hero inteiro
+     precisa caber na viewport para poder prender a página. */
+  .case-hero-media-tag {
+    flex: none;
+    height: var(--tag-h);
+    display: flex;
+    align-items: center;
+    padding-inline: 14px;
+    /* O filete separa o crédito da imagem que ele credita. */
+    border-top: 1px solid rgba(233, 226, 214, 0.14);
+    color: var(--paper-55);
+    font-size: 10px;
   }
 
   /* No telefone não há fronteira: o campo escuro não cabe ao lado de
@@ -1311,7 +1305,7 @@
 
     /* Sem manchete atravessando, o véu não tem função — e escurecer o
        painel de indicadores por nada seria perder a prova. */
-    .case-hero-media::after {
+    .case-hero-media-frame::after {
       display: none;
     }
 
@@ -1332,10 +1326,15 @@
       top: auto;
       bottom: auto;
       margin-top: var(--s6);
-      height: 300px;
+      /* Mesma conta do desktop: a faixa entra por cima da medida da
+         capa, não sai dela. */
+      height: calc(300px + var(--tag-h));
       background: #161726;
       border-block: 1px solid var(--ink);
-      --slab-scale: 0.42;
+    }
+
+    .case-hero-media-tag {
+      font-size: 6px;
     }
   }
 

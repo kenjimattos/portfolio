@@ -9,10 +9,10 @@
  * diz (d01 e d03) — e a d03 abre com o erro admitido, porque é a
  * decisão que o Kenji defende inteira.
  *
- * O hero usa a imagem de capa do projeto em vez da recriação viva: a
- * capa é clara, então o véu é o curto (data-cover) e a manchete ainda
- * troca de tinta por papel na fronteira. As recriações continuam sendo
- * a prova — dentro das decisões que provam.
+ * O hero usa a imagem de capa do projeto: sobre ela o véu segura a
+ * manchete só até onde ela alcança, e a manchete ainda troca de tinta
+ * por papel na fronteira. As recriações continuam sendo a prova —
+ * dentro das decisões que provam.
  */
 
 import {

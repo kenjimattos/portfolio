@@ -328,8 +328,6 @@ export function CaseHero({
   headline,
   turn,
   sub,
-  media,
-  mediaWidth = 1280,
   cover,
   mediaTag,
   note,
@@ -340,18 +338,10 @@ export function CaseHero({
   headline: string;
   turn: string;
   sub: string;
-  /* O produto rodando, não uma foto dele. Entra numa laje que sangra pela
-     borda direita da página e corta o que não couber: a tela não é uma
-     miniatura emoldurada, é uma janela para dentro do sistema. */
-  media?: ReactNode;
-  /* Largura de projeto do conteúdo — ele é renderizado nessa medida e
-     reduzido por --slab-scale, então a densidade é a real e o corte é
-     honesto, em vez de espremer a tela inteira até virar ruído. */
-  mediaWidth?: number;
-  /* A alternativa à recriação: a imagem de capa do projeto, em cover,
-     com o mesmo enquadramento da lista de trabalhos. Ganha da `media`
-     quando as duas vierem. */
-  cover?: { src: string; alt: string; zoom?: number; fx?: string; fy?: string };
+  /* A laje do hero é sempre a capa do projeto, com o mesmo enquadramento
+     da lista de trabalhos. A recriação viva não disputa esse lugar: ela
+     desce para as decisões, onde é prova e não vitrine. */
+  cover: { src: string; alt: string; zoom?: number; fx?: string; fy?: string };
   mediaTag?: string;
   /* O recorte de papel no centro da tela, com uma frase do projeto —
      nunca sobre o site nem sobre o método. Ele some na primeira rolagem,
@@ -382,19 +372,20 @@ export function CaseHero({
       <div className="case-hero-stage" data-case-turn>
         <div className="case-hero-dark" aria-hidden="true" />
 
-        {cover ? (
-          <div
-            className="case-hero-media"
-            data-case-media
-            data-cover=""
-            style={
-              {
-                "--z": cover.zoom ?? 1,
-                "--fx": cover.fx ?? "50%",
-                "--fy": cover.fy ?? "50%",
-              } as CSSProperties
-            }
-          >
+        <div
+          className="case-hero-media"
+          data-case-media
+          style={
+            {
+              "--z": cover.zoom ?? 1,
+              "--fx": cover.fx ?? "50%",
+              "--fy": cover.fy ?? "50%",
+            } as CSSProperties
+          }
+        >
+          {/* A capa vive na moldura, e a etiqueta na faixa abaixo dela: o
+              crédito não cobre a imagem que ele credita. */}
+          <div className="case-hero-media-frame">
             <Image
               src={cover.src}
               alt={cover.alt}
@@ -403,20 +394,9 @@ export function CaseHero({
               priority
               sizes="(max-width: 900px) 100vw, 56vw"
             />
-            {mediaTag ? <span className="meta case-hero-media-tag">{mediaTag}</span> : null}
           </div>
-        ) : media ? (
-          <div className="case-hero-media" data-case-media>
-            <div
-              className="case-hero-media-inner"
-              data-case-media-inner
-              style={{ width: mediaWidth } as CSSProperties}
-            >
-              {media}
-            </div>
-            {mediaTag ? <span className="meta case-hero-media-tag">{mediaTag}</span> : null}
-          </div>
-        ) : null}
+          {mediaTag ? <span className="meta case-hero-media-tag">{mediaTag}</span> : null}
+        </div>
 
         <div className="wrap case-hero-type">
           <div className="case-kicker">
