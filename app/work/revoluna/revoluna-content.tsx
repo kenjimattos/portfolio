@@ -100,7 +100,7 @@ type Copy = {
   coverAlt: string;
   shotTag: string;
   note: { cue: string; before: string; circled: string; after: string; href: string };
-  role: { label: string; text: string; note: string };
+  role: { label: string; strong: string; text: string; note: string };
   indexLabel: string;
   constraints: { label: string; text: string }[];
   decisionsHeading: string;
@@ -142,7 +142,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "My role",
-      text: "Product design and delivery: I built the product's design in Figma, component library, tokens and every high-fidelity flow, then built the MVP myself in FlutterFlow. The 25 custom actions, 9 custom functions and 3 widgets in Dart covered what the no-code couldn't: geofence, deep links, push, OTP, calendar. Some of those functions I wrote by hand; the rest I specified, reviewed and tested, written with generative AI. I published and maintained the app on both stores, 16 documented versions up to v2.3.2, with a changelog that records the commits behind each one.",
+      strong: "Product design and app release:",
+      text: "I built the product's design in Figma, component library, tokens and every high-fidelity flow, then built the MVP myself in FlutterFlow. The 25 custom actions, 9 custom functions and 3 widgets in Dart covered what the no-code couldn't: geofence, deep links, push, OTP, calendar. Some of those functions I wrote by hand; the rest I specified, reviewed and tested, written with generative AI. I published and maintained the app on both stores, 16 documented versions up to v2.3.2, with a changelog that records the commits behind each one.",
       note: "The product isn't mine. Revoluna existed before me: the problem, the business model and the app's first version belong to the founders. I joined as a Product Designer to build a new experience, and what I claim is the delivery: turning that new design into a shipped MVP that real doctors could validate on real shifts, one person, without stopping the operation. Every decision below is of that kind.",
     },
     indexLabel: "Decisions in this case",
@@ -316,7 +317,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "Meu papel",
-      text: "Product design e entrega: construí o design do produto no Figma, biblioteca de componentes, tokens e todos os fluxos em alta fidelidade, e construí o MVP sozinho em FlutterFlow. As 25 custom actions, as 9 custom functions e os 3 widgets em Dart cobriram o que o no-code não fazia: geofence, deep links, push, OTP, calendário. Algumas dessas funções escrevi à mão; as demais especifiquei, revisei e testei, escritas com IA generativa. Publiquei e mantive o app nas duas lojas, 16 versões documentadas até a v2.3.2, com changelog registrando os commits de cada uma.",
+      strong: "Produto, design e lançamento do app:",
+      text: "construí no Figma a biblioteca de componentes, tokens e todos os fluxos em alta fidelidade, e construí o MVP sozinho em FlutterFlow. As 25 custom actions, as 9 custom functions e os 3 widgets em Dart cobriram o que o no-code não fazia: geofence, deep links, push, OTP, calendário. Algumas dessas funções escrevi à mão; as demais especifiquei, revisei e testei, escritas com IA generativa. Publiquei e mantive o app nas duas lojas, 16 versões documentadas até a v2.3.2, com changelog registrando os commits de cada uma.",
       note: "O produto não é meu. A Revoluna existia antes de mim: o problema, o modelo de negócio e a primeira versão do app são dos fundadores. Entrei como Product Designer para construir uma experiência nova, e o que reivindico é a entrega: transformar esse novo design num MVP publicado, que médicos reais validaram em plantões reais, uma pessoa, sem parar a operação. É desse tipo toda decisão abaixo.",
     },
     indexLabel: "Decisões deste case",

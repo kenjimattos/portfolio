@@ -318,7 +318,7 @@ export function CaseHero({
      e o `href` leva à primeira decisão, que é onde aquilo que ele afirma
      é provado. */
   note?: NoteCopy & { href: string };
-  role: { label: string; text: string; note?: string };
+  role: { label: string; strong?: string; text: string; note?: string };
   children?: ReactNode;
 }) {
   /* A manchete é escrita duas vezes, com o mesmo texto e a mesma quebra:
@@ -400,7 +400,10 @@ export function CaseHero({
       <div className="wrap">
         <div className="case-role">
           <div className="meta dimmer">{role.label}</div>
-          <p>{role.text}</p>
+          
+          <p>{role.strong ? <strong>{role.strong} </strong> : null}
+            {role.text}
+          </p>
           {role.note ? <p className="dim">{role.note}</p> : null}
         </div>
 

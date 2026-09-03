@@ -1388,11 +1388,19 @@
     margin-top: var(--s8);
     border-top: 3px solid var(--violet);
     padding-top: var(--s3);
-    max-width: 64ch;
+    text-align: justify;
   }
 
   .case-role p {
-    margin-top: 10px;
+  margin-top: 10px;
+  padding-right: var(--s8);
+  }
+
+  @media (max-width: 640px) {
+    .case-role p {
+      margin-top: 10px;
+      padding-right: var(--s4);
+    }
   }
 
   .case-role strong {

@@ -64,7 +64,7 @@ type Copy = {
   coverAlt: string;
   shotTag: string;
   note: { cue: string; before: string; circled: string; after: string; href: string };
-  role: { label: string; text: string; note: string };
+  role: { label: string; strong: string, text: string; note: string };
   indexLabel: string;
   constraints: { label: string; text: string }[];
   decisionsHeading: string;
@@ -105,7 +105,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "My role",
-      text: "Product, design, frontend, backend and database: a year and a half on the project, most of it alone; for four months, coordinating a contracted developer through issues, PRs and a kanban flow on GitHub Projects, with the CI/CD built side by side. I defined the type, spacing, widths and color hierarchy over retokenized shadcn/ui primitives, and designed the flows directly in code, against the live operation. The custom calendar and the schedule grid were born almost entirely from generative AI: I specified, reviewed and tested, with adjustments by the developer through the issues and PR flow. I built the access redesign, from RLS to the BFF, pairing with Claude. The decisions are mine.",
+      strong: "Product, design, frontend, backend and database:",
+      text: "a year and a half on the project, most of it alone; for four months, coordinating a contracted developer through issues, PRs and a kanban flow on GitHub Projects, with the CI/CD built side by side. I defined the type, spacing, widths and color hierarchy over retokenized shadcn/ui primitives, and designed the flows directly in code, against the live operation. The custom calendar and the schedule grid were born almost entirely from generative AI: I specified, reviewed and tested, with adjustments by the developer through the issues and PR flow. I built the access redesign, from RLS to the BFF, pairing with Claude. The decisions are mine.",
       note: "The demand wasn't mine. It came from the founders, with an investor or client set to see the feature working, in meetings that appeared without warning. What was mine was turning demand into product running in production, racing the clock, without breaking the operation. Every decision below is of that kind.",
     },
     indexLabel: "Decisions in this case",
@@ -274,7 +275,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "Meu papel",
-      text: "Produto, design, frontend, backend e banco: um ano e meio no projeto, a maior parte sozinho; por quatro meses, coordenando um desenvolvedor contratado por issues, PRs e kanban no GitHub Projects, com o CI/CD montado lado a lado. Defini fontes, espaçamentos, larguras e hierarquia de cores sobre primitivos do shadcn/ui retokenizados, e desenhei os fluxos direto no código, contra a operação ao vivo. O calendário próprio e a grade de escala nasceram quase integralmente com IA generativa: eu especificava, revisava e testava, com ajustes do desenvolvedor no fluxo de issues e PRs. O redesenho do acesso, do RLS para o BFF, construí em par com Claude. As decisões são minhas.",
+      strong: "Produto, design, frontend, backend e banco:",
+      text: "um ano e meio no projeto, a maior parte sozinho; por quatro meses, coordenando um desenvolvedor contratado por issues, PRs e kanban no GitHub Projects, com o CI/CD montado lado a lado. Defini fontes, espaçamentos, larguras e hierarquia de cores sobre primitivos do shadcn/ui retokenizados, e desenhei os fluxos direto no código, contra a operação ao vivo. O calendário próprio e a grade de escala nasceram quase integralmente com IA generativa: eu especificava, revisava e testava, com ajustes do desenvolvedor no fluxo de issues e PRs. O redesenho do acesso, do RLS para o BFF, construí em par com Claude. As decisões são minhas.",
       note: "A demanda não era minha. Ela chegava dos fundadores, com investidor ou cliente marcado para ver a feature funcionando, em reuniões que apareciam sem aviso. O que era meu era transformar demanda em produto rodando em produção, correndo contra o relógio, sem quebrar a operação. É desse tipo toda decisão abaixo.",
     },
     indexLabel: "Decisões deste case",

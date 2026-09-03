@@ -59,7 +59,7 @@ type Copy = {
   shotAlt: string;
   coverAlt: string;
   note: { cue: string; before: string; circled: string; after: string; href: string };
-  role: { label: string; text: string; note: string };
+  role: { label: string; strong: string; text: string; note: string };
   indexLabel: string;
   constraints: { label: string; text: string }[];
   decisionsHeading: string;
@@ -108,7 +108,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "My role",
-      text: "Design system, frontend, API, data modelling and ETL: the whole delivery, one person, about three months. I rebuilt the design for handoff, organizing the components and defining the tokens for color, spacing, typography and radius, and implemented the system in Tailwind pairing with Claude, iterating together to the final version. I specified and reviewed the SVG choropleth, the collection modelling and the Python pipeline that reconciles seventeen official sources: the code is Claude's, the decisions are mine.",
+      strong: "Design system, frontend, API, data modelling and ETL:",
+      text: "the whole delivery, one person, about three months. Design rebuilt for handoff, organizing components, defining the tokens for color, spacing, typography and radius implemented in Tailwind. Created paired with AI a custom SVG map, the collection modelling and the Python ETL pipeline that reconciles seventeen official sources.",
       note: "The conception and the visual language aren't mine. Which public-policy problem the platform attacks, which indicators matter, and the Jornada do Município Empreendedor came from Sebrae and from the team. The visual language is Lucas Nicolov's, who sat closer to clients and users: the visuals and the experience were his, and he tested the first version in person. The Figma was visual exploration, not a handoff spec. What I own is the delivery problem: turning that visual into a system, and making a platform of this scope viable without inventing data and without bloating the stack. Every decision below is of that kind.",
     },
     indexLabel: "Decisions in this case",
@@ -271,7 +272,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "Meu papel",
-      text: "Design system, frontend, API, modelagem de dados e ETL: a entrega inteira, uma pessoa, cerca de três meses. Reconstruí o design para handoff, organizando os componentes e definindo os tokens de cor, espaçamento, tipografia e raio, e implementei o sistema em Tailwind com Claude como par, evoluindo juntos até a versão final. O coroplético em SVG, a modelagem das coleções e o pipeline em Python que reconcilia dezessete fontes oficiais, eu especifiquei e revisei: o código é do Claude, as decisões são minhas.",
+      strong: "Design system, frontend, API, modelagem de dados e ETL:",
+      text: "a entrega inteira, uma pessoa, cerca de três meses. Reconstruí o design para handoff, organizei os componentes e defini os tokens de cor, espaçamento, tipografia e raio, e implementei o sistema em Tailwind. Implementei  com IA a construção do mapa em SVG, a modelagem das coleções e o pipeline em Python.",
       note: "A concepção e a linguagem visual não são minhas. Que problema de política pública a plataforma ataca, quais indicadores importam e a Jornada do Município Empreendedor são do Sebrae e da equipe. A linguagem visual é do Lucas Nicolov, que ficava mais perto dos clientes e usuários: dele eram o visual e a experiência, e ele testou a primeira versão presencialmente. O Figma era exploração visual, não especificação de handoff. O que é meu é o problema de entrega: transformar esse visual num sistema, e viabilizar uma plataforma desse escopo sem inventar dado e sem inchar a stack. É desse tipo toda decisão abaixo.",
     },
     indexLabel: "Decisões deste case",

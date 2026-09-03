@@ -84,7 +84,7 @@ type Copy = {
   coverAlt: string;
   shotTag: string;
   note: { cue: string; before: string; circled: string; after: string; href: string };
-  role: { label: string; text: string; note: string };
+  role: { label: string; strong: string; text: string; note: string };
   indexLabel: string;
   constraints: { label: string; text: string }[];
   decisionsHeading: string;
@@ -145,7 +145,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "My role",
-      text: "Product, design, frontend, backend, database and operation: a personal project running on real cards since April 2026. The diagnosis of the recycled IDs, the local identity model and the schema decisions are mine, written down before any code. The code that executes them I built pairing with Claude: I specified the rule, reviewed what came back, and locked each one in a test. The 132 tests and the docs/ folder exist because I don't trust either half of that pair without proof.",
+      strong: "Product, design, frontend, backend, database and operation:",
+      text: "a personal project running on real cards since April 2026. The diagnosis of the recycled IDs, the local identity model and the schema decisions are mine, written down before any code. The code that executes them I built pairing with Claude: I specified the rule, reviewed what came back, and locked each one in a test. The 132 tests and the docs/ folder exist because I don't trust either half of that pair without proof.",
       note: "There is no client here and no founder. The problem is mine and my partner's, three cards on one account, and I'm the one who decided it deserved a product. That changes what this case can claim: nothing here is scope handed to me, so it doesn't claim size, it claims decisions. The code, the tests and the decision records are public, and that's what it should be judged on.",
     },
     indexLabel: "Decisions in this case",
@@ -378,7 +379,8 @@ const COPY: Record<"en" | "pt", Copy> = {
     },
     role: {
       label: "Meu papel",
-      text: "Produto, design, front-end, back-end, banco e operação: um projeto pessoal rodando em cartões reais desde abril de 2026. O diagnóstico dos IDs reciclados, a modelagem de identidade local e as decisões de schema são minhas, escritas antes de qualquer código. O código que executa isso construí em par com Claude: eu especificava a regra, revisava o que voltava e travava cada uma num teste. Os 132 testes e a pasta docs/ existem porque eu não confio em nenhuma das duas metades dessa dupla sem prova.",
+      strong: "Produto, design, frontend, backend, banco de dados e operação:",
+      text: "um projeto pessoal rodando em cartões reais desde abril de 2026. O diagnóstico dos IDs reciclados, a modelagem de identidade local e as decisões de schema são minhas, escritas antes de qualquer código. O código que executa isso construí em par com Claude: eu especificava a regra, revisava o que voltava e travava cada uma num teste. Os 132 testes e a pasta docs/ existem porque eu não confio em nenhuma das duas metades dessa dupla sem prova.",
       note: "Aqui não tem cliente nem fundador. O problema é meu e da minha companheira, três cartões numa conta só, e fui eu que decidi que ele merecia um produto. Isso muda o que o case pode reivindicar: nada aqui é escopo que alguém me deu, então ele não reivindica tamanho, reivindica decisão. O código, os testes e o registro das decisões estão públicos, e é por eles que ele deve ser julgado.",
     },
     indexLabel: "Decisões deste case",
