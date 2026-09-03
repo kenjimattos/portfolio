@@ -139,19 +139,13 @@ export function CaseShell({
 
       /* A virada da manchete: o problema está em tinta e a resolução chega
          em vermelho conforme a página desce. É rolagem, não tempo — a
-         mesma gramática do masthead da home, sem o pin, porque aqui o
-         visitante veio ler e não pode ficar preso. */
+         mesma gramática do masthead da home, e com o mesmo pin: a frase
+         só pode ser escrita pela rolagem se a página estiver parada
+         enquanto ela se escreve. Sem prender, a manchete termina de
+         aparecer depois de já ter subido para fora da tela. */
       const stage = stageEl;
 
       if (turn && stage) {
-        /* A página fica presa até a virada terminar. Duas condições para
-           prender: espaço (um palco mais alto que a viewport ficaria com o
-           rodapé cortado durante o pin) e largura (no telefone o palco
-           ocupa quase a tela inteira e prender vira armadilha). Sem elas a
-           virada acontece assim mesmo, só sem segurar a página. */
-        const fits = stage.offsetHeight + HEADER_HEIGHT + 24 < window.innerHeight;
-        const canPin = fits && window.innerWidth >= 900;
-
         const subEl = root.querySelector<HTMLElement>(".case-sub");
 
         /* Uma fronteira só governa o hero inteiro: onde o campo escuro
@@ -161,6 +155,27 @@ export function CaseShell({
         gsap.set(turn, { "--head-clip": "100%", "--turn-clip": "100%", "--split": "100vw" });
         if (subEl) gsap.set(subEl, { opacity: 0 });
 
+        /* A nota está pousada por cima da manchete quando a página abre —
+           é onde ela deve estar, no centro da tela. Então a virada não
+           pode começar junto com a saída dela: a frase se escreveria
+           debaixo do papel e, quando o papel saísse, já estaria escrita.
+           Este é o compasso de espera que a nota ocupa, na mesma medida
+           em que ela sai (meia viewport, em `note.tsx`). Primeiro o papel
+           sai da frente; só depois a página escreve. */
+        const NOTE_EXIT = 0.5;
+        const hasNote = !!root.querySelector(".mnote");
+        const wait = hasNote ? NOTE_EXIT : 0;
+
+        /* O curso dos dois tempos, em alturas de tela. No telefone é mais
+           curto porque a manchete é menor e a fronteira não existe: o
+           mesmo fôlego do desktop viraria uma parada longa demais. */
+        const acts = window.innerWidth >= 900 ? 0.9 : 0.55;
+
+        /* A espera medida em unidades da timeline: os dois tempos somam 1
+           e valem `acts` de rolagem, então a espera vale o que ela custa
+           em tela dividido por isso. */
+        const lead = wait / acts;
+
         const act = gsap.timeline({
           scrollTrigger: {
             /* Amarrado ao topo da página, e não à entrada do elemento na
@@ -169,15 +184,22 @@ export function CaseShell({
                virada nunca aconteceria. */
             trigger: stage,
             start: `top ${HEADER_HEIGHT}px`,
-            /* O quanto a página fica presa antes de voltar a rolar. São
-               dois tempos dentro deste trecho (a manchete, depois a
-               resposta), então ele precisa de mais fôlego do que uma
-               animação só: com pouco curso, os dois se atropelam e a
-               página escapa antes de a segunda metade ser lida. */
-            end: "+=90%",
-            pin: canPin,
-            pinSpacing: canPin,
-            anticipatePin: canPin ? 1 : 0,
+            /* O quanto a página fica presa antes de voltar a rolar: a
+               saída da nota mais os dois tempos. São dois tempos dentro
+               deste trecho (a manchete, depois a resposta), então ele
+               precisa de mais fôlego do que uma animação só: com pouco
+               curso, os dois se atropelam e a página escapa antes de a
+               segunda metade ser lida. */
+            end: `+=${Math.round((wait + acts) * 100)}%`,
+            /* Prender é o que faz a virada ser legível, no telefone
+               também — é o mesmo gesto do masthead da home, e sem ele a
+               manchete se escreve para uma tela que já passou. O palco
+               mais alto que a janela fica com o pé cortado enquanto a
+               página está presa; é o preço, e é menor que perder a
+               frase. */
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
             scrub: 0.4,
           },
         });
@@ -188,10 +210,10 @@ export function CaseShell({
            em vermelho e, junto com ela, o campo escuro avançando da borda
            com o produto dentro. Separar os tempos é o que faz a segunda
            metade ser uma resposta, e não mais um movimento acontecendo. */
-        act.to(turn, { "--head-clip": "0%", ease: "none", duration: 0.45 }, 0);
-        if (subEl) act.to(subEl, { opacity: 1, ease: "none", duration: 0.12 }, 0.36);
-        act.to(turn, { "--turn-clip": "0%", ease: "none", duration: 0.5 }, 0.5);
-        act.to(turn, { "--split": splitEnd, ease: "none", duration: 0.5 }, 0.5);
+        act.to(turn, { "--head-clip": "0%", ease: "none", duration: 0.45 }, lead);
+        if (subEl) act.to(subEl, { opacity: 1, ease: "none", duration: 0.12 }, lead + 0.36);
+        act.to(turn, { "--turn-clip": "0%", ease: "none", duration: 0.5 }, lead + 0.5);
+        act.to(turn, { "--split": splitEnd, ease: "none", duration: 0.5 }, lead + 0.5);
       }
 
       /* A costura entre os dois painéis se desenha de cima para baixo: ela
