@@ -41,8 +41,24 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const HEADER_HEIGHT = 57;
 
 const CHROME = {
-  en: { back: "Work", next: "Next", assisted: "AI-assisted implementation" },
-  pt: { back: "Projetos", next: "Próximo", assisted: "Implementação assistida por IA" },
+  en: {
+    nav: [
+      { label: "Home", href: "/" },
+      { label: "Work", href: "/#work" },
+      { label: "About", href: "/#about" },
+    ],
+    next: "Next",
+    assisted: "AI-assisted implementation",
+  },
+  pt: {
+    nav: [
+      { label: "Início", href: "/" },
+      { label: "Projetos", href: "/#work" },
+      { label: "Sobre", href: "/#about" },
+    ],
+    next: "Próximo",
+    assisted: "Implementação assistida por IA",
+  },
 } as const;
 
 /* --------------------------------- chrome --------------------------------- */
@@ -247,18 +263,20 @@ export function CaseShell({
             {siteConfig.brand.logoText}
           </Link>
 
-          {/* A volta é a mesma caneta, virada para o outro lado: o desenho
-              aponta para baixo, 90° manda para a esquerda. Ela vem ANTES
-              do rótulo, porque é para lá que o link leva — e escreve na
-              cor do próprio link, que vira violeta no hover. */}
-          <Link
-            href={localeHref(locale, "/#work")}
-            className="meta case-back transition-colors hover:text-violet"
-            style={{ transitionDuration: "90ms" }}
-          >
-            <PenMark kind="arrow" on="hover" />
-            {chrome.back}
-          </Link>
+          {/* Dentro do case a barra guarda a mesma navegação da home: sair
+              daqui não pode depender de adivinhar onde o botão de voltar
+              está. Os rótulos levam de volta às seções da página inicial. */}
+          <nav className="flex items-center" style={{ gap: "var(--s3)" }}>
+            {chrome.nav.map((item) => (
+              <Link
+                key={item.href}
+                href={localeHref(locale, item.href)}
+                className="meta nav-link"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
           <LangToggle />
         </div>
