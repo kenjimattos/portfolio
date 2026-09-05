@@ -85,7 +85,7 @@ const COPY = {
       {
         kind: "Web platform",
         head: "Registering a hospital took ten minutes, and the address came out wrong.",
-        after: "Today it takes thirty seconds, and it doesn't.",
+        after: "Today it takes thirty seconds with no errors.",
       },
       {
         kind: "Mobile app",
