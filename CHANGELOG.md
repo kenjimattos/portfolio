@@ -1,5 +1,32 @@
 # Changelog
 
+## [3.1.0] - 2026-09-05
+
+### Added
+
+- Masthead do telefone com partitura própria: a tarja vermelha do pé — tagline e índice dentro dela — sobe descobrindo-se e só então a costura continua a mesma subida através do wordmark. No desktop o wordmark é alto o bastante para a tarja ficar fora da dobra e a sequência acontecer sem ela em cena; no telefone ela estava visível desde o primeiro quadro e o vermelho começava no meio das letras enquanto o pé ainda era papel, com dois vermelhos diferentes na mesma tela. A seção fica presa por mais tempo ali, para o ato novo ter curso de rolagem próprio em vez de roubar fôlego do registro e da costura
+- Capa do hero de case entrando por último no telefone: empilhada abaixo da manchete, ela ficava em cena desde o começo do pin e entregava o final antes de a frase existir. Agora se descobre de baixo para cima depois do texto de apoio, com curso próprio. No desktop quem descobre a capa continua sendo a fronteira `--split`, e nada muda
+
+### Changed
+
+- O texto de apoio do hero de case entra depois da virada inteira, e não no meio da escrita da manchete: ele comenta a frase, então não disputa a atenção com ela enquanto ela está sendo escrita
+- A nota pousa abaixo do título no telefone, na home e nos cases. Centrada, ela caía exatamente sobre a manchete que comenta; a saída continua a mesma, e ela sai de cena antes de o vermelho começar a subir
+- Os títulos de tensão quebram em duas linhas no telefone, com o `vs.` vermelho abrindo a segunda, e ganham corpo mínimo maior
+- O corpo de `h1` e `h2` passa a morar no CSS, e as seções de case deixam de carregar o tamanho no atributo de estilo
+- Espaçamentos das seções de case reduzidos no telefone, e os textos secundários — a régua de constraints, a nota da seção e a segunda linha do papel — ficam ocultos ali: numa tela estreita eles empurram a decisão para fora da primeira leitura
+- A legenda da prova acompanha a lateral da peça: quando a recriação é mais estreita que a coluna, o estreitamento passa a morar na `figure`, e a legenda nasce alinhada ao componente em vez de flutuar num alinhamento que não é o de nada
+- Layout da apresentação do design system do Revoluna: coluna única nas telas estreitas, respiro menor e raios de canto alinhados ao app
+- Copy da linha do Revoluna na lista de projetos
+
+### Fixed
+
+- Fio vermelho aceso debaixo do wordmark desde o primeiro quadro: a costura pousava exatamente no pé do viewBox e o antialiasing da escala — no telefone o `<svg>` vale menos de 0,4 do quadro — acendia a borda do campo. Ela passa a nascer fora do quadro
+
+### Removed
+
+- `CaseIndex`, o índice de decisões que nenhuma página importa desde o redesign editorial
+- Apresentação do componente-assinatura do design system do Finance, que repetia o que a fundação já mostrava
+
 ## [3.0.0] - 2026-09-03
 
 ### Added
