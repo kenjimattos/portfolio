@@ -424,7 +424,7 @@ export function CaseHero({
           <p>{role.strong ? <strong>{role.strong} </strong> : null}
             {role.text}
           </p>
-          {role.note ? <p className="dim">{role.note}</p> : null}
+          {role.note ? <p className="dim hidden sm:block">{role.note}</p> : null}
         </div>
 
         {children}
@@ -451,7 +451,7 @@ function TensionText({ tension }: { tension: Tension }) {
 
 export function CaseConstraints({ rows }: { rows: { label: string; text: string }[] }) {
   return (
-    <section className="wrap case-reveal">
+    <section className="wrap case-reveal hidden sm:block">
       <div className="case-constraints">
         {rows.map((row) => (
           <div className="row" key={row.label}>
@@ -478,10 +478,10 @@ export function CaseSection({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="wrap" style={{ marginTop: "var(--s12)" }}>
-      <h2 style={{ fontSize: "clamp(34px, 5.4vw, 74px)" }}>{heading}</h2>
+    <section id={id} className="wrap case-section">
+      <h2>{heading}</h2>
       {note ? (
-        <p className="meta dim" style={{ marginTop: "var(--s2)", maxWidth: "64ch" }}>
+        <p className="meta dim hidden sm:block" style={{ marginTop: "var(--s2)", maxWidth: "64ch" }}>
           {note}
         </p>
       ) : null}

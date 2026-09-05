@@ -1390,6 +1390,12 @@
     text-align: justify;
   }
 
+  @media (max-width: 640px) {
+    .case-role {
+      margin-top: 0;
+    }
+  }
+
   .case-role p {
   margin-top: 10px;
   padding-right: var(--s8);
@@ -1451,10 +1457,13 @@
     max-width: 64ch;
   }
 
+  .case-section {
+    margin-top: var(--s12);
+  }
+
   @media (max-width: 768px) {
-    .case-constraints .row {
-      grid-template-columns: 1fr;
-      gap: 6px;
+    .case-section {
+      margin-top: var(--s6);
     }
   }
 
