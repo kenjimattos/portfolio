@@ -98,8 +98,15 @@ const STRIPS = [
 ];
 
 /* A costura começa fora do quadro, embaixo (nenhum vermelho no wordmark)
-   e termina acima do topo, com o campo cobrindo tudo. */
-const SEAM_START = VB_H;
+   e termina acima do topo, com o campo cobrindo tudo.
+
+   Fora do quadro de verdade, e não exatamente na borda: com a costura
+   pousada em VB_H o campo nascia rente ao pé do viewBox e o antialiasing
+   da escala (no telefone o <svg> vale menos de 0,4 do quadro) deixava um
+   fio vermelho aceso debaixo do wordmark desde o primeiro quadro. Algumas
+   unidades de folga custam nada e garantem papel limpo até a costura
+   entrar. */
+const SEAM_START = VB_H + 14;
 const SEAM_END = -10;
 
 /* A partitura. Cada ato tem sua fatia do percurso e sua própria curva —
@@ -115,11 +122,39 @@ const SEGMENTS = {
      mesmo valor existe um degrau visível entre a tarja e o wordmark. Uma
      rampa curta reduz esse degrau a um piscar. */
   ground: { from: 0.89, to: 0.94 },
+  /* Só no telefone. Ver `SEGMENTS_FOOT`. */
+  foot: { from: 1, to: 1 },
 };
 
+/* A partitura do telefone. O vermelho é UM movimento só, e ele vem de
+   baixo: primeiro a tarja do pé sobe descobrindo-se — tagline e índice
+   dentro dela —, e só então a costura continua a mesma subida através do
+   wordmark. Com a costura no tempo do desktop o vermelho começava no meio
+   das letras enquanto o pé ainda era papel, e eram dois vermelhos
+   diferentes acontecendo na mesma tela. Aqui a tarja é a origem e a
+   costura é a continuação. */
+const SEGMENTS_FOOT = {
+  ...SEGMENTS,
+  foot: { from: 0.42, to: 0.7 },
+  seam: { from: 0.7, to: 0.94 },
+  ground: { from: 0.93, to: 0.98 },
+};
+
+/* Onde a tarja do pé deixa de caber fora da tela. No desktop o wordmark
+   é alto o bastante para empurrá-la para baixo da dobra, e ela só é
+   encontrada quando a seção se solta — a sequência inteira acontece sem
+   ela em cena. No telefone o wordmark tem menos de metade dessa altura,
+   a tarja fica visível desde o primeiro quadro e entrega o vermelho antes
+   de o vermelho chegar. Abaixo desta medida, então, ela também é animada:
+   entra por último, subindo com a tagline e o índice dentro. */
+const FOOT_W = 900;
+
 /* Quanto a seção fica presa: pouco mais de uma tela de rolagem. É o preço
-   de "a página não rola enquanto a animação não termina". */
+   de "a página não rola enquanto a animação não termina". No telefone há
+   um ato a mais no fim (a tarja do pé), e ele precisa do seu próprio
+   curso — sem isso ele roubaria fôlego dos atos anteriores. */
 const PIN_LENGTH = "+=110%";
+const PIN_LENGTH_FOOT = "+=145%";
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const span = (p: number, from: number, to: number) =>
@@ -146,6 +181,7 @@ export const Hero = () => {
   const aboveRef = useRef<SVGRectElement>(null);
   const belowRef = useRef<SVGRectElement>(null);
   const fieldRef = useRef<SVGRectElement>(null);
+  const footRef = useRef<HTMLDivElement>(null);
   const stripRefs = useRef<(SVGGElement | null)[]>([]);
 
   useGSAP(
@@ -156,6 +192,11 @@ export const Hero = () => {
       const field = fieldRef.current;
       if (!section || !above || !below || !field) return;
 
+      /* A tarja do pé só é um ato onde ela está em cena durante a
+         sequência. No desktop `foot` é nulo e nada do que vem abaixo
+         toca nela: ela fica exatamente como está hoje. */
+      const foot = window.innerWidth < FOOT_W ? footRef.current : null;
+
       const setWidth = (i: number, w: number) =>
         svgRef.current?.style.setProperty(`--wd${i}`, String(w));
 
@@ -164,7 +205,7 @@ export const Hero = () => {
          costura — o grupo de chapas é definido uma vez e usado duas vezes,
          em tinta acima e em papel abaixo —, então deslocamento e inversão
          não têm como sair de sincronia. */
-      const apply = (strips: number[], seam: number, ground: number) => {
+      const apply = (strips: number[], seam: number, ground: number, footIn: number) => {
         strips.forEach((dx, k) => {
           stripRefs.current[k]?.setAttribute("transform", `translate(${dx} 0)`);
         });
@@ -182,28 +223,41 @@ export const Hero = () => {
            leem bem; o meio do caminho entre as duas cores, não. */
         section.style.setProperty("--mh-ground", mix(PAPER, RED, ground));
         section.style.setProperty("--mh-ink", ground >= 0.85 ? PAPER : INK);
+
+        /* Ela se descobre de baixo para cima: é a base do vermelho, e a
+           última coisa que aparece nela é a borda de cima — de onde a
+           costura sai para atravessar o wordmark. */
+        if (foot) {
+          foot.style.clipPath = `inset(${(1 - footIn) * 100}% 0 0 0)`;
+        }
       };
 
       if (prefersReducedMotion()) {
         apply(
           STRIPS.map(() => 0),
           SEAM_START,
-          0
+          0,
+          1
         );
         WORDS.forEach((_, i) => setWidth(i, WDTH_WIDE));
         return;
       }
 
+      /* Qual partitura rege esta tela. É escolhida uma vez: os atos do
+         telefone não são os mesmos do desktop, e alternar ato a ato
+         espalharia a decisão por seis lugares. */
+      const seg = foot ? SEGMENTS_FOOT : SEGMENTS;
+
       const applyProgress = (p: number) => {
         WORDS.forEach((_, i) => {
-          const s = SEGMENTS.width;
+          const s = seg.width;
           const open = expoOut(
             span(p, s.from + i * s.stagger, s.to + i * s.stagger)
           );
           setWidth(i, WDTH_OPEN + (WDTH_WIDE - WDTH_OPEN) * open);
         });
 
-        const r = SEGMENTS.register;
+        const r = seg.register;
         const strips = STRIPS.map((strip, k) => {
           const registered = expoOut(
             span(p, r.from + k * r.stagger, r.to + k * r.stagger)
@@ -214,9 +268,14 @@ export const Hero = () => {
         const seam =
           SEAM_START +
           (SEAM_END - SEAM_START) *
-            powInOut(span(p, SEGMENTS.seam.from, SEGMENTS.seam.to));
+            powInOut(span(p, seg.seam.from, seg.seam.to));
 
-        apply(strips, seam, span(p, SEGMENTS.ground.from, SEGMENTS.ground.to));
+        apply(
+          strips,
+          seam,
+          span(p, seg.ground.from, seg.ground.to),
+          foot ? powInOut(span(p, seg.foot.from, seg.foot.to)) : 1
+        );
       };
 
       /* useGSAP roda antes da pintura, então o quadro zero — o wordmark
@@ -233,7 +292,7 @@ export const Hero = () => {
            sticky com 56px + o filete de 1px, e prender a seção em "top
            top" enfiaria o colophon debaixo dele. */
         start: "top 57px",
-        end: PIN_LENGTH,
+        end: foot ? PIN_LENGTH_FOOT : PIN_LENGTH,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
@@ -392,7 +451,11 @@ export const Hero = () => {
         </g>
       </svg>
 
-      <div className="on-ink" style={{ background: "var(--red)", color: "var(--paper)" }}>
+      <div
+        ref={footRef}
+        className="on-ink"
+        style={{ background: "var(--red)", color: "var(--paper)" }}
+      >
         <div className="wrap">
           <div
             className="ed-grid items-start"

@@ -1927,6 +1927,19 @@
     will-change: transform, opacity;
   }
 
+  /* No telefone o centro da tela é onde o título está — e a nota existe
+     para dizer que tem coisa embaixo, não para tapar a manchete que ela
+     comenta. Então ela desce e pousa na parte de baixo da tela, abaixo do
+     título, e continua saindo pelo mesmo gesto: sobe e apaga na primeira
+     rolagem. */
+  @media (max-width: 900px) {
+    .mnote {
+      top: auto;
+      bottom: 12vh;
+      translate: -50% 0;
+    }
+  }
+
   /* Duas peles para a mesma nota, trocadas por um atributo. O que muda
      entre elas é QUEM é o vermelho: no carimbo o vermelho é o campo e a
      caneta é de papel; no recorte o vermelho volta a ser só tinta de
