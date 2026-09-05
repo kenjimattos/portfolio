@@ -2213,6 +2213,7 @@
      o peso e a caixa. Assim a régua da home não briga com a base. */
   h1,
   h2 {
+    font-size: clamp(36px, 5.4vw, 74px);
     color: var(--ink);
     font-weight: 900;
     text-transform: uppercase;
