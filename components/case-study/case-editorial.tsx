@@ -588,9 +588,23 @@ export function CaseDecision({
   );
 }
 
-export function CaseProof({ caption, children }: { caption: string; children: ReactNode }) {
+export function CaseProof({
+  caption,
+  /* Quando a prova é mais estreita que a coluna, a legenda tem de nascer
+     na mesma lateral dela — senão a nota flutua num alinhamento que não
+     é o de nada. O estreitamento mora na figure, não na peça. */
+  width,
+  children,
+}: {
+  caption: string;
+  width?: string;
+  children: ReactNode;
+}) {
   return (
-    <figure className="case-proof case-reveal">
+    <figure
+      className="case-proof case-reveal"
+      style={width ? { maxWidth: width, marginInline: "auto" } : undefined}
+    >
       {children}
       <figcaption className="meta dim">{caption}</figcaption>
     </figure>

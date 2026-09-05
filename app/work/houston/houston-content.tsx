@@ -438,7 +438,7 @@ export function HoustonContent() {
     <HoustonScreen key="escala" screen="escala" />,
     <div
       key="access"
-      className={cx(geologica.variable, "hst-app mx-auto w-full max-w-140 antialiased")}
+      className={cx(geologica.variable, "hst-app w-full antialiased")}
       style={{ fontFamily: "var(--font-geologica), sans-serif" }}
     >
       <AccessControlEmbed />
@@ -446,6 +446,10 @@ export function HoustonContent() {
     <AccessExhibit key="exhibit" />,
     <SystemSpecimen key="specimen" />,
   ];
+
+  /* O modal é mais estreito que a coluna: a legenda desce pela lateral
+     dele, e não pela da coluna. As outras provas ocupam a largura toda. */
+  const proofWidths: (string | undefined)[] = [undefined, "35rem", undefined, undefined];
 
   return (
     <CaseShell nextProject={{ href: "/work/revoluna", label: t.next }}>
@@ -486,7 +490,9 @@ export function HoustonContent() {
               cost={d.cost}
               costLabel={t.costLabel}
             >
-              <CaseProof caption={d.proofCaption}>{proofs[i]}</CaseProof>
+              <CaseProof caption={d.proofCaption} width={proofWidths[i]}>
+                {proofs[i]}
+              </CaseProof>
             </CaseDecision>
           ))}
         </CaseDecisions>
