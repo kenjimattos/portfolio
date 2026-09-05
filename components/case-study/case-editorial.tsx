@@ -171,6 +171,11 @@ export function CaseShell({
            mesmo fôlego do desktop viraria uma parada longa demais. */
         const acts = window.innerWidth >= 900 ? 0.9 : 0.55;
 
+        /* O texto de apoio é a legenda da virada, não parte dela: só
+           aparece depois que a frase terminou de virar. Este é o rabicho
+           de rolagem que ele ocupa, em unidades da timeline. */
+        const SUB_IN = 0.12;
+
         /* A espera medida em unidades da timeline: os dois tempos somam 1
            e valem `acts` de rolagem, então a espera vale o que ela custa
            em tela dividido por isso. */
@@ -190,7 +195,7 @@ export function CaseShell({
                precisa de mais fôlego do que uma animação só: com pouco
                curso, os dois se atropelam e a página escapa antes de a
                segunda metade ser lida. */
-            end: `+=${Math.round((wait + acts) * 100)}%`,
+            end: `+=${Math.round((wait + acts * (1 + SUB_IN)) * 100)}%`,
             /* Prender é o que faz a virada ser legível, no telefone
                também — é o mesmo gesto do masthead da home, e sem ele a
                manchete se escreve para uma tela que já passou. O palco
@@ -205,15 +210,18 @@ export function CaseShell({
         });
 
         /* Dois tempos, não um. Primeiro a página escreve o problema: a
-           manchete entra pelo mesmo corte horizontal da virada, e o texto
-           de apoio chega no fim dela. Só depois vem a resposta — a virada
-           em vermelho e, junto com ela, o campo escuro avançando da borda
-           com o produto dentro. Separar os tempos é o que faz a segunda
-           metade ser uma resposta, e não mais um movimento acontecendo. */
+           manchete entra pelo mesmo corte horizontal da virada. Só depois
+           vem a resposta — a virada em vermelho e, junto com ela, o campo
+           escuro avançando da borda com o produto dentro. Separar os
+           tempos é o que faz a segunda metade ser uma resposta, e não
+           mais um movimento acontecendo. O texto de apoio fecha, depois
+           da virada inteira: ele comenta a frase, então não pode disputar
+           a atenção com ela enquanto ela ainda está sendo escrita. */
         act.to(turn, { "--head-clip": "0%", ease: "none", duration: 0.45 }, lead);
-        if (subEl) act.to(subEl, { opacity: 1, ease: "none", duration: 0.12 }, lead + 0.36);
         act.to(turn, { "--turn-clip": "0%", ease: "none", duration: 0.5 }, lead + 0.5);
         act.to(turn, { "--split": splitEnd, ease: "none", duration: 0.5 }, lead + 0.5);
+        if (subEl)
+          act.to(subEl, { opacity: 1, ease: "none", duration: SUB_IN }, lead + 1);
       }
 
       /* A costura entre os dois painéis se desenha de cima para baixo: ela
