@@ -106,7 +106,7 @@ export function RevDsFoundation({
   const t = LABELS[useLocale()];
   return (
     <Panel>
-      <div className="flex flex-col gap-8 p-8 md:p-10">
+      <div className="flex flex-col gap-8 p-4 md:p-8">
         {/* tokens */}
         <div className="grid grid-cols-3 gap-x-3 gap-y-4 md:grid-cols-6">
           {TOKENS.map((token) => (
@@ -147,10 +147,10 @@ export function RevDsFoundation({
            os controles, as unidades de conteúdo e, fechando, o acordeão
            da vaga inteiro. */}
         {/* Button    */}
-        <div className="grid items-start gap-x-8 gap-y-5 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid items-start gap-x-8 gap-y-5 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           <div className="flex flex-col gap-5 h-full">
             <div className="flex flex-col gap-2">
-              <div className="flex flex-col items-center gap-4 rounded-xl border border-rev-border p-5">
+              <div className="flex flex-col items-center gap-4 rounded-lg border border-rev-border p-5">
                 <RevButton className="w-full">Candidatar-se</RevButton>
                 <RevButton className="w-full" variant="disabled">Candidatar-se</RevButton>
               </div>
@@ -159,7 +159,7 @@ export function RevDsFoundation({
             
           {/* Hospital Avatar */}
             <div className="flex flex-col gap-2">
-              <div className="flex justify-center rounded-xl border border-rev-border p-3 w-full">
+              <div className="flex justify-center rounded-lg border border-rev-border p-3 w-full">
                 <div className="flex items-center gap-2">
                   {SHIFTS.map((s) => (
                     <HospitalAvatar
@@ -175,7 +175,7 @@ export function RevDsFoundation({
 
           {/* Quick Actions */}
             <div className="flex flex-col gap-2">
-              <div className="rounded-xl border border-rev-border p-3 w-full">
+              <div className="rounded-lg border border-rev-border p-3 w-full">
                 <VagaQuickActions />
               </div>
               <CellLabel>{t.quickActions}</CellLabel>
@@ -183,7 +183,7 @@ export function RevDsFoundation({
 
           {/* Explore Filter */}
             <div className="flex flex-col gap-2">
-              <div className="rounded-xl border border-rev-border p-3 w-full">
+              <div className="rounded-lg border border-rev-border p-3 w-full">
                 <ExploreFilter />
               </div>
               <CellLabel>{t.exploreFilter}</CellLabel>
@@ -192,7 +192,7 @@ export function RevDsFoundation({
 
           <div className="flex flex-col gap-5 h-full justify-between">
             <div className="flex flex-col gap-2">
-              <div className="rounded-xl border border-rev-border">
+              <div className="rounded-lg border border-rev-border">
                 <ShiftCard shift={SHIFTS[0]} />
               </div>
               <CellLabel>{t.shiftCard}</CellLabel>
@@ -200,7 +200,7 @@ export function RevDsFoundation({
 
             {/* Turnos */}
             <div className="flex flex-col gap-2">
-              <div className="flex w-full items-start justify-center gap-4 rounded-xl border border-rev-border p-4">
+              <div className="flex w-full items-start justify-center gap-4 rounded-lg border border-rev-border p-4">
                 {(Object.keys(TURNOS) as Turno[]).map((turno) => (
                   <div key={turno} className="flex w-13 flex-col items-center gap-1.5">
                     <TurnoIcon turno={turno} size={20} />
@@ -219,7 +219,7 @@ export function RevDsFoundation({
             {/* O TabBar real é absoluto no rodapé da tela; aqui ele ganha
                  um palco com a mesma altura para ser visto de perto. */}
             <div className="flex flex-col gap-2">
-              <div className="flex flex-col gap-2 rounded-xl border border-rev-border bg-gray-50">
+              <div className="flex flex-col gap-2 rounded-lg border border-rev-border bg-gray-50">
                 <div className="relative h-20">
                   <TabBar active="home" />
                 </div>
@@ -238,7 +238,7 @@ export function RevDsFoundation({
           </div>
 
           <div className="flex flex-col gap-2">
-            <div className="rounded-xl border border-rev-border px-5 pb-1 [&>div:first-child]:border-t-0">
+            <div className="rounded-lg border border-rev-border px-5 pb-1 [&>div:first-child]:border-t-0">
               <VagaAccordion label="Requisitos" />
               <VagaAccordion label="Como chegar?" open>
                 <ComoChegarBody />
