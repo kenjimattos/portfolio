@@ -32,8 +32,7 @@ import {
   type Tension,
 } from "@/components/case-study/case-editorial";
 import {
-  FinDsFoundation,
-  FinDsSignature,
+  FinDsFoundation
 } from "@/components/finance-demo/design-system-exhibit";
 import {
   IdentityDiagram,
@@ -605,9 +604,6 @@ export function FinanceContent() {
     <>
       <CaseProof caption={t.ds.foundation}>
         <FinDsFoundation typeRoles={t.ds.typeRoles} />
-      </CaseProof>
-      <CaseProof caption={t.ds.signature}>
-        <FinDsSignature />
       </CaseProof>
     </>
   );

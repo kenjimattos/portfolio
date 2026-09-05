@@ -203,36 +203,3 @@ export function FinDsFoundation({
     </Panel>
   );
 }
-
-/* ------------------------------- a assinatura ------------------------------- */
-
-/** A peça-assinatura, ampliada: uma fatura é um número só. */
-export function FinDsSignature() {
-  const t = LABELS[useLocale()];
-  return (
-    <Panel>
-      <div className="flex flex-col gap-3 p-8 md:p-10">
-        <Eyebrow>{BILL.title}</Eyebrow>
-        <Headline size={96}>{BILL.total}</Headline>
-        <div
-          className="flex flex-wrap items-baseline gap-x-6 gap-y-1"
-          style={{ ...FONT.body, fontSize: 14, color: "var(--color-fin-ink-muted)" }}
-        >
-          <span>
-            {BILL.closingLabel}{" "}
-            <span style={{ color: "var(--color-fin-ink-soft)" }}>{BILL.closingDate}</span>
-          </span>
-          <span>
-            {BILL.dueLabel}{" "}
-            <span style={{ color: "var(--color-fin-ink-soft)" }}>{BILL.dueDate}</span>
-          </span>
-          <span style={{ color: "var(--color-fin-ink-faint)" }}>{BILL.cardCount}</span>
-          <Delta value={BILL.deltaValue} text={BILL.deltaText} />
-        </div>
-        <div className="mt-2">
-          <CellLabel>{t.signature}</CellLabel>
-        </div>
-      </div>
-    </Panel>
-  );
-}
