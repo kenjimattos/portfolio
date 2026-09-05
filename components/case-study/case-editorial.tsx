@@ -176,6 +176,17 @@ export function CaseShell({
            de rolagem que ele ocupa, em unidades da timeline. */
         const SUB_IN = 0.12;
 
+        /* No telefone a capa está empilhada embaixo da manchete, dentro
+           do palco preso — ou seja, visível desde o primeiro quadro,
+           entregando o final antes de a frase existir. Ela passa a subir
+           por último, depois do texto de apoio: o hero fica com a mesma
+           ordem de leitura do desktop (problema, resposta, legenda,
+           produto). No desktop quem descobre a capa é a fronteira, então
+           lá isto não existe. */
+        const mediaEl =
+          window.innerWidth < 900 ? root.querySelector<HTMLElement>("[data-case-media]") : null;
+        const MEDIA_IN = mediaEl ? 0.4 : 0;
+
         /* A espera medida em unidades da timeline: os dois tempos somam 1
            e valem `acts` de rolagem, então a espera vale o que ela custa
            em tela dividido por isso. */
@@ -195,7 +206,7 @@ export function CaseShell({
                precisa de mais fôlego do que uma animação só: com pouco
                curso, os dois se atropelam e a página escapa antes de a
                segunda metade ser lida. */
-            end: `+=${Math.round((wait + acts * (1 + SUB_IN)) * 100)}%`,
+            end: `+=${Math.round((wait + acts * (1 + SUB_IN + MEDIA_IN)) * 100)}%`,
             /* Prender é o que faz a virada ser legível, no telefone
                também — é o mesmo gesto do masthead da home, e sem ele a
                manchete se escreve para uma tela que já passou. O palco
@@ -222,6 +233,18 @@ export function CaseShell({
         act.to(turn, { "--split": splitEnd, ease: "none", duration: 0.5 }, lead + 0.5);
         if (subEl)
           act.to(subEl, { opacity: 1, ease: "none", duration: SUB_IN }, lead + 1);
+
+        /* Sobe descobrindo-se de baixo para cima: o corte encolhe pelo
+           topo enquanto a peça anda o último palmo. É a capa entrando na
+           página, não uma imagem que já estava lá ganhando opacidade. */
+        if (mediaEl) {
+          gsap.set(mediaEl, { clipPath: "inset(100% 0 0 0)", y: 32 });
+          act.to(
+            mediaEl,
+            { clipPath: "inset(0% 0 0 0)", y: 0, ease: "none", duration: MEDIA_IN },
+            lead + 1 + SUB_IN
+          );
+        }
       }
 
       /* A costura entre os dois painéis se desenha de cima para baixo: ela
