@@ -24,7 +24,6 @@ import {
   CaseEvidence,
   CaseFrontier,
   CaseHero,
-  CaseIndex,
   CaseOutcome,
   CaseProof,
   CaseSection,
@@ -339,7 +338,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     decisions: [
       {
         id: "d01",
-        tension: { a: "Velocidade do no-code", b: "o que o produto exige" },
+        tension: { a: "Agilidade no-code", b: "o que o produto exige" },
         design: {
           label: "Design",
           chose: "FlutterFlow como base do MVP: velocidade de tela para validar com médicos em plantões reais, não com protótipos.",
@@ -544,7 +543,6 @@ export function RevolunaContent() {
         note={t.note}
         role={t.role}
       >
-        <CaseIndex label={t.indexLabel} items={t.decisions} />
       </CaseHero>
 
       <CaseConstraints rows={t.constraints} />

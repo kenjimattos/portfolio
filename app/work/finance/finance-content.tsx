@@ -24,7 +24,6 @@ import {
   CaseEvidence,
   CaseFrontier,
   CaseHero,
-  CaseIndex,
   CaseOutcome,
   CaseProof,
   CaseSection,
@@ -211,7 +210,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d03",
-        tension: { a: "The balance the provider returns", b: "a balance somebody confirmed" },
+        tension: { a: "Live balance", b: "confirmed anchor" },
         design: {
           label: "Design",
           chose:
@@ -230,7 +229,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d04",
-        tension: { a: "Trust my number", b: "check it against the statement" },
+        tension: { a: "My number", b: "the real statement" },
         context:
           "The open bill is computed here, and the whole cash flow leans on it. While the cycle is open there is nothing to check it against. When it closes, there is: the issuer prints the official version and sends the statement. That is the number my calculation has to answer to, and if it doesn't agree, everything the landing screen promised for the month was fiction.",
         design: {
@@ -401,7 +400,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     decisions: [
       {
         id: "d01",
-        tension: { a: "A data da compra", b: "a data em que o dinheiro sai" },
+        tension: { a: "Data da compra", b: "Data em que o dinheiro sai" },
         context:
           "A pergunta que a gente faz não é quanto gastei, é se a conta aguenta o mês. E ela só tem resposta se a despesa do cartão aparecer no dia em que o dinheiro sai, não no dia em que a compra foi feita. Essa distância é o mês inteiro: uma compra de 20 de maio, num cartão que fecha dia 30, é paga em 10 de junho. Um app que arquiva ela em maio descreve o consumo corretamente e erra o caixa, que é a única coisa que a pessoa precisava saber.",
         design: {
@@ -445,7 +444,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d03",
-        tension: { a: "O saldo que o provedor devolve", b: "um saldo que alguém confirmou" },
+        tension: { a: "Saldo ao vivo", b: "âncora confirmada" },
         design: {
           label: "Design",
           chose:
@@ -464,7 +463,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d04",
-        tension: { a: "Confiar no meu número", b: "conferir contra o boleto" },
+        tension: { a: "meu número", b: "a fatura real" },
         context:
           "A fatura aberta é calculada aqui, e o fluxo de caixa inteiro se apoia nela. Enquanto o ciclo está aberto não existe contra o que conferir. Quando ele fecha, passa a existir: o emissor imprime a versão oficial e manda o boleto. É contra esse número que o meu cálculo tem que se explicar, e se ele não bater, tudo que a tela de abertura prometeu para o mês era ficção.",
         design: {
@@ -652,7 +651,6 @@ export function FinanceContent() {
         note={t.note}
         role={t.role}
       >
-        <CaseIndex label={t.indexLabel} items={t.decisions} />
       </CaseHero>
 
       <CaseConstraints rows={t.constraints} />

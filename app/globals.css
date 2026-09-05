@@ -1433,10 +1433,6 @@
     letter-spacing: -0.015em;
   }
 
-  .vs {
-    color: var(--red);
-  }
-
   /* Constraints: três linhas, uma cada. */
   .case-constraints {
     border-top: 1px solid var(--ink);
@@ -1544,8 +1540,20 @@
     gap: var(--s3);
   }
 
-  .case-dec-t {
-    min-width: 0;
+  @media (min-width: 512px) {
+    .case-dec-t {
+      display: flex;
+      flex-direction: row;
+      gap: var(--s1);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .case-dec-t {
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--s1)/2);
+    }  
   }
 
   .case-dec-n {
@@ -1558,7 +1566,7 @@
   }
 
   .case-dec-t {
-    font-size: clamp(23px, 3vw, 44px);
+    font-size: clamp(25px, 3vw, 44px);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.035em;

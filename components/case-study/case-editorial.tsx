@@ -440,29 +440,10 @@ export type Tension = { a: string; b: string };
 function TensionText({ tension }: { tension: Tension }) {
   return (
     <>
-      {tension.a} <span className="vs">vs.</span> {tension.b}
+      <span className="whitespace-nowrap">{tension.a}</span>
+      <span className="flex gap-2"><span className="text-red">vs.</span>
+      {tension.b}</span>
     </>
-  );
-}
-
-export function CaseIndex({
-  label,
-  items,
-}: {
-  label: string;
-  items: { id: string; tension: Tension }[];
-}) {
-  return (
-    <nav className="case-index" aria-label={label}>
-      {items.map((item, i) => (
-        <a key={item.id} href={`#${item.id}`}>
-          <span className="meta">{String(i + 1).padStart(2, "0")}</span>
-          <span className="t">
-            <TensionText tension={item.tension} />
-          </span>
-        </a>
-      ))}
-    </nav>
   );
 }
 

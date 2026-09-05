@@ -23,7 +23,6 @@ import {
   CaseEvidence,
   CaseFrontier,
   CaseHero,
-  CaseIndex,
   CaseOutcome,
   CaseProof,
   CaseSection,
@@ -127,7 +126,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     decisions: [
       {
         id: "d01",
-        tension: { a: "Off-the-shelf library", b: "the escalista's screen" },
+        tension: { a: "Off-the-shelf", b: "made to measure" },
         design: {
           label: "Design",
           chose: "Rebuild the calendar when the library became the bottleneck, not before.",
@@ -136,7 +135,7 @@ const COPY: Record<"en" | "pt", Copy> = {
         code: {
           label: "Code",
           chose: "A custom calendar in React, no view library: grouping by time, status language and per-shift actions.",
-          why: "Fewer views than the library, full control over the screen the escalista lives in.",
+          why: "Fewer views than the library, full control over the screen the user lives in.",
           authorship: "assisted",
         },
         proofCaption:
@@ -162,9 +161,9 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d03",
-        tension: { a: "Permissions in the database", b: "permissions in the BFF" },
+        tension: { a: "New feature", b: "Unexpected rebuild" },
         context:
-          "The RBAC was implemented by the contracted developer under my supervision, from my specification, over about two months. Once done, the system couldn't take the complexity and became too slow to operate. When the developer's contract came to an end, the feature the founders needed was sitting in homologation, not working, and I was alone with it. In days, the diagnosis: Supabase RLS was checking row by row what each user could see.",
+          "The RBAC was implemented by the contracted developer under my supervision, from my specification, over about two months. Once done, the system couldn't take the complexity and became too slow to operate. When the developer's contract came to an end, the feature the founders needed was sitting in homologation, not working, and I was alone with it. In days, the diagnosis: Supabase RLS was checking row by row what each user could see. What had arrived as a feature was asking for a rebuild.",
         design: {
           label: "Design",
           chose: "Keep the roles and the 36 permissions exactly as specified: the problem wasn't the access model, it was where it ran.",
@@ -182,7 +181,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d04",
-        tension: { a: "Design tool", b: "straight to code" },
+        tension: { a: "Consistency", b: "fast delivery" },
         design: {
           label: "Design",
           chose: "No Figma: flows and screens designed directly in code, against the live operation.",
@@ -297,7 +296,7 @@ const COPY: Record<"en" | "pt", Copy> = {
     decisions: [
       {
         id: "d01",
-        tension: { a: "Biblioteca pronta", b: "a tela da escalista" },
+        tension: { a: "Biblioteca pronta", b: "tela sob medida" },
         design: {
           label: "Design",
           chose: "Reconstruir o calendário quando a biblioteca virou o gargalo, e não antes.",
@@ -332,9 +331,9 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d03",
-        tension: { a: "Permissão no banco", b: "permissão no BFF" },
+        tension: { a: "Nova feature", b: "Reforma inesperada" },
         context:
-          "O RBAC foi implementado pelo desenvolvedor contratado sob minha supervisão, a partir da minha especificação, em cerca de dois meses. Pronto, o sistema não comportou a complexidade e ficou lento demais para operar. Quando o contrato do desenvolvedor chegou ao fim, a feature de que os founders precisavam estava em homologação, sem funcionar, e eu estava sozinho com ela. Em dias, o diagnóstico: o RLS do Supabase verificava linha a linha o que o usuário podia ver.",
+          "O RBAC foi implementado pelo desenvolvedor contratado sob minha supervisão, a partir da minha especificação, em cerca de dois meses. Pronto, o sistema não comportou a complexidade e ficou lento demais para operar. Quando o contrato do desenvolvedor chegou ao fim, a feature de que os founders precisavam estava em homologação, sem funcionar, e eu estava sozinho com ela. Em dias, o diagnóstico: o RLS do Supabase verificava linha a linha o que o usuário podia ver. O que tinha chegado como feature pedia uma reforma.",
         design: {
           label: "Design",
           chose: "Manter os cargos e as 36 permissões exatamente como especificados: o problema não era o modelo de acesso, era onde ele rodava.",
@@ -352,7 +351,7 @@ const COPY: Record<"en" | "pt", Copy> = {
       },
       {
         id: "d04",
-        tension: { a: "Ferramenta de design", b: "código direto" },
+        tension: { a: "consistência", b: "Entrega rápida" },
         design: {
           label: "Design",
           chose: "Nenhum Figma: fluxos e telas desenhados direto no código, contra a operação ao vivo.",
@@ -469,7 +468,6 @@ export function HoustonContent() {
         note={t.note}
         role={t.role}
       >
-        <CaseIndex label={t.indexLabel} items={t.decisions} />
       </CaseHero>
 
       <CaseConstraints rows={t.constraints} />

@@ -20,7 +20,6 @@ import {
   CaseEvidence,
   CaseFrontier,
   CaseHero,
-  CaseIndex,
   CaseOutcome,
   CaseProof,
   CaseSection,
@@ -478,7 +477,6 @@ export function SebraeOppContent() {
         note={t.note}
         role={t.role}
       >
-        <CaseIndex label={t.indexLabel} items={t.decisions} />
       </CaseHero>
 
       <CaseConstraints rows={t.constraints} />
