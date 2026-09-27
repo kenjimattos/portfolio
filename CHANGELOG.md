@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Removed
+
+- Seção Stack da home em português: ela já estava oculta em `/` desde que saiu do ar, mas o espelho em `/pt` continuava mostrando
+
 ## [3.1.0] - 2026-09-05
 
 ### Added

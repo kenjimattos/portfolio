@@ -3,7 +3,7 @@ import { Hero } from "@/components/hero";
 import { MastheadNote } from "@/components/ui/main-note";
 import { About } from "@/components/about";
 import { Work } from "@/components/work";
-import { TechStack } from "@/components/tech-stack";
+// import { TechStack } from "@/components/tech-stack";
 import { Contact } from "@/components/contact";
 import { siteConfig } from "@/config/site";
 
@@ -55,7 +55,7 @@ export default function HomePt() {
       <MastheadNote />
       <Work />
       <About />
-      <TechStack />
+      {/* <TechStack /> */}
       <Contact />
     </>
   );
